@@ -1,0 +1,918 @@
+\graphicspath{{6coset/asy/}}
+
+\section{Cosets \& Factor Groups}\label{chap:coset}
+
+In this chapter\footnote{The examples are everything in this chapter: write everything out by hand until it becomes easy---there is no shortcut!} we partition a group into subsets so that the \emph{set of subsets} inherits a natural group structure. This will likely feel extremely abstract and difficult. However, it is really nothing new; it is precisely the idea behind modular arithmetic.
+
+\begin{example}{}{cosetsimple}
+	In $\Z_3=\{0,1,2\}$ the elements are really \emph{subsets} $[0],[1],[2]$ of the \emph{integers} $\Z$:
+	\begin{gather*}
+	[0]=\{x\in\Z:x \equiv 0\negthickspace\pmod 3\} =\{\ldots,-3,0,3,6,\ldots\}\\
+	[1]=\{x\in\Z:x \equiv 1\negthickspace\pmod 3\} =\{\ldots,-2,1,4,7,\ldots\}\\
+	[2]=\{x\in\Z:x \equiv 2\negthickspace\pmod 3\} =\{\ldots,-1,2,5,8,\ldots\}
+	\end{gather*}
+	When we write $1\operatorname{\textcolor{blue}{+_3}}2=0\in\Z_3$, we really mean
+	\[\forall x\in[1], y\in[2]\text{ we have }x\operatorname{\textcolor{red}{+}}y\in [0]\]
+	\textcolor{red}{Addition} on $\Z$ naturally induces \textcolor{blue}{addition modulo 3} on the set of subsets $\Z_3=\{[0],[1],[2]\}$.
+\end{example}
+
+
+\subsection{Cosets \& Normal Subgroups}\label{sec:cosetnormal}
+
+Our main goal is to generalize the example. Start by observing that the identity element $[0]$ is a \emph{subgroup} of $\Z$ from which the sets $[1]$, $[2]$ may be obtained by \emph{translation.}
+
+
+
+\begin{defn}{}{}
+	Let $H$ be a subgroup of $G$ and $g\in G$. The \emph{left coset} of $H$ containing $g$ is 
+	\[gH:=\{gh:h\in H\}\tag{$x\in gH\iff \exists h\in H$ such that $x=gh$}\]
+	This is a subset of $G$. The \emph{right coset} of $H$ containing $g$ is defined similarly:
+	\[Hg:=\{hg:h\in H\}\]
+	The \emph{identity coset} $H=eH=He$ is the left \& right coset of $H$ containing the identity $e$.\smallbreak
+	$H$ is a \emph{normal subgroup} of $G$, written $H\triangleleft G$, if the left and right cosets containing $g$ are always equal
+	\[H\triangleleft G\iff \forall g\in G,\ gH=Hg\]
+\end{defn}
+
+If $G$ is written additively, then the left and right cosets of $H$ containing $g$ are instead written
+\[g+H:=\{g+h:h\in H\}\qquad\qquad H+g:=\{h+g:h\in H\}\]
+
+\begin{example*}{\ref{ex:cosetsimple} cont}{}
+	Let $G=\Z$ and $H=[0]=3\Z$. The left and right cosets of $H$ are precisely the elements of $\Z_3$:
+	\begin{gather*}
+	3\Z=0+3\Z=3\Z+0=[0]=\{\ldots,-3,0,3,6,\ldots\}\\
+	1+3\Z=3\Z+1=[1]=\{\ldots,-2,1,4,7,\ldots\}\\
+	2+3\Z=3\Z+2=[2]=\{\ldots,-1,2,5,8,\ldots\}
+	\end{gather*}
+	Since the left and right cosets are equal, $H=3\Z$ is a normal subgroup of $\Z$.
+\end{example*}
+
+\goodbreak
+
+The last observation is in fact general---we leave the proof as a straightforward exercise.
+
+\begin{lemm}{}{cosetbasic1}
+	Every subgroup of an abelian group $G$ is normal.
+\end{lemm}
+
+
+For non-abelian groups, most subgroups are typically \emph{not} normal: see Example \ref*{ex:cosetexs}.\ref{ex:nonnormalcosets} below.
+
+
+\begin{examples}{}{cosetexs}
+	\exstart\label{ex:cosets1} Consider the subgroup $H=\ip 4=\{0,4,8\}\le\Z_{12}$. This is cyclic with order 3. The distinct cosets of $\ip 4$ are as follows (left $=$ right since $\Z_{12}$ is abelian!):
+	\begin{align*}
+	\ip 4 &=\{0,4,8\}&&\bigl(=4+\ip 4=8+\ip 4\bigr) \hspace{220pt}\\
+	1+\ip 4 &=\{1,5,9\}&&\bigl(=5+\ip 4=9+\ip 4\bigr)\\
+	2+\ip 4 &=\{2,6,10\}&&\bigl(=6+\ip 4=10+\ip 4\bigr)\\
+	3+\ip 4 &=\{3,7,11\}&&\bigl(=7+\ip 4=11+\ip 4\bigr)
+	\end{align*}
+	Observe that the cosets \emph{partition} $\Z_{12}$ into equal-sized subsets.
+
+	\begin{enumerate}\setcounter{enumi}{1}
+		\item\label{ex:nonnormalcosets} By revisiting the multiplication table for $D_3$ (Example \ref{ex:motiv}) or using cycle notation, we verify that the left and right cosets of the subgroup $H=\{e,\mu_1\}$ are as follows:
+		\[\renewcommand{\arraystretch}{1.15}\begin{array}{l@{\hspace*{.3cm}}|@{\hspace*{.3cm}}l}
+	  	\text{Left cosets} & \text{Right cosets}\\\hline
+			H=\mu_1H=\{e,\mu_1\}& H=H\mu_1=\{e,\mu_1\}\\
+			\rho_1H=\mu_3H=\{\rho_1,\mu_3\} & H\rho_1=H\mu_2=\{\rho_1,\mu_2\}\\
+			\rho_2H=\mu_2H=\{\rho_2,\mu_2\} & H\rho_2=H\mu_3=\{\rho_1,\mu_3\}
+		\end{array}\]
+	This time the left and right cosets of $H$ are not all the same: $H$ is \emph{not} a normal subgroup of $D_3$. The partitioning observation still holds: the left cosets partition $D_3$ into three equal-sized subsets; the right cosets also partition into equal-sized subsets, just different ones.
+	
+	  
+	\begin{minipage}[t]{0.62\linewidth}\vspace{0pt}
+		\item Consider a 1-dimensional subspace $\textcolor{blue}{W}\le\R^2$; this is a line through the origin. The coset
+		\[\textcolor{Green}{\vv+W}=\{\vv+\vw:\vw\in W\}\]
+		is a line parallel to $W$. The cosets thus comprise all lines parallel to $W$. Note again that these \emph{partition} $\R^2$: every point in $\R^2$ lies in precisely one coset.\smallbreak
+		More generally, if $W$ is a subspace of a vector space $V$, then the cosets $\vv+ W$ are the sets parallel to $W$. Only the zero coset $W=\V0+W$ is a sub\emph{space.}
+	\end{minipage}\hfill\begin{minipage}[t]{0.36\linewidth}\vspace{0pt}
+	\flushright\includegraphics[scale=0.93]{coset-coset}
+	\end{minipage}
+	
+	
+		\item Recall Theorem \ref{thm:alt}. If we generalize the argument, we see that, for any $\alpha\in A_n$ and $\sigma\in S_n$,
+		\[\alpha\sigma\text{ even }\iff \sigma\text{ even }\iff \sigma\alpha\text{ even}\]
+		Otherwise said, for any $\sigma\in S_n$, the cosets of $A_n$ containing $\sigma$ are
+		\[\sigma A_n=A_n\sigma=\begin{cases}
+			A_n&\text{if $\sigma$ even}\\
+			B_n&\text{if $\sigma$ odd}
+		\end{cases}\]
+		where $B_n$ is the set of odd permutations in $S_n$. In particular, $A_n$ is a normal subgroup of $S_n$.
+	\end{enumerate}
+\end{examples}
+
+\goodbreak
+
+As observed in the examples, the cosets of any subgroup $H\le G$ seem to partition $G$.
+
+\begin{thm}{}{cosetpart}
+	Let $H$ be a subgroup of $G$. Then the left cosets of $H$ partition $G$. Moreover,
+	\[y\in xH\textcolor{blue}{\iff} x^{-1}y\in H\textcolor{red}{\iff} xH=yH\]
+	The right cosets partition $G$ similarly: indeed
+	\[y\in Hx\iff yx^{-1}\in H\iff Hx=Hy\]
+\end{thm}
+
+The \textcolor{blue}{blue} criterion is particularly useful as it is often very easy to check. Before reading the proof, convince yourself that each previous example satisfies the result. When $H$ is non-normal  (e.g.\ Example \ref{ex:nonnormalcosets}), the right cosets partition $G$ in a \emph{different way} to the left cosets!
+
+\begin{proof}
+	We start by verifying the \textcolor{blue}{first connective}.
+	\[y\in xH\iff \exists h\in H\text{ such that }y=xh\iff x^{-1}y=h\in H\]
+	Now define a relation $\sim$ on $G$ via $x\sim y\iff y\in xH$. We claim this is an equivalence relation:
+	\begin{quote}
+	\begin{description}\itemsep2pt
+		\item[\normalfont\emph{Reflexivity}:] $x\sim x$ since $x^{-1}x=e\in H$.
+		\item[\normalfont\emph{Symmetry}:] $x\sim y\implies x^{-1}y\in H\implies (x^{-1}y)^{-1}\in H$, since $H$ is a subgroup. But then
+		\[y^{-1}x\in H\implies y\sim x\]
+		\item[\normalfont\emph{Transitivity}:] If $x\sim y$ and $y\sim z$ then $x^{-1}y\in H$ and $y^{-1}z\in H$. But $H$ is closed, whence
+		\[x^{-1}z=(x^{-1}y)(y^{-1}z)\in H\implies x\sim z\]
+	\end{description}
+	\end{quote}
+	The equivalence classes therefore partition $G$. Since $x\sim y\iff y\in xH$, the equivalence class of $x$ is indeed the left coset $xH$, as required.\qedhere
+\end{proof}
+
+
+
+It is precisely the fact that $H$ is a subgroup which guarantees a partition (compare Theorem \ref{thm:subgroup})!
+\begin{quote}
+\begin{description}\itemsep2pt
+	\item[\normalfont\emph{Reflexivity}:]  $H$ contains the identity (and is thus non-empty).
+	\item[\normalfont\emph{Symmetry}:] $H$ satisfies the inverse axiom.
+	\item[\normalfont\emph{Transitivity}:] $H$ is closed under the group operation.
+\end{description}
+\end{quote}
+
+When $H$ is not a subgroup, the coset construction is unlikely to produce a partition.% (though see Exercise \ref{exs:partitioncoset}).
+
+\begin{example}{}{}
+	The \emph{subset} $H=\{0,1\}\subseteq\Z_3$ is not a subgroup. Its left `cosets' fail to partition $\Z_3$:
+	\[H=\{0,1\},\quad 1+H=\{1,2\},\quad 2+H=\{2,1\}\]
+\end{example}
+
+We finish this section with a technical result which will be useful in future sections.
+
+\begin{cor}{}{normalconj}
+	Normal subgroups are precisely those which are closed under \emph{conjugation}:
+  \[H\triangleleft G\iff \forall g\in G,\ h\in H,\text{ we have }ghg^{-1}\in H\]
+\end{cor}
+
+\begin{proof}
+	Start by using the above criteria to observe:
+	\begin{enumeratea}
+	  \item $gH\subseteq Hg\iff \forall h\in H,\ gh\in Hg \iff \forall h\in H,\ ghg^{-1}\in H$
+	  \item $Hg\subseteq gH\iff \forall h\in H,\ hg\in gH \iff \forall h\in H,\ g^{-1}hg\in H$
+	\end{enumeratea}
+	We may now complete the proof in two parts:
+	\begin{description}
+		\item[\normalfont $(\Rightarrow)$] $H\triangleleft G\implies$ part (a) for all $g\in G$. 
+		\item[\normalfont $(\Leftarrow)$] If $ghg^{-1}\in H$ for all $g,h$, then this is also true for $g^{-1}$: that is $g^{-1}hg\in H$. We now have the right side of both (a) and (b). Otherwise said, $gH=Hg$ for all $g\in G$, whence $H$ is normal in $G$.\qedhere
+	\end{description}
+\end{proof}
+
+
+
+\begin{exercises}{}{}
+	Key concepts:
+	\begin{quote}
+		\emph{Left/right cosets\qquad normal subgroup\qquad (left) cosets partition group}
+	\end{quote}
+
+	\begin{enumerate}
+	  \item Find the cosets of the following subgroups: since the groups are abelian, left and right cosets are identical.
+		\begin{enumerate}
+	  	\item \makebox[200pt][l]{$4\Z\le 2\Z$\hfill (b)\lstsp} $\ip{4}\le\Z_{10}$
+		  \item[(c)] \makebox[200pt][l]{$\ip{6}\le\Z_{30}$\hfill (d)\lstsp} $\ip{20}\le\Z_{30}$
+		\end{enumerate}
+			
+			
+		\item\label{exs:VfactorV} Find the cosets of $H=\bigl\{(0,0),(2,0),(0,2),(2,2)\bigr\}\le\Z_4\times\Z_4$
+			
+			
+		\item Find the left and right cosets of $\{\rho_0,\rho_1,\rho_2\}\le D_3$. Is the subgroup normal?
+		
+		
+		\item\label{exs:va4}\begin{enumerate}
+		  \item Find the left and right cosets of $H:=\{e,(1\,2\,3),(1\,3\,2)\}\le A_4$. Is the subgroup normal?
+		  \item Repeat the question for the subgroup $V:=\{e,(1\,2)(3\,4),(1\,3)(2\,4),(1\,4)(2\,3)\}$
+		\end{enumerate}
+		
+	
+		\item\label{exs:d4normal}\begin{enumerate}
+		  \item Find the left and right cosets of the subgroup $\{\rho_0,\delta_1\}\le D_4$. Is the subgroup normal?
+			\item Repeat part (a) for the subgroup $\{\rho_0,\rho_2\}$.
+			\par
+			(\emph{Hint: use cycle notation (Exercises \ref*{sec:perm1}.\ref{ex:disym}), or look up the Cayley table})
+		\end{enumerate}
+	  
+	  
+	  \item Prove Lemma \ref{lemm:cosetbasic1}: every subgroup of an abelian group is normal.
+	  
+	  
+	  \item\label{exs:partitioncoset} Suppose $H$ is a \emph{subset} of $G$, but not necessarily a subgroup.
+	  \begin{enumerate}
+	    \item If $H$ has only one element, show that the sets $gH=\{gh:h\in H\}$ do partition $G$.
+	    \item Show that the `cosets' of $H=\{1,3\}$ also partition $\Z_4$, even though $H$ is not a subgroup.
+	  \end{enumerate}
+	  
+	
+		\item Let $H=\{\sigma\in S_4:\sigma(4)=4\}$.
+		\begin{enumerate}
+		  \item Show that $H$ is a subgroup of $S_4$: we call this the \emph{stabilizer} of 4.
+		  \item Using Corollary \ref{cor:normalconj}, or otherwise, determine whether $H$ is a normal subgroup of $S_4$.
+		\end{enumerate}
+	  
+		
+		\item Let $H,K$ be subgroups of $G$. Define $\sim$ on $G$ by
+		\[a\sim b\iff a=hbk\quad\text{for some}\quad h\in H,\ k\in K.\]
+		\begin{enumerate}
+	  	\item Prove that $\sim$ is an equivalence relation on $G$.
+	  	\item Describe the elements of the equivalence class of $a\in G$; this is a \emph{double coset}.
+	  	\item Consider $H=\{e,(1\,2)\}$ and $K=\{e,(1\,3)\}$ as subgroups of $S_3$. Compute the double cosets.
+		\end{enumerate}
+	\end{enumerate}
+\end{exercises}
+
+
+\clearpage
+
+
+\subsection{Lagrange's Theorem \& Indices}\label{sec:lagrange}
+
+
+We've been inching up to a powerful result; with luck you've hypothesized this already!
+
+\begin{thm}{Lagrange}{lagrange}
+In a finite group, the order of a subgroup divides the order of the group.\footnotemark\ Otherwise said
+\[H\le G\implies \nm H\Big\vert \nm G\]
+\end{thm}
+
+\footnotetext{This is sometimes misremembered as `the order of an element divides the order of the group.' This is the special case when $H$ is a \emph{cyclic subgroup} of $G$. The even more special case when $G$ is cyclic is Corollary \ref{cor:subscyclic}:
+$\ip s\le\Z_n$ has order $\frac n{\gcd(s,n)}$ (certainly divides $n$). The converse to Lagrange is \emph{false}: e.g.{} $A_4$ has order 12, but no subgroup of order 6 (Exercise \ref*{sec:transpositions}.\ref{exs:a4subgroups}).}
+
+
+\begin{proof}
+Suppose $H\le G$ and fix $g\in G$. The function
+\[\phi_g:H\to gH:h\mapsto gh\]
+is a bijection (with inverse $\phi_g^{-1}:gh\mapsto h$). Every left coset of $H$ therefore has the same cardinality as $H$. Since the left cosets partition $G$ (Theorem \ref{thm:cosetpart}), we conclude that
+\[\nm G=\text{(number of left cosets of $H$)}\cdot \nm H \implies \nm H\Big\vert \nm G\tag*{\qedhere}\]
+\end{proof}
+
+
+We could similarly have proved this using the right coset partition. %Revisit the proof of Theorem \ref{thm:alt} ($\nm{A_n}=\frac 12\nm{S_n}$): it is nothing but a special case of Theorem \ref{thm:cosetpart} and the above argument.\smallbreak
+Here is an example of its power.
+
+\begin{cor}{}{}
+Up to isomorphism, there is a unique group of prime order $p$, namely $\Z_p$.
+\end{cor}
+
+\begin{proof}
+Suppose $G$ is a group with prime order $p$. Since $p\ge 2$, we may choose some element $g\neq e$. The order of the cyclic subgroup $\ip{g}\le G$ satisfies:
+\begin{itemize}%\itemsep0pt
+  \item $\nm{\ip g}\ge 2$ since $g\neq e$.
+  \item $\nm{\ip{g}}=1$ or $p$ by Lagrange, since $p$ is prime.
+\end{itemize}
+We conclude that $\nm{\ip g}=p\implies G=\ip{g}$ is cyclic and thus isomorphic to $\Z_p$ (Theorem \ref{thm:cyclicisomorph}).
+\end{proof}
+
+\begin{example}{}{}
+$G=\Z_4\times\Z_2$ has order 8 so its non-trivial proper subgroups can only have orders 2 or 4 and are thus isomorphic to $\Z_2$, $\Z_4$ or $\textcolor{blue}{V}$. These can be identified by thinking about all possible generators; $V$ requires three elements of order 2 which we indeed have! Here is the subgroup diagram: all proper subgroups are cyclic except \textcolor{blue}{$V=\{(0,0),(2,0),(0,1),(2,1)\}$}.
+\[
+\def\arraystretch{1.1}
+	\begin{array}[t]{@{}c|c|c}
+	\text{generator}&\text{order}&\text{subgroup}\\\hline
+(1,0)\text{ or }(3,0) & 4 & \{(0,0),(1,0),(2,0),(3,0)\}\\
+(1,1)\text{ or }(3,1) & 4 & \{(0,0),(1,1),(2,0),(3,1)\}\\
+(2,0) & 2 & \{(0,0),(2,0)\}\\
+(0,1) & 2 & \{(0,0),(0,1)\}\\
+(2,1) & 2 & \{(0,0),(2,1)\}\\
+(0,0) & 1 & \{(0,0)\}
+	\end{array}
+\qquad
+\xymatrix @R13pt{&\Z_4\times\Z_2 \ar@/_0pc/@{-}[dl] \ar@{-}[d] \ar@{-}[dr]&\\
+	\ip{(1,0)} \ar@{-}[dr] & \textcolor{blue}{V} \ar@{-}[dl] \ar@{-}[d] \ar@{-}[dr] & \ip{(1,1)} \ar@{-}[dl]\\
+	\ip{(0,1)} \ar@{-}[dr] & \ip{(2,0)} \ar@{-}[d] & \ip{(2,1)} \ar@{-}[dl] &\\
+	&\ip{(0,0)}&}
+\]
+\end{example}
+
+\goodbreak
+
+The proof of Lagrange tells us that the \emph{number} of left and right cosets of $H\le G$ is \emph{identical:} both equal the quotient $\frac{\nm G}{\nm H}$. This motivates a new concept.
+
+\begin{defn}{}{index}
+The \emph{index} $(G:H)$ of a subgroup $H\le G$ is the cardinality of the set of (left) cosets:
+\[(G:H)=\nm{\{gH:g\in G\}}\]
+\end{defn}
+
+The index is also the cardinality of the set of \emph{right} cosets (Exercise \ref{exs:indexcard}). If $G$ is finite, then $(G:H)=\frac{\nm G}{\nm H}$.
+
+
+\begin{examples}{}{indexeasy}
+\exstart If $G=\Z_{20}$ and $H=\ip{2}$, then there are $(G:H)=\frac{20}{10}=\frac{\nm G}{\nm H}=2$ cosets:
+\[H=\ip{2}=\{0,2,4,\ldots,18\}\quad\text{and}\quad 1+H=\{1,3,5,\ldots,19\}\]
+\begin{enumerate}\setcounter{enumi}{1}
+  \item Recall (Example \ref{ex:orthogonal} \& Exercise %\hyperref[exs:subgpmatrix]{\ref*{sec:subgroup}.\ref*{exs:subgpmatrix}}) 
+  \ref*{sec:subgroup}.\ref{exs:subgpmatrix} the orthogonal and special orthogonal groups
+  \[
+  \rO_n(\R)=\{A\in M_n(\R):A^TA=I\},\qquad \rSO_n(\R)=\{A\in\rO_n(\R):\det A=1\}
+  \]
+  Since every orthogonal matrix has determinant $\pm 1$, it feels as if $\rSO_n(\R)$ should be `half' of $\rO_2(\R)$. Since both groups are infinite (indeed uncountable), we need the index to confirm this intuition. Recall Theorem \ref{thm:cosetpart}: given $A,B\in\rO_n(\R)$,
+  \[A\,\rSO_n=B\,\rSO_n(\R)\iff B^{-1}A\in\rSO_n(\R)\iff \det(B^{-1}A)=1\iff \det B=\det A\]
+  We conclude that there are precisely two cosets $\bigl(\rO_n(\R):\rSO_n(\R)\bigr)=2$.
+
+\end{enumerate}
+\end{examples}
+
+\begin{thm}{}{}
+If $K\le H\le G$ is a sequence of subgroups, then
+\[(G:K)=(G:H)(H:K)\]
+\end{thm}
+
+If $G$ is a finite group then the result is essentially trivial:
+\[(G:K)=\frac{\nm G}{\nm K}=\frac{\nm G}{\nm H}\cdot\frac{\nm H}{\nm K}=(G:H)(H:K)\]
+Our proof also covers infinite groups and infinite indices. You are \emph{strongly} encouraged to work through the following examples, which are written in the language of the proof.
+%Generally, let $\mathcal L=\{gH:g\in G\}$ and $\mathcal R=\{Hg:g\in G\}$ be the sets of left and right cosets of $H$ in $G$. By the Axiom of Choice, there exists a choice function $f:\mathcal L\to G$ such that $f(gH)\in gH$ for each left coset $gH$. Now left $I=\range(f)\subseteq G$. Clearly $f:\mathcal L\to I$ is a bijection.\\
+% 	Now suppose that $g_1,g_2\in I$ and observe that
+% 	\[Hg_1=Hg_2\iff g_2g_1^{-1}\in H\iff g_1^{-1}H=g_2^{-1}H\]
+% 	It follows that $J=\{g\in G:g^{-1}\in I\}$ enumerates the right cosets: there is a bijection $\hat f:\mathcal R\to J$. We conclude that $\hat f^{-1}\circ f:\mathcal L\to\mathcal R$ is a bijection, whence the cardinality of the sets of left and right cosets are equal.
+
+
+\begin{proof}
+Choose an element $\textcolor{red}{g_i}$ from each left coset of $H$ in $G$ and an element $\textcolor{blue}{h_j}$ from each left coset of $K$ in $H$. Plainly
+\[(G:H)=\nm{\{\textcolor{red}{g_i}\}}\qquad\text{and}\qquad (H:K)=\nm{\{\textcolor{blue}{h_j}\}}\]
+We claim that the left cosets of $K$ in $G$ are precisely the sets $(\textcolor{red}{g_i}\textcolor{blue}{h_j})K$. Certainly each such is a \emph{coset}; we show that these cosets \emph{partition} $G$, whence the collection $\{(\textcolor{red}{g_i}\textcolor{blue}{h_j})K\}$ must comprise \emph{all} left cosets.
+\begin{itemize}
+  \item Every $g\in G$ lies in some left coset of $H$, so $\exists \textcolor{red}{g_i}\in G$ such that $g\in \textcolor{red}{g_i}H$.\par
+  $\textcolor{red}{g_i}^{-1}g\in H$ lies in some left coset of $K$ in $H$, so $\exists \textcolor{blue}{h_j}\in H$ such that $\textcolor{red}{g_i}^{-1}g\in \textcolor{blue}{h_j}K$.\par
+  But then $g\in (\textcolor{red}{g_i}\textcolor{blue}{h_j})K$ so that every $g\in G$ lies in at least one set $(\textcolor{red}{g_i}\textcolor{blue}{h_j})K$.
+  \item Suppose $y\in \textcolor{red}{g_i}\textcolor{blue}{h_j}K\cap \textcolor{red}{g_\alpha} \textcolor{blue}{h_\beta}K$. Since $K\le H$ and the left cosets of $H$ partition $G$, we have
+  \[y\in \textcolor{red}{g_i}H\cap \textcolor{red}{g_\alpha} H\implies \textcolor{red}{g_\alpha}=\textcolor{red}{g_i}\]
+  But then $\textcolor{red}{g_i}^{-1}y\in \textcolor{blue}{h_j}K\cap \textcolor{blue}{h_\beta} K\implies \textcolor{blue}{h_\beta}=\textcolor{blue}{h_j}$ similarly, since the left cosets of $K$ in $H$ partition $H$. It follows that the sets $(\textcolor{red}{g_i}\textcolor{blue}{h_j})K$ are disjoint.
+\end{itemize}
+Since the left cosets of $K$ in $G$ are given by $\{(g_i\textcolor{blue}{h_j})K\}$, it is immediate that
+\[(G:K)=\nm{\{g_i\textcolor{blue}{h_j}\}}=\nm{\{g_i\}}\nm{\{\textcolor{blue}{h_j}\}}=(G:H)(H:K)\tag*{\qedhere}\]
+\end{proof}
+% 
+% \begin{proof}[Proof (long version)]
+% If $(G:H)$ and $(H:K)$ are finite, then they are necessarily natural numbers. Thus let $p=(G:H)$ and $q=(H:K)$ where $p,q\in\N$. We may therefore enumerate the left cosets of $H$ in $G$: $\exists$ distinct $g_i\in G$ such that these are
+% \[g_1H,g_2H,\ldots,g_pH.\]
+% We may also enumerate the left cosets of $K$ in $H$: $\exists$ distinct $h_j\in H$ such that these cosets are
+% \[h_1K,h_2K,\ldots,h_qK.\]
+% We claim that the left cosets of $K$ in $G$ are given by $(g_ih_j)K$ where $i=1,\ldots,p$ and $j=1,\ldots, q$. Essentially
+% \[\begin{array}{ccccc}
+% g_1h_1K&g_1h_2K&\cdots&g_1h_qK\\
+% g_2h_1K&g_2h_2K&\cdots&g_2h_qK\\
+% \vdots&\vdots&\ddots&\vdots\\
+% g_ph_1K&g_ph_2K&\cdots&g_ph_qK\\
+% \end{array}\]
+% If our claim is correct, then there are clearly $pq$ left cosets of $K$ in $G$.\\
+% To prove the claim, first note that each set $g_ih_jK$ \emph{is} a left coset of $K$ in $G$. If we can show that the above list of cosets \emph{partitions} $G$, then we know that these are \emph{all} of the required left cosets. We therefore need to see that every element of $G$ lies in exactly one of these cosets.
+% \begin{enumerate}
+%   \item Let $x\in G$ be given. Since the left cosets of $H$ partition $G$ we see that every $x$ lies in exactly one left coset $x\in g_iH$. Therefore $g_i^{-1}x\in H$. However every element of $H$ lies in exactly one left coset $h_jK$. It follows that $\exists i,j$ such that $x\in (g_ih_j)K$. Every $x\in G$ is therefore in one of the claimed cosets of $K$.
+%   \item Now suppose $y\in g_ih_jK\cap g_\alpha h_\beta K$ for some $i,j,\alpha,\beta$. Then $y\in g_iH\cap g_\alpha H\implies \alpha=i$, since the left cosets of $H$ partition $G$. But then $g_i^{-1}x\in h_jK\cap h_\beta K\implies \beta=j$ since the left cosets of $K$ in $H$ partition $H$. It follows that the cosets $(g_ih_j)K$ are disjoint.
+% \end{enumerate}
+% By 1 and 2, the left cosets $(g_ih_j)K$ partition $G$. It follows that these are precisely the left cosets of $K$ in $G$, and the result follows.
+% \end{proof}
+
+\begin{examples}{}{}
+\exstart Recall Example \ref{ex:indexeasy}.1: let $G=\Z_{20}$, $H=\ip{2}$ and $K=\ip{10}$. Plainly
+	\[K=\{0,10\}\le H=\{0,2,4,6,8,10,12,14,16,18\}\le G=\{0,1,2,3,\ldots,19\}\]
+	so we have the required subgroup relationship. Here are the indices and cosets in each case:
+	
+\begin{enumerate}\setcounter{enumi}{1}
+  \item[]\begin{itemize}
+	  \item $(G:H)=2$ with cosets $H$ and $\textcolor{red}{1}+H$. In the language of the proof, $\textcolor{red}{g_0=0}$ and $\textcolor{red}{g_1=1}$.
+	  \item $(H:K)=\frac{10}{2}=5$ cosets, with representatives $\textcolor{blue}{h_0=0}$, $\textcolor{blue}{h_1=2}$, $\textcolor{blue}{h_2=4}$, $\textcolor{blue}{h_3=6}$, $\textcolor{blue}{h_4=8}$:
+		\[K=\{0,10\},\ \ \textcolor{blue}{2}+K=\{2,12\},\ \ \textcolor{blue}{4}+K=\{4,14\},\ \ \textcolor{blue}{6}+K=\{6,16\},\ \ \textcolor{blue}{8}+K=\{8,18\}\]
+		\item $(G:K)=\frac{20}{2}=10=(G:H)(H:K)$: the cosets are
+		\[K=\{0,10\},\quad 1+K=\{1,11\},\quad 2+K=\{2,12\},\quad \ldots ,\quad 9+K=\{9,19\}\]
+		In the language of the proof these cosets all have the form $(\textcolor{red}{g_i}+\textcolor{blue}{h_j})+K$.
+	\end{itemize}
+
+	\item Consider the sequence of subgroups $K\le H\le S_4$ where
+	\[K=\{e,(1\,2\,3),(1\,3\,2)\}\cong\Z_3\quad\text{and}\quad H=\{\sigma\in S_4:\sigma(4)=4\}\cong S_3\]
+	The $(H:K)=\frac 63=2$ left cosets of $K$ in $H$ are
+	\[K=\textcolor{blue}{e}K=\{e,(1\,2\,3),(1\,3\,2)\}\quad\text{and}\quad \textcolor{blue}{(1\,2)}K=\{(1\,2),(2\,3),(1\,3)\}\]
+	with representatives $\textcolor{blue}{h_0=e}$ and $\textcolor{blue}{h_1=(1\,2)}$. The $(S_4:H)=\frac{24}6=4$ left cosets of $H$ in $S_4$ are
+	\begin{gather*}
+	H=\textcolor{red}{e}H=\{e,(1\,2\,3),(1\,3\,2),(1\,2),(2\,3),(1\,3)\}\\
+	\textcolor{red}{(1\,4)}H=\{(1\,4),(1\,2\,3\,4),(1\,3\,2\,4),(1\,2\,4),(1\,4)(2\,3),(1\,3\,4)\}\\
+	\textcolor{red}{(2\,4)}H=\{(2\,4),(1\,4\,2\,3),(1\,3\,4\,2),(1\,4\,2),(2\,3\,4),(1\,3)(2\,4)\}\\
+	\textcolor{red}{(3\,4)}H=\{(3\,4),(1\,2\,4\,3),(1\,4\,3\,2),(1\,2)(3\,4),(2\,4\,3),(1\,4\,3)\}
+	\end{gather*}
+	with representatives $\textcolor{red}{g_0=e}$, $\textcolor{red}{g_1=(1\,4)}$, $\textcolor{red}{g_2=(2\,4)}$, $\textcolor{red}{g_3=(3\,4)}$. The \emph{eight} left cosets of $K$ in $S_4$ are therefore
+	\begin{align*}
+	&\textcolor{red}{e}\textcolor{blue}{e}K=K=\{e,(1\,2\,3),(1\,3\,2)\}&&\textcolor{red}{e}\textcolor{blue}{(1\,2)}K=\textcolor{blue}{(1\,2)}K=\{(1\,2),(2\,3),(1\,3)\}\\
+	&\textcolor{red}{(1\,4)}\textcolor{blue}{e}K=\textcolor{red}{(1\,4)}K=\{(1\,4),(1\,2\,3\,4),(1\,3\,2\,4)\}&&\textcolor{red}{(1\,4)}\textcolor{blue}{(1\,2)}K=\{(1\,2\,4),(1\,4)(2\,3),(1\,3\,4)\}\\
+	&\textcolor{red}{(2\,4)}\textcolor{blue}{e}K=\textcolor{red}{(2\,4)}K=\{(2\,4),(1\,4\,2\,3),(1\,3\,4\,2)\}&&\textcolor{red}{(2\,4)}\textcolor{blue}{(1\,2)}K=\{(1\,4\,2),(2\,3\,4),(1\,3)(2\,4)\}\\
+	&\textcolor{red}{(3\,4)}\textcolor{blue}{e}K=\textcolor{red}{(3\,4)}K=\{(3\,4),(1\,2\,4\,3),(1\,4\,3\,2)\}&&\textcolor{red}{(3\,4)}\textcolor{blue}{(1\,2)}K=\{(1\,2)(3\,4),(2\,4\,3),(1\,4\,3)\}
+	\end{align*}
+
+\end{enumerate}
+\end{examples}
+
+
+
+
+
+
+
+\begin{exercises}
+Key concepts:
+\begin{quote}
+	\emph{Lagrange's Theorem\qquad index of a subgroup}
+\end{quote}
+
+\begin{enumerate}
+  	\item Find the indices of the following subgroups:
+		\begin{enumerate}
+  		\item \makebox[150pt][l]{$\ip 9\le\Z_{12}$\hfill (b)\lstsp}\makebox[150pt][l]{$6\Z\le 2\Z$\hfill (c)\lstsp}$(\Q^+,\cdot)\le(\Q^\times,\cdot)$
+		\end{enumerate}
+		
+		
+		
+		
+	\item Let $G=\Z_8$, $H=\ip 2$ and $K=\ip 4$. Write out all the cosets for the three subgroup relations $K\le H$, $H\le G$ and $K\le G$, and verify the index multiplication formula.
+  
+  
+	\item Let $G$ have order $pq$ where $p,q$ are both prime. Show that every proper subgroup of $G$ is cyclic.
+	
+	
+	\item Use Lagrange's Theorem to prove that all proper subgroups of $\Z_3\times\Z_3$ are cyclic. Hence construct its subgroup diagram.
+	
+	
+	\item Find the subgroups of $\Z_6\times\Z_2$ and draw its subgroup diagram.\par
+	(\emph{Hint: At least one subgroup here is \emph{non-cyclic}!})
+	
+	
+	\item Suppose $(G:H)=2$. Prove that $H$ is a normal subgroup of $G$.
+	
+  
+  \item Prove that $\{e\}$ and $G$ are both normal subgroups of $G$: what are the cosets and the indices in each case?\par
+  (\emph{Remember that $G$ could be infinite!})
+  
+  
+  \item\label{exs:indexcard} For each left coset $gH$ of $H$ in $G$, choose a representative $g_j$. Prove that the function
+  \[\Phi:g_jH\mapsto Hg_j^{-1}\]
+  defines an injective function from the set of left cosets to the set of right cosets.\par
+  \emph{With the reverse argument this shows that the sets of left and right cosets have the same cardinality}
+	
+		
+	\item\label{exs:zsqrt2subgroup} Let $G=\{a+b\sqrt 2:a,b\in\Z\}$.
+	\begin{enumerate}
+	  \item Prove that $G$ is a group under addition.
+	  \item Prove that $H=\{3m+2n\sqrt 2:m,n\in\Z\}$ is a subgroup of index six in $G$.\par
+	  (\emph{Hint: what does it mean for $a+b\sqrt 2$ and $c+d\sqrt 2$ to lie in the same coset of $H$?})
+	\end{enumerate}
+  
+  \item\label{exs:zqindex} The sets $\Q$ and $\Z$ are both groups under addition. Show that there is precisely one coset of $\Z$ in $\Q$ for each rational number in the interval $[0,1)$. Hence conclude that $(\Q:\Z)=\aleph_0$ is countably infinite.
+
+\end{enumerate}
+\end{exercises}
+
+
+\clearpage
+
+\subsection{Factor Groups}\label{sec:factor}
+
+Given a subgroup $H\le G$, we ask whether the \emph{set of left cosets} $\{gH:g\in G\}$ can be viewed as a group \emph{in a natural way.} By this, we mean that the group structure on should be \emph{inherited} from that of $G$. To see how this works (or doesn't!), recall Examples \ref{ex:cosets1}.
+
+\begin{examples*}{\ref{ex:cosetexs}.1 cont}{}
+\exstart The set of (left) cosets for $H=\ip 4=\{0,4,8\}\le\Z_{12}$ is
+	\[\{H,\ 1+H,\ 2+H,\ 3+H\}=\Bigl\{\{0,4,8\},\{1,5,9\},\{2,\textcolor{blue}{6},10\},\{3,7,\textcolor{Green}{11}\}\Bigr\}\]
+	It feels like we have the cyclic group $\Z_4$ in disguise! To see this we need a binary operation: the natural approach is to use the \textcolor{red}{addition} we already have in $\Z_{12}$ and define addition of cosets via
+	\[(a+H)\oplus(b+H):=(a\operatorname{\textcolor{red}{+}}b)+H\]
+	The process for computing $(a+H)\oplus(b+H)$ contains a potential snag:\vspace{-5pt}
+\begin{enumerate}\setcounter{enumi}{1}
+  \item[]\begin{enumeratea}\itemsep0pt
+		\item \emph{Choose representatives}: Make a choice of elements $a$ and $b$ in the respective cosets.
+		\item \emph{Add within the original group}: Compute $a+b\in\Z_{12}$.
+		\item \emph{Take the coset}: Return the left coset $(a+b)+H$.
+	\end{enumeratea}
+	If $\oplus$ is to make sense, the outcome must be \emph{independent of the choices} made in step (a). In this case there is no problem, as you can tediously check for yourself: for example, to verify
+\[(2+H)\oplus(3+H)=1+H\]
+there are \emph{nine} possibilities, of which one is
+\[\textcolor{blue}{6}+_{12}\textcolor{Green}{11}=17=5\in 1+H\]
+Rather than verify these independently, we proceed in general. If $x\in a+H$ and $y\in b+H$, then $x-a$ and $y-b\in H$, whence
+\[(x-a)+(y-b)=(x+y)-(a+b)\in H\implies (x+y)+H=(a+b)+H\]
+The operation is well-defined and we'll shortly see that the set of left cosets forms a group under $\oplus$. Indeed $\phi(x)=x+H$ defines an isomorphism of $\Z_4$ with this \emph{factor group.}
+
+	\item Unfortunately, this sort of behavior isn't universal. Let us repeat the process with the subgroup $H=\{e,\mu_1\}\le D_3$, whose left cosets are
+\[H=\mu_1H=\{e,\mu_1\},\quad
+\rho_1H=\mu_3H=\{\rho_1,\mu_3\},\quad
+\rho_2H=\mu_2H=\{\rho_2,\mu_2\}\]
+This time, if we attempt to define the `natural' operation on the set $\{\sigma H\}$ of left cosets via
+\[aH\otimes bH:=(ab)H\]
+then the problem is real. There are \emph{four choices} for how to compute $\rho_1H\otimes\rho_1H$, of which two suffice for a contradiction:
+\[\rho_1\rho_1H=\rho_2H\quad\text{and}\quad \mu_3\mu_3H=H\]
+The freedom of choice (part (a)) in the definition of $\otimes$ leads to different outcomes, whence $\otimes$ is \emph{not well-defined,} and the set of left cosets does not form a group in a natural way.
+\end{enumerate}
+\end{examples*}
+
+
+
+\boldsubsubsection{Well-definition of the Factor Group Structure}
+
+As the examples show, some subgroups $H\le G$ behave better than others when trying to view the set of left cosets as a group. But which subgroups? To answer this, we repeat some of our discussion in the abstract.\smallbreak
+
+Let $H$ be a subgroup of $G$ and define the natural operation on the set of left cosets:
+\[aH\cdot bH:=(ab)H\]
+This is well-defined if and only if
+\[\forall a,b\in G,\ \forall x\in aH,\ y\in bH,\quad \text{we have}\quad (ab)H=(xy)H\]
+Let us trace through what this means for the subgroup $H$, using the fact that 
+\[x\in aH\iff \exists h\in H\ \text{ such that }\  x=ah\]
+The natural operation is well-defined if and only if
+\begin{align*}
+&\forall a,b\in G,\ h,h_1\in H,\ (ab)H=(ahbh_1)H=(ahb)H\\
+\iff &\forall a,b\in G,\ h\in H,\ (ab)^{-1}(ahb)\in H\tag{Theorem \ref{thm:cosetpart}}\\
+\iff &\forall b\in G,\ h\in H,\ b^{-1}hb\in H\\
+\iff&H\triangleleft G\tag{Corollary \ref{cor:normalconj}}
+\end{align*}
+We have proved the critical part of an amazing result!
+
+\begin{thm}{}{}
+Suppose $H\le G$. The set of left cosets forms a group under the natural operation
+\[aH\cdot bH:=(ab)H\]
+if and only if $H$ is a normal subgroup of $G$.
+\end{thm}
+
+\begin{defn}{}{}
+If $H\triangleleft G$, then the set of (left) cosets is a \emph{factor group,} written $\quotient GH$ \ \ ('$G$ mod $H$').
+\end{defn}
+
+Since the group structure on $\smash[b]{\quotient GH}$ arises naturally from that on $G$, we typically use the \emph{same notation} for the operation. The notation meshes with the index: if $G$ is finite, then $\nm{\quotient GH}=(G:H)=\frac{\nm G}{\nm H}$.
+
+
+\begin{proof}
+The above discussion shows that the natural operation on $\smash{\quotient GH}$ is well-defined if and only if $H$ is normal in $G$. It remains only to check that $\smash[b]{\quotient GH}$ is a group in such cases.
+\begin{description}
+	\item[\normalfont\emph{Closure}:] $aH\cdot bH=(ab)H$ is a coset, whence $\left(\quotient GH,\cdot\right)$ is closed.
+	\item[\normalfont\emph{Associativity}:] $aH\cdot(bH\cdot cH)=aH\cdot(bc)H=a(bc)H$. Similarly $(aH\cdot bH)\cdot cH=(ab)cH$. By the associativity of $G$ these cosets are identical.
+	\item[\normalfont\emph{Identity}:] $eH\cdot aH=(ea)H=aH=(ae)H=aH\cdot eH$ therefore the \emph{identity coset} $eH=H$ is the identity.
+	\item[\normalfont\emph{Inverse}:] $a^{-1}H\cdot aH=(a^{-1}a)H=eH=H$, etc., therefore $(aH)^{-1}=a^{-1}H$.\qedhere
+\end{description}
+\end{proof}
+
+\goodbreak
+
+\boldsubsubsection{Factor Groups of $\Z$: modular arithmetic done right!}
+
+For each positive integer $n$, the integer multiples $n\Z=\ip n$ form a normal subgroup of $\Z$. The coset of $n\Z$ containing $x\in\Z$ is therefore
+\[x+n\Z=\{x+kn:k\in\Z\}=\{y\in\Z:y\equiv x\negthickspace\negthickspace\pmod n\}\]
+This is precisely what we are used to calling `$x$' in $\Z_n$! Indeed this is the formal definition, superseding Definition \ref{defn:znsimple} and trivially proving Theorem \ref{thm:zncyclic}.
+
+\begin{defn}{}{}
+Let $n\in\N$. The group $\Z_n$ is the \emph{factor group} $\quotient{\Z}{n\Z}$
+\end{defn}
+
+Since remainders are so familiar, we typically drop $n\Z$ when calculating, thus
+\[4+5=2\in\Z_7\quad\text{means}\quad (4+7\Z)+(5+7\Z)=2+7\Z\in\smash[b]{\quotient{\Z}{7\Z}}\]
+
+\boldsubsubsection{Factor Groups of Finite Cyclic Groups}
+
+Our first example in this section showed that $\smash{\quotient{\Z_{12}}{\ip 4}}\cong\Z_4$. Here is another.
+
+\begin{example}{}{}
+$\ip 5=\{0,5,10,15\}\le\Z_{20}$ has factor group
+\[\quotient{\Z_{20}}{\ip 5}=\bigl\{0+\ip 5,\ 1+\ip 5,\ 2+\ip 5,\ 3+\ip 5,\ 4+\ip 5\bigr\}\]
+This is isomorphic to $\Z_5$ via the isomorphism
+\[\psi:\Z_5\to\quotient{\Z_{20}}{\ip 5}:x\mapsto x+\ip 5\]
+\end{example}
+
+
+\begin{thm}{}{znisomdefn}
+If $d\mid n$, then $\quotient{\Z_n}{\ip d}\cong\Z_d$.
+\end{thm}
+
+If $s$ is not a divisor of $n$, recall that $\ip s=\ip d$ where $d=\gcd(s,n)$, whence $\smash[b]{\quotient{\Z_n}{\ip s}\cong\Z_{\gcd(s,n)}}$.
+
+\begin{proof}
+Define $\psi:\Z_d\to\quotient{\Z_n}{\ip d}:x\mapsto x+\ip d$: our goal is to see that this is an isomorphism.
+\begin{description}\itemsep2pt
+	\item[\normalfont\emph{Well-definition/injectivity}:\footnotemark] The former is required since the domain is a set of \emph{equivalence classes}!\vspace{-3pt}
+	\[x=y\in\Z_d\iff x-y\in\ip d\iff x+\ip d=y+\ip d\iff \psi(x)=\psi(y)\]\vspace{-20pt}
+	\item[\normalfont\emph{Surjectivity}:] Any coset $x+\ip d=\psi(x)\in \operatorname{Im}(\psi)$.	
+	\item[\normalfont\emph{Homomorphism}:] For any $x,y\in\Z_d$,
+	\[\psi(x+y)=(x+y)+\ip d=\bigl(x+\ip d\bigr)+\bigl(y+\ip d\bigr)=\psi(x)+\psi(y)\tag*{\qedhere}\]
+\end{description}
+\end{proof}
+
+\footnotetext{That these arguments are converses is typical: for a given function $\mu:A\to B$,
+\begin{itemize}
+  \item Well-definition means: $a=b\implies \mu(a)=\mu(b)$
+  \item Injectivity means: $\mu(a)=\mu(b)\implies a=b$
+\end{itemize}}
+
+\goodbreak
+
+\boldsubsubsection{Finite Abelian Examples}
+
+If $G$ is a finite abelian group, then any subgroup $H$ is normal and $\quotient GH$ is also a finite abelian group (exercise). By the Fundamental Theorem (\ref{thm:fund}) there exist positive integers $m_1,\ldots,m_k$ for which
+\[\quotient GH\cong \Z_{m_1}\times\cdots\times\Z_{m_k}\quad\text{and}\quad m_1\cdots m_k=(G:H)=\frac{\nm G}{\nm H}\]
+Our goal in these examples is to \emph{identify} $\smash{\quotient GH}$ as a direct product by finding suitable integers $m_k$.
+
+\goodbreak
+
+\begin{examples}{}{factorfiniteabelian}
+For $G=\Z_4\times\Z_8$ and three subgroups $H$, we identify the factor group $\smash{\quotient GH}$. %The examples start easy and become progressively more difficult, and all are long, so take your time!
+
+\begin{enumerate}
+  \item If $H=\ip{(0,1)}=\{(0,0),(0,1),(0,2),\ldots,(0,7)\}$, then the index of $H$ in $G$ is $(G:H)=\frac{4\cdot 8}8=4$. The factor group is abelian with order four and thus isomorphic to either $\Z_4$ or $\Z_2\times\Z_2$.\par
+  Here are two strategies for deciding which.
+  \begin{enumerate}
+	  \item Identify the cosets:
+		\[(x,y)+H=(v,w)+H\iff (x,y)-(v,w)=(x-v,y-w)\in H\iff x=v\]
+		Each coset contains a unique element $(x,0)$ where $x\in \Z_4$, whence,
+		\[\quotient{G}{H}=\Bigl\{H,\ (1,0)+H,\ (2,0)+H,\ (3,0)+H\Bigr\}\]
+		It can be checked that this is isomorphic to $\Z_4$ via $\psi:\Z_4\to\quotient GH:x\mapsto (x,0)+H$.
+		\item Observe that there exists an element in $\quotient GH$ with order 4. If $k\in\N$, then
+		\[k\bigl((1,0)+H\bigr) =(k,0)+H=H\iff (k,0)\in H\iff 4\mid k\]
+		This identifies $\quotient GH\cong \Z_4$ by elimination: every element of $\Z_2\times\Z_2$ has order \emph{at most} 2.
+% 	 How about obtaining an explicit isomorphism $\quotient{(\Z_4\times\Z_8)}{\ip{(0,1)}}\cong\Z_4$? Given that the above coset is a generator, simply map it to a generator of $\Z_4$: indeed
+% \[\mu:\bigl((i,0)+\ip{(0,1)}\bigr)=i\]
+% is easily seen to be a well-defined isomorphism.\\
+% Comparing with the first isomorphism theorem we see that $\ip{(0,1)}$ is the kernel of the homomorphism
+% \[\phi:\Z_4\times\Z_8\to\Z_4:(x,y)\mapsto x\]
+% and that the following diagrams commute.
+% \[\xymatrix{\Z_4\times\Z_8 \ar[rr]^{\phi} \ar[dr]_\gamma && \Z_4\\
+% &\quotient{(\Z_4\times\Z_8)}{\ip{(0,1)}} \ar[ur]_{\mu} &}
+% \qquad\qquad
+% \xymatrix{(x,y) \ar@{|->}[rr]^{\phi} \ar@{|->}[dr]_\gamma && x\\
+% & (x,y)+\ip{(0,1)} \ar@{|->}[ur]_{\mu} &}\]
+	\end{enumerate}
+		
+		 
+  \item $H=\ip{(0,2)}=\{(0,0),(0,2),(0,4),(0,6)\}$ has order 4 with index $(G:H)=\frac{4\cdot 8}4=8$. The factor group is abelian with order 8 and thus isomorphic to one of $\Z_8$, $\Z_4\times\Z_2$ or $\Z_2\times\Z_2\times\Z_2$.\par
+	We again follow our strategies:
+	\begin{enumerate}
+	  \item Identify the cosets:
+		\[(x,y)+H=(v,w)+H\iff (x-v,y-w)\in H\iff \smash[t]{\begin{cases}
+		x=v,\text{and}\\
+		y-w=2k\text{ is even}
+		\end{cases}}\]
+		from which the distinct cosets may be written
+		\[\quotient GH=\Bigl\{H,\ (1,0)+H,\ (2,0)+H,\ \ldots\ (3,1)+H\Bigr\} =\Bigl\{(x,y)+H:x\in\Z_4,y\in\Z_2\Bigr\}\]
+		We have an isomorphism $\psi:\Z_4\times\Z_2\to\smash[t]{\quotient GH}:(x,y)\mapsto (x,y)+H$.
+		\item Alternatively, consider orders of elements:
+		\begin{itemize}
+  		\item $\quotient GH$ contains an element $(1,0)+H$ of order 4.
+  		\item All elements of $\quotient GH$ have order dividing 4:
+  		\[4\bigl((x,y)+H\bigr)=(4x,4y)+H=(0,4y)+H=2y\bigl((0,2)+H\bigr)=H\]
+		\end{itemize}
+		By elimination, $\quotient GH\cong\Z_4\times\Z_2$ \ ($\Z_8$ has an element of order 8, while elements of $\Z_2\times\Z_2\times\Z_2$ have maximum order 2).
+  \end{enumerate}
+% 
+% This time we try to produce a homomorphism first:
+% \[\phi:\Z_4\times\Z_8\to\Z_4\times\Z_2:(x,y)\mapsto (x,y\negthickspace\negthickspace\mod 2)\]
+% This is easily checked to be a well-defined homomorphism. In the context of the first isomorphism theorem we have the following diagrams:
+% \[\xymatrix{\Z_4\times\Z_8 \ar[rr]^{\phi} \ar[dr]_\gamma && \Z_4\times\Z_2\\
+% &\hspace{-10pt}\quotient{(\Z_4\times\Z_8)}{\ip{(0,2)}}\hspace{-10pt} \ar[ur]_{\mu} &}
+% \qquad
+% \xymatrix{(x,y) \ar@{|->}[rr]^{\phi} \ar@{|->}[dr]_\gamma && (x,y\negthickspace\negthickspace\mod 2)\\
+% &\hspace{-10pt} (x,y)+\ip{(0,2)}\hspace{-10pt} \ar@{|->}[ur]_{\mu} &}\]
+
+	\goodbreak
+
+	\item\label{exs:factoriso3} Consider $H=\ip{(2,4)}=\{(0,0),(2,4)\}$. The previous examples may have lulled you into a false sense of security: $\quotient GH$ is \emph{not}
+	\[\quotient{\Z_4}{\ip 2}\times\quotient{\Z_8}{\ip 4}\cong\Z_2\times\Z_2\]
+	The fact that there are $(G:H)=\frac{4\cdot 8}{2}=16$ cosets immediately rules out this naïve possibility!\smallbreak
+	The Fundamental Theorem gives \emph{five} non-isomorphic options for the factor group:
+	\[\Z_{16},\ \ \Z_2\times\Z_8,\ \ \Z_4\times\Z_4,\ \ \Z_2\times\Z_2\times\Z_4,\ \ \Z_2\times\Z_2\times\Z_2\times\Z_2\]
+	We again follow our strategies:
+	\begin{enumerate}
+	  \item Identify the cosets. This is a little trickier than before.
+	  \begin{itemize}
+  		\item If $x=2n$ is even, then
+  		\[(x,y)+H=(2n,y)+H=n(2,4)+(0,y-4n)+H=(0,y-4n)+H\]
+  		\item If $x=2n+1$ is odd, then
+  		\[(x,y)+H=(2n+1,y)+H=n(2,4)+(1,y-4n)+H=(1,y-4n)+H\]
+  	\end{itemize}
+ 		There is precisely one representative of each coset whose first entry is either 0 or 1, whence the sixteen elements
+		\[(0,0),\ (0,1),\ \ldots,\ (0,7),\ (1,0),\ \ldots,\ (1,7)\]
+		lie in distinct cosets of $H$. It seems reasonable to claim that the factor group is isomorphic to $\Z_2\times\Z_8$. Indeed
+  	\[\psi:\Z_2\times\Z_8\to\quotient GH\to:(x,y)\mapsto (x,y-2x)+H\]
+  	is an explicit isomorphism. We leave it as an exercise to verify this. It requires some creativity to invent such a function from nothing, particularly at the moment!
+	  
+		\item The coset $(0,1)+H$ has order 8 in $\quotient GH$, since
+		\[k\bigl((0,1)+H\bigr)=(0,k)+H=H\iff 8\mid k\]
+		which reduces our options to $\Z_{16}$ and $\Z_2\times\Z_8$. Moreover, any coset has order dividing 8:
+		\[8\Bigl((x,y)+H\Bigr)=(8x,8y)+H=(0,0)+H\]
+  	This rules out $\Z_{16}$, leaving $\Z_2\times\Z_8$ as the only possibility.
+	\end{enumerate}
+	
+
+%   homomorphism and appeal to the first isomorphism theorem.
+% 	\[\phi(x,y)=(x\negthickspace\negthickspace\mod 2,\ y-2x\negthickspace\negthickspace\mod 8),\qquad \phi:\Z_4\times \Z_8\to\Z_2\times\Z_8.\]
+% 	Now check the following:
+% 	\begin{itemize}
+% 	  \item $\phi$ really is a homomorphism: this is obvious since $\phi$ is linear in both slots.
+% 	  \begin{align*}
+% 	  \hspace*{-21pt}\phi\Bigl((x,y)+(v,w)\Bigr)&=\phi(x+v,y+w)=\Bigl(x+v\spmod 2,\ y+w-2(x+v)\spmod 8\Bigr)\\
+% 	  &=\Bigl(x\spmod 2,\ y-2x\spmod 8\Bigr)+\Bigl(v\spmod 2,\ w-2v\spmod 8\Bigr)\\
+% 	  &=\phi(x,y)+\phi(v,w)
+% 	  \end{align*}
+% 	  \item $\ker\phi=\ip{(2,4)}$. For this, note that
+% 	  \begin{align*}
+% 	  \phi(x,y)=(0,0)&\implies x=2n\ \text{for some $n\in\Z$}\\
+% 	  &\implies y\equiv 4n\pmod 8\\
+% 	  &\implies (x,y)\in\ip{(2,4)}
+% 	  \end{align*}
+% 	  Conversely, it is clear that $\phi(2n,4n)=(0,0)$.
+% 	  \item $\phi$ is surjective. Observe that
+% 	  \[\forall (p,q)\in\Z_2\times\Z_8,\quad (p,q)=\phi(p,q+2p)\]
+% 	\end{itemize}
+%  It follows that $\quotient{(\Z_4\times\Z_8)}{\ip{(2,4)}}\cong\image\phi=\Z_2\times\Z_8$.
+\end{enumerate}
+\end{examples}
+
+Strategy (b) might seem easier right now, but it has some drawbacks; for instance, it cannot distinguish between groups such as $\Z_4\times\Z_4$ and $\Z_2\times\Z_2\times\Z_4$: both groups contain an element of order 4, and the maximum order of an element is also 4.
+
+
+\boldsubsubsection{Other Examples}
+
+There are many other examples of factor groups, with varied strategies required for their identification. Here are just a few, and we'll see more in later chapters.
+
+\begin{examples}{}{normalmoreex}
+\exstart $\ip{2\pi}=2\pi\Z=\{2\pi n:n\in\Z\}$ is a subgroup of the abelian group $(\R,+)$.\vspace{-5pt}
+\begin{enumerate}\setcounter{enumi}{1}
+  \item[] In any given coset $x+2\pi\Z$, there is a unique $x$ such that $0\le x<2\pi$ (this is like taking the remainder of $x$ modulo $2\pi$!). It follows that
+  \[\quotient{\R}{2\pi\Z}=\bigl\{x+2\pi\Z:x\in[0,2\pi)\bigr\}\]
+  Moreover, the function
+  \[\mu:\quotient\R{2\pi\Z}\to S^1:x+2\pi\Z\mapsto e^{ix}\]
+  is an isomorphism of groups. The factor group construction therefore corresponds to wrapping the real line infinitely many times around a circle of circumference $2\pi$.
+  
+  \item\label{ex:a4normal} Exercise \ref*{sec:cosetnormal}.\ref{exs:va4}, tells us that the Klein four-group
+  \[V=\{e,(1\,2)(3\,4),(1\,3)(2\,4),(1\,4)(2\,3)\}\]
+  is a normal subgroup of the alternating group $A_4$. The factor group has order $(A_4:V)=\frac{12}4=3$ and so $\quotient{A_4}{V}\cong\Z_3$: can you find an explicit isomorphism?\smallbreak
+  It's a lot harder to prove, but we'll see later that $\quotient{S_4}{V}\cong S_3$.
+  
+  
+  \item Consider $H=\ip{(2,1)}\le\Z\times\Z_4=G$. Since $G$ and $H$ are infinite, we cannot simply apply the index formula to count cosets. Instead we use the 2 in the subgroup $H$ to find a simple representative of each coset.
+  \[(x,y)+H=\begin{cases}
+  (2n,y)+H=(0,y-n)+H&\text{if $x=2n$ is even}\\
+  (2n+1,y)+H=(1,y-n)+H&\text{if $x=2n+1$ is odd}
+  \end{cases}\]
+  There is a \emph{unique representative} in each coset either of the form $(0,z)$ or $(1,z)$, where $z\in\Z_4$. We conclude that there are $2\cdot 4=8$ cosets. Since $\quotient GH$ is abelian (Exercise \ref{exs:gmodhabelian}), it must be isomorphic to one of $\Z_8,\Z_2\times\Z_4$ or $\Z_2\times\Z_2\times\Z_2$. To identify which, compute
+  \[4\bigl((x,y)+H\bigr)=(4x,4y)+H=(0,-2x)+H=H \iff 2\mid x\]
+  We conclude that $(1,0)+H$ has order 8, whence $\quotient GH\cong\Z_8$.
+  
+  \item\label{ex:hardgmodh} Let $H=\ip{(1,2)}\le\Z\times\Z=G$. We play a similar trick as above
+  \[(x,y)+H=(0,y-2x)+H\]
+  Since the choice of $y$ is free, we see that there is a unique representative in each coset of the form $(0,z)$. We conclude that $\quotient GH\cong\Z$. In fact it can be checked that $\psi\bigl((x,y)+H\bigr)=y-2x$ defines an isomorphism. 
+
+% 	\item\label{ex:nastyiso} Consider $H=\ip{(1,2,2)}\le G=\Z_5\times\Z_6\times\Z$. Since $G$ is infinite, we cannot simply apply the index formula to count cosets. Instead we appeal to the division algorithm.\smallbreak
+
+% 	Given $(x,y,z)$, we may subtract as many multiples of $(1,2,2)$ as we like while remaining in the same coset. It follows that each coset $(x,y,z)+H$ has a unique representative with $z=0$ or 1. In essence we are writing $z=2q+r$ where $r=0,1$ and observing that
+%   \[(x,y,z)+H=(x-q,y-2q,r)+H\]
+%   Since we have a free choice of $x\in\Z_5$ and $y\in\Z_6$ we see that there are precisely $5\cdot 6\cdot 2=60$ cosets. Since the factor group is abelian of order $60$, it must be isomorphic to one of two groups
+%   \[\Z_{60}\cong \Z_{2^2}\cdot\Z_3\times\Z_5\qquad \Z_2\times\Z_{30}\cong\Z_2\times\Z_2\times\Z_3\times\Z_5\]
+%   We distinguish between these by considering the possible orders of elements: the former requires an element of order 60. However,
+%   \[30\bigl((x,y,z)+H\bigr)=(30x,30y,30z)+H=(30x-15z,30y-30z,0)+H=H\]
+%   whence every element of the factor group $\quotient GH$ has order dividing 30.\par
+%   By elimination, we conclude that $\quotient GH\cong \Z_2\times\Z_{30}$.%\\
+%   An alternative approach, requiring a little creativity, involves spotting that
+%   \[\phi:\Z_5\times\Z_6\times\Z\mapsto\Z_5\times\Z_6\times\Z_2:(x,y,z)\mapsto (2x-z\spmod 5,y-z\spmod 6,z\spmod 2)\]
+%   is a surjective homomorphism with $\ker\phi=H$. The 1st isomorphism theorem then says that
+%   \[\mu:\quotient GH\cong \Z_5\times\Z_6\times\Z_2:(x,y,z)+H\mapsto (2x-z\spmod 5,y-z\spmod 6,z\spmod 2)\]
+	
+ 
+\end{enumerate}
+\end{examples}
+
+\clearpage
+
+
+
+\begin{exercises}
+Key concepts:
+\begin{quote}
+	\emph{Factor group\qquad well-definition $\iff H\triangleleft G$\qquad $\Z_n:=\quotient{\Z}{n\Z}$\qquad identifying $\quotient GH$}
+\end{quote}
+
+\begin{enumerate}
+  \item List the cosets of the subgroup $H=\ip{3}$ in $G=\Z_{15}$. Verify directly that the function
+  \[\psi:\Z_3\mapsto \quotient GH:x\mapsto x+H\]
+  is a well-defined homomorphism (mimic the proof of Theorem \ref{thm:znisomdefn}!).
+
+	
+	\item Identify the factor group $\quotient{\Z_4\times\Z_4}H$, where $H=\{(0,0),(0,2),(2,0),(2,2)\}$ \ (Exercise \ref*{sec:cosetnormal}.\ref{exs:VfactorV}).
+	
+	
+	\item\begin{enumerate}
+	  \item Identify the factor group $\quotient GH$ where $H=\ip{(2,4)}\le G=\Z_4\times\Z_6$.
+	  \item Repeat with the subgroup $H=\ip 2\times\ip 4$ (\emph{this is a trick question!})
+	\end{enumerate}
+	
+
+	%\item Let $G=\Z_9\times\Z_9$ and $H=\ip{(3,6)}$. Identify $\quotient GH$ by showing that every element of the factor group has order at most 9 and that it contains an element of order 9.
+	
+	
+	\item\begin{enumerate}
+	  \item Let $G=\Z_9\times\Z_9$ and $H=\ip{(3,6)}$. Identify $\quotient GH$ by showing that every element of the factor group has order at most 9 and that it contains an element of order 9.
+	  \item Repeat with $H=\ip 3\times\ip 6$ (\emph{this isn't a trick question!})
+	\end{enumerate}
+  
+  
+	\item Let $G$ be any group. To what groups are \smash{$\quotient G{\{e\}}$ and $\quotient GG$} isomorphic?
+	
+
+	\item\label{exs:gmodhabelian}\begin{enumerate}
+	  \item If $G$ is abelian and $H\le G$, prove that $\smash[b]{\quotient GH}$ is abelian.
+	  \item If $\quotient GH$ is abelian, can we conclude that $G$ and/or $H$ is abelian? Explain.
+	\end{enumerate}
+	
+
+ 	\item Let $G=\Z_4\times\Z_8$. Prove that each function in Examples \ref{ex:factorfiniteabelian} is a well-defined homomorphism.
+	\begin{enumerate}\itemsep0pt
+		\item $H=\ip{(0,1)}$, $\psi:\Z_4\to\smash{\quotient GH}:x\mapsto (x,0)+H$
+		\item $H=\ip{(0,2)}$, $\psi:\Z_4\times\Z_2\to\quotient GH:(x,y)\mapsto (x,y)+H$
+		\item $H=\ip{(2,4)}$, $\psi:\Z_2\times\Z_8\to\smash{\quotient GH}:(x,y)\mapsto (x,y-2x)+H$
+	\end{enumerate}
+	(\emph{Bijectivity follows from the description of the cosets, though proving injectivity might be instructive.})
+	
+	
+	\item Recall Exercise \ref*{sec:lagrange}.\ref{exs:zsqrt2subgroup}. The factor group $\quotient GH$ is abelian and of order 6, whence it is cyclic. Prove this explicitly by finding a generator.
+	
+	
+	\item\begin{enumerate}
+  	\item Let $G$ be a cyclic group with subgroup $H$. Prove that $\smash[b]{\quotient GH}$ is cyclic.
+  	\item If $\quotient GH$ is cyclic, does it follow that $G$ is cyclic? Prove or disprove.
+	\end{enumerate}
+
+
+	
+	\item In Example \ref*{ex:normalmoreex}.\ref{ex:a4normal} we saw that $\Z_3\cong\quotient{A_4}{V}$. Find an explicit isomorphism.
+
+
+	\item Exercise \ref*{sec:cosetnormal}.\ref{exs:d4normal} showed that $\{\rho_0,\rho_2\}$ is a normal subgroup of $D_4$. To what well-known group is the factor group $\quotient{D_4}{\{\rho_0,\rho_2\}}$ isomorphic? Prove your assertion.
+	
+	
+	\item Let $H=\ip{(2,3)}\le G=\Z_5\times \Z$. Prove that $\quotient GH\cong \Z_{15}$.
+	
+	\item Verify the claim in Example \ref*{ex:normalmoreex}.\ref{ex:hardgmodh} that $\psi\bigl((x,y)+H\bigr)=y-2x$ is an isomorphism.
+	
+	
+	\item (Hard!)\lstsp Let $G=\Z_{10}\times\Z_6\times\Z$ and $H=\ip{(4,2,3)}$. Identify the factor group $\quotient GH$ as a direct product $\Z_m\times\Z_n$.\par
+	(\emph{Hint: use the division algorithm $z=3q+r$ to show that there is exactly one representative of each coset $(x,y,z)+H$ where $z$ is either 0, 1 or 2.})
+	
+	%   \item Let $G=\Z_{10}\times\Z_6\times\Z$ and $H=\ip{(4,2,3)}$. Since the groups are infinite, we cannot use the index formula to count cosets.
+%   We sketch the process for identifying $\quotient GH$: the details of parts (b), (c) and (d) are an exercise with some hints.
+%   \begin{enumerate}
+%     \item Apply the division algorithm: $z=3q+r$ where $r=0,1,2$ and observe that
+%   	\[(x,y,z)+H=(x,y,z)-q(4,2,3)+H=(x-4q,y-2q,r)+H\]
+%   	Every coset therefore contains precisely one element $(x,y,z)$ where either $z=0,1$ or 2.
+%   	\item The elements $(x,y,0),(x,y,1)$ and $(x,y,2)$ where $x\in\Z_{10}$ and $y\in\Z_6$ are shown to lie in different cosets. There are therefore $180=2^2\cdot 3^2\cdot 5$ cosets which yield four non-isomorphic possibilities for the factor group:
+%   	\[\Z_{180},\ \ \Z_2\times\Z_{90},\ \ \Z_3\times\Z_{60},\ \ \Z_6\times\Z_{30}\]
+%   	\item The coset $(1,1,1)+H$ has order 90.
+% %   	\[n(1,1,1)\in H\implies n=3k\implies (n-2k,n-4k,0)\in H\]
+% %   	\begin{align*}
+% %   		3k(1,1,1)+H&=(3k,3k,3k)+H=(3k,3k,3k)-k(4,2,3)+H\tag*{(since $(4,2,3)\in H$)}\\
+% %   		&=(-k,k,0)+H\\
+% %   		&=H\iff 10\mid k\ \text{and}\ 6\mid k \iff 30\mid k\iff 90\mid n
+% %   	\end{align*}
+%   	\item Every coset $(x,y,z)+H$ has order dividing 90.
+%   \end{enumerate}
+%   We conclude that $\quotient GH\cong \Z_2\times\Z_{90}$.
+
+% 	\begin{itemize}
+%   \item : if two such were in the same coset, then
+%   \begin{align*}
+%   (x_1,y_1,0)-(x_2,y_2,0)\in H&\iff (x_1-x_2,y_1-y_2,0)\in H\\
+%   &\iff\begin{cases}
+%   x_1\equiv x_2\pmod{10}\\
+%   \qquad\quad\text{and}\\
+%   y_1\equiv y_2\pmod{6}
+%   \end{cases}
+%   \end{align*}
+%   Similarly all the elements $(x,y,1)$ and $(x,y,2)$ lie in different cosets.
+%   \item It follows that the elements $(x,y,0)$, $(x,y,1)$ and $(x,y,2)$ are representatives of different cosets, and that all cosets have one such representative. There are therefore $10\cdot 6\cdot 3=180$ distinct cosets whence the factor group $\quotient GH$ is abelian of order 180.
+%   \item The prime decomposition of $180$ is $2^2\cdot 3^2\cdot 5$: there are, up to isomorphism, \emph{four} abelian groups of order 180, namely
+%   \begin{gather*}
+%   \Z_4\times\Z_9\times\Z_5\cong\Z_{180}\\
+%   \Z_2\times\Z_2\times\Z_9\times\Z_5\cong\Z_2\times\Z_{90}\\
+%   \Z_4\times\Z_3\times\Z_3\times\Z_5\cong\Z_3\times\Z_{60}\\
+%   \Z_2\times\Z_2\times\Z_3\times\Z_3\times\Z_5\cong\Z_6\times\Z_{30}
+%   \end{gather*}
+%   How do we distinguish between these? As before, we look for elements of a particular order (lots of scratch work may be required in general!).
+%   \item Compute the order of the coset $(1,1,1)+H$. Certainly its order must be divisible by 3, since the third entry of
+%   \[n(1,1,1)=(n,n,n)\in H\]
+%   requires $3\mid n$. Thus let $n=3k$. Now
+%   \begin{align*}
+%   3k(1,1,1)+H&=(3k,3k,3k)+H=(3k,3k,3k)-k(4,2,3)+H\tag*{(since $(4,2,3)\in H$)}\\
+%   &=(-k,k,0)+H\\
+%   &=H\iff 10\mid k\ \text{and}\ 6\mid k \iff 30\mid k\iff 90\mid n
+%   \end{align*}
+%   Since $\quotient GH$ contains an element of order 90, our choices are narrowed to $\Z_{180}$ and $\Z_2\times\Z_{90}$.
+%   \item We show that \emph{every} element of $\quotient GH$ has order dividing 90:
+%   \begin{align*}
+%   90\bigl((x,y,z)+H\bigr)&=(90x,90y,90z)-30z(4,2,3)+H=(90x-120z,90y-60z,0)+H\\
+%   &=(0,0,0)+H
+%   \end{align*}
+%   We conclude that $\quotient GH\cong\Z_2\times\Z_{90}$. Phew!
+% \end{itemize}
+% You can check (it's hard!) that the function
+% \[\psi:\Z_2\times\Z_{90}\to\quotient{(\Z_{10}\times\Z_6\times\Z)}{\ip{(4,2,3)}}:(x,y)\mapsto(y,3x+y,y)+H\]
+% is an isomorphism, though you'd have to be truly inspired to conjecture this out of thin air!
+	
+	
+\end{enumerate}
+
+\end{exercises}

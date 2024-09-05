@@ -1,0 +1,928 @@
+\graphicspath{{7homo/asy/}}
+
+\section{Homomorphisms and the First Isomorphism Theorem}\label{chap:homo}
+
+
+In this chapter we further discuss homomorphisms. Of particular importance is the relationship between normal subgroups, homomorphisms and factor groups.\smallbreak
+
+Unless otherwise stated, in this chapter all homomorphisms are between \emph{groups.}
+
+\subsection{Kernels and Images}\label{sec:kerimage}
+
+\begin{defn}{}{kernel}
+Let $\phi:G\to L$ be a homomorphism. The \emph{kernel} and \emph{image} (or \emph{range}) of $\phi$ are the sets
+\begin{gather*}
+\ker\phi=\bigl\{g\in G:\phi(g)=e_L\bigr\}\qquad\qquad\image\phi=\bigl\{\phi(g):g\in G\bigr\}
+\end{gather*}
+\end{defn}
+
+The image is sometimes denoted $\phi(G)$. Note that $\ker\phi\subseteq G$ while $\image\phi\subseteq L$.
+
+\begin{examples}{}{}
+\exstart $\phi(x)=2x\pmod 4$ defines a homomorphism $\phi:\Z\to\Z_4$, with
+\[\ker\phi=\{x\in\Z:2x\equiv 0\negthickspace\pmod 4\}=2\Z,\quad \image\phi=\{0,2\}\]
+\begin{enumerate}\setcounter{enumi}{1}
+  \item The kernel should feel familiar from linear algebra: if $\rT:V\to W$ is a linear map between vector spaces, then the kernel is simply the \emph{nullspace}
+	\[\ker\rT=\{\vv\in V:\rT(\vv)=\V0\}\]
+	Moreover, if $\rT=\rL_A:M_n(\R)\to M_m(\R)$ is left-multiplication by a matrix $A$, then $\image\rT$ is the \emph{column space} of $A$.
+\end{enumerate}
+\end{examples}
+
+
+
+\begin{lemm}{}{homosub}
+Let $\phi:G\to L$ be a homomorphism. Then,
+\begin{enumerate}
+  \item $\phi(e_G)=e_L$\hfill ($\phi$ maps identity to identity)
+  \item $\forall g\in G$, \ $\bigl(\phi(g)\bigr)^{-1}=\phi(g^{-1})$\hfill($\phi$ maps inverses to inverses)
+  \item $\ker\phi\triangleleft G$\hfill($\ker\phi$ is a normal subgroup of $G$)
+  \item $\image\phi\le L$\hfill($\image\phi$ is a subgroup of $L$)
+\end{enumerate}
+\end{lemm}
+
+\begin{proof}
+1 \& 2 were in Exercise \ref*{sec:morph}.\ref{exs:structural1} and we leave 4 as an exercise. We prove 3 explicitly.
+\begin{enumerate}\setcounter{enumi}{2}
+%   \item Suppose that $g\in G$. Then
+%   \[\phi(g)=\phi(ge_G)=\phi(g)\phi(e_G)\implies e_L=\phi(e_G)\]
+%   by the left cancellation law.
+%   \item Suppose that $g\in G$. Then
+%   \[e_L=\phi(e_G)=\phi(gg^{-1})=\phi(g)\phi(g^{-1})\implies (\phi(g))^{-1}=\phi(g^{-1})\]
+  \item Suppose $k_1,k_2\in\ker\phi$. Then
+  \begin{gather*}
+  \phi(k_1k_2)=\phi(k_1)\phi(k_2)=e_L\implies k_1k_2\in\ker\phi\\
+  \phi(k_1^{-1})=\bigl(\phi(k_1)\bigr)^{-1}=e_L\implies k_1^{-1}\in\ker\phi
+  \end{gather*}
+  It follows that $\ker\phi$ is a subgroup of $G$.\par
+  To see that $\ker\phi$ is normal, recall Corollary \ref{cor:normalconj}: if $g\in G$ and $k\in\ker\phi$, then
+  \[\phi(gk g^{-1})=\phi(g)\phi(k)\phi(g)^{-1}=\phi(g)\phi(g)^{-1}=e_L\implies gk g^{-1}\in\ker\phi\tag*{\qedhere}\]
+\end{enumerate}
+\end{proof}
+
+\goodbreak
+
+\begin{examples}{}{}
+\exstart For the homomorphism $\phi:\Z\to\Z_4:x\mapsto 2x$, we see that $\ker\phi=2\Z$ is a normal subgroup of $\Z$, and $\image\phi=\{0,2\}=\ip{2}$ a subgroup of $\Z_4$. 
+\begin{enumerate}\setcounter{enumi}{1}
+  \item The nullspace of a linear map $\rT:V\to W$ is indeed a \emph{subspace} and thus a subgroup $\ker\rT\le V$: since $V$ is abelian, this is a normal subgroup. Moreover, $\image\rT$ is also a subspace/group of $W$.
+  
+	\item $\det:\rGL_n(\R)\to\R^\times$ is a homomorphism, whence we obtain a normal subgroup
+	\[\ker\det=\rSL_n(\R)=\{A\in\rGL_n(\R):\det A=1\}\triangleleft\rGL_n(\R)\]
+	
+	\item $\phi:\Z\to\Z_{20}:x\mapsto 4x\pmod{20}$ is a homomorphism, as may be checked:
+	\[\phi(x+y)=4(x+y)=4x+4y=\phi(x)+\phi(y)\in\Z_{20}\]
+	Its kernel and image are $\ker\phi=5\Z\le\Z$ and $\image\phi=\ip{4}=\{0,4,8,12,16\}\le\Z_{20}$
+\end{enumerate}
+\end{examples}
+
+Since every kernel is a normal subgroup, it is worth identifying the distinct cosets with a view to describing the factor group $\quotient G{\ker\phi}$.
+
+\begin{lemm}{}{homobij}
+Let $\phi:G\to L$ be a homomorphism. Then
+\[g_1\ker\phi=g_2\ker\phi\iff \phi(g_1)=\phi(g_2)\]
+\end{lemm}
+
+There is precisely one coset of $\ker\phi$ for each element of $\image\phi$; otherwise said $(G:\ker\phi)=\nm{\image\phi}$.
+
+\begin{proof}
+For all $g_1,g_2\in G$, we have
+\begin{align*}
+g_1\ker\phi=g_2\ker\phi&\iff g_2^{-1}g_1\in\ker\phi \tag{Theorem \ref{thm:cosetpart}}\\
+&\iff\phi(g_2^{-1}g_1)=e_L\tag{Definition \ref{defn:kernel}}\\
+&\iff \phi(g_2)^{-1}\phi(g_1)=e_L\tag{Lemma \ref{lemm:homosub}}\\
+&\iff \phi(g_1)=\phi(g_2)\tag*{\qedhere}
+\end{align*}
+\end{proof}
+
+We'll extend this idea shortly; for the moment we use it to aid in finding homomorphisms.
+
+\begin{thm}{}{}
+Let $\phi:G\to L$ be a homomorphism. If $G$ (or $L$) is finite, then $\image\phi$ is a finite group whose order divides that of $G$ (or $L$). Otherwise said:
+\[\nm G<\infty\implies\nm{\image\phi}\Bigm| \nm G\quad\text{and}\quad \nm L<\infty\implies\nm{\image\phi}\Bigm| \nm L\]
+% \begin{enumerate}
+%   \item If $G$ is finite, then $\image\phi$ is a finite subgroup of $L$ whose order divides that of $G$. More succinctly:
+% 	\[\nm G<\infty\implies\nm{\image\phi}\Bigm| \nm G\]
+%   \item Similarly, $\nm L<\infty\implies\nm{\image\phi}\Bigm| \nm L$.
+% \end{enumerate}
+\end{thm}
+
+\begin{proof}
+If $G$ is a finite group, then $\ker\phi\le G$ is finite. Now apply Lemma \ref{lemm:homobij}:
+\[\nm{\image\phi}=(G:\ker\phi) =\smash[b]{\frac{\nm G}{\ker\phi}}\]
+is a divisor of $\nm G$. The second case $\nm{\image\phi}\Bigm|\nm{L}$ is Lagrange's Theorem (\ref{thm:lagrange}).
+\end{proof}
+
+\goodbreak
+
+\begin{examples}{}{}
+\exstart How many distinct homomorphisms are there $\phi:\Z_{17}\to\Z_{13}$?\vspace{-5pt}
+\begin{enumerate}\setcounter{enumi}{1}
+  \item[]If $\phi$ is such a homomorphism, the Theorem says that $\nm{\image\phi}$ divides both 17 and 13. The only such positive integer is 1. Since $\image\phi$ must contain the identity, we conclude that there is only one homomorphism!
+  \[\forall x\in\Z_{17},\ \phi(x)=0\]
+  More generally, if $\gcd(\nm G,\nm L)=1$, then the only homomorphism $\phi:G\to L$ is the trivial function $\phi:g\mapsto e_L$.
+  \item Describe all homomorphisms $\phi:\Z_4\to S_3$.\par
+  Since the domain $\Z_4$ is cyclic, we need only describe what happens to a generator (e.g. 1) to obtain the entire homomorphism $\phi(x)=\bigl(\phi(1)\bigr)^x$. There are at most \emph{six} homomorphisms; one for each possible element $\phi(1)\in S_3$. Not all of these cases are however possible.\par
+  The Theorem says that $\nm{\image\phi}=1$ or 2; the only common divisors of $4=\nm{\Z_4}$ and $6=\nm{S_3}$.\par
+  If $\image\phi$ has one element, we obtain the trivial homomorphism $\phi_(x)=e,\ \forall x\in\Z_4$.\par
+  If $\nm{\image\phi}=2$, then $\image\phi$ is a subgroup of order 2 of which $S_3$ contains  exactly three: $\{e,(2\,3)\}$, $\{e,(1\,3)\}$, $\{e,(1\,2)\}$. We therefore have three further homomorphisms
+  \[\phi_1(x)=(2\,3)^x,\quad \phi_2(x)=(1\,3)^x,\quad\phi_3(x)=(1\,2)^x\]
+  for a grand total of four distinct homomorphisms.
+\end{enumerate}
+\end{examples}
+
+We now consider the general question of homomorphisms between finite cyclic groups $\phi:\Z_m\to\Z_n$. Two facts make this relatively simple:
+\begin{enumerate}
+  \item It is enough to define $\phi(1)$, for then $\phi(x)=\phi(1)+\cdots+\phi(1)=\phi(1)\cdot x$.
+  \item $\nm{\image\phi}$ must divide $d:=\gcd(m,n)$. Since $\Z_n$ has exactly one subgroup of each order dividing $n$ (Corollary \ref{cor:subscyclic}), $\image\phi$ must be a subgroup of the unique subgroup of $\Z_n$ of order $d$:
+	\[\image\phi\le\ip{\frac nd}=\left\{0,\frac nd,\frac{2n}d,\ldots,\frac{(d-1)n}d\right\}\]
+	We need only try letting $\phi(1)$ be each element of this group in turn\ldots
+\end{enumerate} 
+
+\begin{cor}{}{homoszmn}
+There are $d=\gcd(m,n)$ distinct homomorphisms $\phi:\Z_m\to\Z_n$, defined by
+\[\phi_k(x)=\frac{kn}{d}x\quad\text{where}\quad k=0,\ldots,d-1\]
+\end{cor}
+
+\begin{proof}
+Following the above, it remains only to check that each $\phi_k$ is a well-defined function. For this, note first that $x=y\in\Z_m\iff y=x+\lambda m$ for some $m\in\Z$, from which
+\[
+\phi_k(y)=\phi_k(x+\lambda m)=\frac{kn}d(x+\lambda m) =\frac{kn}dx+\lambda k\frac mdn=\frac{kn}dx =\phi_k(x)\tag{in $\Z_n$}
+\]
+where we used the fact that $\frac md$ is an \emph{integer.}
+\end{proof}
+
+\goodbreak
+
+
+\begin{example}{}{homoz12-20}
+We describe all homomorphisms $\phi:\Z_{12}\to\Z_{20}$.\smallbreak
+Since $\gcd(12,20)=4$, we see that $\image\phi\le\ip{5}=\{0,5,10,15\}\le\Z_{20}$. There are four choices:
+\[\phi_0(x)=0,\qquad \phi_1(x)=5x,\qquad \phi_2(x)=10x,\qquad \phi_3(x)=15x\pmod{20}\]
+Reversing the argument, we see that there are also four distinct homomorphisms $\psi:\Z_{20}\to\Z_{12}$:
+\[\psi_0(x)=0,\qquad \psi_1(x)=3x,\qquad \psi_2(x)=6x,\qquad \psi_3(x)=9x\pmod{12}\]
+\end{example} 
+
+
+
+\begin{exercises}{}{}
+Key concepts:
+\begin{quote}
+	\emph{Image\qquad kernels are normal subgroups\qquad $(G:\ker\phi)=\nm{\image\phi}$\qquad
+	$\nm{\image\phi}\Bigm|\gcd(\nm G,\nm L)$}
+\end{quote}
+
+
+\begin{enumerate}
+  \item Check that you have a homomorphism (use Corollary \ref{cor:homoszmn}) and compute its kernel and image.
+  \begin{enumerate}
+    \item $\phi:\Z_{8}\to\Z_{14}$ defined by $\phi(x)=7x\pmod{14}$.
+    
+    \item $\phi:\Z_{36}\to\Z_{20}$ defined by $\phi(x)=5x\pmod{20}$.
+	\end{enumerate}
+
+	
+	\item Describe all homomorphisms between the groups:
+	\begin{enumerate}
+	  \item \makebox[160pt][l]{$\phi:\Z_{15}\to\Z_{80}$\hfill (b)}\lstsp $\phi:\Z\to\Z_3$ 
+	  \item[(c)] \makebox[160pt][l]{$\phi:\Z_6\to D_4$\hfill (d)}\lstsp $\phi:\Z_{15}\to A_4$
+	\end{enumerate}
+	
+		
+	\item Find the kernel and image of each homomorphism.
+	\begin{enumerate}
+	  \item The \emph{trace} of a matrix: $\tr:M_2(\R)\to\R$ defined by $\tr\smash{\begin{smatrix}
+			a&b\\c&d
+	  \end{smatrix} =a+d} =a+d$
+		
+		\item $\rT:\R^3\to\R^4:\vx\mapsto \begin{smatrix}
+			1&1&-1\\
+			0&3&-1\\
+			1&4&-2\\
+			2&5&-3
+			\end{smatrix}$\quad (\emph{Hint: remember row operations\ldots})
+	\end{enumerate}
+	
+	
+% 	\item Describe all homomorphisms between the following groups:
+% 	\begin{enumerate}
+% 	  \item \makebox[160pt][l]{$\phi:\Z_6\to D_4$\hfill (b)}\lstsp $\phi:\Z_{15}\to A_4$
+% 	\end{enumerate}
+	
+% 	\item Find a linear map $\rT:\R^4\to\R^3$ for which $\ker\rT=\Span\left\{\sfourvec 1201,\sfourvec 0{-1}14\right\}$. Now compute $\image\rT$.\par
+% 	(\emph{Hint: as a sanity check, recall that the rank-nullity theorem says $\dim\ker\rT+\dim\image\rT=4$\ldots})
+	
+	
+	
+	\item Explain why the map $\phi$ is a homomorphism and find $\ker\phi$:
+	\[\phi:S_n\to \bigl(\{1,-1\},\cdot\bigr):\sigma \mapsto \begin{cases}
+  	1&\text{ if $\sigma$ even}\\
+  	-1&\text{ if $\sigma$ odd}
+	\end{cases}\]
+
+
+	\item\begin{enumerate}
+	  \item Prove Part 4 of Lemma \ref{lemm:homosub}: if $\phi:G\to L$ is a homomorphism, then $\image\phi\le L$.
+	 	\item If $H\le G$ and $\phi:G\to L$ a homomorphism, prove that $\phi(H):=\{\phi(h):h\in H\}\le\image\phi$.
+	  \item Give an example to show that $\image\phi$ need not be a normal subgroup of $L$.
+	\end{enumerate}
+
+	
+	\item\label{exs:totient} Prove that the number of distinct \emph{isomorphisms} $\phi:\Z_n\to\Z_n$ equals the cardinality of the group of units in $\Z_n$ (see Exercise \ref*{sec:cyclicclass}.\ref{exs:znmult}))
+		\[\nm{\Z_n^\times}=\nm{\{x\in\Z_n:\gcd(x,n)=1\}}\]
+		%(\emph{This is the size of the group of \emph{units} $\Z_n^\times$ under multiplication 
+		
+		  
+  \item Prove that $\phi:\Z_m\times\Z_n\to\Z_m\times\Z_n$ is a well-defined homomorphism if and only if there exist integers $a,b,c,d$ for which
+  \[\phi(x,y)=\bigl(ax+by,cx+dy\bigr),\quad m\mid bn\quad\text{and}\quad n\mid cm\]
+  (\emph{Hint: let $(a,c)=\phi(1,0)$, etc.})
+  
+
+	\item Find all homomorphisms $\phi:\Z_2\times\Z_7\to\Z_2\times\Z_5$. How do you know that there are no more?
+	
+	  
+  \item Consider $\phi:D_4\to D_4:\sigma\mapsto \sigma^2$. Show that $\phi$ is \emph{not} a homomorphism.
+	
+\end{enumerate}
+
+\end{exercises}
+
+\clearpage
+
+
+\subsection{The First Isomorphism Theorem}
+
+We've seen that all kernels of group homomorphisms are normal subgroups. In fact \emph{all} normal subgroups are the kernel of some homomorphism.
+
+\begin{thm}{Canonical Homomorphism}{}
+Let $G$ be a group and $H\triangleleft G$. Then the function
+\[\gamma:G\to \quotient GH\quad\text{defined by}\quad \gamma(g)=gH\]
+is a homomorphism with $\ker\gamma=H$.
+\end{thm}
+
+\begin{proof}
+Since $H$ is normal, $\quotient GH$ is a group. By the definition of multiplication in $\quotient GH$,
+\[\gamma(g_1)\gamma(g_2)=g_1H\cdot g_2H=(g_1g_2)H=\gamma(g_1g_2)\]
+whence $\gamma$ is a group homomorphism. Moreover, the identity in the factor group is $H$, whence
+  \[\ker\gamma=\{g\in G:\gamma(g)=H\} =\{g\in G:gH=H\}=H\tag*{\qedhere}\]
+\end{proof}
+
+This might feel a little sneaky and unsatisfying; we'd perhaps have preferred a homomorphism that doesn't have a factor group as its image! However, the following companion result says that, among homomorphisms with the same kernel, $\gamma$ is unavoidable.
+
+\begin{thm}{1\st{} Isomorphism Thm}{}
+Let $\phi:G\to L$ be a homomorphism with kernel $H$. Then
+\[\mu:\quotient GH\to\image\phi\quad \text{defined by}\quad \mu(gH)=\phi(g)\]
+is an isomorphism. Otherwise said, $\quotient G{\ker\phi}\cong\image\phi$.
+\end{thm}
+
+
+\begin{minipage}[t]{0.65\linewidth}
+The results may be summarized in a \emph{commutative diagram:} any homomorphism $\phi:G\to L$ \emph{factors} as $\phi=\mu\circ\gamma$ where $\gamma$ is the canonical homomorphism with kernel $\ker\phi$. There are analogues in several other parts of mathematics; in particular, the rank--nullity theorem from linear algebra is of close kin.
+\end{minipage}\hfill\begin{minipage}[t]{0.3\linewidth}
+\flushright$\xymatrix{G \ar[rr]^{\phi} \ar[dr]_\gamma && \image\phi\\
+& \quotient G{\ker\phi} \ar[ur]_{\mu} &}$
+\end{minipage}
+
+
+
+\begin{proof}
+The factor group exists since $\ker\phi\triangleleft G$ (Lemma \ref{lemm:homosub}). We check the isomorphism properties:
+  \begin{description}
+		\item[\normalfont\emph{Well-definition and Bijectivity}:] These are immediate from Lemma \ref{lemm:homobij} after writing $H=\ker\phi$:
+		\[g_1H=g_2H\iff \phi(g_1)=\phi(g_2)\iff \mu(g_1H)=\mu(g_2H)\]
+		\item[\normalfont\emph{Homomorphism}:] For all $g_1H,g_2H\in\quotient GH$,
+		\begin{align*}
+		\mu(g_1H\cdot g_2H)&=\mu(g_1g_2H)=\phi(g_1g_2) =\phi(g_1)\phi(g_2)\tag{$\phi$ is a homomorphism}\\
+		&=\mu(g_1H)\mu(g_2H)
+		\end{align*}
+  \end{description}
+We conclude that $\mu$ is an isomorphism.
+\end{proof}
+
+\begin{examples}{}{}
+\exstart Let $\phi:\Z_{12}\to\Z_{20}$ be the homomorphism $\phi(x)=5x\!\!\pmod{20}$ (Example \ref{ex:homoz12-20}). Its kernel and image are
+	\begin{gather*}
+	\ker\phi=\bigl\{x\in\Z_{12}:5x\equiv 0\negthickspace\pmod{20}\bigr\}=\{0,4,8\}=\ip 4\le \Z_{12}\\
+	\image\phi=\{5x\in\Z_{20}:x\in\Z_{12}\}=\{0,5,10,15\}=\ip{5}\le\Z_{20}
+	\end{gather*}
+	The relevant factor group is
+	\begin{align*}
+	\quotient{\Z_{12}}{\ker\phi}&=\Bigl\{\{0,4,8\},\{1,5,9\},\{2,6,10\},\{3,7,11\}\Bigr\}  =\bigl\{\ip 4,1+\ip 4,2+\ip 4,3+\ip 4\bigr\}
+	\end{align*}
+	The canonical homomorphism $\gamma$ and the isomorphism $\mu$ are\vspace{-5pt}
+	\begin{enumerate}\setcounter{enumi}{1}
+	  \item[]\begin{quote}
+		$\SelectTips{cm}{}\xymatrix @C40pt @R0pt{
+		\rlap{$\gamma(x)=x+\ip 4$} &&& \Z_{12} \ar@{->}[r]_-{\textstyle\gamma} \ar@{->}@/^15pt/[rr]^{\textstyle\phi} & \quotient{\Z_{12}}{\ip 4} \ar@{->}[r]_-{\textstyle\mu} & \image\phi\\
+		\rlap{$\mu\bigl(x+\ip 4\bigr)=5x$} &&& x \ar@{|->}[r] & x+\ip 4 \ar@{|->}[r] & 5x
+		}$
+		\end{quote}
+	  
+	\item (Example \ref{ex:normalmoreex}.1) \ Let $H=\ip{2\pi}\le\R$ and define $\phi:\R\to(\C^\times,\cdot)$ by $\phi(x)=e^{ix}$. This is a homomorphism with
+  \[\ker\phi=\{x\in\R:e^{ix}=1\}=H\quad\text{and}\quad \image\phi=S^1\]
+  The canonical homomorphism is
+  \[\gamma:\R\to\quotient{\R}H:x\mapsto x+\ip{2\pi}\]
+  while the isomorphism we saw previously
+  \[\mu:\quotient\R H\to S^1:x+\ip{2\pi}\mapsto e^{ix}\]
+  is precisely that arising from the 1\st{} isomorphism theorem.
+  
+  \item The map $\phi:\Z\times\Z\to\Z$ defined by $\phi(x,y)=3x-2y$ is a homomorphism. Moreover
+  \[\phi(x,y)=(0,0)\iff 3x=2y\iff (x,y)=(2n,3n)\text{ for some $n\in\Z$}\]
+  We conclude that $\ker\phi=\ip{(2,3)}$. The canonical homomorphism is
+  \[\gamma:\Z\times\Z\to\quotient{\Z\times\Z}{\ip{(2,3)}}:(x,y)\mapsto (x,y)+\ip{(2,3)}\]
+  Since $\phi$ is surjective, we see that
+  \[\quotient{\Z\times\Z}{\ip{(2,3)}}\cong\Z\quad\text{via}\quad \mu\bigl((x,y)+\ip{(2,3)}\bigr)=3x-2y\]
+	\end{enumerate}
+\end{examples}
+
+\goodbreak
+
+With a little creativity, the theorem can be applied to the identification of factor groups: given $H\triangleleft G$, cook up a homomorphism $\phi:G\to L$ with $\ker\phi =H$, then $\quotient GH\cong\image\phi$. We revisit some examples from the previous section in this context.
+
+\begin{examples*}{\ref{ex:factorfiniteabelian},\,mk.II}{}
+Let $G=\Z_4\times\Z_8$. For each subgroup $H$, we describe a homomorphism $\phi:G\to L$ with $\ker\phi =H$. There are many possible choices for $\phi$; while ours will line up with what we saw in the original incarnation of these examples, hopefully you'll feel that the reasons for such choices are independent of our earlier discussion. %Note that if $\phi(1,0)=(a,c)$ and $\phi(0,1)=(b,d)$, then
+%\[\phi(x,y)=(ax+by,cx+dy)\]
+\begin{enumerate}
+  \item Given $H=\ip{(0,1)}$, we need a homomorphism where $\phi(0,1)$ is the identity. A simple way to do this is to ignore $y$ and define
+  \[\phi:\Z_4\times\Z_8\to\Z_4:(x,y)\mapsto x\]
+  This indeed has kernel $\ker\phi=\{(0,y):y\in\Z_8\} =H$, whence
+  \[\quotient GH\cong\image\phi=\Z_4\]
+  via the isomorphism $\mu:(x,y)+H\mapsto x$.\par
+  Note that $\mu$ is precisely the \emph{inverse} of the isomorphism $\psi:x\mapsto (x,0)+H$ stated in the original version of this example; $(x,y)+H=(x,0)+H$ for this subgroup!
+
+  \item Given $H=\ip{(0,2)}$ we require $\phi(0,2)$ to be the identity. We may easily do this by taking $y$ modulo 2 and defining
+  \[\phi:\Z_4\times\Z_8\to\Z_4\times\Z_2:(x,y)\mapsto (x,y)\]
+  This is a homomorphism with the correct kernel $\ker\phi=H$. Indeed $\phi$ is also surjective, whence
+  \[\quotient GH\cong \image\phi= \Z_4\times\Z_2\]
+  via the isomorphism $\mu\bigl((x,y)+H\bigr) =(x,y)$. Once again $\mu$ is the inverse of $\psi(x,y)=(x,y)+H$ in the original example.
+  
+  \item If $H=\ip{(2,4)}=\{(0,0),(2,4)\}$, it is significantly trickier to find a suitable homomorphism. One approach is to observe that
+  \[(x,y)\in H\iff x\equiv 0\negthickspace\pmod 2\ \text{ and }\ y-2x\equiv 0\negthickspace\pmod 8\]
+  We therefore choose the homomorphism
+  \[\phi:\Z_4\times\Z_8\to\Z_2\times\Z_8:(x,y)\mapsto\bigl(x,y-2x\bigr)\]
+  It is worth checking that this is well-defined: the $\textcolor{red}{2}x$ in the second factor is crucial! Certainly $\phi$ has the correct kernel. It is moreover surjective, e.g.\ $(p,q)=\phi(p,q+2p)$, whence
+  \[\quotient GH\cong\image\phi=\Z_2\times\Z_8\]
+  via the isomorphism $\mu\bigl((x,y)+H\bigr)=(x,y-2x)$.
+\end{enumerate}
+\end{examples*}
+
+Other homomorphisms are possible in all the above examples. This approach requires a little creativity! In general, it can be very difficult to \emph{construct} a simple homomorphism with the correct kernel. %The primary application of the theorem comes when starting with a given homomorphism.
+
+\goodbreak
+
+\begin{exercises}{}{}
+Key concepts:
+\begin{quote}
+	\emph{Canonical homomorphism $\gamma:G\to\quotient GH$\qquad 1\st{} isomorphism theorem $\mu:\quotient GH\cong\image\phi$}
+\end{quote}
+
+\begin{enumerate}
+  \item Let $\phi:\Z_{18}\to\Z_{12}$ be the homomorphism $\phi(x)=10x$. 
+  \begin{enumerate}
+    \item Find the kernel of and image of $\phi$.
+    \item List the elements of the factor group $\smash[b]{\quotient{\Z_{18}}{\ker\phi}}$.
+    \item State an explicit isomorphism $\mu:\quotient{\Z_{18}}{\ker\phi}\to\image\phi$.
+    \item To what basic group $\Z_n$ is the factor group isomorphic?
+  \end{enumerate}
+  
+ 	
+ 	\item Repeat the previous question for the homomorphism $\phi:\Z\to\Z_{20}:x\mapsto 8x$.
+  
+  
+  \item For each function $\phi:\Z\times\Z\to\Z$, find the kernel and identify the factor group $\smash{\quotient{\Z\times\Z}{\ker\phi}}$.
+  \begin{enumerate}
+    \item $\phi(x,y)=3x+y$\qquad\qquad (b)\lstsp $\phi(x,y)=2x-4y$
+  \end{enumerate}  
+  
+    
+  \item\begin{enumerate}
+  	\item If a subgroup $H$ of $G=\Z_{15}\times\Z_3$ has order 5, find its elements.
+		\item Show that $\phi(x,y)=(x,y)$ is a homomorphism $\phi:G\to\Z_3\times\Z_3$ with $\ker\phi=H$.
+		\item What does the 1\st{} isomorphism theorem tell us about the factor group $\quotient GH$?
+	\end{enumerate}
+  
+  
+  \item Suppose $G$ is a finite group with normal subgroup $H$ and that $\phi:G\to L$ is a homomorphism with $\ker\phi=H$. Prove that $(G:H)\le \nm L$ with equality if and only if $\phi$ is surjective.
+  
+  
+  \item Consider the map $\phi:\Z\times\Z_{12}\to \Z_3\times\Z_6$ defined by
+  \[\phi(x,y)=\bigl(2x+y,y\bigr)\]
+  \begin{enumerate}
+    \item Verify that $\phi$ is a well-defined homomorphism.
+    \item Compute $\ker\phi$ and identify the factor group $\quotient{\Z\times\Z_{12}}{\ker\phi}$
+  \end{enumerate}
+  
+  
+  \item Let $H=\ip{(3,1)}\le G=\Z_9\times\Z_3$. Find an explicit homomorphism $\phi:G\to\Z_9$ whose kernel is $H$, and thus identify the factor group $\quotient GH$.\par
+  (\emph{Hint: $(x,y)\in H=\{(0,0),(3,1),(6,2)\}\iff\ldots$})
+  
+  \item Consider $H=\ip{(3,3)}\le G=\Z_9\times\Z_9$. Find a surjective homomorphism $\phi:G\to\Z_3\times\Z_9$ whose kernel is $H$ and hence prove that $\quotient GH\cong\Z_3\times\Z_9$.
+  
+  
+  \item Let $\phi:S^1\to S^1:z\mapsto z^2$.
+  \begin{enumerate}
+    \item Find the kernel of $\phi$ and describe the canonical homomorphism $\gamma:S_1\to\smash{\quotient{S^1}{\ker\phi}}$.
+    \item What does the first isomorphism theorem say about the factor group $\smash{\quotient{S^1}{\ker\phi}}$.
+    \item For each $n$, identify the factor group $\smash{\quotient{S^1}{U_n}}$, where $U_n$ is the group of $n\th$ roots of unity.
+  \end{enumerate}
+ 
+  %\item Recall Example \ref*{ex:normalmoreex}.\ref{ex:nastyiso}. If $H=\ip{(1,2,2)}\le G=\Z_5\times\Z_6\times\Z$, try to find a surjective homomorphism $\phi:G\to \Z_5\times\Z_6\times\Z_2$ with $\ker\phi=H$.
+\end{enumerate}
+\end{exercises}
+
+\clearpage
+
+
+
+
+\subsection{Conjugation, Cycle Types, Centers and Automorphisms}\label{sec:conj}
+
+In this section we consider an important type of homomorphism and some its consequences.
+
+\begin{defn}{}{}
+Let $G$ be a group and $x,y\in G$. We say that $y$ is \emph{conjugate to} $x$ if
+\[\exists g\in G\quad\text{such that}\quad y=gx g^{-1}\]
+If $g\in G$ is fixed, then \emph{conjugation by $g$} is the map $c_g:G\to G:x\mapsto gx g^{-1}$.
+\end{defn}
+
+We've met this notion before: recall that a subgroup $H$ is normal if and only if $c_g(h)\in H$ for all $g\in G$ (Corollary \ref{cor:normalconj}). It should also be familiar from linear algebra, in the form of \emph{similarity.} Recall that square matrices $A,B$ are similar if $B=MAM^{-1}$ for some invertible $M$. Such matrices have the same eigenvalues and, essentially, `do the same thing' with respect to different bases. An explicit group theory analogue of this is Theorem \ref{thm:cycletype} below.
+
+
+\begin{lemm}{}{conjiso}
+Conjugation by $g$ is a isomorphism $c_g:G\cong G$.
+\end{lemm}
+
+\begin{proof}
+Conjugation by $g^{-1}$ is the inverse function of $c_g^{-1}$:
+\[c_{g^{-1}}\bigl(c_g(x)\bigr)=g^{-1}gx g^{-1}(g^{-1})^{-1}=x,\ \text{ etc.}\]
+We moreover have a homomorphism:
+\[c_g(xy)=g(xy)g^{-1}=\bigl(gx g^{-1}\bigr)\bigl(gy g^{-1}\bigr)=c_g(x)c_g(y)\tag*{\qedhere}\]
+\end{proof}
+
+
+\begin{lemm}{}{conjequiv}
+Conjugacy is an equivalence relation \ ($x\sim y\iff \exists g\in G$ such that $y=gx g^{-1}$).
+\end{lemm}
+
+The proof is an exercise. The equivalence classes under conjugacy are termed \emph{conjugacy classes.}
+
+
+\begin{examples}{}{}
+\exstart If $G$ is abelian then every conjugacy class contains only one element:
+\[x\sim y\iff \exists g\in G\quad\text{such that}\quad y=gxg^{-1}=xgg^{-1}=x\]
+\begin{enumerate}\setcounter{enumi}{1}
+	\item The smallest non-abelian group is $S_3$ has conjugacy classes
+	\[\{e\},\quad \{(1\,2),(1\,3),(2\,3)\},\quad \{(1\,2\,3),(1\,3\,2)\}\]
+	This can be computed directly, but it follows immediately from\ldots
+\end{enumerate}
+\end{examples}
+
+\begin{thm}{}{cycletype}
+The conjugacy classes of $S_n$ are the \emph{cycle types}: elements are conjugate if and only if they have the same cycle type.
+\end{thm}
+
+If an element $\sigma\in S_n$ is written as a product of disjoint cycles, then its cycle type is clear. For instance:
+\begin{itemize}
+  \item $(1\,2\,3)(4\,5)$ has the same cycle type as $(1\,5\,6)(2\,3)$: we might call these 3,2-cycles.
+  \item $(1\,2)(3\,4)$ has a different cycle type; 2,2.
+\end{itemize}
+
+\goodbreak
+
+Before seeing the proof it is beneficial to try an example.
+
+\begin{example}{}{}
+If $\rho=(2\,4\,3)$ and $\sigma=(1\,2)(3\,4)$ in $S_4$, then
+  \[
+  \rho\sigma\rho^{-1}=(2\,4\,3)(1\,2)(3\,4)(2\,3\,4)=(1\,4)(2\,3)
+  \]
+  Not only does this have the same cycle type as $\sigma$, but if may be obtained simply by applying $\rho$ to the entries of $\sigma$!
+  \[\rho\sigma\rho^{-1}=(1\,4)(2\,3) =\bigl(\rho(1)\,\rho(2)\bigr)\bigl(\rho(3)\,\rho(4)\bigr)\]
+  \begin{minipage}[t]{0.75\linewidth}\vspace{-5pt}
+  This also tells us how to reverse the process: given 2,2-cycles $\sigma=(1\,2)(3\,4)$ and $\tau=(1\,4)(2\,3)$ simply place $\sigma$ on top of $\tau$ in a table to define a suitable $\rho=(2\,4\,3)$ for which $\rho\sigma\rho^{-1}=\tau$.
+  \end{minipage}\hfill\begin{minipage}[t]{0.2\linewidth}\vspace{-5pt}
+    $\begin{array}{l|cccc}
+  x&1&2&3&4\\\hline
+  \rho(x)&1&4&2&3
+  \end{array}$
+  \end{minipage}
+\end{example}
+
+The proof is nothing more than the example done abstractly!
+
+\begin{proof}
+\begin{description}
+	\item[\normalfont($\Rightarrow$)] We consider conjugation by $\rho\in S_n$. First let $\sigma=(a_1\cdots a_k)$ be a $k$-cycle and write
+	\[A=\{a_1,\ldots,a_k\},\qquad R=\{\rho(a_1),\ldots,\rho(a_k)\}\]
+	Since $\rho$ is a bijection, $\nm R=k$ are distinct and $x\in R\iff \rho^{-1}(x)\in A$. There are two cases:
+	\begin{description}
+		\item[\normalfont\emph{If $x\in R$}:] \ \ Let $x=\rho(a_j)$, then
+		\[\rho\sigma\rho^{-1}\bigl(\rho(a_j)\bigr)=\rho\sigma(a_j)=\rho(a_{j+1})\]
+		where $a_{k+1}$ is understood to be $a_1$.
+		\item[\normalfont\emph{If $x\not\in R$}:] \ \ Since $\rho^{-1}(x)\not\in A$ it is unmoved by $\sigma$, whence
+		\[\rho\sigma\rho^{-1}(x) =\rho\sigma(\rho^{-1}(x))=\rho\rho^{-1}(x)=x\]
+	\end{description}
+	We conclude that $\rho\sigma\rho^{-1}=\bigl(\rho(a_1)\cdots\rho(a_k)\bigr)$	is also a $k$-cycle!\par
+	More generally, if $\sigma=\sigma_1\cdots\sigma_l$ is a product of disjoint cycles, then
+	\[\rho\sigma\rho^{-1}=(\rho\sigma_1\rho^{-1})(\rho\sigma_2\rho^{-1})\cdots (\rho\sigma_l\rho^{-1})\]
+	has the same cycle type as $\sigma$.
+	\item[\normalfont($\Leftarrow$)] Suppose $\sigma=\sigma_1\cdots\sigma_l$ and $\tau=\tau_1\cdots\tau_l\in S_n$ have the same cycle type, written so that the corresponding orbits have the same length. Moreover, assume we've included all necessary 1-cycles so that $\bigcup\sigma_i=\{1,\ldots,n\}=\bigcup\tau_i$. Define a permutation $\rho$ by writing the orbits of $\sigma$ and $\tau$ on top each other
+\[\begin{array}{l|cccccccc}
+      x&\sigma_1 &\sigma_2 & \cdots & \sigma_l\\\hline
+      \rho(x)&\tau_1 & \tau_2 & \cdots & \tau_l
+      \end{array}\]
+If $s_{i,j}$ and $t_{i,j}$ are the $j\th$ elements of the orbits $\sigma_i$ and $\tau_i$, then
+	\[\rho\sigma\rho^{-1}(t_{i,j})=\rho\sigma(s_{i,j})=\rho\bigl(s_{i,j+1}\bigr)=t_{i,j+1}=\tau\bigl(t_{i,j}\bigr)\]
+	We conclude that $\rho\sigma\rho^{-1}=\tau$, as required.\qedhere
+\end{description}
+\end{proof}
+
+\goodbreak
+
+\begin{examples}{}{conjexample}
+\exstart The permutations $\sigma=(1\,4\,5)(2\,7\,6)$ and $\tau=(1\,6\,5)(3\,4\,7)$ in $S_7$ are conjugate: the table defines a suitable $\rho$.
+	\[\begin{array}{l|ccccccc}
+      x&1&4&5&2&7&6&3\\\hline
+      \rho(x)&1&6&5&3&4&7&2
+      \end{array} \implies \rho=(2\,3)(4\,6\,7)\]
+	Indeed
+	\[
+	\rho\sigma\rho^{-1}= (2\,3)(4\,6\,7)(1\,4\,5)(2\,7\,6)(2\,3)(4\,7\,6) =(1\,6\,5)(3\,4\,7) =\tau
+	\]
+	There are other possible choices of $\rho$; just write the orbits of $\sigma,\tau$ in different orders.
+\begin{enumerate}\setcounter{enumi}{1}
+	\item (Example \ref*{sec:factor}.\ref{ex:a4normal}) \ We've checked previously that $V=\{e,(1\,2)(3\,4),(1\,3)(2\,4),(1\,4)(2\,3)\}$ is a normal subgroup of $A_4$. It is moreover a normal subgroup of $S_4$: since $V$ contains the identity and all 2,2-cycles it is closed under conjugacy and thus a normal subgroup of both $A_4$ and $S_4$.
+% 	
+% 	 $\quotient{A_4}V$ is a factor group of order $\frac{12}4=3$ which must therefore be isomorphic to $C_3$. Indeed the cosets of $V$ may be written\footnote{In fact $(123)V=(134)V=(243)V=(142)V$ and $(132)V=(143)V=(234)V=(124)V$.}
+% 	\[\quotient{A_4}V=\{V,(123)V,(132)V\}\]
+% 	An example isomorphism $\mu:\quotient{A_4}V\to C_3$ from the first isomorphism theorem is then
+% 	\[\mu:\threevec{V}{(123)V}{(132)V}=\threevec{e}{(123)}{(132)}\]
+% 	$\mu^{-1}(1\,2\,3)^k=(1\,2\,3)^kV$
+% 	where we view $C_3$ in a natural way as a subgroup of $S_4$.
+\end{enumerate}
+\end{examples}
+
+
+
+\boldsubsubsection{Automorphisms}
+
+We've already seen that conjugation $c_g:G\to G$ by a fixed element is an isomorphism. We now consider all such maps.
+
+\begin{defn}{}{}
+An \emph{automorphisms} of a group $G$ is an isomorphism of $G$ with itself. The set of such is denoted $\Aut G$. The \emph{inner automorphisms} are the conjugations
+\[\Inn G=\{c_g:G\to G\text{ where }c_g(x)=gxg^{-1}\}\]
+\end{defn}
+
+\begin{example}{}{}
+There are four homomorphisms $\phi_k:\Z_4\to\Z_4$ (Corollary \ref{cor:homoszmn});
+	\[\phi_0(x)=0,\quad \phi_1(x)=x,\quad \phi_2(x)=2x,\quad \phi_3(x)=3x\]
+	of which two are automorphisms: $\Aut\Z_4=\{\phi_1,\phi_3\}$.
+	Observe that $\phi_1$ is the identity function and that $\phi_3\circ\phi_3=\phi_1$. The automorphisms therefore comprise a \emph{group} (necessarily isomorphic to $\Z_2$) under composition of functions.\smallbreak
+		As for conjugations, observe that for any $g\in\Z_4$,
+		\[c_g(x)=g+x+(-g)=x\]
+		since $\Z_4$ is abelian. There is only one inner automorphism of $\Z_4$, the identity function $\phi_1$.
+\end{example}
+
+Hunting for automorphisms can be difficult. Here is a helpful observation for narrowing things down; the proof is an exercise.
+
+\begin{lemm}{}{autoorder}
+If $\phi\in\Aut G$ and $x\in G$, then the orders of $x$ and $\phi(x)$ are identical.
+\end{lemm}
+
+This helps to streamline the previous example: $\phi(1)$ must have the same order (four) as 1 and so our only possibilities are $\phi(1)=1$ or $\phi(1)=3$. These possibilities generate the two observed automorphisms.
+% 
+% \begin{proof}
+% Since $\phi$ is a homomorphism, $\phi(e)=e$ and $\bigl(\phi(x)\bigr)^n=\phi(x^n)$. Since $\phi$ is a bijection we conclude
+% \[\bigl(\phi(x)\bigr)^n=e\iff \phi(x^n)=\phi(e)\iff x^n=e\tag*{\qedhere}\]
+% \end{proof}
+
+\goodbreak
+
+
+\begin{example}{}{}
+We describe all automorphisms $\phi$ of $S_3$. Consider $\sigma=(1\,2)$ and $\tau=(1\,2\,3)$. Since the order of an element is preserved by $\phi$, we conclude that
+  \[\phi(e)=e,\quad \textcolor{red}{\phi(\sigma)}\in\bigl\{(1\,2),(1\,3),(2\,3)\bigr\},\quad \textcolor{blue}{\phi(\tau)}\in \bigl\{(1\,2\,3),(1\,3\,2)\bigr\}\]
+  We therefore have a maximum of \emph{six} possible automorphism; it is tedious to check, but \emph{all} really do define automorphisms! Indeed all may be explicitly realized as conjugations whence $\Aut S_3=\Inn S_3$. Here is the data; verify some of it for yourself:\vspace{-2pt}
+  \[
+  \begin{array}{c||cccccc}
+  \text{element $g$}&c_g(e)&\textcolor{red}{c_g(1\,2)}&c_g(1\,3)&c_g(2\,3)&\textcolor{blue}{c_g(1\,2\,3)}&c_g(1\,3\,2)\\\hline\hline
+  e&e&\textcolor{red}{(1\,2)}&(1\,3)&(2\,3)&\textcolor{blue}{(1\,2\,3)}&(1\,3\,2)\\\hline
+  (1\,2)&e&\textcolor{red}{(1\,2)}&(2\,3)&(1\,3)&\textcolor{blue}{(1\,3\,2)}&(1\,2\,3)\\\hline
+  (1\,3)&e&\textcolor{red}{(2\,3)}&(1\,3)&(1\,2)&\textcolor{blue}{(1\,3\,2)}&(1\,2\,3)\\\hline
+  (2\,3)&e&\textcolor{red}{(1\,3)}&(1\,2)&(2\,3)&\textcolor{blue}{(1\,3\,2)}&(1\,2\,3)\\\hline
+  (1\,2\,3)&e&\textcolor{red}{(2\,3)}&(1\,2)&(1\,3)&\textcolor{blue}{(1\,2\,3)}&(1\,3\,2)\\\hline
+  (1\,3\,2)&e&\textcolor{red}{(1\,3)}&(2\,3)&(1\,2)&\textcolor{blue}{(1\,2\,3)}&(1\,3\,2)
+  \end{array}
+  \]
+  As the next result shows, the automorphisms again form a group under composition, in this case a group of order 6 which is easily seen to be \emph{non-abelian}: for instance 
+  \[c_{(1\,2)}c_{(1\,3)}= c_{(1\,3\,2)}\neq c_{(1\,2\,3)}= c_{(1\,3)}c_{(1\,2)}\]
+  By process of elimination, we conclude that $\Aut S_3\cong S_3$.
+\end{example}
+
+
+\begin{thm}{}{aut}
+$\Aut G$ and $\Inn G$ are groups under composition. Moreover $\Inn G\triangleleft\Aut G$.
+\end{thm}
+
+\begin{proof}
+That $\Aut G$ is a group is simply the fact that composition and inverses of isomorphisms are isomorphisms: you should already have made this argument when answering Exercise \ref*{sec:morph}.\ref{exs:isomorphiccomposition}. By Lemma \ref{lemm:conjiso}, every conjugation is an isomorphism, and it is simple to check that $c_g\circ c_h=c_{gh}$ and $c_g^{-1}=c_{g^{-1}}$: we conclude that $\Inn G\subseteq \Aut G$.\smallbreak
+For normality, we check that $\Inn G$ is closed under conjugation! Let $\tau\in\Aut G$ and $c_g\in\Inn G$. For any $x\in G$, we have\footnotemark
+\begin{align*}
+(\tau c_g\tau^{\textcolor{red}{-1}})(x)&=\tau\Bigl(c_g\bigl(\tau^{\textcolor{red}{-1}}(x)\bigr)\Bigr)\tag{definition of $c_g$}\\
+&=\tau\Bigl(g\bigl(\tau^{\textcolor{red}{-1}}(x)\bigr)g^{\textcolor{blue}{-1}}\Bigr)\\
+&=\Bigl(\tau(g)\Bigr)\Bigl(\tau\bigl(\tau^{\textcolor{red}{-1}}(x)\bigr)\Bigr)\Bigl(\tau(g^{\textcolor{blue}{-1}})\Bigr)\tag*{(since $\tau$ is a homomorphism)}\\
+&=\bigl(\tau(g)\bigr)x\bigl(\tau(g)\bigr)^{\textcolor{blue}{-1}}\tag*{(again since $\tau$ is an homomorphism)}\\
+&=c_{\tau(g)}(x)
+\end{align*}
+We conclude that $\tau c_g\tau^{-1}=c_{\tau(g)}\in \Inn G$, from which $\Inn G\triangleleft\Aut G$.
+\end{proof}
+
+\vspace{-2pt}
+
+\footnotetext{The challenge in reading the proof is simply to keep track of where everything lives. To help, the inverse symbol is colored: $\tau^{\textcolor{red}{-1}}$ means the inverse \emph{function,} whereas $g^{\textcolor{blue}{-1}}$ means the inverse of an \emph{element} in $G$.}
+
+\goodbreak
+
+
+\boldsubsubsection{Centers}
+
+We say that an element $g$ in a group $G$ \emph{commutes} with another element $x\in G$ if the order of multiplication is irrelevant: i.e. if $gx=xg$. Otherwise said, if $c_g(x)=x$. It natural to ask whether there are any elements which commute with \emph{all others.} There are two very simple cases:
+\begin{itemize}
+  \item If $G$ is abelian, then every element commutes with every other element!
+  \item The identity $e$ commutes with everything, regardless of $G$.
+\end{itemize}
+In general, the set of such elements will fall somewhere between these extremes. This subset will turn out to be another normal subgroup of $G$.
+
+\begin{defn}{}{}
+The \emph{center} of a group $G$ is the subset of $G$ which commutes with everything in $G$:
+\[Z(G):=\{g\in G:\forall h\in G,\ gh=hg\}\]
+\end{defn}
+
+We will prove that $Z(G)\triangleleft G$ shortly. First we give a few examples; unless $G$ is abelian, the center is typically difficult to compute, so we omit more of the details.
+
+
+\begin{examples}{}{centers}
+\exstart $Z(G)=G\iff G$ is abelian.
+\begin{enumerate}\setcounter{enumi}{1}
+  \item $Z(S_n)=\{e\}$ if $n\ge 3$. This is straightforward to check when $n=3$ since there are only six elements. In general, think about the proof of Theorem \ref{thm:cycletype}\ldots
+  \item $Z(D_{2n+1})=\{e\}$ and $Z(D_{2n})=\{e,\rho_{n/2}\}$, where $\rho_{n/2}$ is rotation by $180^\circ$. For instance, it is easy to see in $D_{2n+1}$ that any rotation and reflection fail to commute.
+  \item $Z\bigl(\rGL_n(\R)\bigr)=\{\lambda I_n:\lambda\in\R^\times\}$. If you've done enough linear algebra, an argument is reasonably straightforward (Exercise \ref{exs:zglnr})
+\end{enumerate}
+\end{examples}
+
+\begin{thm}{}{centernormal}
+For any group $G$:
+\begin{enumerate}
+  \item $Z(G)\triangleleft G$
+  \item $\quotient G{Z(G)}\cong \Inn G$
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+\begin{enumerate}
+  \item The function $\phi:G\to\Inn G$ defined by $\phi(g)=c_g$ is a homomorphism:
+	\begin{align*}
+		&c_{gh}(x)=(gh)x(gh)^{-1}=g(hxh^{-1})g^{-1}=c_g(c_h(x))\\
+		\implies &\phi(gh)=\phi(g)\phi(h)
+	\end{align*}
+	Now observe that
+	\[
+		g\in\ker\phi\iff \forall x\in G,\ c_g(x)=gxg^{-1}=x\iff g\in Z(G)
+	\]
+	from which $\ker\phi=Z(G)$ is a normal subgroup of $G$.
+	\item Since $\phi$ is surjective, the 1\st{} isomorphism theorem tells us that
+\[\quotient{G}{Z(G)}\cong\image\phi=\Inn G\tag*{\qedhere}\]
+\end{enumerate}
+\end{proof}
+
+\goodbreak
+
+\begin{exercises}{}{}
+Key concepts:
+\begin{quote}
+	\emph{Conjugation\qquad conjugacy classes\qquad cycle types are conjugacy classes in $S_n$\\
+	(inner) automorphism\qquad center of a group}
+\end{quote}
+
+\begin{enumerate}    
+  \item Either find some $\rho\in G$ such that $\rho\sigma\rho^{-1}=\tau$, or explain why no such element exists:
+	\begin{enumerate}
+  	\item $\sigma=(1\,2\,3)$, $\tau=(1\,3\,2)$ where $G=S_3$.
+  	\item $\sigma=(1\,4\,5\,6)(2\,3)(5\,6)$, $\tau=(1\,2\,3\,4)(5\,6)(2\,6)$ where $G=S_6$.
+  	\item $\sigma=(1\,4\,5\,6)(2\,3)(5\,6)$, $\tau=(1\,2)(3\,5\,6)$ where $G=S_6$.
+	\end{enumerate}
+	
+	
+  \item Recall Example \ref{ex:conjexample}.1. Find another element $\nu\neq\rho$ for which $\nu\sigma\nu^{-1}=\tau$.
+  
+  
+  \item Prove Lemma \ref{lemm:conjequiv}. Prove that the relation
+  \[x\sim y\iff \text{$y$ is conjugate to $x$}\]
+  is an equivalence relation on any group $G$. 
+  
+
+	\item\begin{enumerate}
+  	\item Suppose $y$ is conjugate to $x$ in a group $G$. Prove that the orders of $x$ and $y$ are identical.
+  	\item Show that the converse to part (a) is \emph{false} by exhibiting two non-conjugate elements of the same order in some group.
+	\end{enumerate}
+
+
+	\item Let $H\le G$, fix $a\in G$ and define the \emph{conjugate subgroup} $K=c_a(H)=\{aha^{-1}:h\in H\}$.
+  \begin{enumerate}
+    \item Prove that $K$ is indeed a subgroup of $G$.
+    \item Prove that the function $\psi:H\to K:h\mapsto aha^{-1}$ is an isomorphism of groups.
+    \item If $H\triangleleft G$, what can you say about $c_a(H)$?
+    \item Let $H=\{e,(1\,2)\}\le S_3$ and $a=(1\,2\,3)$. Compute the conjugate subgroup $K=c_a(H)$.
+  \end{enumerate}
+  
+  
+	\item We've already seen that $V=\{e,(1\,2)(3\,4),(1\,3)(2\,4),(1\,4)(2\,3)\}$ is a normal subgroup of $S_4$.
+	\begin{enumerate}
+  	\item Show that \emph{normal subgroup} is not transitive by giving an example of a normal subgroup $K\triangleleft V$ which is \emph{not normal} in $S_4$.
+  	
+  	\item How many \emph{other} subgroups does $S_4$ have which are isomorphic to $V$? Why are none of them normal in $S_4$?
+  	
+		\item Explain why $\quotient{S_4}V$ is a group of order six. Prove that
+		\[(1\,2)V(1\,3)V\neq (1\,3)V(1\,2)V\]
+		Hence conclude that $\quotient{S_4}V\cong S_3$.
+		
+		\item Why is it obvious that the following six left cosets are distinct.
+		\[V,\ (1\,2)V,\ (1\,3)V,\ (2\,3)V,\ (1\,2\,3)V,\ (1\,3\,2)V\]
+		(\emph{Hint: Think about how none of the representatives $a$ of the above cosets move the number 4 and consider $aV=bV\iff b^{-1}a\in V\ldots$})
+		
+		\item Define an isomorphism $\mu:\quotient{S_4}V\to S_3$ and prove that it is an isomorphism.
+\end{enumerate}
+
+
+	\item Prove Lemma \ref{lemm:autoorder}: if $\phi\in\Aut G$ and $x\in G$, then $\phi(x)$ has the same order as $x$.
+  
+  
+  \item Describe all automorphisms of the Klein four-group $V$.\par
+  (\emph{Hint: use the previous question!})
+  
+  
+  \item Recall Exercise \ref*{sec:kerimage}.\ref{exs:totient}. Explain why $\Aut\Z_n\cong\Z_n^\times$.\par
+  (\emph{Hint: consider $\phi_k(x)=kx$ where $\gcd(k,n)=1$ and map $\psi:k\mapsto\phi_k$})
+  
+  
+  \item Let $G$ be a group. Prove directly that $Z(G)\triangleleft G$, \emph{without} using Theorem \ref{thm:centernormal}. That is:
+	\begin{enumerate}
+  	\item Prove that $Z(G)$ is closed under the group operation and inverses.
+  	\item Prove that $gZ(G)=Z(G)g$ for all $g\in G$.
+	\end{enumerate}
+	
+	
+	\item Suppose $n\ge 3$ and that $\sigma\in Z(S_n)$.
+	\begin{enumerate}
+	  \item By considering $\sigma(1\,2)\sigma^{-1}$, prove that $\{\sigma(1),\sigma(2)\}=\{1,2\}$.
+	  \item If $\sigma(1)=2$, repeat the calculation with $\sigma(1\,3)\sigma^{-1}$ to obtain a contradiction.
+	  \item Hence, or otherwise, deduce that $Z(S_n)=\{e\}$.
+	\end{enumerate}
+	
+	
+	\item\label{exs:zglnr} We identify the center of the general linear group.\par
+	The $n\times n$ matrix $A=\scalebox{0.5}{$\begin{pmatrix}
+	  0&1&0&\cdots&\cdots&0\\
+	  0&0&1&&&0\\
+	  0&0&0&&&0\\
+	  \vdots&&&\ddots&\ddots&\\
+	  0&0&0&&0&1\\
+	  0&0&0&\cdots&&0
+	  \end{pmatrix}$}$ has a single one-dimensional eigenspace: $A\ve_1=\V0$.
+	  \begin{enumerate}
+	  	\item Let $B\in Z\bigl(\rGL_n(\R)\bigr)$. Use the fact that $AB=BA$ to prove that $B\ve_1=\lambda\ve_1$ for some $\lambda\neq 0$.
+	  	\item Let $\vx\in\R^n$ be non-zero and $X$ an invertible matrix for which $X\ve_1=\vx$ (e.g. put $\vx$ in the 1\st{} column of $X$). Prove that $B\vx=\lambda\vx$.
+	  	\item Since the observation in part (b) holds for \emph{any} $\vx\in\R^n$, what can we conclude about $B$? What is the group $Z\bigl(\rGL_n(\R)\bigr)$?
+	\end{enumerate}
+	
+	
+	\item\begin{enumerate}
+	  \item Prove that $D_4$ has center $Z(D_4)=\{e,\rho_2\}$, where $\rho_2$ is rotation by $180^\circ$.
+	  \item State the cosets of $Z(D_4)$. What is the order of each? Determine whether $\quotient{D_4}{Z(D_4)}$ is isomorphic to $\Z_4$ or to the Klein four-group $V$.
+	  \item (Hard) \ Can you find a homomorphism $\phi:D_4\to D_4$ whose kernel is $Z(D_4)$?\par
+	  (\emph{Hint: draw a picture and think about doubling angles of rotation and reflection!})
+	\end{enumerate}
+
+
+% 	\item Prove that the centers of the following groups are as claimed:
+% 	\begin{enumerate}
+%   	\item 
+%   	\item $Z(A_4)=\{e\}$.
+%   	\item $Z(\mathrm{SL}_2(\R))=\left\{\left(\begin{smallmatrix}
+% \lambda&0\\0&\lambda
+% \end{smallmatrix}\right):\lambda=\pm 1\right\}$.
+% 	\end{enumerate}
+% 	What do the cosets of the center $Z(\mathrm{SL}_2(\R))$ look like in part (c)? That is, if $A\in B\cdot Z(\rSL_2(\R))$, what can you say about $A$?
+
+
+
+% \item The group of \emph{outer automorphisms} of $G$ is the factor group $\operatorname{Out} G=\quotient{\Aut G}{\Inn G}$.
+% \begin{enumerate}
+%   \item Prove that if $G$ is abelian then $\operatorname{Out}G\cong\Z_1$ is trivial.
+%   \item 
+% \end{enumerate}
+
+	
+  %\item $Z(\rO_n(\R))=\{\pm I_n\}$.
+
+\end{enumerate}
+\end{exercises}
+
+
+
+
+
+% \item[HWfinal]
+% \item Consider the map $\phi:\rO_2(\R)\to\rO_2(\R)$ defined by
+% \[\phi(Rot(\theta))=Rot(2\theta),\qquad \phi(Ref(\psi))=Ref(2\psi),\]
+% where $Rot(\theta)$ is rotation counter-clockwise through $\theta$, and $Ref(\psi)$ is reflection across the line making angle $\psi/2$ with the $x$-axis.
+% \begin{enumerate}
+% \item Prove that $\phi$ is a homomorphism and compute its kernel. (\emph{You may use the results from earlier homework sheets and the notes instead of computing $Rot(\theta)Ref(\psi)$, etc., directly.})
+% \item Prove that $\phi$ restricts to a homomorphism $\phi:D_{2n}\to D_n$ for any positive integer $n$.
+% \item What does the first isomorphism theorem say in the case of part (b)? That is, identify the factor group $\quotient{D_{2n}}{\ker\phi}$.
+% \item What about in the case of part (a)? Prove your assertions.
+% \end{enumerate}
+% 
+% 
+% 
+%   \item Let $X\subseteq G$ be a fixed subset of a group $G$. Define the \emph{normalizer} $N(X)$ of $X$ and \emph{centralizer} $C(X)$ of $X$ as follows
+%   \begin{gather*}
+% N(X)=\{g\in G:gX=Xg\},\qquad C(X)=\{g\in G:\forall x\in X,\ gx=xg\}.
+%   \end{gather*}
+% \begin{enumerate}
+%   \item Show that $N(X)$ is a subgroup of $G$.
+%   \item Write down $C(X)$ and $N(X)$ for the subset $X=\{\mu_1,\mu_2,\mu_3\}\subseteq D_3=\{e,\rho_1,\rho_2,\mu_1,\mu_2,\mu_3\}$.
+%   \item Let $n\in N(X)$. Given that $C(X)$ is a subgroup of $N(X)$, show that $n$ has the same left and right cosets with $C(X)$ if and only if
+%   \[\forall x\in X,\ \forall c\in C(X),\ ncn^{-1}x=xncn^{-1}.\]
+%   \item Using (c), or otherwise, prove that the centralizer of any set $X$ is a normal subgroup of the normalizer of $X$.
+%   \item If $X=G$, to what theorem of the course does part (d) reduce? \emph{Part (b) is a hint.}
+% \end{enumerate} 
+
+
+% 
+% 
+% \item\begin{enumerate}
+%   \item $(1,3)\in\Z_2\times\Z_4$ has order $\lcm(2,4)=4$.
+%   \item $(4,2,1)\in\Z_6\times\Z_4\times\Z_3$ has order $\lcm(3,2,3)=6$.
+%   \item $((123),(15)(234))\in S_3\times S_5$ has order $\lcm(3,6)=6$.
+%   \item $(\mu_1,\mu_1)\in D_3\times D_4$ has order $\lcm(2,2)=2$.
+% \end{enumerate}
+% 
+% 
+% 
+% 
+%   
+%   \item\begin{enumerate}
+%     \item Strictly this requires induction on $x$, the induction step being
+%     \[\psi(x+1)=\psi(x)+\psi(1)=kx+k=(k+1)x\pmod n\]
+%     \item $\psi_3(37)=3\cdot 37=111=24\cdot 4+15= 15\pmod{24}$ while $\psi_3(1)=3$. Clearly these are unequal. In $\Z_{36}$ we have $1=37$ so, if $\psi_3$ is to be a function we must have $\psi_3(1)=\psi_3(37)$. It follows that $\psi_3$ is not a function (not well-defined).
+%     \item $\psi_k$ is well-defined if and only if
+%     \begin{align*}
+%     \forall x,y\in\Z,\quad\psi_k(x+36y)=\psi_k(x) &\iff \forall x,y,\quad kx+36ky\equiv  kx\pmod{24}\\
+%     &\iff \forall y,\quad 36ky\equiv 0\pmod{24}\\
+%     &\iff 36k\equiv 0\pmod{24}\\
+%     &\iff 3k\equiv 0\pmod{2}\\
+%     &\iff k\equiv 0\pmod{2}
+%     \end{align*}
+%     $\psi_k$ is a homomorphism iff $k\in\{0,2,4,6,8,\ldots,22\}$. There are 12 distinct homomorphisms $\psi:\Z_{36}\to\Z_{24}$.
+%     \item None of the homomorphisms are injective: in particular $\psi_k(0)=0=\psi_k(12)$ for all of the homomorphisms. More generally, $\nm{\Z_{36}}>\nm{\Z_{24}}$ so there are no injective functions $\Z_{36}\to\Z_{24}$, let alone homomorphisms.\\
+%     None of the homomorphisms are surjective either. In particular it is impossible for $\psi_k(x)$ to ever equal 1.
+%     \item We must have $\psi(x)=kx$ for some $k$. This is well-defined iff
+%     \begin{align*}
+%     \forall x,y\in\Z,\quad\psi(x+12y)=\psi(x) &\iff \forall x,y,\quad kx+12ky\equiv  kx\pmod{24}\\
+%     &\iff \forall y,\quad 12ky\equiv 0\pmod{24}\\
+%     &\iff 12k\equiv 0\pmod{24}\\
+%     &\iff k\equiv 0\pmod{2}
+%     \end{align*}
+%     Some of these are injective, in particular $\psi_2(x)=2x$. Indeed it is straightforward to see that $\psi_k(x)=kx$ is injective iff $\gcd(k,24)=2$. None are surjective.
+%     \item Let $d=\gcd(m,n)$. $\psi_k:\Z_m\to\Z_n$ is a well-defined homomorphism iff
+%     \begin{align*}
+%     \forall x,y\in\Z,\quad\psi(x+my)=\psi(x) &\iff \forall x,y,\quad kx+mky\equiv  kx\pmod{n}\\
+%     &\iff \forall y,\quad kmy\equiv 0\pmod{n}\\
+%     &\iff km\equiv 0\pmod{n}\\
+%     &\iff k\frac md\equiv 0\pmod{\tfrac nd}\\
+%     &\iff k\equiv 0\pmod{\tfrac nd}
+%     \end{align*}
+%     (\emph{Recall that $\gcd(\frac md,\frac nd)=1\implies \exists \lambda,\mu\in\Z$ such that $\lambda\frac md+\mu\frac nd=1\implies \lambda$ is the multiplicative inverse of $\frac md$ modulo $\frac nd$.})\\
+%     There are $d=\gcd(m,n)$ distinct homomorphisms, namely $\psi_0,\psi_{\frac nd},\psi_{\frac{2n}d},\ldots,\psi_{\frac{(d-1)n}d}$. 
+%     \item\begin{enumerate}
+%       \item Suppose that $\psi:\Z_m\to\Z_n$ is an injective homomorphism. Then $\nm{\image\psi}=m$. However, $\image\psi\le\Z_n$. Since all subgroups of $\Z_n$ have order a divisor of $n$, it follows that $m\mid n$.\\
+%       Conversely, suppose that $m\mid n$. Then the homomorphism $\psi_{\frac nm}(x)=\frac nmx$ is easily seen to be injective.
+%       \item Suppose that $\psi:\Z_m\to\Z_n$ is a surjective homomorphism. Then $\image\psi=\Z_n$. In particular, there must exist some $x\in\Z_m$ for which $\psi(x)=1$. But then $mx=0$ in $\Z_m$, from which
+%       \[0=\psi(0)=\psi(mx)=m\quad\text{in }\Z_n \]
+%       Therefore $m\equiv 0\pmod n$, from which we see that $n\mid m$.\\
+%       Conversely, if $n\mid m$ then $\gcd(m,n)=n$ which says that \emph{every} $k\in\Z_n$ defines a homomorphism $\psi_k:\Z_m\to\Z_n$. Certainly $\psi_1(x)=x$ is surjective.
+% 		\end{enumerate}
+% 		\item $\psi:\Z_n\to\Z_n$ is a bijective homomorphism if and only if $\psi(1)$ is a generator of $\Z_n$. The generators of $\Z_n$ are precisely those elements which are relatively prime to $n$: that is, the units.
+% 		\item Let $x,y\in\Z_n^\times$. Then $\gcd(x,n)=1=\gcd(y,n)$ which says that
+% 		\[\exists \kappa,\lambda,\mu,\nu\in\Z\quad\text{such that}\quad\begin{cases}
+% 		\kappa x+\lambda n=1\\
+% 		\mu y+\nu n=1
+% 		\end{cases}\]
+% 		But this says that $\kappa\mu xy=1+n(\lambda\nu-\lambda-\nu)$, from which $\gcd(xy,n)=1$. Thus $\Z_n^\times$ is closed under multiplication.\\
+% 		Multiplication is associative, and the identity element $1\in\Z_n$ is certainly a unit.\\
+% 		Finally, if $x\in\Z_n^\times$, then $\kappa x+\lambda n=1\implies \kappa x\equiv 1\pmod n$, whence $x^{-1}=\kappa$. 
+% 		\item Let $\phi:\Z_n^\times\to\Aut(\Z_n)$ be defined by $\phi(k)=\psi_k$. We have already seen that $\psi_k$ is an isomorphism if and only if $k$ is a unit, so this is a bijective function. Now compute what $\phi(kl)$ does to an element $x\in\Z_n$:
+% 		\[\phi(kl)(x)=\psi_{kl}(x)=(kl)x=k(lx)=\left(\phi(k)\circ\phi(l)\right)(x)\]
+% 		It follows that $\phi(kl)=\phi(k)\circ\phi(l)$, and so $\phi$ is a homomorphism, and thus an isomorphism.
+%   \end{enumerate}
+

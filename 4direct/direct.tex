@@ -1,0 +1,283 @@
+\graphicspath{{4direct/asy/}}
+
+\section{Direct Products \& Finitely Generated Abelian Groups}\label{chap:direct}
+
+
+In this short chapter we see a straightforward way to create new groups from old using the \emph{Cartesian product.}
+
+\begin{example}{}{}
+Given $\Z_2=\{0,1\}$, the Cartesian product
+\[\Z_2\times \Z_2=\bigl\{(0,0),(0,1),(1,0),(1,1)\bigr\}\]
+has four elements. This set inherits a \emph{group structure} in a natural way by adding co-ordinates
+\[(x,y)+(v,w):=(x+v,y+w)\]
+where $x+v$ and $y+w$ are computed in $(\Z_2,+_2)$. This is a binary operation on $\Z_2\times\Z_2$, with a familiar-looking table: it has exactly the same structure as the Cayley table for the Klein four-group!
+\begin{quote}
+\scalebox{1}{$\begin{array}{c||c|c|c|c}
+	+ & (0,0) & \textcolor{Green}{(0,1)} & \textcolor{red}{(1,0)} & \textcolor{blue}{(1,1)}\\\hline\hline
+	(0,0) & (0,0) & \textcolor{Green}{(0,1)} & \textcolor{red}{(1,0)} & \textcolor{blue}{(1,1)}\\\hline
+	\textcolor{Green}{(0,1)} & \textcolor{Green}{(0,1)} & (0,0) & \textcolor{blue}{(1,1)} & \textcolor{red}{(1,0)}\\\hline
+	\textcolor{red}{(1,0)} & \textcolor{red}{(1,0)} & \textcolor{blue}{(1,1)} & (0,0) & \textcolor{Green}{(0,1)}\\\hline
+	\textcolor{blue}{(1,1)} & \textcolor{blue}{(1,1)} & \textcolor{red}{(1,0)} & \textcolor{Green}{(0,1)} & (0,0)
+\end{array}$}
+\qquad\scalebox{1.5}{$\leftrightsquigarrow$}\qquad
+\scalebox{1}{$\begin{array}{c||c|c|c|c}
+	\circ & e & \textcolor{Green}{a} & \textcolor{red}{b} & \textcolor{blue}{c}\\\hline\hline
+	e & e & \textcolor{Green}{a} & \textcolor{red}{b} & \textcolor{blue}{c}\\\hline
+	\textcolor{Green}{a} & \textcolor{Green}{a} & e & \textcolor{blue}{c} & \textcolor{red}{b}\\\hline
+	\textcolor{red}{b} & \textcolor{red}{b} & \textcolor{blue}{c} & e & \textcolor{Green}{a}\\\hline
+	\textcolor{blue}{c} & \textcolor{blue}{c} & \textcolor{red}{b} & \textcolor{Green}{a} & e
+\end{array}$}
+\end{quote}
+We conclude that $\Z_2\times\Z_2\cong V$ is indeed a group.
+\end{example}
+
+This construction works in general.
+
+\begin{thm}{Direct product}{directprod}
+The natural component-wise operation on the Cartesian product
+\[\smash[t]{\prod\limits_{k=1}^n} G_k=G_1\times\cdots\times G_n,\qquad (x_1,\ldots,x_n)\cdot(y_1,\ldots,y_n):=(x_1y_1,\ldots,x_ny_n)\]
+defines a group structure: the \emph{direct product.} This is abelian if each $G_k$ is abelian.
+\end{thm}
+
+The proof is a simple exercise. Being a Cartesian product, a direct product has order equal to the product of the orders of its components
+\[\nm{\prod\limits_{k=1}^n G_k}=\prod\limits_{k=1}^n\nm{G_k}\]
+\vspace{2pt}
+
+
+\begin{examples}{}{direct1}
+\exstart Consider the direct product of groups $(\Z_2,+_2)$ and $(\Z_3,+_3)$:
+\[\Z_2\times\Z_3=\bigl\{(0,0),(0,1),(0,2),(1,0),(1,1),(1,2)\bigr\}\]
+This is abelian and has order 6, so we might guess that it is isomorphic to $(\Z_6,+_6)$. To see this we need a generator: choose $(1,1)$ and observe that
+\[\ip{(1,1)}=\bigl\{(1,1),(0,2),(1,0),(0,1),(1,2),(0,0)\bigr\}=\Z_2\times\Z_3\]
+The map $\phi(x)=(x,x)$ is therefore an isomorphism $\phi:\Z_6\cong\Z_2\times \Z_3$.
+
+\goodbreak
+
+\begin{enumerate}\setcounter{enumi}{1}
+% \item As observed above, $\Z_2\times\Z_2=\{(0,0),(0,1),(1,0),(1,1)\}$. is isomorphic to the Klein 4-group.
+	\item If each $G_k$ is \emph{abelian, written additively,} the direct product can instead be called the \emph{direct sum}
+	\[\bigoplus_{k=1}^nG_k=G_1\oplus\cdots\oplus G_n\]
+	We won't use this notation,\footnotemark\ though you've likely encountered it in linear algebra: the direct sum of $n$ copies of the real line $\R$ is the familiar vector space
+	\[\R^n=\bigoplus_{i=1}^n\R=\R\oplus\cdots\oplus\R\]
+\end{enumerate}
+\end{examples}
+
+\footnotetext{In this course we will only ever have \emph{finitely many} terms in a direct product/sum: in such cases these concepts are identical for abelian groups written additively. When there are infinitely many factors, the concepts are slightly different.}
+
+\boldsubsubsection{Orders of Elements in a Direct Product}
+
+In Example \ref{ex:direct1}.1, we saw that the element $(1,1)\in\Z_2\times\Z_3$ had order 6 and thus generated the group. To help spot the pattern, consider another example.
+
+\begin{example}{}{}
+What is the order of the element $(10,2)\in\Z_{12}\times \Z_8$? Recall Corollary \ref{cor:subscyclic}:
+\begin{itemize}\itemsep0pt
+  \item $10\in\Z_{12}$ has order $6=\frac{12}{\gcd(10,12)}$
+  \item $2\in\Z_8$ has order $4=\frac 8{\gcd(2,8)}$
+\end{itemize}
+If we repeatedly add $(10,2)$, then the \textcolor{red}{first co-ordinate will reset after 6} summations, while the \textcolor{blue}{second resets after 4}. For \emph{both} to reset, we need a \emph{common multiple} of \textcolor{red}{6} and \textcolor{blue}{4} summands. We can check this explicitly:
+\[\bigl\langle(10,2)\bigr\rangle = \bigl\{(10,2), (8,4), (6,6), (4,\textcolor{blue}{0}), (2,2), (\textcolor{red}{0},4), (10,6), (8,\textcolor{blue}{0}), (6,2), (4,4), (2,6), (\textcolor{red}{0},\textcolor{blue}{0})\bigr\}\]
+The order of the element $(10,2)$ is indeed the \emph{least common multiple} $12=\lcm(6,4)$.
+\end{example}
+
+
+\begin{thm}{}{directorder}
+Suppose $x_k\in G_k$ has order $r_k$. Then $(x_1,\ldots,x_n)\in \prod\limits_{k=1}^n G_k$ has order $\lcm(r_1,\ldots,r_n)$.
+\end{thm}
+
+\begin{proof}
+Just appeal to Corollary \ref{cor:orderdefn}:
+\[
+(x_1,\ldots,x_n)^m=(x_1^m,\ldots,x_n^m)=(e_1,e_2,\ldots,e_n)\iff \forall k,\ x_k^m=e_k \iff \forall k,\ r_k\mid m
+\]
+The order is the minimal positive integer $m$ satisfying this, namely $m=\lcm(r_1,\ldots,r_n)$.
+\end{proof}
+
+
+
+\begin{example}{}{prodorder}
+Find the order of $(1,3,2,6)\in\Z_4\times\Z_7\times\Z_5\times\Z_{20}$.\smallbreak
+Again appealing to Corollary \ref{cor:subscyclic}, the element has order
+\[
+\lcm\left(\tfrac 4{\gcd(1,4)}, \tfrac 7{\gcd(3,7)}, \tfrac 5{\gcd(2,5)}, \tfrac{20}{\gcd(6,20)}\right) =\lcm(4,7,5,10)=140
+\]
+\end{example}
+
+
+\boldsubsubsection{When is a direct product of finite cyclic groups cyclic?}
+
+Recall that $\Z_2\times\Z_2\cong V$ is non-cyclic while $\Z_2\times\Z_3\cong \Z_6$ is cyclic. It is reasonable to hypothesize that the distinction is whether the orders of the components are \emph{relatively prime.} 
+
+\begin{cor}{}{prodprime}
+$\Z_m\times\Z_n$ is cyclic $\iff \gcd(m,n)=1$, in which case $\Z_m\times\Z_n\cong\Z_{mn}$.\smallbreak
+More generally:
+\begin{itemize}\itemsep0pt
+  \item $\Z_{m_1}\times\cdots\times\Z_{m_k}\cong\Z_{m_1\cdots m_k}\iff \gcd(m_i,m_j)=1,\ \forall i\neq j$.
+  \item If $n=p_1^{r_1}\cdots p_k^{r_k}$ is the prime factorization, then
+$\Z_n\cong\Z_{p_1^{r_1}}\times\cdots\times\Z_{p_k^{r_k}}$
+\end{itemize} 
+\end{cor}
+
+\begin{proof}
+The generalization follows by induction on the first part.
+\begin{description}\itemsep0pt
+\item[\normalfont ($\Leftarrow$)] If $\gcd(m,n)=1$, then $(1,1)\in\Z_m\times\Z_n$ has order $\lcm(m,n)=\frac{mn}{\gcd(m,n)} =mn$. Hence $(1,1)$ is a generator of $\Z_m\times\Z_n$, which is then \emph{cyclic.}
+\item[\normalfont ($\Rightarrow$)] This is an exercise.\qedhere
+\end{description}
+\end{proof}
+
+
+\begin{examples}{}{}
+\exstart (Example \ref{ex:prodorder}) The group $\Z_4\times\Z_7\times\Z_5\times\Z_{20}$ is non-cyclic since $\gcd(4,20)\neq 1$. Indeed the maximum order of an element in this group is
+\[\lcm(4,7,5,20)=140<2800=\nm{\Z_4\times\Z_7\times\Z_5\times\Z_{20}}\]
+\begin{enumerate}\setcounter{enumi}{1}
+  \item Is $\Z_5\times\Z_7\times\Z_{12}$ cyclic? The Corollary says yes, since none 5, 7, 12 have any common factors. It is ghastly to write, but there are 12 different ways (up to reordering) of expressing this group!
+\begin{align*}
+\Z_{420}&\cong\Z_3\times\Z_{140} \cong\Z_4\times\Z_{105} \cong\Z_5\times\Z_{84} \cong\Z_{7}\times\Z_{60}\\
+&\cong\Z_3\times\Z_4\times\Z_{35} \cong\Z_3\times\Z_5\times\Z_{28} \cong\Z_3\times\Z_7\times\Z_{20}\\
+&\cong\Z_4\times\Z_5\times\Z_{21} \cong\Z_4\times\Z_7\times\Z_{15} \cong\Z_5\times\Z_7\times\Z_{12}\\
+&\cong\Z_3\times\Z_4\times\Z_5\times\Z_7
+\end{align*}
+We may combine/permute the factors of $420=2^2\cdot 3\cdot 5\cdot 7$, provided we \emph{don't separate $2^2=4$.}
+  
+%   \item Is $\Z_5\times\Z_{12}\times\Z_{43}$ cyclic? The Theorem says yes, since no pairs of the numbers 5, 12, 43 have any common factors. It is ghastly to write out, but there are 15 different ways (up to reordering) of expressing this group!
+% \begin{align*}
+% \Z_{2580}&\cong\Z_3\times\Z_{860} \cong\Z_4\times\Z_{645} \cong\Z_5\times\Z_{516} \cong\Z_{43}\times\Z_{60}\\
+% &\cong\Z_{12}\times\Z_{215} \cong\Z_{15}\times\Z_{172} \cong\Z_{20}\times\Z_{129}\\
+% &\cong\Z_3\times\Z_4\times\Z_{215} \cong\Z_3\times\Z_5\times\Z_{172} \cong\Z_3\times\Z_{20}\times\Z_{43}\\
+% &\cong\Z_4\times\Z_5\times\Z_{129} \cong\Z_4\times\Z_{15}\times\Z_{43} \cong\Z_5\times\Z_{12}\times\Z_{43}\\
+% &\cong\Z_3\times\Z_4\times\Z_5\times\Z_{43}
+% \end{align*}
+\end{enumerate}
+\end{examples}
+
+
+\boldsubsubsection{Finite(ly generated) abelian groups}
+
+We've used the direct product to create finite abelian groups from cyclic building blocks. Our next result provides a powerful converse.
+
+\begin{thm}{Fundamental Theorem of Finitely Generated Abelian Groups}{fund}\par
+Every finitely generated\footnotemark\ abelian group is isomorphic to a group of the form
+\[\Z_{p_1^{r_1}}\times\cdots\times\Z_{p_n^{r_n}}\times\Z\times\cdots\times\Z\]
+The $p_i$ are (not necessarily distinct) primes, each $r_k\in\N$, and there are finitely many $\Z$-factors.\par
+A finite abelian group has no factors of $\Z$.
+\end{thm}
+
+\footnotetext{Recall Exercise \ref*{sec:cyclicclass}.\ref{exs:finitegen}.}
+
+We won't develop the technology necessary to prove this, but it is too useful to ignore. Our purpose is simply to classify \emph{finite abelian groups} up to isomorphism.
+
+\goodbreak
+
+
+\begin{examples}{}{}
+\exstart Up to isomorphism, there are five abelian groups of order $81=3^4$, namely
+\[\Z_{81},\quad \Z_3\times\Z_{27},\quad \Z_9\times\Z_9,\quad \Z_3\times\Z_3\times\Z_9,\quad \Z_3\times\Z_3\times\Z_3\times\Z_3\]
+These groups can be distinguished in several ways; for instance, if $G$ is abelian and has order 81, you could show that $G\cong \Z_3\times\Z_{27}$ by demonstrating two facts:
+\begin{enumerate}\setcounter{enumi}{1}
+  \item[]\begin{itemize}\itemsep0pt
+  	\item $G$ contains an element of order 27.
+  	\item The maximum order of an element of $G$ is 27.
+	\end{itemize}
+  \item Since $450=2\cdot 3^2\cdot 5^2$ is a prime factorization, the fundamental theorem says that every abelian group of order 450 is isomorphic to one of four groups:
+\begin{enumeratea}\itemsep0pt
+  \item $\Z_2\times\Z_{3^2}\times\Z_{5^2}\cong \Z_{450}$\hfill (cyclic, max order 450)
+  \item $\Z_2\times\Z_3\times\Z_3\times\Z_{5^2}$\hfill (non-cyclic, maximum order $150=2\cdot 3\cdot 5^2$)
+  \item $\Z_2\times\Z_{3^2}\times\Z_5\times\Z_5$\hfill (non-cyclic, maximum order $90=2\cdot 3^2\cdot 5$)
+  \item $\Z_2\times\Z_3\times\Z_3\times\Z_5\times\Z_5$\hfill (non-cyclic, maximum order $30=2\cdot 3\cdot 5$)
+\end{enumeratea}
+As before, there are multiple isomorphic ways to express each group as a direct product.
+\end{enumerate}
+\end{examples}
+
+
+
+We finish by listing all groups of orders 1 through 15 and abelian groups of order 16 up to isomorphism. The Fundamental Theorem gives us all the abelian groups.\par
+\begin{center}\label{pg:fundabel}
+\begin{tabular}{|l|l|l|}
+\hline
+order & abelian & non-abelian\\
+\hline
+1 & $\Z_1$ & \\
+2 & $\Z_2$ & \\
+3 & $\Z_3$ & \\
+4 & $\Z_4$,\ \ $V\cong\Z_2\times\Z_2$ & \\
+\hline
+5 & $\Z_5$ & \\
+6 & $\Z_6\cong\Z_2\times\Z_3$ & $D_3\cong S_3$\\
+7 & $\Z_7$ & \\
+8 & $\Z_8$,\ \ $\Z_2\times\Z_4$,\ \ $\Z_2\times\Z_2\times\Z_2$ & $D_4$,\ \ $Q_8$\\
+\hline
+9 & $\Z_9$,\ \ $\Z_3\times\Z_3$ & \\
+10 & $\Z_{10}\cong\Z_2\times\Z_5$ & $D_5$\\
+11 & $\Z_{11}$ & \\
+12 & $\Z_{12}\cong\Z_3\times\Z_4$,\ \ $\Z_2\times\Z_6\cong\Z_2\times\Z_2\times\Z_3$ & $D_6$,\ \ $A_4$,\ \ $Q_{12}$\\
+\hline
+13 & $\Z_{13}$ & \\
+14 & $\Z_{14}\cong\Z_2\times\Z_7$ & $D_7$\\
+15 & $\Z_{15}\cong\Z_3\times\Z_5$ & \\
+16 & $\Z_{16}$,\ \ $\Z_4\times\Z_4$,\ \ $\Z_2\times\Z_8$,\ \ $\Z_2\times\Z_2\times\Z_4$,\ \ $\Z_2\times\Z_2\times\Z_2\times\Z_2$ & Many\\
+\hline
+\end{tabular}
+\end{center}
+
+The list of non-abelian groups contains some unfamiliarity though we've met most already:
+\begin{itemize}\itemsep0pt
+  \item $D_n,S_3$ and $A_4$ will be described properly in the next section.
+  \item $Q_8$ is the \emph{quaternion group} (Exercise \ref*{sec:subgroup}.\ref{exs:quaternion}), and $Q_{12}$ a \emph{generalized quaternion group}: look them up if interested!
+\end{itemize}
+There are \emph{nine} non-isomorphic, non-abelian groups of order 16: $D_8$ and the direct product $\Z_2\times Q_8$ are explicit examples. The table might make you suspicious that all non-abelian groups have even order: this is not so, though the smallest counter-example has order 21.
+
+
+\begin{tcolorbox}[exercisestyle,title={Exercises \thesection.\phantom{b}}]
+Key concepts:
+\begin{quote}
+	\emph{Direct product \qquad Order of element via lcm \qquad Cyclic/gcd criteria\qquad Fundamental theorem}
+\end{quote}
+
+\begin{enumerate}
+	\item List the elements of the following direct product groups:
+	\begin{enumerate}
+  	\item $\Z_2\times\Z_4$.
+  	\item $\Z_3\times\Z_3$.
+  	\item $\Z_2\times\Z_2\times\Z_2$.
+	\end{enumerate}
+	
+  \item Prove Theorem \ref{thm:directprod} by checking each of the axioms of a group.
+
+	\item Prove that $G\times H\cong H\times G$.
+	
+	\item Prove that a direct product $\prod G_k$ is abelian if and only if its components $G_k$ are all abelian.
+	
+	\item Find the orders of the following elements and write down the cyclic subgroups generated by each (list all of the elements explicitly):
+	\begin{enumerate}
+  	\item $(1,3)\in\Z_2\times\Z_4$.
+  	\item $(4,2,1)\in\Z_6\times\Z_4\times\Z_3$.
+	\end{enumerate}
+	
+	\item Is the group $\Z_{12}\times \Z_{27}\times\Z_{125}$ cyclic? Explain.
+
+	\item Find a generator of the group $\Z_3\times\Z_4$ and hence define an isomorphism $\phi:\Z_{12}\cong\Z_3\times\Z_4$.\par
+	(\emph{Hint: read the proof of Corollary \ref{cor:prodprime}})
+
+
+	\item State three non-isomorphic groups of order 50.
+	
+	\item Suppose $p,q$ are distinct primes. Up to isomorphism, how many abelian groups are there of order $p^2q^2$?
+	
+	\item Complete the proof of Corollary \ref{cor:prodprime}: if $\Z_m\times\Z_n$ is cyclic, then $\gcd(m,n)=1$.\par
+	(\emph{Hint: if $\gcd(m,n)\ge 2$, what is the maximum order of an element in $\Z_m\times\Z_n$?})
+
+	\item Suppose $G$ is an abelian group of order $m$, where $m$ is a square-free positive integer ($\nexists k\in \Z_{\ge 2}$ such that $k^2\!\mid\! m$). Prove that $G$ is cyclic.
+
+
+	\item\begin{enumerate}
+  	\item Let $G$ be a finitely generated abelian group and let $H$ be the subset of $G$ consisting of the identity $e$ together with all the elements of order 2 in $G$. Prove that $H$ is a subgroup of $G$.
+  	\item In the language of the Fundamental Theorem, to which direct product is $H$ isomorphic?
+	\end{enumerate}
+	
+	
+	\item\label{exs:abeliansubgroup} Suppose $G$ is a finite abelian group and that $m$ is a divisor of $\nm G$. Prove that $G$ has a subgroup of order $m$.\par
+	(\emph{Hint: use the the prime decomposition of $m$ and the fundamental theorem and identify a suitable subgroup of $\Z_{p_1^{r_1}}\times\cdot\times\Z_{p_k^{r_k}}$ })
+
+\end{enumerate}
+\end{tcolorbox}
