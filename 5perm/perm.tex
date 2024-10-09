@@ -2,84 +2,78 @@
 
 \section{Permutations and Orbits}\label{chap:perm}
 
-In this chapter we return to the roots of group theory and consider the re-orderings of a set.
+In this chapter we return to the roots of group theory by considering how a set may be reordered.
 
 \subsection{The Symmetric Group \& Cycle Notation}\label{sec:perm1}
 
 \begin{defn}{}{}
-A \emph{permutation} of a set $A$ is a bijective/invertible function $\sigma:A\to A$.\smallbreak
-The \emph{symmetric group} $S_A$ is the set of all permutations of $A$ under functional composition.\smallbreak
-The \emph{symmetric group on $n$-letters\footnotemark} $S_n$ is the group $S_A$ when $A=\{1,2,\ldots,n\}$.
+	A \emph{permutation} of a set $A$ is a bijective/invertible function $\sigma:A\to A$.\smallbreak
+	The \emph{symmetric group} $S_A$ is the set of all permutations of $A$ under functional composition.\smallbreak
+	The \emph{symmetric group on $n$-letters\footnotemark} $S_n$ is the group $S_A$ when $A=\{1,2,\ldots,n\}$.
 \end{defn}
 
-\footnotetext{Here we make $S_n$ an \emph{explicit} group for clarity. In practice, any set with $n$ elements will do, and any group isomorphic to this is usually also called $S_n$ (see Exercise \ref{exs:symmwd}).}
+\footnotetext{%
+	For clarity we make $S_n$ an \emph{explicit} group. In practice, any set with $n$ elements will do and any group isomorphic to this is usually also called $S_n$ (see Exercise \ref{exs:symmwd}).
+}
 
 
 \begin{examples}{}{}
-\exstart If $A=\{1\}$, there is only one (bijective) function $A\to A$, namely the \emph{identity function} $e:1\mapsto 1$. Thus $S_1$ has only one element and is isomorphic to $\Z_1$.
-\begin{enumerate}\setcounter{enumi}{1}\itemsep0pt
-  \item If $A=\{1,2\}$, then there are \emph{two} bijections $e,\mu:A\to A$:\par
-  \begin{minipage}[t]{0.7\linewidth}\vspace{-10pt}
-    \begin{itemize}\itemsep0pt
-    	\item $e(1)=1$ and $e(2)=2$ defines the identity function.
-    	\item $\sigma(1)=2$ and $\sigma(2)=1$ swaps the elements of $A$.
-  	\end{itemize}
-  \end{minipage}\hfill\begin{minipage}[t]{0.29\linewidth}\vspace{-18pt}
-  \flushright $\begin{array}{c||c|c}
-  \circ&e&\sigma\\\hline\hline
-  e&e&\sigma\\\hline
-  \sigma&\sigma&e
-  \end{array}$
-  \end{minipage}\par
-
-  The Cayley table is immediate: plainly $S_2$ is isomorphic to $\Z_2$.
-  
-  \item We met $S_3=S_{\{1,2,3\}}$ explicitly in Example \ref{ex:motiv}; it has \emph{six elements} and is \emph{non-abelian}, e.g.
-  \[\mu_1\circ\mu_2=\rho_1\neq \rho_2=\mu_2\circ\mu_1\]
-\end{enumerate}
+	\exstart If $A=\{1\}$, there is only one (bijective) function $A\to A$, namely the \emph{identity function} $e:1\mapsto 1$. Thus $S_1$ has only one element and is isomorphic to $\Z_1$.
+	\begin{enumerate}\setcounter{enumi}{1}\itemsep0pt
+	  \item If $A=\{1,2\}$, then there are \emph{two} bijections $e,\mu:A\to A$:\par
+	  \begin{minipage}[t]{0.7\linewidth}\vspace{-10pt}
+	    \begin{itemize}\itemsep0pt
+	    	\item $e(1)=1$ and $e(2)=2$ defines the identity function.
+	    	\item $\sigma(1)=2$ and $\sigma(2)=1$ swaps the elements of $A$.
+	  	\end{itemize}
+	  \end{minipage}\hfill\begin{minipage}[t]{0.29\linewidth}\vspace{-18pt}
+	  \flushright%
+	  $\begin{array}{c||c|c}
+	  	\circ&e&\sigma\\\hline\hline
+	 	 	e&e&\sigma\\\hline
+	  	\sigma&\sigma&e
+	  \end{array}$
+	  \end{minipage}\par
+	
+	  The Cayley table is immediate: plainly $S_2$ is isomorphic to $\Z_2$.
+	  
+	  \item We met $S_3=S_{\{1,2,3\}}$ explicitly in Example \ref{ex:motiv}; it has \emph{six elements} and is \emph{non-abelian}, e.g.
+	  \[
+	  	\mu_1\circ\mu_2=\rho_1\neq \rho_2=\mu_2\circ\mu_1
+	  \]
+	\end{enumerate}
 \end{examples}
 
 \begin{lemm}{}{sabasic}
-\exstart $S_A$ is indeed a group under composition of functions.\vspace{-4pt}
-\begin{enumerate}\setcounter{enumi}{1}\itemsep0pt
-  \item If $A$ has at least three elements, then $S_A$ is non-abelian.
-  \item The order of $S_n$ is $n!$ \hfill (\textcolor{red}{Warning!} The subscript $n$ is \textcolor{red}{not} the order of $S_n$)
-  \item $S_m\le S_n$ whenever $m\le n$ \hfill(strictly $S_n$ contains a subgroup isomorphic to $S_m$)
-\end{enumerate}
+	\exstart $S_A$ is indeed a group under composition of functions.\vspace{-4pt}
+	\begin{enumerate}\setcounter{enumi}{1}\itemsep0pt
+	  \item If $A$ has at least three elements, then $S_A$ is non-abelian.
+	  \item The order of $S_n$ is $n!$ \hfill (\textcolor{red}{Warning!} The order of $S_n$ is \textcolor{red}{not} the subscript $n$)
+	  \item $S_m\le S_n$ whenever $m\le n$ \hfill(Strictly, $S_n$ contains a subgroup isomorphic to $S_m$)
+	\end{enumerate}
 \end{lemm}
 
 \begin{proof}
-\exstart \emph{Closure}: \ If $\sigma,\tau:A\to A$ are bijective, so is the composition\footnotemark\ $\sigma\circ\tau$.\vspace{-5pt}
+	\exstart \emph{Closure}: \ If $\sigma,\tau:A\to A$ are bijective, so is the composition\footnotemark\ $\sigma\circ\tau$.\vspace{-5pt}
   \begin{quote}
-		%\par  %Indeed, by associativity,
-		%\[(\sigma\circ \tau)\circ(\tau^{-1}\circ \sigma^{-1})=\sigma\circ(\tau\circ\tau^{-1})\circ\sigma^{-1}=\id_A\]
-		\emph{Associativity}: \ Composition of functions is associative (Theorem \ref{thm:funcassoc}).\par
+		\emph{Associativity}: \ Composition of functions is associative (Lemma \ref{lemm:funcassoc}).\par
 		\emph{Identity}: \ The \emph{identity function} $e_A:a\mapsto a$ for all $a\in A$ is certainly bijective.\par
 		\emph{Inverse}: \ If $\sigma$ is a bijection, then its inverse function $\sigma^{-1}$ is also bijective.
 	\end{quote}
-% 	 Choose three distinct elements of $A$ and label them $a_1,a_2,a_3$. Consider the permutations $\sigma,\tau\in S_A$ defined by
-% 	\[\begin{cases}
-% 	\sigma(a_1)=a_2\\
-% 	\sigma(a_2)=a_1\\
-% 	\sigma(a)=a\text{ otherwise}
-% 	\end{cases}\] first three elements of 
-	
-	%\item This is an exercise. All you need is basic combinatorics: count!% This is basic combinatorics. If $\sigma\in S_n$, then there are $n$ choices for the value of $\sigma(1)$. Choosing one leaves $n-1$ choices for $\sigma(2)$ (since $\sigma$ is a bijection). Iterating this argument we eventually have 2 choices for $\sigma(n-1)$ and only 1 possibility for $\sigma(n)$. We therefore have $n(n-1)\cdots 2\cdot 1=n!$ possibilities in total.
 		The remaining parts are exercises.
 \end{proof}
 
-\footnotetext{You should have seen this in a previous class. If you are uncomfortable with why this is true, write out the details!}
+\footnotetext{%
+	The details should be familiar. Write them out if you are unsure.
+}
 
-From now on we simply use juxtaposition: $\sigma\tau:=\sigma\circ\tau$. Remember that $\sigma\tau$ is a \emph{function} $A\to A$, so evaluation means that we act with $\tau$ first:
-\[\sigma\tau(a)=\sigma\bigl(\tau(a)\bigr)\]
-Similarly, exponentiation will mean self-composition: e.g.\ $\sigma^3=\sigma\sigma\sigma=\sigma\circ\sigma\circ\sigma$.
-
-% It is easy to see that $S_m\le S_n\iff m \le n$: simply fix the final $n-m$ elements of $\{1,\ldots,n\}$ so that
-%   \[S_m=\{\sigma\in S_n:\sigma(i)=i,\ \forall i>m\}\]
+From now on we simply use juxtaposition: $\sigma\tau:=\sigma\circ\tau$. Remember that $\sigma\tau$ is a \emph{function} $A\to A$, and evaluation means that we act with $\tau$ first:
+\[
+	\sigma\tau(a)=\sigma\bigl(\tau(a)\bigr)
+\]
+Similarly, exponentiation mean self-compositions: e.g.\ $\sigma^3=\sigma\sigma\sigma=\sigma\circ\sigma\circ\sigma$.
 
 \goodbreak
-
-
 
 
 % \begin{minipage}[t]{0.7\linewidth}\vspace{0pt}
@@ -107,176 +101,200 @@ Similarly, exponentiation will mean self-composition: e.g.\ $\sigma^3=\sigma\sig
 %          \end{pmatrix}$}
 % \end{minipage}\bigbreak
 
+
 \boldsubsubsection{Cycle Notation}
 
-Computations in $S_n$ are facilitated by some new notation.
+Efficient computations in $S_n$ are facilitated by some new notation.
 
 \begin{defn}{}{cycle}
-Suppose $\{a_1,\ldots,a_k\}\subseteq\{1,\ldots,n\}$. The \emph{$k$-cycle} $\sigma=(a_1\ a_2\cdots a_k)\in S_n$ is the function\par
-\begin{minipage}[t]{0.5\linewidth}\vspace{-12pt}
-\[
-\sigma:\begin{cases}
-a_j\mapsto a_{j+1}&\text{if $j<k$}\\
-a_k\mapsto a_1\\
-x\mapsto x&\text{if }x\not\in\{a_1,\ldots,a_k\}
-\end{cases}
-\]
-\end{minipage}\begin{minipage}[t]{0.5\linewidth}\vspace{2pt}
-\includegraphics[scale=0.9]{perm-cycle4}
-\end{minipage}\bigbreak
-Cycles $(a_1\cdots a_k)$ and $(b_1\cdots b_l)$ are \emph{disjoint} if $\{a_1,\ldots,a_k\}\cap\{b_1,\ldots,b_l\}=\emptyset$.\smallbreak
-%The identity element is the only \emph{zero-cycle.} It is sometimes written $()$, if not otherwise denoted by $e$.\par
-\emph{1-cycles} and the \emph{0-cycle} $()$ are sometimes helpful in calculations: these are simply the identity $e$.
+	Suppose $\{a_1,\ldots,a_k\}\subseteq\{1,\ldots,n\}$. The \emph{$k$-cycle} $\sigma=(a_1\ a_2\cdots a_k)\in S_n$ is the function\par
+	\begin{minipage}[t]{0.5\linewidth}\vspace{-12pt}
+	\[
+		\sigma:
+		\begin{cases}
+			a_j\mapsto a_{j+1}&\text{if $j<k$}\\
+			a_k\mapsto a_1\\
+			x\mapsto x&\text{if }x\not\in\{a_1,\ldots,a_k\}
+		\end{cases}
+	\]
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.49\linewidth}\vspace{2pt}
+		\flushright\includegraphics[scale=0.9]{perm-cycle4}
+	\end{minipage}\bigbreak
+	Cycles $(a_1\cdots a_k)$ and $(b_1\cdots b_l)$ are \emph{disjoint} if $\{a_1,\ldots,a_k\}\cap\{b_1,\ldots,b_l\}=\emptyset$.\smallbreak
+	\emph{1-cycles} and the \emph{0-cycle} $()$ can be helpful in calculations, though both are simply the identity $e$.
 \end{defn}
 
 \begin{example}{}{cyclebasic}
-A 4-cycle $\textcolor{blue}{\sigma=(1\,3\,4\,2)}$ and a 2-cycle $\textcolor{red}{\tau=(1\,4)}$ in $S_4$ are defined in the table:
-\[
-\begin{array}[t]{c||cccc}
-x&1&2&3&4\\\hline\hline
-\textcolor{blue}{\sigma}(x)&3&1&4&2\\\hline
-\textcolor{red}{\tau}(x)&4&2&3&1
-\end{array}
-\qquad\qquad
-\SelectTips{cm}{}\xymatrix @C15pt @R5pt{
-	&&&\\
- 	\makebox[0pt][r]{$\textcolor{blue}{\sigma}:\ $}1 \ar@{|->}@[blue][r] & 3 \ar@{|->}@[blue][r] & 4 \ar@{|->}@[blue][r] & 2 \ar@/_1.0pc/@<-2pt>@{|->}@[blue][lll]
- }
-\qquad\qquad
-\SelectTips{cm}{}\xymatrix @C15pt @R5pt{
-	&&&\\
- 	\makebox[0pt][r]{$\textcolor{red}{\tau}:$\ }1 \ar@/_0.8pc/@{|->}@[red][r]& 4 \ar@/_0.8pc/@{|->}@[red][l] & 2 \ar@{|->}@(dr,ur)@[red] & 3 \ar@{|->}@(dr,ur)@[red]
-}
-\]
-To compose cycles, just remember that each is a \emph{function} and you won't go wrong!
-\[\begin{array}[t]{c|cccc}
-x&1&2&3&4\\\hline
-\tau(x)&4&2&3&1\\\hline
-\sigma\tau(x)&2&1&4&3
-\end{array}
-\qquad\qquad
-\SelectTips{cm}{}\xymatrix @C12pt @R5pt{
-	&&&\\
- 	\makebox[0pt][r]{$\sigma\tau:$\ }1 \ar@/_0.8pc/@{|->}[r] & 2 \ar@/_0.8pc/@{|->}[l] & 3 \ar@/_0.8pc/@{|->}[r] & 4 \ar@/_0.8pc/@{|->}[l]
-}\]
-The result is a product of \emph{disjoint 2-cycles} $\sigma\tau=(1\,2)(3\,4)$.
+	A 4-cycle $\textcolor{blue}{\sigma=(1\,3\,4\,2)}$ and a 2-cycle $\textcolor{red}{\tau=(1\,4)}$ in $S_4$ are defined in the table:
+	\[
+		\begin{array}[t]{c||cccc}
+			x&1&2&3&4\\\hline\hline
+			\textcolor{blue}{\sigma}(x)&3&1&4&2\\\hline
+			\textcolor{red}{\tau}(x)&4&2&3&1
+		\end{array}
+		\qquad\qquad
+		\SelectTips{cm}{}
+		\xymatrix @C15pt @R5pt{%
+			&&&\\
+		 	\makebox[0pt][r]{$\textcolor{blue}{\sigma}:\ $}1 \ar@{|->}@[blue][r] & 3 \ar@{|->}@[blue][r] & 4 \ar@{|->}@[blue][r] & 2 \ar@/_1.0pc/@<-2pt>@{|->}@[blue][lll]
+		}
+		\qquad\qquad
+		\SelectTips{cm}{}
+		\xymatrix @C15pt @R5pt{%
+			&&&\\
+		 	\makebox[0pt][r]{$\textcolor{red}{\tau}:$\ }1 \ar@/_0.8pc/@{|->}@[red][r]& 4 \ar@/_0.8pc/@{|->}@[red][l] & 2 \ar@{|->}@(dr,ur)@[red] & 3 \ar@{|->}@(dr,ur)@[red]
+		}
+	\]
+	To compose cycles, just remember that each is a \emph{function} and you won't go wrong!
+	\[
+		\begin{array}[t]{c|cccc}
+			x&1&2&3&4\\\hline
+			\tau(x)&4&2&3&1\\\hline
+			\sigma\tau(x)&2&1&4&3
+		\end{array}
+		\qquad\qquad
+		\SelectTips{cm}{}
+		\xymatrix @C12pt @R5pt{%
+			&&&\\
+	 		\makebox[0pt][r]{$\sigma\tau:$\ }1 \ar@/_0.8pc/@{|->}[r] & 2 \ar@/_0.8pc/@{|->}[l] & 3 \ar@/_0.8pc/@{|->}[r] & 4 \ar@/_0.8pc/@{|->}[l]
+		}
+	\]
+	The result is a product of \emph{disjoint 2-cycles} $\sigma\tau=(1\,2)(3\,4)$.
 \end{example}
+
+
 
 \boldinline{Algorithmic Cycle Composition}
 
-It is impractically slow to compute using tables. Here is an algorithmic approach that, with practice, should prove more efficient. We illustrate by verifying the previous calculation: at each step you write only a single number or bracket and thus build up the right column.
+Computation using tables is impractically slow. Here is an algorithmic approach that, with practice, should prove more efficient. We illustrate by verifying the previous calculation: at each step you write only a single number or bracket, thus building up the right column below.
 
 \begin{itemize}\itemsep0pt
-  \item Open a bracket and write 1:\hfill $\sigma\tau=(1\phantom{\,2)(3\,4)}$
-  \item Since $1\overset{\tau}{\mapsto}4\overset{\sigma}{\mapsto}2$, write 2 next: \hfill $\sigma\tau=(1\,2\phantom{)(3\,4)}$
-  \item $2\overset{\tau}{\mapsto}2\overset{\sigma}{\mapsto}1$ starts the cycle; close it and open another with an unused value:\hfill $\sigma\tau=(1\,2)(3\phantom{\,4)}$
-  \item $3\overset{\tau}{\mapsto}3\overset{\sigma}{\mapsto}4$, so write 4 next:\hfill $\sigma\tau=(1\,2)(3\,4\phantom{)}$
-  \item $4\overset{\tau}{\mapsto}1\overset{\sigma}{\mapsto}3$ starts the current cycle, so close it:\hfill $\sigma\tau=(1\,2)(3\,4)$
-  \item All values 1, 2, 3, 4 have appeared so we terminate the algorithm.
+  \item Open a bracket and write 1.\hfill $\sigma\tau=(1\phantom{\,2)(3\,4)}$
+  \item Since $1\overset{\tau}{\mapsto}4\overset{\sigma}{\mapsto}2$, we next write 2.\hfill $\sigma\tau=(1\,2\phantom{)(3\,4)}$
+  \item $2\overset{\tau}{\mapsto}2\overset{\sigma}{\mapsto}1$ starts the cycle; close it and open another with an unused value.\hfill $\sigma\tau=(1\,2)(3\phantom{\,4)}$
+  \item $3\overset{\tau}{\mapsto}3\overset{\sigma}{\mapsto}4$, so next write 4.\hfill $\sigma\tau=(1\,2)(3\,4\phantom{)}$
+  \item $4\overset{\tau}{\mapsto}1\overset{\sigma}{\mapsto}3$ starts the current cycle, so close it.\hfill $\sigma\tau=(1\,2)(3\,4)$
+  \item All values 1, 2, 3, 4 have appeared so the algorithm terminates.
 \end{itemize}
-It should be clear how to extend the algorithm when composing more cycles. If you obtain any 1-cycles, delete them. Shortly we'll prove that the algorithm always terminates in a product of disjoint cycles. For now, practice the algorithm by verifying the following:
+It should be clear how to extend the algorithm when composing more cycles. Simply delete any 1-cycles if you obtain them. Shortly we'll prove that the algorithm always terminates in a product of disjoint cycles. For now, practice the algorithm by verifying the following:
 
 \begin{examples}{}{}
-\exstart $(1\,4)(1\,3\,4\,2)=(1\,3)(2\,4)$\hfill \makebox[230pt][l]{2.\lstsp$(1\,3\,5\,4)(2\,3\,4)=(1\,3)(2\,5\,4)$}
-\begin{enumerate}\setcounter{enumi}{2}
-  \item $(1\,2\,3\,4)(1\,2\,3)(1\,2)=(1\,4)(2\,3)$\hfill \makebox[230pt][l]{4.\lstsp$(1\,2\,3\,4\,5\,6)^3=(1\,4)(2\,5)(3\,6)$}
-\end{enumerate}
+	\exstart $(1\,4)(1\,3\,4\,2)=(1\,3)(2\,4)$\hfill \makebox[230pt][l]{2.\lstsp$(1\,3\,5\,4)(2\,3\,4)=(1\,3)(2\,5\,4)$}
+	\begin{enumerate}\setcounter{enumi}{2}
+	  \item $(1\,2\,3\,4)(1\,2\,3)(1\,2)=(1\,4)(2\,3)$\hfill \makebox[230pt][l]{4.\lstsp$(1\,2\,3\,4\,5\,6)^3=(1\,4)(2\,5)(3\,6)$}
+	\end{enumerate}
 \end{examples}
 
 
 \goodbreak
 
+
 \boldsubsubsection{Geometric Symmetry Groups}
 
-Permutations allow us to describe the group of symmetries of a geometric figure: simply label the vertices (or edges/faces) with numbers $1,2,3,\ldots$ and represent each rotation/reflection by how it permutes these values. Cycle notation makes calculating compositions of symmetries easy!
+Permutations permit an easy description of the group of symmetries of a geometric figure: simply label the vertices (or edges/faces) with numbers $1,2,3,\ldots$ and represent each rotation/reflection by how it permutes these values. Cycle notation makes calculating compositions easy!
 
 \begin{examples}{}{disym}
-\exstart Label the vertices of a rhombus to view the Klein four-group $V$ as a subgroup of $S_4$: the 2-cycles $(1\,3)$ and $(2\,4)$ are \emph{reflections,} and their composition is \emph{rotation} by \ang{180}.
-\[
-\begin{minipage}{0.36\textwidth}
-\includegraphics{perm-rhombus}
-\end{minipage}\qquad
-\displaystyle V\cong\bigl\{e,(1\,3),(2\,4),(1\,3)(2\,4)\bigr\}\]
-
-\begin{enumerate}\setcounter{enumi}{1}
-	\begin{minipage}[t]{0.77\linewidth}\vspace{-8pt}
-	\item Label the vertices of a regular hexagon 1 through 6.
-  \begin{itemize}
-  	\item The 2,2-cycle $(1\,5)(2\,4)$ represents reflection across the axis through 3 and 6.
-  	\item The 6-cycle $(1\,2\,3\,4\,5\,6)$ represents a one-step counter-clockwise rotation.
-	\end{itemize}
-	Both are therefore identified with elements of the dihedral group $D_6$.
-\end{minipage}\hfill\begin{minipage}[t]{0.22\linewidth}\vspace{-10pt}
-\flushright\includegraphics{perm-hexagon}
-\end{minipage}\par
-
-\begin{minipage}[t]{0.77\linewidth}\vspace{0pt}
-	\item By labelling the vertices of a square as shown, we identify $D_4$ with a subgroup of $S_4$. All elements and the complete subgroup diagram are given below, where we follow the convention to denote reflections across diagonals ($\delta_j$) and the midpoints of sides ($\mu_j$) differently.\smallbreak
-	Cycle notation makes calculation easy: for instance
-	\[(2\,4)(1\,2)(3\,4)=(1\,4\,3\,2)\implies \delta_1\mu_1=\rho_3\]
-\end{minipage}\hfill\begin{minipage}[t]{0.22\linewidth}\vspace{0pt}
-\flushright\includegraphics{perm-d4}
-\end{minipage}\smallbreak
-
-%\begin{minipage}[t]{.5\linewidth}\vspace{0pt}
-% \[\def\arraystretch{1.1}\begin{array}{c||c|c|c|c|c|c|c|c}
-% \circ & \rho_0 & \rho_1 & \rho_2 &\rho_3 & \mu_1 & \mu_2 & \delta_1 & \delta_2\\
-%  \hline\hline
-% \rho_0 & \rho_0 & \rho_1 & \rho_2 & \rho_3 & \mu_1 & \mu_2 & \delta_1 & \delta_2\\
-% \hline
-% \rho_1 & \rho_1 & \rho_2 & \rho_3 & \rho_0 & \delta_2 & \delta_1 & \mu_1 & \mu_2\\
-% \hline
-% \rho_2 & \rho_2 & \rho_3 & \rho_0 & \rho_1 & \mu_2 & \mu_1 & \delta_2 & \delta_1\\
-% \hline
-% \rho_3 & \rho_3 & \rho_0 & \rho_1 & \rho_2 & \delta_1 & \delta_2 & \mu_2 & \mu_1\\
-% \hline
-% \mu_1 & \mu_1 & \delta_1 & \mu_2 & \delta_2 & \rho_0 & \rho_2 & \rho_1 & \rho_3\\
-% \hline
-% \mu_2 & \mu_2 & \delta_2 & \mu_1 & \delta_1 & \rho_2 & \rho_0 & \rho_3 & \rho_1\\
-% \hline
-% \delta_1 & \delta_1 & \mu_2 & \delta_2 & \mu_1 & \rho_3 & \rho_1 & \rho_0 & \rho_2\\
-% \hline
-% \delta_2 & \delta_2 & \mu_1 & \delta_1 & \mu_2 & \rho_1 & \rho_3 & \rho_2 & \rho_0
-% \end{array}\]
-%\end{minipage}
-
-
-	That two reflections make a rotation is geometrically obvious, but identifying \emph{which} rotation is harder without the the ability to calculate!\par
+	\exstart Label the vertices of a rhombus to view the Klein four-group $V$ as a subgroup of $S_4$: the 2-cycles $(1\,3)$ and $(2\,4)$ are reflections, and their composition is rotation by \ang{180}.
+	\[
+		\begin{minipage}{0.36\textwidth}
+			\includegraphics{perm-rhombus}
+		\end{minipage}\qquad
+		\displaystyle V\cong\bigl\{e,(1\,3),(2\,4),(1\,3)(2\,4)\bigr\}
+	\]
 	
-\begin{minipage}[t]{\linewidth}\vspace{-10pt}
-\begin{minipage}[t]{.3\linewidth}\vspace{0pt}
-\def\arraystretch{1.05}\begin{tabular}{|r|c|c|}\hline
-    \multicolumn{2}{|c|}{Element} & Cycle notation\\\hline
-    & $\rho_0$ & $e=()$\\\cline{2-3}
-    \multirow{2}{*}{\rotatebox{90}{\smash[b]{\makebox[0cm]{\ Rotations}}}} & $\rho_1$ & $(1234)$\\\cline{2-3}
-    & $\rho_2$ & $(13)(24)$\\\cline{2-3}
-    & $\rho_3$ & $(1432)$\\\hline
-    & $\mu_1$ & $(12)(34)$\\\cline{2-3}
-    \multirow{2}{*}{\rotatebox{90}{\smash[b]{\makebox[0cm]{\ \,Reflections}}}} & $\mu_2$ & $(14)(23)$\\\cline{2-3}
-    & $\delta_1$ & $(24)$\\\cline{2-3}
-    & $\delta_2$ & $(13)$\\\hline
-  \end{tabular}
-\end{minipage}\hfill\begin{minipage}[t]{.3\linewidth}\vspace{0pt}
-  \def\arraystretch{1.05}$\begin{array}{|c|c|c|}\hline
-    \text{Subgroup} & \text{Isomorph}\\\hline
-     \{\rho_0\} & \Z_1\\\hline
-     \textcolor{red}{\{\rho_0,\mu_i\}} & \textcolor{red}{\Z_2}\\\hline
-     \textcolor{blue}{\{\rho_0,\delta_i\}} & \textcolor{blue}{\Z_2}\\\hline
-     \{\rho_0,\rho_2\} & \Z_2\\\hline
-     \{\rho_0,\rho_1,\rho_2,\rho_3\} & \Z_4\\\hline
-     \textcolor{red}{\{\rho_0,\mu_1,\mu_2,\rho_2\}} & \textcolor{red}{V}\\\hline
-     \textcolor{blue}{\{\rho_0,\delta_1,\delta_2,\rho_2\}} & \textcolor{blue}{V}\\\hline
-  \end{array}$
-\end{minipage}\hfill\begin{minipage}[t]{.31\linewidth}\vspace{0pt}
-$\xymatrix @R18pt @C10pt{ && D_4 \ar@{-}[dl] \ar@{-}[d] \ar@{-}[dr] &&\\
-& \textcolor{red}{V} \ar@{-}[dr] \ar@{-}[d] \ar@{-}[dl] & \Z_4 \ar@{-}[d] & \textcolor{blue}{V} \ar@{-}[dr] \ar@{-}[d] \ar@{-}[dl] & \\
-\textcolor{red}{\Z_2} \ar@{-}[drr] & \textcolor{red}{\Z_2} \ar@{-}[dr] & \Z_2 \ar@{-}[d] & \textcolor{blue}{\Z_2} \ar@{-}[dl] & \textcolor{blue}{\Z_2} \ar@{-}[dll] \\
-&& \Z_1 &&}$
-\end{minipage}
-\end{minipage}\par
-
-You should be able to recognize these subgroups geometrically; e.g.\ the blue copy of $\textcolor{blue}{V}$ is precisely that in the first example. Also try to convince yourself why there are no other subgroups.
-\end{enumerate}
+	\begin{enumerate}\setcounter{enumi}{1}
+		\begin{minipage}[t]{0.77\linewidth}\vspace{-8pt}
+			\item Label the vertices of a regular hexagon 1 through 6.
+		  \begin{itemize}
+		  	\item The 2,2-cycle $(1\,5)(2\,4)$ represents reflection across the axis through 3 and 6.
+		  	\item The 6-cycle $(1\,2\,3\,4\,5\,6)$ represents a one-step counter-clockwise rotation ($\ang{60}$).
+			\end{itemize}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.22\linewidth}\vspace{-10pt}
+			\flushright\includegraphics{perm-hexagon}
+		\end{minipage}\smallbreak
+		Both functions describe elements of the dihedral group $D_6$. By extension, $D_6$ may be identified as (is isomorphic to) a subgroup of $S_6$.
+	
+		\begin{minipage}[t]{0.77\linewidth}\vspace{0pt}
+			\item By labelling the vertices of a square, we may identify $D_4$ with a subgroup of $S_4$. All elements and the complete subgroup diagram are given below. By convention we denote reflections across diagonals ($\delta_j$) and the midpoints of sides ($\mu_j$) differently.\smallbreak
+			Note the ease of computations: e.g.,
+			\[
+				(2\,4)(1\,2)(3\,4)=(1\,4\,3\,2)\implies \delta_1\mu_1=\rho_3
+			\]
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.22\linewidth}\vspace{0pt}
+			\flushright\includegraphics{perm-d4}
+		\end{minipage}\medbreak
+	
+	%\begin{minipage}[t]{.5\linewidth}\vspace{0pt}
+	% \[\def\arraystretch{1.1}\begin{array}{c||c|c|c|c|c|c|c|c}
+	% \circ & \rho_0 & \rho_1 & \rho_2 &\rho_3 & \mu_1 & \mu_2 & \delta_1 & \delta_2\\
+	%  \hline\hline
+	% \rho_0 & \rho_0 & \rho_1 & \rho_2 & \rho_3 & \mu_1 & \mu_2 & \delta_1 & \delta_2\\
+	% \hline
+	% \rho_1 & \rho_1 & \rho_2 & \rho_3 & \rho_0 & \delta_2 & \delta_1 & \mu_1 & \mu_2\\
+	% \hline
+	% \rho_2 & \rho_2 & \rho_3 & \rho_0 & \rho_1 & \mu_2 & \mu_1 & \delta_2 & \delta_1\\
+	% \hline
+	% \rho_3 & \rho_3 & \rho_0 & \rho_1 & \rho_2 & \delta_1 & \delta_2 & \mu_2 & \mu_1\\
+	% \hline
+	% \mu_1 & \mu_1 & \delta_1 & \mu_2 & \delta_2 & \rho_0 & \rho_2 & \rho_1 & \rho_3\\
+	% \hline
+	% \mu_2 & \mu_2 & \delta_2 & \mu_1 & \delta_1 & \rho_2 & \rho_0 & \rho_3 & \rho_1\\
+	% \hline
+	% \delta_1 & \delta_1 & \mu_2 & \delta_2 & \mu_1 & \rho_3 & \rho_1 & \rho_0 & \rho_2\\
+	% \hline
+	% \delta_2 & \delta_2 & \mu_1 & \delta_1 & \mu_2 & \rho_1 & \rho_3 & \rho_2 & \rho_0
+	% \end{array}\]
+	%\end{minipage}
+	
+			
+	\begin{minipage}[t]{\linewidth}\vspace{0pt}
+		\begin{minipage}[t]{.3\linewidth}\vspace{0pt}
+			\def\arraystretch{1.1}
+			\begin{tabular}{|r|c|c|}\hline
+		    \multicolumn{2}{|c|}{Element} & Cycle notation\\\hline
+		    & $\rho_0$ & $e=()$\\\cline{2-3}
+		    \multirow{2}{*}{\rotatebox{90}{\smash[b]{\makebox[0cm]{\ Rotations}}}} & $\rho_1$ & $(1234)$\\\cline{2-3}
+		    & $\rho_2$ & $(13)(24)$\\\cline{2-3}
+		    & $\rho_3$ & $(1432)$\\\hline
+		    & $\mu_1$ & $(12)(34)$\\\cline{2-3}
+		    \multirow{2}{*}{\rotatebox{90}{\smash[b]{\makebox[0cm]{\ \,Reflections}}}} & $\mu_2$ & $(14)(23)$\\\cline{2-3}
+		    & $\delta_1$ & $(24)$\\\cline{2-3}
+		    & $\delta_2$ & $(13)$\\\hline
+		  \end{tabular}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{.3\linewidth}\vspace{0pt}
+		  \def\arraystretch{1.1}
+		  $\begin{array}{|c|c|c|}\hline
+		    \text{Subgroup} & \text{Isomorph}\\\hline
+		     \{\rho_0\} & \Z_1\\\hline
+		     \textcolor{red}{\{\rho_0,\mu_i\}} & \textcolor{red}{\Z_2}\\\hline
+		     \textcolor{blue}{\{\rho_0,\delta_i\}} & \textcolor{blue}{\Z_2}\\\hline
+		     \{\rho_0,\rho_2\} & \Z_2\\\hline
+		     \{\rho_0,\rho_1,\rho_2,\rho_3\} & \Z_4\\\hline
+		     \textcolor{red}{\{\rho_0,\mu_1,\mu_2,\rho_2\}} & \textcolor{red}{V}\\\hline
+		     \textcolor{blue}{\{\rho_0,\delta_1,\delta_2,\rho_2\}} & \textcolor{blue}{V}\\\hline
+		  \end{array}$
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{.31\linewidth}\vspace{0pt}
+			$\xymatrix @R18pt @C10pt{%
+				&& D_4 \ar@{-}[dl] \ar@{-}[d] \ar@{-}[dr] &&\\
+				& \textcolor{red}{V} \ar@{-}[dr] \ar@{-}[d] \ar@{-}[dl] & \Z_4 \ar@{-}[d] & \textcolor{blue}{V} \ar@{-}[dr] \ar@{-}[d] \ar@{-}[dl] & \\
+				\textcolor{red}{\Z_2} \ar@{-}[drr] & \textcolor{red}{\Z_2} \ar@{-}[dr] & \Z_2 \ar@{-}[d] & \textcolor{blue}{\Z_2} \ar@{-}[dl] & \textcolor{blue}{\Z_2} \ar@{-}[dll] \\
+				&& \Z_1 &&
+			}$
+		\end{minipage}
+	\end{minipage}\par
+	
+	You should be able to recognize these subgroups geometrically; e.g.\ the blue copy of $\textcolor{blue}{V}$ is precisely that in the first example! Try to convince yourself why there are no other subgroups.
+	\end{enumerate}
 \end{examples}
 
 The same sort of thing can be done for 3D figures like the tetrahedron (see Section \ref{sec:transpositions}).
@@ -450,137 +468,146 @@ The same sort of thing can be done for 3D figures like the tetrahedron (see Sect
 % In the subgroup diagram, the middle $C_2$ is $\{\rho_0,\rho_2\}$ while the two copies on each side contain either the reflections $\delta_i$ or $\mu_i$.
 
 
+
 \boldsubsubsection{Cayley's Theorem}
    
-In mathematics, the word \emph{group} originally referred to a set of permutations. We finish this section with a foundational result: every element of a group may be viewed as a permutation of the group itself, thus linking to the original meaning of the word.
+The word \emph{group}, at least in mathematics, originally referred to a set of permutations. We finish this section with a foundational result that links to the original meaning of the word: every element of a group may be viewed as a permutation---indeed of the group itself!
 
 \begin{thm}{Cayley}{cayley}
-Every group is isomorphic to a group of permutations.
+	Every group is isomorphic to a group of permutations.
 \end{thm}
 
 \begin{proof}
-Let $G$ be a group. For each $a\in G$, let $\sigma_a:G\to G$ be left multiplication by $a$, i.e.\ $\sigma_a(x)=ax$.\par
-We claim that the set of such functions $\{\sigma_a:a\in G\}$ forms a subgroup of $S_G$ isomorphic to $G$.\smallbreak
-First observe that $\sigma_a$ has inverse function $\sigma_a^{-1}=\sigma_{a^{-1}}$, since
-\[
-	\forall x\in G,\quad \sigma_{a^{-1}}\bigl(\sigma_{a}(x)\bigr)=a^{-1}ax=x \quad\text{and}\quad 	\sigma_a\bigl(\sigma_{a^{-1}}\bigr)(x)=aa^{-1}x=x
-\]
-It follows that each $\sigma_a$ is a permutation of $G$: that is $\sigma_a\in S_G$.\smallbreak
-
-We finish by showing that the function $\phi:G\to\{\sigma_a:a\in G\}$ defined by $\phi(a)=\sigma_a$ is an isomorphism:
-\begin{quote}
-	\emph{Injectivity}:\quad $\phi(a)=\phi(b)\implies\sigma_a=\sigma_b\implies a=\sigma_a(e)=\sigma_b(e)=b$.\par
-	\emph{Surjectivity}:\quad Certainly every function $\sigma_a$ is in the range of $\phi$!\par
-	\emph{Homomorphism}:\quad For all $a,b,x\in G$,
-	\[\bigl(\phi(a)\circ\phi(b)\bigr)(x)= \sigma_a\bigl(\sigma_b(x)\bigr)=abx=\sigma_{ab}(x) =\bigl(\phi(ab)\bigr)(x)\]
-	from which $\phi(a)\circ\phi(b)=\phi(ab)$.\vspace{-20pt}
-\end{quote}
+	Let $G$ be a group. For each $g\in G$, let $\sigma_g:G\to G:x\mapsto gx$ be left-multiplication by $g$.\par
+	We claim that the set of such functions $\cG:=\{\sigma_g:g\in G\}$ forms a subgroup of $S_G$ isomorphic to $G$.\smallbreak
+	First observe that each $\sigma_g$ is bijective with inverse function $\sigma_g^{-1}=\sigma_{g^{-1}}$: otherwise said,
+	\[
+		\forall x\in G,\ \ \sigma_{g^{-1}}\bigl(\sigma_g(x)\bigr) =g^{-1}gx=x
+		\quad\text{and}\quad 
+		\sigma_g\bigl(\sigma_{g^{-1}}\bigr)(x)=gg^{-1}x=x
+	\]
+	Each $\sigma_g$ is therefore a permutation of $G$ (that is $\cG\subseteq S_G$) and $\cG$ is closed under inverses. Moreover,
+	\[
+		\forall x\in G,\ \ (\sigma_g\circ \sigma_h)(x)= ghx =\sigma_{gh}(x) \tag{$\ast$}
+	\]
+	says that $\sigma_g\sigma_h=\sigma_{gh}$, whence $\cG$ is closed under composition. We conclude that $\cG$ is a subgroup of $S_G$.\smallbreak
+	
+	We finish by showing that the function $\phi:G\to \cG$ defined by $\phi(g):=\sigma_g$ is an isomorphism:
+	\begin{quote}
+		\emph{Injectivity}:\quad $\phi(g)=\phi(h)\implies \sigma_g=\sigma_h\implies \sigma_g(e)=\sigma_h(e) \implies g=h$.\par
+		\emph{Surjectivity}:\quad Certainly every function $\sigma_g$ is in the range of $\phi$!\par
+		\emph{Homomorphism}:\quad ($\ast$) is precisely the homomorphism property $\phi(g)\circ\phi(h)=\phi(gh)$.
+% 		The fact that For all $g,h,x\in G$,
+% 		\[
+% 			\bigl(\phi(g)\circ\phi(h)\bigr)(x)= \sigma_g\bigl(\sigma_h(x)\bigr) =ghx =\sigma_{gh}(x) =\bigl(\phi(gh)\bigr)(x)
+% 		\]
+% 		from which .
+		\vspace{-20pt}
+	\end{quote}
 \end{proof}
 
-Cayley's Theorem \emph{does not} say that every group is isomorphic to some symmetric group. It says that that every group $G$ is isomorphic to \emph{a subgroup} of $S_G$.
+Cayley's Theorem does \emph{not} say that every group is isomorphic to some symmetric group. It says that that every group $G$ is isomorphic to some \emph{subgroup} of $\cG\le S_G$.
 
-\vfil
+
    
 
 \begin{exercises}
-Key concepts:
-\begin{quote}
-	\emph{Permutation \qquad Symmetric group \qquad Cycle notation}
-\end{quote}
-
-\begin{enumerate}
-  \item Which of the following functions are permutations? Explain.
-  \begin{enumerate}
-      \item $f:\Z\to\Z$ such that $f(x)=x-7$.
-      \item $f:\Z\to\Z$ such that $f(x)=-3x+4$.
-      \item $f:\R\to\R$ such that $f(x)=x^3-x$.
-      \item $f:\R\to\R$ such that $f(x)=x^3+x$.
-      \item $f:\{$fish, horse, dog, cat$\}\to\{$fish, horse, dog, cat$\}$ where 
-\[f:\begin{pmatrix}
-    \text{fish}\\
-    \text{horse}\\
-    \text{dog}\\
-    \text{cat}
-    \end{pmatrix}=\begin{pmatrix}
-                     \text{horse}\\
-                     \text{cat}\\
-                     \text{dog}\\
-                     \text{fish}
-                  \end{pmatrix}\]
-  \end{enumerate}
-  
-  \goodbreak
-  
-  
-  \item Compute the following products of permutations in cycle notation.
-  \begin{enumerate}
-    \item \makebox[220pt][l]{$(1\,2)(3\,4)(1\,2\,3)\in S_4$\hfill (b)}\lstsp $(1\,4)(2\,3)(3\,4)(1\,4)\in S_4$
-    \setcounter{enumii}{2}
-    \item \makebox[220pt][l]{$(1\,2\,3)(2\,3\,4)(3\,4\,1)(4\,1\,2)\in S_4$\hfill (d)}\lstsp $(1\,2\,4\,5)^2(2\,4\,5)^2\in S_5$
-  \end{enumerate}
-  
-
-	\begin{minipage}[t]{.6\textwidth}\vspace{0pt}
-	\item Consider the dihedral group $D_7$ of symmetries of the regular heptagon, viewed as a subgroup of $S_7$. Each $\mu_i$ is reflection across the indicated dashed line, and $\rho_j$ is rotation $j$ steps counter-clockwise.
+	Key concepts:
+	\begin{quote}
+		\emph{Permutation \qquad Symmetric group \qquad Cycle notation}
+	\end{quote}
+	
 	\begin{enumerate}
-		\item State $\mu_4$ in cycle notation.
-		\item Compute $\mu_3\rho_1$ using cycle notation. What element of $D_7$ does this represent?
-		\item Calculate $(\rho_2\mu_3\rho_1)^{666}$.
+	  \item Which of the following functions are permutations? Explain.
+	  \begin{enumerate}
+	      \item $f:\Z\to\Z$ such that $f(x)=x-7$.
+	      \item $f:\Z\to\Z$ such that $f(x)=-3x+4$.
+	      \item $f:\R\to\R$ such that $f(x)=x^3-x$.
+	      \item $f:\R\to\R$ such that $f(x)=x^3+x$.
+	      \item $f:\{$fish, horse, dog, cat$\}\to\{$fish, horse, dog, cat$\}$ where 
+	      \[
+	      	f(\text{fish})=\text{horse},\quad f(\text{horse})=\text{cat},\quad f(\text{dog})=\text{dog},\quad f(\text{cat})=\text{fish}
+	      \]
+	  \end{enumerate}
+	    
+	  
+	  \item Compute the following products (compositions) of permutations in cycle notation.
+	  \begin{enumerate}
+	    \item \makebox[220pt][l]{$(1\,2)(3\,4)(1\,2\,3)\in S_4$\hfill (b)}\lstsp $(1\,4)(2\,3)(3\,4)(1\,4)\in S_4$
+	    \setcounter{enumii}{2}
+	    \item \makebox[220pt][l]{$(1\,2\,3)(2\,3\,4)(3\,4\,1)(4\,1\,2)\in S_4$\hfill (d)}\lstsp $(1\,2\,4\,5)^2(2\,4\,5)^2\in S_5$
+	  \end{enumerate}
+	  
+	  \goodbreak
+	  
+	
+		\begin{minipage}[t]{.6\textwidth}\vspace{0pt}
+			\item By labelling vertices, view the dihedral group $D_7$ of symmetries of the regular heptagon as a subgroup of $S_7$. Each $\mu_i$ is reflection across the indicated dashed line, while $\rho_j$ is rotation $j$ steps counter-clockwise.
+			\begin{enumerate}
+				\item State $\mu_4$ in cycle notation.
+				\item Compute $\mu_3\rho_1$ using cycle notation. What element of $D_7$ does this represent?
+				\item Calculate $(\rho_2\mu_3\rho_1)^{666}$.
+			\end{enumerate}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{.29\textwidth}\vspace{0pt}
+			\flushright\begin{tabular}{@{}c@{}}
+				\includegraphics{perm-heptagon}\\
+				$\rho_1=(1\,2\,3\,4\,5\,6\,7)$,\ \ $\rho_j=\rho_1^j$
+			\end{tabular}
+		\end{minipage}
+		
+		
+		\item State the elements of the rotation group $R_5$ in cycle notation when viewed as a subgroup of $S_5$.
+	  
+	  
+	  \item Prove parts 2, 3, and 4 of Lemma \ref{lemm:sabasic}.
+	  
+	  
+	  \item How many distinct subgroups of $S_4$ are isomorphic to $S_3$. Describe them.
+	  
+		
+	  \item\label{exs:symmwd} Suppose sets $A$ and $B$ have the same cardinality: that is, $\exists \mu:A\to B$ bijective.
+	  \begin{enumerate}
+	    \item If $\sigma\in S_A$ is a permutation, show that $\mu\sigma\mu^{-1}\in S_B$.
+	    \item Hence prove that $S_A$ and $S_B$ are isomorphic.
+	  \end{enumerate}
+	  
+	  
+	  \item Cayley's Theorem says that $G$ is isomorphic to a subgroup of $S_G$.  What can you say about a (finite) group $G$ if $G\cong S_G$?
+	
+	  
+	  \item In Cayley's Theorem we defined $\sigma_g:G\to G$ via \emph{left-multiplication.}
+	  \begin{enumerate}
+	    \item Does the argument still work if $\sigma_g:G\to G$ is \emph{right-multiplication} $\sigma_g(x)=xg$?
+	    
+	    \item (Harder)\lstsp Suppose we take $\sigma_g(x):=gx g^{-1}$. Does the proof of Cayley's Theorem work this time? Why/why not?
+	  \end{enumerate}
+		
+		
+		\item Show that the group $S_3$ is \emph{indecomposable}: there are no groups $G,H$ of order less than $\nm{S_3}$ for which $S_3\cong G\times H$.\par
+		(\emph{Hint: Assuming $S_3$ is decomposable, there is only one possible decomposition. Why does this decomposition make no sense?})
+	  
+	  
+	  \item\label{exs:centerSn} Let $n\ge 3$. Prove that if $\sigma\in S_n$ commutes with every other element of $S_n$ (i.e. $\sigma\rho=\rho\sigma,\ \forall \rho\in S_n$) then $\sigma$ is the identity.\par
+	  (\emph{Hint: suppose $\sigma(a)=b\neq a$ and consider the cases $\sigma(b)=a$ and $\sigma(b)\neq a$ separately})
+	
 	\end{enumerate}
-	\end{minipage}\hfill\begin{minipage}[t]{.29\textwidth}\vspace{0pt}
-		\flushright\begin{tabular}{@{}c@{}}
-			\includegraphics{perm-heptagon}\\
-			$\rho_1=(1\,2\,3\,4\,5\,6\,7)$,\ \ $\rho_j=\rho_1^j$
-		\end{tabular}
-	\end{minipage}
-	
-	
-	\item State the elements of the rotation group $R_5$ in cycle notation when viewed as a subgroup of $S_5$.
-  
-  
-  \item Prove parts 2, 3, and 4 of Lemma \ref{lemm:sabasic}.
-  
-  
-  \item How many distinct subgroups of $S_4$ are isomorphic to $S_3$. Describe them.
-  
-	
-  \item\label{exs:symmwd} Suppose sets $A$ and $B$ have the same cardinality: that is, $\exists \mu:A\to B$ bijective.
-  \begin{enumerate}
-    \item If $\sigma\in S_A$ is a permutation, show that $\mu\sigma\mu^{-1}\in S_B$.
-    \item Hence prove that $S_A$ and $S_B$ are isomorphic.
-  \end{enumerate}
-  
-  
-  \item Cayley's Theorem says that $G$ is isomorphic to a subgroup of $S_G$.  What can you say about a finite group $G$ if $G\cong S_G$?
-
-  
-  \item In Cayley's theorem we defined $\sigma_a:G\to G$ via \emph{left multiplication.}
-  \begin{enumerate}
-    \item Does the argument still work if $\sigma_a:G\to G$ is \emph{right multiplication} $\sigma_a(x)=xa$?
-    
-    \item (Harder) \ Suppose we take $\sigma_a(x):=axa^{-1}$. Where does the proof of Cayley's Theorem fail?
-  \end{enumerate}
-	
-	
-	\item Show that the group $S_3$ is indecomposable: there are no groups $G,H$ of order less than $\nm{S_3}$ for which $S_3\cong G\times H$.\par
-	(\emph{Hint: Assuming $S_3$ is decomposable, there is only one possible decomposition. Why does this decomposition make no sense?})
-  
-  
-  \item Let $n\ge 3$. Prove that if $\sigma\in S_n$ commutes with every other element of $S_n$ (i.e. $\sigma\rho=\rho\sigma,\ \forall \rho\in S_n$) then $\sigma$ is the identity.\par
-  (\emph{Hint: suppose $\sigma(a)=b\neq a$ and consider the cases $\sigma(b)=a$ and $\sigma(b)\neq a$ separately})
-
-\end{enumerate}
 \end{exercises}
+
 
 \clearpage
 
+
 \subsection{Orbits}\label{sec:orbits}
 
-In this section we begin to consider the idea of a \emph{group action}; how the elements of a group transform a set. We've already seen examples of this; for instance how rotations transform an object. The simplest general example is built into the definition of the symmetric group and appears naturally in cycle notation.
+Group theory is often applied by allowing the elements of a group to transform a set.\footnote{The formal definition of such \emph{group actions} is postponed until Chapter \ref{chap:action}.} We've already seen several examples: for instance how rotations transform a geometric figure. The simplest general example is built into the definition of the symmetric group and appears naturally in cycle notation.
 
 \begin{defn}{}{}
-The \emph{orbit} of $\sigma\in S_n$ containing $x\in\{1,2,\ldots,n\}$ is the \emph{set}
-\[\orb_x(\sigma)=\{\sigma^k(x):k\in\Z\}\subseteq\{1,2,\ldots,n\}\]
+	The \emph{orbit} of $\sigma\in S_n$ containing $x\in\{1,2,\ldots,n\}$ is the \emph{set}
+	\[
+		\orb_x(\sigma)=\{\sigma^k(x):k\in\Z\}\subseteq\{1,2,\ldots,n\}
+	\]
 \end{defn}
 
 \textcolor{red}{Warning!} Each orbit is a subset of $\{1,2,\ldots,n\}$, \emph{not} of the group $S_n$.\smallbreak
@@ -588,14 +615,14 @@ Observe also that $\orb_{\sigma^k(x)}(\sigma)=\orb_x(\sigma)$ for \emph{any} $k\
 
 
 \begin{examples}{}{}
-If $\sigma\in S_n$ is written as a product of \emph{disjoint cycles,} then the cycles are the orbits!
-\begin{enumerate}
-  \item The orbits of $(1\,3\,4)\in S_4$ are the disjoint sets $\{1,3,4\},\{2\}$.
-  \item The orbits of $(1\,2)(4\,5)$ are $\{1,2\},\{3\},\{4,5\}$.
-  \item This is \emph{false} if the cycles are not disjoint. For instance, $\sigma=(1\,3)(2\,3\,4)\in S_4$ maps
-	\[1\mapsto 3\mapsto 4\mapsto 2\mapsto 1\]
-	so there is only one orbit: $\orb_x(\sigma)=\{1,2,3,4\}$ for any $x$. This comports with the result $\sigma=(1\,2\,3\,4)$ of multiplying out $\sigma$ using our algorithm.
-\end{enumerate}
+	If $\sigma\in S_n$ is written as a product of \emph{disjoint cycles,} then the cycles are the orbits!
+	\begin{enumerate}
+	  \item The orbits of $(1\,3\,4)\in S_4$ are the disjoint sets $\{1,3,4\},\{2\}$.
+	  \item The orbits of $(1\,2)(4\,5)$ are $\{1,2\},\{3\},\{4,5\}$.
+	  \item This is \emph{false} if the cycles are not disjoint. For instance, $\sigma=(1\,3)(2\,3\,4)\in S_4$ maps
+		\[1\mapsto 3\mapsto 4\mapsto 2\mapsto 1\]
+		so there is only one orbit: $\orb_x(\sigma)=\{1,2,3,4\}$ for any $x$. This comports with the result $\sigma=(1\,2\,3\,4)$ of multiplying out $\sigma$ using our algorithm.
+	\end{enumerate}
 \end{examples}
 
 Given that disjoint cycle notation is so useful for reading orbits, it is natural to ask if \emph{any} permutation can be written as a product of disjoint cycles. The answer is yes, and  the disjoint cycles turn out to be precisely the orbits!
