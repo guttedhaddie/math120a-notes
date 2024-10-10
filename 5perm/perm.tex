@@ -166,7 +166,7 @@ Efficient computations in $S_n$ are facilitated by some new notation.
 
 
 
-\boldinline{Algorithmic Cycle Composition}
+\boldinline{Algorithmic Cycle Composition}\phantomsection\label{pg:cyclenot}
 
 Computation using tables is impractically slow. Here is an algorithmic approach that, with practice, should prove more efficient. We illustrate by verifying the previous calculation: at each step you write only a single number or bracket, thus building up the right column below.
 
@@ -601,7 +601,7 @@ Cayley's Theorem does \emph{not} say that every group is isomorphic to some symm
 
 \subsection{Orbits}\label{sec:orbits}
 
-Group theory is often applied by allowing the elements of a group to transform a set.\footnote{The formal definition of such \emph{group actions} is postponed until Chapter \ref{chap:action}.} We've already seen several examples: for instance how rotations transform a geometric figure. The simplest general example is built into the definition of the symmetric group and appears naturally in cycle notation.
+Group theory is often applied by allowing the elements of a group to transform a set.\footnote{The formal definition of such \emph{group actions} is postponed until Chapter \ref{chap:action}.} We've already seen several examples: for instance, how rotations transform a geometric figure. The simplest general example is built into the definition of the symmetric group and appears naturally in cycle notation.
 
 \begin{defn}{}{}
 	The \emph{orbit} of $\sigma\in S_n$ containing $x\in\{1,2,\ldots,n\}$ is the \emph{set}
@@ -611,207 +611,237 @@ Group theory is often applied by allowing the elements of a group to transform a
 \end{defn}
 
 \textcolor{red}{Warning!} Each orbit is a subset of $\{1,2,\ldots,n\}$, \emph{not} of the group $S_n$.\smallbreak
-Observe also that $\orb_{\sigma^k(x)}(\sigma)=\orb_x(\sigma)$ for \emph{any} $k\in\Z$.
+Observe also that $\orb_{\sigma^k(x)}(\sigma)=\orb_x(\sigma)$ for any $k\in\Z$.
 
 
 \begin{examples}{}{}
-	If $\sigma\in S_n$ is written as a product of \emph{disjoint cycles,} then the cycles are the orbits!
+	If $\sigma\in S_n$ is written as a product of \emph{disjoint cycles,} then the cycles are the orbits.
 	\begin{enumerate}
-	  \item The orbits of $(1\,3\,4)\in S_4$ are the disjoint sets $\{1,3,4\},\{2\}$.
-	  \item The orbits of $(1\,2)(4\,5)$ are $\{1,2\},\{3\},\{4,5\}$.
-	  \item This is \emph{false} if the cycles are not disjoint. For instance, $\sigma=(1\,3)(2\,3\,4)\in S_4$ maps
-		\[1\mapsto 3\mapsto 4\mapsto 2\mapsto 1\]
-		so there is only one orbit: $\orb_x(\sigma)=\{1,2,3,4\}$ for any $x$. This comports with the result $\sigma=(1\,2\,3\,4)$ of multiplying out $\sigma$ using our algorithm.
+	  \item The orbits of $(1\,3\,4)\in S_4$ are the disjoint sets $\{1,3,4\},\{2\}$. Note the singleton orbit $\{2\}$!
+	  \item The orbits of $(1\,2)(4\,5)\in S_5$ are $\{1,2\},\{3\},\{4,5\}$.
+	  \item Non-disjoint cycles are not orbits. For instance, $\sigma=(1\,3)(2\,3\,4)\in S_4$ maps
+		\[
+			1\mapsto 3\mapsto 4\mapsto 2\mapsto 1
+		\]
+		so there is only one orbit: $\orb_x(\sigma)=\{1,2,3,4\}$ for any $x$. This comports with the result obtained by multiplying cycles via the usual algorithm: $\sigma=(1\,2\,3\,4)$.
 	\end{enumerate}
 \end{examples}
 
-Given that disjoint cycle notation is so useful for reading orbits, it is natural to ask if \emph{any} permutation can be written as a product of disjoint cycles. The answer is yes, and  the disjoint cycles turn out to be precisely the orbits!
+Given that disjoint cycle notation is so useful for reading orbits, it is natural to ask if \emph{any} permutation can be written in such a manner. The answer is yes, as we demonstrate in the next two results.
 
 
-\begin{thm}{}{orbit}
-The orbits of any $\sigma\in S_n$ partition $X=\{1,2,\ldots,n\}$.
-\end{thm}
+\begin{lemm}{}{orbit}
+	The orbits of $\sigma\in S_n$ partition $X=\{1,2,\ldots,n\}$.
+\end{lemm}
 
 \begin{proof}
-Define a relation $\sim$ on $X=\{1,2,\ldots,n\}$ by $x\sim y\iff y\in\orb_x(\sigma)$. We claim that this is an equivalence relation.\footnotemark
-\begin{quote}
-\begin{description}
-	\item[\normalfont\emph{Reflexivity}] $x\sim x$ since $x=\sigma^0(x)$. \checkmark
-	\item[\normalfont\emph{Symmetry}] $x\sim y\implies y=\sigma^k(x)$ for some $k\in\Z$. But then $x=\sigma^{-k}(y) \implies y\sim x$. \checkmark
-	\item[\normalfont\emph{Transitivity}] Suppose that $x\sim y$ and $y\sim z$. Then $y=\sigma^k(x)$ and $z=\sigma^l(y)$ for some $k,l\in\Z$. But then $z=\sigma^{k+l}(x)$ and so $x\sim z$. \checkmark
-\end{description}
-\end{quote}
-The equivalence classes of $\sim$ are clearly the orbits of $\sigma$, which therefore partition $X$.
+	Define a relation $\sim$ on $X=\{1,2,\ldots,n\}$ by $x\sim y\iff y\in\orb_x(\sigma)$. We claim that this is an equivalence relation.\footnotemark
+	\begin{quote}
+	\begin{description}
+		\item[\normalfont\emph{Reflexivity}] $x\sim x$ since $x=\sigma^0(x)$. \checkmark
+		\item[\normalfont\emph{Symmetry}] $x\sim y\implies y=\sigma^k(x)$ for some $k\in\Z$. But then $x=\sigma^{-k}(y) \implies y\sim x$. \checkmark
+		\item[\normalfont\emph{Transitivity}] Suppose that $x\sim y$ and $y\sim z$. Then $y=\sigma^k(x)$ and $z=\sigma^l(y)$ for some $k,l\in\Z$. But then $z=\sigma^{k+l}(x)$ and so $x\sim z$. \checkmark
+	\end{description}
+	\end{quote}
+	The equivalence classes of $\sim$ are clearly the orbits of $\sigma$, which therefore partition $X$.
 \end{proof}
 
-\footnotetext{If $\sim$ is a relation on a set $X$ and $x\in X$, we may define the set
-  $[x]:=\{y\in X:y\sim x\}$. In this case $[x]=\orb_x(\sigma)$.\smallbreak
+\footnotetext{%
+	The relationship between equivalence relations and partitions underpins several upcoming ideas, and \emph{should} be familiar from a previous course. Here is a very quick review:\smallbreak
+	Given $x\in X$ and a relation $\sim$ on $X$, define the set $[x]:=\{y\in X:y\sim x\}$.\smallbreak
   Theorem: The sets $[x]$ \emph{partition} $X$ (every $y\in X$ lies in precisely one such subset $[x]$) if and only if $\sim$ is an \emph{equivalence relation} (reflexive, symmetric, transitive). In such a case we call $[x]$ an \emph{equivalence class.}\smallbreak
-Much of the rest of the course requires these crucial ideas. If they're not familiar, review your notes from a previous class and ask questions!
+  In our situation, $[x]=\orb_x(\sigma)$; the Lemma simply proves that the orbits of $\sigma$ are equivalence classes.
 }
 
 \goodbreak
 
 \begin{thm}{}{}
-Every permutation can be written as a product of disjoint cycles.
+	Every permutation can be written as a product of disjoint cycles.
 \end{thm}
 
 \begin{proof}
-We formalize our algorithm from the previous section. Suppose $\sigma\in S_n$ is given.
-\begin{enumerate}\itemsep0pt
-  \item List the elements of $\orb_{1}(\sigma)$ in the order they appear within the orbit:
-	\[\orb_{1}(\sigma)=\{1,\sigma(1),\sigma^2(1),\ldots\}\]
-	If this all of $X=\{1,\ldots,n\}$, we are finished: $\sigma=(1\ \sigma(1)\ \sigma^2(1)\ \ldots\ \sigma^{n-1}(1)\bigr)$ is an $n$-cycle.
-	
-	\item Otherwise, let $x_2=\min\{x\in X:x\not\in\orb_1(\sigma)\}$ and construct its orbit:
-	\[\orb_{x_2}(\sigma)=\{x_2,\sigma(x_2),\sigma^2(x_2),\ldots\}\]
-	By Theorem \ref{thm:orbit}, $\orb_{x_2}(\sigma)$ is disjoint with $\orb_1(\sigma)$. If $\orb_{1}(\sigma)\cup\orb_{x_2}(\sigma)=X$, we are finished: $\sigma$ is the product of two disjoint cycles.
-	\[\sigma=\bigl(1\ \sigma(1)\ \sigma^2(1)\ \cdots\bigr)\bigl(x_2\ \sigma(x_2)\ \sigma^2(x_2)\ \cdots\bigr)\]
-	
-	\item Otherwise, we repeat. At stage $k$, let $x_k=\min\{x\in X:x\not\in\orb_1(\sigma)\cup\cdots\cup\orb_{k-1}(\sigma)\}$. By the Theorem, $\orb_{x_k}(\sigma)$ is disjoint with $\orb_1(\sigma)\cup\cdots\cup\orb_{k-1}(\sigma)$. The process continues until $\orb_1(\sigma)\cup\cdots\cup\orb_{k}(\sigma)=X$, which must happen since $X$ is a finite set. The result is a product of disjoint cycles:
-	\[\def\phan{\makebox[0pt][c]{\phantom{$\sigma^2(x_1)$}}}
-	\sigma=\bigl(\underbrace{1\ \sigma(1)\ \phan\sigma^2(1)\ \cdots}_{\orb_1(\sigma)}\bigr)\bigl(\underbrace{x_2\ \sigma(x_2)\ \sigma^2(x_2)\ \cdots}_{\orb_{x_2}(\sigma)}\bigr)\bigl(\underbrace{\cdots\phan\cdots}_{\orb_{x_3}(\sigma)}\bigr)\cdots\bigl(\underbrace{\cdots\phan\cdots}_{\orb_{x_k}(\sigma)}\bigr) \tag*{\qedhere}\]
-\end{enumerate}
+	We formalize the algorithm from page \pageref{pg:cyclenot}. Suppose $\sigma\in S_n$ is given.
+	\begin{enumerate}\itemsep0pt
+	  \item List the elements of $\orb_{1}(\sigma)$ in the order they appear within the orbit:
+		\[
+			\orb_{1}(\sigma)=\{1,\sigma(1),\sigma^2(1),\ldots\}
+		\]
+		If this all of $X=\{1,\ldots,n\}$, we are finished: $\sigma=(1\ \sigma(1)\ \sigma^2(1)\ \ldots\ \sigma^{n-1}(1)\bigr)$ is an $n$-cycle.
+		
+		\item Otherwise, let $x_2=\min\{x\in X:x\not\in\orb_1(\sigma)\}$ and construct its orbit:
+		\[
+			\orb_{x_2}(\sigma)=\{x_2,\sigma(x_2),\sigma^2(x_2),\ldots\}
+		\]
+		By Lemma \ref{lemm:orbit}, $\orb_{x_2}(\sigma)$ is disjoint with $\orb_1(\sigma)$. If $\orb_{1}(\sigma)\cup\orb_{x_2}(\sigma)=X$ then we are done, and $\sigma$ is the product of two disjoint cycles:
+		\[
+			\sigma=\bigl(1\ \sigma(1)\ \sigma^2(1)\ \cdots\bigr)\bigl(x_2\ \sigma(x_2)\ \sigma^2(x_2)\ \cdots\bigr)
+		\]
+		
+		\item Otherwise, repeat. At stage $k$, let $x_k=\min\{x\in X:x\not\in\orb_1(\sigma)\cup\cdots\cup\orb_{k-1}(\sigma)\}$. By the Lemma, $\orb_{x_k}(\sigma)$ is disjoint with $\orb_1(\sigma)\cup\cdots\cup\orb_{k-1}(\sigma)$. The process continues until $\orb_1(\sigma)\cup\cdots\cup\orb_{k}(\sigma)=X$, which must happen eventually since $X$ is a finite set. The result is a product of disjoint cycles:
+		\[
+			\def\phan{\makebox[0pt][c]{\phantom{$\sigma^2(x_1)$}}}
+			\sigma=\bigl(\underbrace{1\ \sigma(1)\ \phan\sigma^2(1)\ \cdots}_{\orb_1(\sigma)}\bigr)\bigl(\underbrace{x_2\ \sigma(x_2)\ \sigma^2(x_2)\ \cdots}_{\orb_{x_2}(\sigma)}\bigr)\bigl(\underbrace{\cdots\phan\cdots}_{\orb_{x_3}(\sigma)}\bigr)\cdots\bigl(\underbrace{\cdots\phan\cdots}_{\orb_{x_k}(\sigma)}\bigr) \tag*{\qedhere}
+		\]
+	\end{enumerate}
 \end{proof}
 
-The Theorem explains why our algorithm always results in a product of disjoint cycles! By convection, we take $x_1=1$ and construct an increasing sequence $x_1\le x_2\le \cdots\le x_k$, though there is no need to do so: disjoint cycles can be listed in any order and may start with any element, thus
-\[(1\,3)(2\,5\,4)=(5\,4\,2)(3\,1)\]
-Also, by convention, we delete any orbits of size 1 (1-cycles).
-If you are still feeling uncomfortable multiplying cycles, practice until it becomes second-nature!
+The Theorem explains why our cycle algorithm always produces a product of disjoint cycles! By convention, $1<x_2<\cdots<x_k$, though there is no need to do this: disjoint cycles can be listed in any order and may start with any element, e.g.,
+\[
+	(1\,3)(2\,5\,4)=(5\,4\,2)(3\,1)
+\]
+Also, by convention, we delete any orbits of size 1 (1-cycles). %If you are still feeling uncomfortable multiplying cycles, practice until it becomes second-nature!
+
+\vfil
 
 \boldsubsubsection{Orders of Elements in $S_n$}
 
-Recall that the order of an element $\sigma$ is the least positive integer $k$ for which $\sigma^k=e$.
+Recall (Corollary \ref{cor:orderdefn}) that the order of an element $\sigma\in S_n$ is the smallest positive integer $k$ for which $\sigma^k=e$.
 
 \begin{example}[lower separated=false, sidebyside, sidebyside align=top seam, sidebyside gap=0pt, righthand width=0.22\linewidth]{}{}
-If $\sigma=(1\,2\,3\,4\,5\,6)\in S_6$, then
-\begin{align*}
-&\sigma^2=(1\,3\,5)(2\,4\,6) &&\sigma^3=(1\,4)(2\,5)(3\,6) &&\sigma^4=(1\,5\,3)(2\,6\,4)\\
-&\sigma^5=(1\,6\,5\,4\,3\,2) &&\sigma^6=e&&
-\end{align*}
-whence the order of $\sigma$ is 6. This follows intuitively if we identify $\sigma$ with a rotation of a regular hexagon. 
-\tcblower
-\flushright\includegraphics{perm-hexagon}
+	If $\sigma=(1\,2\,3\,4\,5\,6)\in S_6$, then
+	\begin{align*}
+		&\sigma^2=(1\,3\,5)(2\,4\,6) &&\sigma^3=(1\,4)(2\,5)(3\,6) &&\sigma^4=(1\,5\,3)(2\,6\,4)\\
+		&\sigma^5=(1\,6\,5\,4\,3\,2) &&\sigma^6=e&&
+	\end{align*}
+	whence the order of $\sigma$ is 6. This is intuitive if we identify $\sigma$ with a counter-clockwise rotation of a regular hexagon: indeed $\ip{\sigma}=\{e,\sigma,\ldots,\sigma^5\} \cong R_6$.
+	\tcblower
+	\flushright\includegraphics{perm-hexagon}
 \end{example}
 
-By thinking similarly about the regular $k$-gon, it should be clear that any $k$-cycle has order $k$.
+By similarly considering a regular $k$-gon, it should be clear that every $k$-cycle has order $k$.
 
 \goodbreak
 
-Things are trickier when you don't have a single cycle, though this is where our discussion of disjoint cycles saves us, since \emph{disjoint cycles commute.}
+Things are trickier when you don't have a single cycle. However, we are again saved by the discussion of disjoint cycles, since \emph{disjoint cycles commute.}
 
 \begin{examples}{}{}
-\exstart Since $(1\,2\,3)$ and $(4\,5)$ are disjoint cycles, we know that $(1\,2\,3)(4\,5)=(4\,5)(1\,2\,3)$. We therefore easily compute the following:
-	\begin{align*}
-		\bigl((1\,2\,3)(4\,5)\bigr)^3&=(1\,2\,3)(4\,5)(1\,2\,3)(4\,5)(1\,2\,3)(4\,5)\\
-		&=(1\,2\,3)^3(4\,5)^3 =e(4\,5)=(4\,5)
-	\end{align*}
-\begin{enumerate}\setcounter{enumi}{1}
-	\item Given $\sigma=(2\,5\,3)(1\,5\,4\,3)\in S_5$, find $\sigma^{8}$. It is \emph{really} tempting to write
-	\[\sigma^{8}\overset{\text{?}}{=}(2\,5\,3)^{8}(1\,5\,4\,3)^{8} =\bigl((2\,5\,3)^3\bigr)^2(2\,5\,3)^2\bigl((1\,5\,4\,3)^4\bigr)^2 =e^3(2\,3\,5)e^2  =(2\,3\,5)\]
-	but this is incorrect. The \emph{cycles don't commute} $(2\,5\,3)(1\,5\,4\,3)\neq (1\,5\,4\,3)(2\,5\,3)$ so we can't distribute the exponent. Instead we first write $\sigma$ as a product of disjoint cycles, then
-	\[\sigma=(1\,3)(2\,5\,4)\implies \sigma^8=(1\,3)^8(2\,5\,4)^8=(2\,5\,4)^2 =(2\,4\,5)\]
-	The disjoint cycles approach also tells us the \emph{order} of $\sigma$. Observe that
-	\[e=\sigma^k=(1\,3)^k(2\,5\,4)^k\iff k\text{ is divisible by both 2 and 3}\]
-	The order if $\sigma$ is therefore 6.
-\end{enumerate}
+	\exstart Since $(1\,2\,3)$ and $(4\,5)$ are disjoint cycles, we know that $(1\,2\,3)(4\,5)=(4\,5)(1\,2\,3)$. We therefore easily compute
+		\begin{align*}
+			\bigl((1\,2\,3)(4\,5)\bigr)^3&=(1\,2\,3)(4\,5)(1\,2\,3)(4\,5)(1\,2\,3)(4\,5)\\
+			&=(1\,2\,3)^3(4\,5)^3 =e(4\,5)=(4\,5)
+		\end{align*}
+	\begin{enumerate}\setcounter{enumi}{1}
+		\item Given $\sigma=(2\,5\,3)(1\,5\,4\,3)\in S_5$, we find $\sigma^{8}$. It is tempting to write
+		\[
+			\sigma^{8}\overset{\text{?}}{=}(2\,5\,3)^{8}(1\,5\,4\,3)^{8} =\bigl((2\,5\,3)^3\bigr)^2(2\,5\,3)^2\bigl((1\,5\,4\,3)^4\bigr)^2 =e^3(2\,3\,5)e^2  =(2\,3\,5)
+		\]
+		but this would be incorrect: the \emph{cycles don't commute} $(2\,5\,3)(1\,5\,4\,3)\neq (1\,5\,4\,3)(2\,5\,3)$ so we cannot distribute the exponent (8). If instead we first find $\sigma$ as a product of disjoint cycles, then the exponent does distribute and the computation is easy
+		\[
+			\sigma=(1\,3)(2\,5\,4)\implies \sigma^8=(1\,3)^8(2\,5\,4)^8=(2\,5\,4)^2 =(2\,4\,5)
+		\]
+		This approach also tells us the order of $\sigma$. Observe that
+		\[
+			e=\sigma^k=(1\,3)^k(2\,5\,4)^k\iff k\text{ is divisible by both 2 and 3}
+		\]
+		The order if $\sigma$ is therefore 6.
+	\end{enumerate}
 \end{examples}
 
 \begin{cor}{}{}
-The order of a permutation $\sigma$ is the least common multiple of the lengths of its disjoint cycles.
+	The order of a permutation $\sigma$ is the least common multiple of the lengths of its disjoint cycles.
 \end{cor}
 
 \begin{proof}
-Write $\sigma=\sigma_1\cdots\sigma_m$ as a product of disjoint cycles. Since these commute, we have
-\[\sigma^k=\sigma_1^k\cdots\sigma_m^k\]
-Since each factor $\sigma_j^k$ permutes disjoint sets, it follows that
-\[\sigma^k=e\iff\forall j,\ \sigma_j^k=e\]
-If the orbits of $\sigma$ have lengths $r_j\in\N$, it follows that
-\[\sigma_j^k=e\iff \alpha_j\mid k\] 
-Thus $k$ must be a multiple of $\alpha_j$ for all $j$. The least such $k$ is by definition $\lcm(\alpha_1,\ldots,\alpha_m)$.
+	Write $\sigma=\sigma_1\cdots\sigma_m$ as a product of disjoint cycles, where the cycle $\sigma_j$ has length $\alpha_j$. Since disjoint cycles commute,
+	\[
+		\sigma^k=\sigma_1^k\cdots\sigma_m^k
+	\]
+	Since each factor $\sigma_j^k$ permutes disjoint sets, it follows that
+	\[
+		\sigma^k=e\iff\forall j,\ \sigma_j^k=e \iff \forall j, \ \alpha_j\mid k \tag{the order of an $\alpha_j$-cycle is $\alpha_j$}
+	\] 
+	The order of $\sigma$ is the smallest $k$ satisfying this condition, namely $\lcm(\alpha_1,\ldots,\alpha_m)$.
 \end{proof}
 
 \begin{example}{}{}
-The order of $\sigma=(1\,4\,5)(3\,6\,2\,7)(8\,9)\in S_9$ is $\lcm(3,4,2)=12$.\par
-To find $\sigma^{3465}$, first observe that $3465=12\cdot 288+9$, whence
-\[\sigma^{3465}=(\sigma^{12})^{288}\sigma^9=\sigma^9=(1\,4\,5)^9(3\,6\,2\,7)^9(8\,9)^9=(3\,6\,2\,7)(8\,9)\]
-since $(1\,4\,5)$, $(3\,6\,2\,7)$ and $(8\,9)$ have orders 3, 4 and 2 respectively.
+	Since $\sigma=(1\,4\,5)(3\,6\,2\,7)(8\,9)\in S_9$ is written as a product of disjoint cycles, its order is $\lcm(3,4,2)=12$.\smallbreak
+	To compute $\sigma^{3465}$, first observe that $3465=12\cdot 288+9$ (division algorithm). From this,
+	\[
+		\sigma^{3465}=(\sigma^{12})^{288}\sigma^9=\sigma^9=(1\,4\,5)^9(3\,6\,2\,7)^9(8\,9)^9=(3\,6\,2\,7)(8\,9)
+	\]
+	since $(1\,4\,5)$, $(3\,6\,2\,7)$ and $(8\,9)$ have orders 3, 4 and 2 respectively.
 \end{example}
 
+\goodbreak
 
 \begin{exercises}
-Key concepts:
-\begin{quote}
-	\emph{Orbit \qquad Partition \qquad Disjoint cycles\qquad Order of element via lcm}
-\end{quote}
-
-\begin{enumerate}
-  \item Find the orbits of the following permutations, and their orders:
-  \begin{enumerate}
-    \item $\rho=(1\,4\,5)(2\,3\,4\,5)\in S_5$.
-    \item $\sigma=(1\,5\,4)(2\,5\,4)(1\,2\,3\,4)\in S_5$.
-    \item $\tau=(1\,5\,7\,4)(3\,2\,4)(3\,2\,5\,6)\in S_7$.
-  \end{enumerate}
-
-
-  \item If $\sigma\in S_A$ is any permutation, we may define its orbits similarly: $\orb_a(\sigma)=\{\sigma^j(a):j\in\Z\}$. What are the orbits of the permutation $\sigma:\Z\to\Z:n\mapsto n+3$?
-  
+	Key concepts:
+	\begin{quote}
+		\emph{Orbit \qquad Partition \qquad Disjoint cycles\qquad Order of element via lcm}
+	\end{quote}
 	
-	\item Given $\sigma=(1\,3)(2\,4\,5)\in S_5$, find the elements of the cyclic group $\ip\sigma\le S_5$ generated by $\sigma$.
+	\begin{enumerate}
+	  \item Find the orbits of the following permutations, and their orders:
+	  \begin{enumerate}
+	    \item $\rho=(1\,4\,5)(2\,3\,4\,5)\in S_5$.
+	    \item $\sigma=(1\,5\,4)(2\,5\,4)(1\,2\,3\,4)\in S_5$.
+	    \item $\tau=(1\,5\,7\,4)(3\,2\,4)(3\,2\,5\,6)\in S_7$.
+	  \end{enumerate}
 	
 	
-	\item What is the largest possible order of an element of the group $S_3\times\Z_4\times V$? Exhibit one.
-
-
-	\item What is the maximum order of an element in each of the groups $S_4,S_5,S_6,S_7,S_8$? Exhibit a maximum order element in each case.
+	  \item If $\sigma\in S_A$ is any permutation, we may define its orbits similarly: $\orb_a(\sigma)=\{\sigma^j(a):j\in\Z\}$. What are the orbits of the permutation $\sigma:\Z\to\Z:n\mapsto n+3$?
+	  
+		
+		\item Given $\sigma=(1\,3)(2\,4\,5)\in S_5$, find the elements of the cyclic group $\ip\sigma\le S_5$ generated by $\sigma$.
+		
+		
+		\item What is the largest possible order of an element of the group $S_3\times\Z_4\times V$? Exhibit one.
 	
-
-	\item For which integers $n$ does there exist a subgroup $C_n\le S_8$ where $C_n$ is cyclic of order $n$? Explain your answer.
 	
-
- 	\item Let $\sigma\in S_n$. For each $k>0$, prove that each orbit of $\sigma^k$ is a subset of an orbit of $\sigma$.
- 	
-
-	\item Consider the permutations $\sigma=(1\,3\,5)(2\,7\,4\,9\,6)$ and $\tau=(1\,5\,3\,2)(6\,9)$ in $S_9$.
-  \begin{enumerate}
-      \item Compute $\sigma\tau$ and $\tau\sigma$ in cycle notation.
-      \item Find the orders of $\sigma$, $\tau$, $\sigma\tau$ and $\tau\sigma$.
-      \item Compute $(\sigma\tau)^{432}\sigma^{43}$ as a product of disjoint cycles.
-			\item Construct the subgroup diagram of $\ip{\sigma}$ and give a generator for each subgroup.
-  \end{enumerate}
-  
-\end{enumerate}
-
+		\item What is the maximum order of an element in each of the groups $S_4,S_5,S_6,S_7,S_8$? Exhibit a maximum order element in each case.
+		
+	
+		\item For which integers $n$ does there exist a subgroup $C_n\le S_8$ where $C_n$ is cyclic of order $n$? Explain your answer.
+		
+	
+	 	\item Let $\sigma\in S_n$. For each $k>0$, prove that each orbit of $\sigma^k$ is a subset of an orbit of $\sigma$.
+	 	
+	
+		\item Consider the permutations $\sigma=(1\,3\,5)(2\,7\,4\,9\,6)$ and $\tau=(1\,5\,3\,2)(6\,9)$ in $S_9$.
+	  \begin{enumerate}
+	      \item Compute $\sigma\tau$ and $\tau\sigma$ in cycle notation.
+	      \item Find the orders of $\sigma$, $\tau$, $\sigma\tau$ and $\tau\sigma$.
+	      \item Compute $(\sigma\tau)^{432}\sigma^{43}$ as a product of disjoint cycles.
+				\item Construct the subgroup diagram of $\ip{\sigma}$ and give a generator for each subgroup.
+	  \end{enumerate}
+	  
+	\end{enumerate}
 \end{exercises}
+
 
 \clearpage
 
+
 \subsection{Transpositions \& the Alternating Group}\label{sec:transpositions}
 
-Instead of breaking a permutation $\sigma$ into disjoint cycles, we can consider a permutation as constructed from only the simplest bijections.
+In the previous sections we viewed a permutation in terms of its orbits. An alternative approach involves the construction of permutation from the very simplest bijections.
 
 \begin{defn}{}{}
-A 2-cycle $(a_1\,a_2)$ is also known as a \emph{transposition,} since it swaps two elements of $\{1,2,\ldots,n\}$ and leaves the rest untouched.
+	A 2-cycle $(a_1\,a_2)$ is also known as a \emph{transposition,} since it swaps two elements of $\{1,2,\ldots,n\}$ and leaves the rest untouched.
 \end{defn}
 
 
 \begin{thm}{}{}
-Every $\sigma\in S_n$ ($n\ge 2$) is the product of transpositions.
+	Every $\sigma\in S_n$ ($n\ge 2$) may be written as a product of transpositions.
 \end{thm}
 
 \begin{proof}
-There are many, many ways to write out a single permutation as a product of transpositions. One method is first to write $\sigma$ as a product of disjoint cycles, then write each cycle as follows:
-\[(a_1\,\cdots\, a_k)=(a_1\,a_k)(a_1\,a_{k-1})\cdots (a_1\,a_2)\]
-Just read it carefully and you should be convinced this works!
+	There are many, many ways to do this. One approach is first to write $\sigma$ as a product of disjoint cycles, before decomposing each cycle as follows:
+	\[
+		(a_1\,\cdots\, a_k)=(a_1\,a_k)(a_1\,a_{k-1})\cdots (a_1\,a_2)
+	\]
+	Just read carefully and you should be convinced this works!
 \end{proof}
 
 \begin{example}{}{}
-The method in the proof results in the decomposition
-\[(1\,7\,6\,4\,5)=(1\,5)(1\,4)(1\,6)(1\,7)\]
-Other decompositions are possible, for instance $(1\,7)(3\,6)(5\,7)(4\,7)(3\,6)(6\,7)$.
+	The method in the proof results in the decomposition
+	\[
+		(1\,7\,6\,4\,5)=(1\,5)(1\,4)(1\,6)(1\,7)
+	\]
+	Other decompositions are possible, for instance $(1\,7)(3\,6)(5\,7)(4\,7)(3\,6)(6\,7)$.
 \end{example}
 
-While there are many ways to write a permutation as a product of transpositions, there is a simple commonality which can be observed via a \emph{matrix notation} for permutations. Consider, for instance,
+While representations as a product of transpositions are non-unique, a simple commonality may easily be observed via a \emph{matrix notation.} Consider, for instance,
 \[
 	\begin{pmatrix}
 		1&0&0&0\\ 0&0&0&1\\ 0&0&1&0\\ 0&1&0&0
@@ -824,127 +854,136 @@ While there are many ways to write a permutation as a product of transpositions,
 	\fourvec 1234
 	=\fourvec 3421\tag{$\ast$}
 \] 
-Each $4\times 4$ matrix \emph{permutes} the values 1, 2, 3, 4 when placed in a column vector. These matrices plainly correspond to the transposition $(2\,4)$ and the 4-cycle $(1\,3\,2\,4)$ in $S_4$.
+Each of these $4\times 4$ matrices \emph{permutes} the values 1, 2, 3, 4 when placed in a column vector. The matrices plainly correspond to the transposition $(2\,4)$ and the 4-cycle $(1\,3\,2\,4)$ in $S_4$.
 
 \begin{defn}{}{}
-An $n\times n$ \emph{permutation matrix} is a matrix obtained from the identity matrix by permuting its \emph{rows.} Equivalently, it is zero except for a single 1 in each row and column.
+	An $n\times n$ \emph{permutation matrix} is a matrix obtained from the identity matrix by permuting its \emph{rows.} Equivalently, it is zero except for a single 1 in each row and column.
 \end{defn}
 
 \begin{lemm}{}{}
-The set of $n\times n$ permutation matrices forms a group under multiplication which is isomorphic to $S_n$.
+	The set of $n\times n$ permutation matrices forms a multiplicative group isomorphic to $S_n$.
 \end{lemm}
 
-We omit a formal proof, though it relies on essentially one fact from elementary linear algebra; that \emph{row operations} preserve the solution set of a system of linear equations. For instance $(\ast)$ describes two systems $A\vx=\vb$ and $C\vx=\vd$ which are identical up to rearrangements of rows (row operations) and moreover have identical solutions $\vx=\sfourvec 1234$.
+We omit a formal proof, though it relies on essentially one fact from elementary linear algebra: that \emph{row operations} preserve the solution set of a system of linear equations. For instance $(\ast)$ describes two linear systems $A\vx=\vb$ and $C\vx=\vd$ with identical solutions $\vx$, differing only by row operations.
 \smallbreak
-\goodbreak
 
-What does this have to do with transpositions? Since a transposition swaps two elements, it corresponds to an \emph{elementary matrix} which swaps two rows; such a matrix always has determinant $-1$. Suppose that a permutation is written as a product of transpositions:
-\[\sigma=\sigma_1\cdots\sigma_m\]
-Viewing this as a product of matrices, take the determinant of both sides to observe that
-\[\det\sigma=(-1)^m\]
-Notice that this depends only on whether $m$ is \emph{even} or \emph{odd}\ldots
+What does this have to do with transpositions? Since a transposition swaps two elements, it corresponds to multiplication by a \emph{row-swapping elementary matrix}; any such matrix has determinant $-1$. Suppose that a permutation is written as a product of transpositions:
+\[
+	\sigma=\sigma_1\cdots\sigma_m
+\]
+and view this as a product of matrices, taking determinant of both sides shows that
+\[
+	\det\sigma=(-1)^m
+\]
+The value of the determinant plainly depends only on whether $m$ is \emph{even} or \emph{odd}\ldots
 
 \begin{defn}{}{}
-A permutation $\sigma\in S_n$ is \emph{even}/\emph{odd} if it can be written as the product of an even/odd number of transpositions. By the above discussion, these concepts are well-defined: a permutation is \emph{either} even or odd; it cannot be both!
+	A permutation $\sigma\in S_n$ is \emph{even}/\emph{odd} if it can be written as the product of an even/odd number of transpositions.
 \end{defn}
+
+By our matrix/determinant discussion, the parity of a permutation is well-defined: every permutation is either even or odd; it cannot be both!\smallbreak
 
 Plainly the composition of even permutations remains even, as does the inverse of such. We may therefore define a new subgroup of $S_n$.
 
 \begin{defn}{}{}
-The \emph{alternating group} $A_n$ ($n\ge 2$) is the group of even permutations in $S_n$.
+	The \emph{alternating group} $A_n$ ($n\ge 2$) is the group of even permutations in $S_n$.
 \end{defn}
 
 \begin{thm}{}{alt}
-$A_n$ has exactly half the elements of $S_n$: that is $\nm{A_n}=\frac{n!}{2}$.
+	$A_n$ contains exactly half the elements of $S_n$: otherwise said, $\nm{A_n}=\frac{n!}{2}$.
 \end{thm}
 
 \begin{proof}
-Since $n\ge 2$, we have $(1\,2)\in S_n$. Define $\phi:S_n\to S_n$ by $\phi(\sigma)=(1\,2)\sigma$. Since
-\[(1\,2)(1\,2)\sigma=\sigma\]
-we see that $\phi$ is invertible: the inverse of $\phi$ is $\phi$ itself! Moreover, $\phi$ maps even permutations to odd and vice versa. It follows that there are exactly the same number of odd and even permutations.
+	Since $n\ge 2$, we have $(1\,2)\in S_n$. Define $\phi:S_n\to S_n$ by $\phi(\sigma)=(1\,2)\sigma$. Since
+	\[
+		(1\,2)(1\,2)\sigma=\sigma
+	\]
+	we see that $\phi$ is invertible ($\phi$ is its own inverse!). Moreover, $\phi$ maps even permutations to odd and vice versa. It follows that there are exactly the same number of odd and even permutations.
 \end{proof}
 
 \begin{examples}{}{}
-We describe the small alternating groups up to $A_4$.
-\begin{enumerate}
-  \item $A_2=\{e\}\cong \Z_1$ is extremely boring!
-  \item $A_3=\{e,\,(1\,3)(1\,2)\,,(1\,2)(1\,3)\}=\{e,\,(1\,2\,3),\,(1\,3\,2)\}\cong\Z_3$ is a cyclic group.
-  \item\label{pg:tetra} When $n=4$ we obtain the first `new' group in the alternating family; a group of order 12.
-  \begin{align*}
-  	A_4=\{e,\,(1\,2\,3),\,(1\,3\,2),\,&(1\,2\,4),\,(1\,4\,2),\,(1\,3\,4),\,(1\,4\,3),\,(2\,3\,4),\,(2\,4\,3),\\
-  	&(1\,2)(3\,4),\,(1\,3)(2\,4),\,(1\,4)(2\,3)\}
-  \end{align*}
-  \begin{minipage}[t]{0.69\linewidth}\vspace{0pt}
-    $A_4$ is non-abelian: for example,
-  \[(1\,2\,3)(1\,2\,4)=(1\,3)(2\,4)\neq (1\,4)(2\,3)=(1\,2\,4)(1\,2\,3)\]
-  We already know one non-abelian group of order 12: the dihedral group $D_6$. We quickly see that $A_4\ncong D_6$: all elements of $A_4$ have orders 1, 2 or 3, while $D_6$ contains a rotation of order 6.\smallbreak
-  By labelling faces (or vertices), $A_4$ may be visualized the rotation group of the tetrahedron: can you see how each element acts?
-  \end{minipage}\hfill\begin{minipage}[t]{0.3\linewidth}\vspace{0pt}
-  \flushright\href{https://www.math.uci.edu/~ndonalds/math120a/perm-a4.html}{\includegraphics[scale=0.14]{perm-a4.png}}
-  \end{minipage}
-
-\end{enumerate}
+	We describe the smallest three alternating groups $A_4$.
+	\begin{enumerate}
+	  \item $A_2=\{e\}\cong \Z_1$ is trivial.
+	  \item $A_3=\{e,\,(1\,3)(1\,2)\,,(1\,2)(1\,3)\}=\{e,\,(1\,2\,3),\,(1\,3\,2)\}\cong\Z_3$ is a cyclic group.
+	  \item\label{pg:tetra} When $n=4$ we obtain the first `new' group in the alternating family; a group of order 12.
+	  \begin{align*}
+	  	A_4=\{e,\,(1\,2\,3),\,(1\,3\,2),\,&(1\,2\,4),\,(1\,4\,2),\,(1\,3\,4),\,(1\,4\,3),\,(2\,3\,4),\,(2\,4\,3),\\
+	  	&(1\,2)(3\,4),\,(1\,3)(2\,4),\,(1\,4)(2\,3)\}
+	  \end{align*}
+	  \begin{minipage}[t]{0.69\linewidth}\vspace{0pt}
+	    $A_4$ is non-abelian: for example,
+	  	\[
+	  		(1\,2\,3)(1\,2\,4)=(1\,3)(2\,4)\neq (1\,4)(2\,3)=(1\,2\,4)(1\,2\,3)
+	  	\]
+	  	While we've already countered one non-abelian group of order 12, the dihedral group $D_6$, we quickly see that $A_4\ncong D_6$: all elements of $A_4$ have orders 1, 2 or 3, while $D_6$ contains a rotation (by $\ang{60}$) of order 6.\smallbreak
+	  By labelling faces (or vertices), $A_4$ may be visualized the 3D-rotation group of a regular tetrahedron: can you see how each element acts?
+	  \end{minipage}
+	  \hfill
+	  \begin{minipage}[t]{0.3\linewidth}\vspace{0pt}
+	  	\flushright\href{https://www.math.uci.edu/~ndonalds/math120a/perm-a4.html}{\includegraphics[scale=0.14]{perm-a4.png}}
+	  \end{minipage}
+	
+	\end{enumerate}
 \end{examples}
 
 
 \begin{exercises}
-Key concepts:
-\begin{quote}
-	\emph{Transposition (representation by)\quad Odd/even permutations\quad Alternating group}
-\end{quote}
-
-\begin{enumerate}
-  \item Write $(1\,3\,4\,6)(2\,4\,6)$ as a product of transpositions in two different ways.
-  
-  
-  \item State $\sigma=(1\,3)$ and $\tau=(1\,3\,2)$ as $3\times 3$ permutation matrices $S$ and $T$. Compute the matrix product $ST$ and verify that it is the permutation matrix corresponding to $\sigma\tau\in S_3$.
-  
-  
-  \item Give examples of two non-isomorphic non-abelian groups of order 360.
-  
-  
-  \item Explain why every finite group is isomorphic to a group of matrices under multiplication.
-  
-  
-  \item $S_4$ has \emph{four} distinct subgroups isomorphic to the Klein four-group $V$; state them. Only one of these is a subgroup of $A_4$; which?
-  
-  
-  \item We just saw that the rotation group of a regular tetrahedron is isomorphic to $A_4$.
-  \begin{enumerate}
-    \item What is the order of the rotation group of a cube?\par
-    (\emph{Hint: each face may be rotated to any of six faces, and then rotated in place\ldots})
-    
-    \item Repeat the calculation for the remaining three platonic solids (octahedron, dodecahedron, icosahedron).
-    
-    \item By placing a vertex at the center of each face of a cube, argue that the rotation group of an octahedron is also isomorphic to $S_4$.\par
-    What happens when you do this for a dodecahedron? A tetrahedron?
-    
-    \item Label the four diagonals of a cube 1, 2, 3, 4. Describe geometrically the effect of the permutation $(2\,3\,4)$ on the cube. What about $(2\,3)$? Hence conclude that the rotation group of a cube is isomorphic to $S_4$.\par
-    (\emph{The dodecahedral and icosahedral rotation groups are both isomorphic to the alternating group $A_5$, though this is harder to visualize than the cube situation---try researching a proof})
-  \end{enumerate}
-  
-  	
- 	\item\label{exs:a4subgroups} (Hard) Find the entire subgroup diagram of $A_4$.
- 	
-  
-  \item (Hard) Prove that $D_n$ is a subgroup of $A_n\iff n\equiv 1\pmod 4$\par
-	(\emph{Do this in one shot if you like; otherwise use the following steps to guide your thinking})
+	Key concepts:
+	\begin{quote}
+		\emph{Transposition (representation by)\quad Odd/even permutations\quad Alternating group}
+	\end{quote}
+	
 	\begin{enumerate}
-   	\item Label the corners of a regular $n$-gon 1 through $n$ counter-clockwise so that every element of $D_n$ may be written as a permutation of $\{1,2,\ldots,n\}$. Write in a sentence what you are required to prove: what condition characterizes being in the group $A_n$?
-   	
-   	\item Consider the rotation $\rho_1=(1\,2\,3\,\cdots \,n)$ of the $n$-gon one step counter-clockwise. Is $\rho_1$ odd or even, and how does this depend on $n$?
-   	
-   	\item Show that every rotation $\rho_i\in D_n$ is generated by $\rho_1$. When is the set of rotations in $D_n$ a subgroup of $A_n$?
-   	
-   	\item A reflection $\mu\in D_n$ permutes corners of the $n$-gon by swapping pairs. How many pairs of corners does $\mu$ swap when $n\equiv 1\pmod 4$? Is $\mu$ an odd or even permutation? You may use a picture, provided it is sufficiently general.
-   	
-   	\item Summarize parts (a--d) to argue the $\Leftarrow$ direction of the theorem.
-   	
-   	\item Prove the $\Rightarrow$ direction of the theorem by exhibiting an element of $D_n$ which is not in $A_n$ whenever $n\not\equiv 1\pmod 4$.
-\end{enumerate}
-
-
-
-\end{enumerate}
-
+	  \item Write $(1\,3\,4\,6)(2\,4\,6)$ as a product of transpositions in two different ways.
+	  
+	  
+	  \item State $\sigma=(1\,3)$ and $\tau=(1\,3\,2)$ as $3\times 3$ permutation matrices $S$ and $T$. Compute the matrix product $ST$ and verify that it is the permutation matrix corresponding to $\sigma\tau\in S_3$.
+	  
+	  
+	  \item Give examples of two non-isomorphic non-abelian groups of order 360.
+	  
+	  
+	  \item Explain why every finite group is isomorphic to a group of matrices under multiplication.
+	  
+	  
+	  \item $S_4$ has \emph{four} distinct subgroups isomorphic to the Klein four-group $V$; state them. Only one of these is a subgroup of $A_4$; which?
+	  
+	  
+	  \item We just saw that the rotation group of a regular tetrahedron is isomorphic to $A_4$.
+	  \begin{enumerate}
+	    \item What is the order of the rotation group of a cube?\par
+	    (\emph{Hint: each face may be rotated to any of six faces, and then rotated in place\ldots})
+	    
+	    \item Repeat the calculation for the remaining three platonic solids (octahedron, dodecahedron, icosahedron).
+	    
+	    \item By placing a vertex at the center of each face of a cube, argue that the rotation group of an octahedron is also isomorphic to $S_4$.\par
+	    What happens when you do this for a dodecahedron? A tetrahedron?
+	    
+	    \item Label the four diagonals of a cube 1, 2, 3, 4. Describe geometrically the effect of the permutation $(2\,3\,4)$ on the cube. What about $(2\,3)$? Hence conclude that the rotation group of a cube is isomorphic to $S_4$.\par
+	    (\emph{The dodecahedral and icosahedral rotation groups are both isomorphic to the alternating group $A_5$, though this is harder to visualize than the cube situation---try researching a proof})
+	  \end{enumerate}
+	  
+	  	
+	 	\item\label{exs:a4subgroups} (Hard) Find the entire subgroup diagram of $A_4$.
+	 	
+	  
+	  \item (Hard) Prove that $D_n$ is a subgroup of $A_n\iff n\equiv 1\pmod 4$\par
+		(\emph{Do this in one shot if you like; otherwise use the following steps to guide your thinking})
+		\begin{enumerate}
+	   	\item Label the corners of a regular $n$-gon 1 through $n$ counter-clockwise so that every element of $D_n$ may be written as a permutation of $\{1,2,\ldots,n\}$. Write in a sentence what you are required to prove: what condition characterizes being in the group $A_n$?
+	   	
+	   	\item Consider the rotation $\rho_1=(1\,2\,3\,\cdots \,n)$ of the $n$-gon one step counter-clockwise. Is $\rho_1$ odd or even, and how does this depend on $n$?
+	   	
+	   	\item Show that every rotation $\rho_i\in D_n$ is generated by $\rho_1$. When is the set of rotations in $D_n$ a subgroup of $A_n$?
+	   	
+	   	\item A reflection $\mu\in D_n$ permutes corners of the $n$-gon by swapping pairs. How many pairs of corners does $\mu$ swap when $n\equiv 1\pmod 4$? Is $\mu$ an odd or even permutation? You may use a picture, provided it is sufficiently general.
+	   	
+	   	\item Summarize parts (a--d) to argue the $\Leftarrow$ direction of the theorem.
+	   	
+	   	\item Prove the $\Rightarrow$ direction of the theorem by exhibiting an element of $D_n$ which is not in $A_n$ whenever $n\not\equiv 1\pmod 4$.
+	\end{enumerate}
+	
+	
+	\end{enumerate}
 \end{exercises}
