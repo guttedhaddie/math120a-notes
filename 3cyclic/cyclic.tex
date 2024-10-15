@@ -405,7 +405,7 @@ We describe all cyclic groups, their generators, and subgroup structures.
 \end{lemm}
 
 \begin{proof}
-	Let $G=\ip g$. Since any two elements of $G$ can be written $g^k,g^l$ for some $k,l\in\Z$, we immediately see that
+	Let $G=\ip g$. Since any two elements of $G$ can be written $g^k,g^l$ for some $k,l\in\Z$, we see that
 	\[
 		g^kg^l=g^{k+l}=g^{l+k}=g^lg^k\tag*{\qedhere}
 	\]
@@ -418,61 +418,59 @@ The next result is crucial to our classification; it is quite hard, so take your
 
 \begin{thm}{Isomorphs}{cyclicisomorph}
 	Every cyclic group is isomorphic either to $(\Z,+)$ or to some $(\Z_n,+_n)$.\smallbreak
-	If $G=\ip g$, then $\phi:x\mapsto g^x$ defines an isomorphism $\Z_{(n)}\cong G$: ``map generator (1) to generator ($g$).''
+	If $G=\ip g$, then $\phi:x\mapsto g^x$ is an isomorphism $\phi:\Z_{(n)}\cong G$: ``map generator (1) to generator ($g$).''
 \end{thm}
 
+The proof is a little sneaky. To distinguish the two cases, we introduce a useful set of natural numbers $S:=\{m\in\N:g^m=e\}$ ($mg=e$ if $G$ is additive). To see why, consider a few examples of the theorem.
+
+\begin{examples}{}{}
+	\exstart If $G=R_3=\ip{\rho_1}$, then $\rho_1^m=e\iff 3\mid m$, whence $S=\{\textcolor{red}{3},6,9,\ldots\}$. Observe that $\textcolor{red}{3}=\min S$ is the \emph{order of $G$.} Moreover $\phi(x)=\rho_1^x$ is an isomorphism $\Z_3\cong R_4$ (Example \ref*{ex:unisoex}.\ref{ex:unisoex2}).
+	\begin{enumerate}\setcounter{enumi}{1}
+	  \item $\Z_4=\ip 1$ is additive, so $S=\{m\in\N:m=0\}=\{\textcolor{red}{4},8,12,\ldots\}$ \ (in $\Z_4$, $m=0$ means $4\mid m$!). Observe that $\textcolor{red}{4}=\min S$ is the order of $G=\nm{\Z_4}$.
+	  \item $5\Z=\ip 5$ is an infinite cyclic group. In this case, $S=\{m\in\N:5m=0\}=\emptyset$ is \emph{empty}. This is isomorphic to $\Z$ via $\phi:\Z\to 5\Z:x\mapsto 5x$ (map the generator $1\in\Z$ to the generator $5\in 5\Z$).
+	\end{enumerate}
+\end{examples}
+
+As the examples suggest, $S$ distinguishes the finite/infinite cases \emph{and} detects the order of $G$.
+
 \begin{proof}
-	To distinguish the two cases, we consider a set of natural numbers $S:=\{m\in\N:g^m=e\}$.
-	\begin{description}
-		\item[\normalfont If $S=\emptyset$:] Suppose $x>y$ and that $g^x=g^y$. Then $g^{x-y}=e\implies x-y\in S$: contradiction. It follows that the elements $\ldots,g^{-2},g^{-1},e,g,g^2,g^3,\ldots$ are \emph{distinct,} whence $\phi:\Z\to G$ is a bijection.
-		\item[\normalfont If $S\neq\emptyset$:] Let\footnotemark\ $n=\min S$ and define $\phi:\Z_n\to G:x\mapsto g^x$.  We check that this is well-defined:
+	\begin{description}\itemsep2pt
+		\item[\normalfont If $S=\emptyset$:] Suppose $x>y$ and that $g^x=g^y$. Then $g^{x-y}=e\Longrightarrow x-y\in S$: contradiction. The elements $\ldots,g^{-2},g^{-1},e,g,g^2,\ldots$ are therefore \emph{distinct,} whence $\phi:\Z\to G:x\mapsto g^x$ is bijective.
+		\item[\normalfont If $S\neq\emptyset$:] Let	$n=\min S$ and define $\phi:\Z_n\to G:x\mapsto g^x$. We first check this is well-defined:
 		\begin{align*}
 			y=x\in\Z_n&\implies y=x+kn\text{ for some $k\in\Z$}\\
 			&\implies \phi(y)=g^y=\textcolor{red}{g^{x+kn}=g^x(g^n)^k=g^x}=\phi(x)
 		\end{align*}
 		Since the \textcolor{red}{highlighted} calculation is valid for all $x,k\in\Z$, we also conclude that
 		\[
-			G=\ip{g}\subseteq\{e,g,\ldots,g^{n-1}\}
+			G=\ip{g}\subseteq\{e,g,\ldots,g^{n-1}\} \tag{in particular, $G$ is \emph{finite}}
 		\]
-		contains \emph{finitely many} terms. Suppose two of these were equal; if $0\le y\le x\le n-1$, then
+		Suppose two of these terms were equal; if $0\le y\le x\le n-1$, then
 		\[
 			g^x=g^y\implies g^{x-y}=e\implies x=y
 		\]
 		since $0\le x-y<n-1$ and $n=\min S$. Thus $n$ is the order of $G$ and $G=\{e,g,\ldots,g^{n-1}\}$.
-	\end{description}
+	\end{description}\medskip
 	In both cases, the homomorphism property is simply the exponential law
 	\[
 		\phi(x+y)=g^{x+y}=g^xg^y=\phi(x)\phi(y)\tag*{\qedhere}
 	\]
 \end{proof}
 
-\footnotetext{By the well-ordering property of the natural numbers, any non-empty subset has a minimum element.}
-
-The proof yields an alternative measure for the order of an element.
-
-
 
 \begin{cor}{}{orderdefn}
-	The order of an element $g$ is the smallest positive integer $n$ such that $g^n=e$ (provided the order is finite). Moreover $g^m=e\Longleftrightarrow m$ is a multiple of $n$ (otherwise said, $n\!\bigm|\!m$).
+	If the order of an \textbf{element} $g$ is finite, then it equals the minimal positive integer $n$ for which $g^n=e$. Moreover $g^m=e\Longleftrightarrow n\mid m$.
 \end{cor}
 
 
 \goodbreak
 
 \begin{examples}{}{}
-	\exstart The group of $7\th$ roots of unity $(U_7,\cdot)$ is isomorphic to $(\Z_7,+_7)$ via
-	\[
-		\phi:\Z_7\to U_7:k\mapsto \zeta_7^k
-	\]
+	\exstart The group of $7\th$ roots of unity $U_7$ is isomorphic to $\Z_7$ via $\phi:\Z_7\to U_7:k\mapsto \zeta_7^k$. As a sanity check, $7=\min\{m\in\N:\zeta_7^m=1\}$ is indeed the order of $\zeta_7$.
 	\begin{enumerate}\setcounter{enumi}{1}
-	  \item The additive group $5\Z=\{5z:z\in\Z\}$ is infinite and cyclic. It is isomorphic to the integers via
-		\[
-			\phi:(\Z,+)\cong(5\Z,+):z\mapsto 5z
-		\]
-	  
 		\item Let $\xi=\smash[t]{e^{\frac{2\pi i}{\sqrt 2}}}$ and consider the cyclic subgroup $G:=\ip\xi<(\C^\times,\cdot)$. For integers $m$, observe that
 		\[
-			\xi^m=e^{\frac{2\pi im}{\sqrt 2}}=1\iff \tfrac m{\sqrt 2}\in\Z\iff m=0
+			\xi^m=e^{\frac{2\pi im}{\sqrt 2}}=e=1\iff \tfrac m{\sqrt 2}\in\Z\iff m=0
 		\]
 		We conclude that $G$ is an \emph{infinite} cyclic group and that $\phi:\Z\to G:z\mapsto\xi^z$ is an isomorphism. We can interpret multiplication by $\xi$ as performing an irrational fraction $(\frac 1{\sqrt 2})$ of a full rotation.
 		
