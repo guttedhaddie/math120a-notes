@@ -478,39 +478,26 @@ The word \emph{group}, at least in mathematics, originally referred to a set of 
 \end{thm}
 
 \begin{proof}
-	Let $G$ be a group. For each $g\in G$, let $\sigma_g:G\to G:x\mapsto gx$ be left-multiplication by $g$.\par
-	We claim that the set of such functions $\cG:=\{\sigma_g:g\in G\}$ forms a subgroup of $S_G$ isomorphic to $G$.\smallbreak
-	First observe that each $\sigma_g$ is bijective with inverse function $\sigma_g^{-1}=\sigma_{g^{-1}}$: otherwise said,
+	Let $G$ be a group. For each $g\in G$, consider the function $L_g:G\to G$ given by \emph{left-multiplication}: that is,
 	\[
-		\forall x\in G,\ \ \sigma_{g^{-1}}\bigl(\sigma_g(x)\bigr) =g^{-1}gx=x
-		\quad\text{and}\quad 
-		\sigma_g\bigl(\sigma_{g^{-1}}\bigr)(x)=gg^{-1}x=x
+		\forall x\in G,\ L_g(x)=gx
 	\]
-	Each $\sigma_g$ is therefore a permutation of $G$ (that is $\cG\subseteq S_G$) and $\cG$ is closed under inverses. Moreover,
-	\[
-		\forall x\in G,\ \ (\sigma_g\circ \sigma_h)(x)= ghx =\sigma_{gh}(x) \tag{$\ast$}
-	\]
-	says that $\sigma_g\sigma_h=\sigma_{gh}$, whence $\cG$ is closed under composition. We conclude that $\cG$ is a subgroup of $S_G$.\smallbreak
-	
-	We finish by showing that the function $\phi:G\to \cG$ defined by $\phi(g):=\sigma_g$ is an isomorphism:
-	\begin{quote}
-		\emph{Injectivity}:\quad $\phi(g)=\phi(h)\implies \sigma_g=\sigma_h\implies \sigma_g(e)=\sigma_h(e) \implies g=h$.\par
-		\emph{Surjectivity}:\quad Certainly every function $\sigma_g$ is in the range of $\phi$!\par
-		\emph{Homomorphism}:\quad ($\ast$) is precisely the homomorphism property $\phi(g)\circ\phi(h)=\phi(gh)$.
-% 		The fact that For all $g,h,x\in G$,
-% 		\[
-% 			\bigl(\phi(g)\circ\phi(h)\bigr)(x)= \sigma_g\bigl(\sigma_h(x)\bigr) =ghx =\sigma_{gh}(x) =\bigl(\phi(gh)\bigr)(x)
-% 		\]
-% 		from which .
-		\vspace{-20pt}
-	\end{quote}
+	Plainly $L_g$ is invertible ($(L_g)^{-1}=L_{g^{-1}}$), whence $L_g$ is a \emph{permutation} of $G$ ($L_g\in S_G$). Now define $\phi:G\to S_G$ via $\phi(g)=L_g$. We prove that $\phi$ is an injective homomorphism.
+	\begin{description}
+		\item[Injectivity] $\phi(g)=\phi(h)\implies \forall x\in G,\ gx=hx\implies g=h$ \quad (by right-cancellation, Theorem \ref{thm:canc})
+		\item[Homomorphism] For any $x\in G$,
+		\begin{gather*}
+			\bigl(\phi(gh)\bigr)(x) =L_{gh}(x)=(gh)x=g(hx) =L_g\bigl(L_h(x)\bigr)=\bigl(\phi(g)\phi(h)\bigr)(x)\\
+			\implies \phi(gh)=\phi(g)\phi(h)
+		\end{gather*}
+	\end{description}
+	It follows that $\phi$ is an \emph{isomorphism} onto its image, $\range\phi\le S_G$.
 \end{proof}
 
-Cayley's Theorem does \emph{not} say that every group is isomorphic to some symmetric group. It says that that every group $G$ is isomorphic to some \emph{subgroup} of $\cG\le S_G$.
+Cayley's Theorem does \emph{not} say that every group is isomorphic to some symmetric group. It says that that every group $G$ is isomorphic to some \emph{subgroup} of $S_G$.
 
 
-   
-
+  
 \begin{exercises}
 	Key concepts:
 	\begin{quote}
@@ -577,11 +564,11 @@ Cayley's Theorem does \emph{not} say that every group is isomorphic to some symm
 	  \item Cayley's Theorem says that $G$ is isomorphic to a subgroup of $S_G$.  What can you say about a (finite) group $G$ if $G\cong S_G$?
 	
 	  
-	  \item In Cayley's Theorem we defined $\sigma_g:G\to G$ via \emph{left-multiplication.}
+	  \item In Cayley's Theorem we defined $\phi(g)=L_g:G\to G$ via \emph{left-multiplication.}
 	  \begin{enumerate}
-	    \item Does the argument still work if $\sigma_g:G\to G$ is \emph{right-multiplication} $\sigma_g(x)=xg$?
+	    \item Does the argument still work if $\phi(g)=R_g:G\to G$ is \emph{right-multiplication} $R_g(x)=xg$?
 	    
-	    \item (Harder)\lstsp Suppose we take $\sigma_g(x):=gx g^{-1}$. Does the proof of Cayley's Theorem work this time? Why/why not?
+	    \item (Harder)\lstsp Suppose we take $\bigl(\phi(g)\bigr)(x):=gx g^{-1}$. Does the proof of Cayley's Theorem work this time? Why/why not?
 	  \end{enumerate}
 		
 		
