@@ -477,24 +477,30 @@ The word \emph{group}, at least in mathematics, originally referred to a set of 
 	Every group is isomorphic to a group of permutations.
 \end{thm}
 
+The proof of Cayley's Theorem is merely the abstraction of a simple example.
+
+\begin{example}{}{}
+	To each integer $g$, we may associate the \emph{function} ``add $g$.'' For instance, 1 corresponds to the function ``$+1$,'' etc. The function ``add $g$'' is a bijection of the integers: its inverse function is ``add $-g$.'' Each integer is therefore naturally associated to a \emph{permutation}, an element of the group $S_\Z$.
+\end{example}
+
 \begin{proof}
 	Let $G$ be a group. For each $g\in G$, consider the function $L_g:G\to G$ given by \emph{left-multiplication}: that is,
 	\[
 		\forall x\in G,\ L_g(x)=gx
 	\]
-	Plainly $L_g$ is invertible ($(L_g)^{-1}=L_{g^{-1}}$), whence $L_g$ is a \emph{permutation} of $G$ ($L_g\in S_G$). Now define $\phi:G\to S_G$ via $\phi(g)=L_g$. We prove that $\phi$ is an injective homomorphism.
+	Plainly $L_g$ is bijective (with inverse $(L_g)^{-1}=L_{g^{-1}}$), whence $L_g$ is a \emph{permutation} of $G$: that is $L_g\in S_G$. Now define $\phi:G\to S_G$ by $\phi(g)=L_g$. We prove that $\phi$ is an injective homomorphism.
 	\begin{description}
-		\item[Injectivity] $\phi(g)=\phi(h)\implies \forall x\in G,\ gx=hx\implies g=h$ \quad (by right-cancellation, Theorem \ref{thm:canc})
-		\item[Homomorphism] For any $x\in G$,
-		\begin{gather*}
-			\bigl(\phi(gh)\bigr)(x) =L_{gh}(x)=(gh)x=g(hx) =L_g\bigl(L_h(x)\bigr)=\bigl(\phi(g)\phi(h)\bigr)(x)\\
-			\implies \phi(gh)=\phi(g)\phi(h)
-		\end{gather*}
+		\item[Injectivity] $\phi(g)=\phi(h)\Longrightarrow L_g=L_h\Longrightarrow L_g(e)=L_h(e)\Longrightarrow ge=he\Longrightarrow g=h$
+		\item[Homomorphism] We show that $\phi(gh)=\phi(g)\phi(h)$ \emph{as functions} by evaluating on all $x\in G$:
+		\[
+			\bigl(\phi(gh)\bigr)(x) =L_{gh}(x)=(gh)x=g(hx) =L_g\bigl(L_h(x)\bigr)=\bigl(\phi(g)\phi(h)\bigr)(x)
+		\]
 	\end{description}
 	It follows that $\phi$ is an \emph{isomorphism} onto its image, $\range\phi\le S_G$.
 \end{proof}
 
 Cayley's Theorem does \emph{not} say that every group is isomorphic to some symmetric group. It says that that every group $G$ is isomorphic to some \emph{subgroup} of $S_G$.
+
 
 
   
@@ -568,7 +574,7 @@ Cayley's Theorem does \emph{not} say that every group is isomorphic to some symm
 	  \begin{enumerate}
 	    \item Does the argument still work if $\phi(g)=R_g:G\to G$ is \emph{right-multiplication} $R_g(x)=xg$?
 	    
-	    \item (Harder)\lstsp Suppose we take $\bigl(\phi(g)\bigr)(x):=gx g^{-1}$. Does the proof of Cayley's Theorem work this time? Why/why not?
+	    \item (Harder)\lstsp Suppose we take $\phi(g)=C_g:G\to G$ to be the function $C_g(z)=gx g^{-1}$. Does the proof of Cayley's Theorem work this time? Why/why not?
 	  \end{enumerate}
 		
 		
