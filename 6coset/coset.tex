@@ -153,7 +153,15 @@ As observed in the examples, the cosets of any subgroup $H\le G$ seem to partiti
 	\]
 \end{thm}
 
-The \textcolor{blue}{blue} criterion is often very easy to check. Before reading the proof, convince yourself that each of our previous examples satisfies the result. When $H$ is non-normal  (e.g.\ Example \ref*{ex:cosetexs}.\ref{ex:nonnormalcosets}), note that the right cosets partition $G$ differently to the left cosets.
+The \textcolor{blue}{blue} criterion is often very easy to check. Before reading the proof, convince yourself that each of our previous examples satisfies the result. When $H$ is non-normal, note that the right cosets partition $G$ differently to the left cosets (e.g.\ Example \ref*{ex:cosetexs}.\ref{ex:nonnormalcosets}).
+
+\begin{example}{}{}
+	This should seem familiar when $G=\Z$ and $H=n\Z$. Then, written additively,
+	\[
+		a+H=b+H\mathrel{\textcolor{red}{\iff}} b-a\in H\iff n\mid b-a \iff a\equiv b\pmod n
+	\]
+	The cosets of $H$ are precisely the equivalence classes modulo $n$. Indeed, in a previous course, you've possibly encountered the following proof in the context of modular arithmetic.
+\end{example}
 
 \begin{proof}
 	We start by verifying the \textcolor{blue}{first connective}.
@@ -199,7 +207,9 @@ When $H$ is not a subgroup, the coset construction need not produce a partition.
 	\]
 \end{example}
 
-We finish this section with a technical result which will be useful in future sections.
+\goodbreak
+
+We finish with a useful result for identifying when a subgroup is normal \emph{without} explicitly having to compute its cosets. The proof is left as an exercise.
 
 \begin{cor}{}{normalconj}
 	Normal subgroups are precisely those which are closed under \textbf{conjugation}:
@@ -208,18 +218,18 @@ We finish this section with a technical result which will be useful in future se
   \]
 \end{cor}
 
-\begin{proof}
-	Start by using the criteria in Theorem \ref{thm:cosetpart} to observe:
-	\begin{enumeratea}
-	  \item $gH\subseteq Hg\iff \forall h\in H,\ gh\in Hg \iff \forall h\in H,\ gh g^{-1}\in H$
-	  \item $Hg\subseteq gH\iff \forall h\in H,\ hg\in gH \iff \forall h\in H,\ g^{-1}hg\in H$
-	\end{enumeratea}
-	We now complete the proof in two parts:
-	\begin{description}
-		\item[\normalfont $(\Rightarrow)$] $H\triangleleft G$ means $\forall g\in G,\ Hg=gH$, and so implies part (a) for all $g\in G$. 
-		\item[\normalfont $(\Leftarrow)$] If $gh g^{-1}\in H$ for all $g,h$, then this is also true for $g^{-1}$: that is $g^{-1}hg\in H$. We now have the right side of both (a) and (b). Otherwise said, $gH=Hg$ for all $g\in G$, whence $H$ is normal in $G$.\qedhere
-	\end{description}
-\end{proof}
+% \begin{proof}
+% 	Start by using the criteria in Theorem \ref{thm:cosetpart} to observe:
+% 	\begin{enumeratea}
+% 	  \item $gH\subseteq Hg\iff \forall h\in H,\ gh\in Hg \iff \forall h\in H,\ gh g^{-1}\in H$
+% 	  \item $Hg\subseteq gH\iff \forall h\in H,\ hg\in gH \iff \forall h\in H,\ g^{-1}hg\in H$
+% 	\end{enumeratea}
+% 	We now complete the proof in two parts:
+% 	\begin{description}
+% 		\item[\normalfont $(\Rightarrow)$] $H\triangleleft G$ means $\forall g\in G,\ Hg=gH$, and so implies part (a) for all $g\in G$. 
+% 		\item[\normalfont $(\Leftarrow)$] If $gh g^{-1}\in H$ for all $g,h$, then this is also true for $g^{-1}$: that is $g^{-1}hg\in H$. We now have the right side of both (a) and (b). Otherwise said, $gH=Hg$ for all $g\in G$, whence $H$ is normal in $G$.\qedhere
+% 	\end{description}
+% \end{proof}
 
 
 
@@ -253,8 +263,8 @@ We finish this section with a technical result which will be useful in future se
 		
 	
 		\item\label{exs:d4normal}\begin{enumerate}
-		  \item Find the left and right cosets of $\{\rho_0,\delta_1\}\le D_4$. Is the subgroup normal?
-			\item Repeat for the subgroup $\{\rho_0,\rho_2\}$.
+		  \item Find the left and right cosets of $H=\{\rho_0,\delta_1\}\le D_4$. Is the subgroup normal?
+			\item Repeat for the subgroup $K=\{\rho_0,\rho_2\}$.
 		\end{enumerate}
 		(\emph{Hint: Use cycle notation---e.g. Examples \ref{ex:disym}---or look up the Cayley table})
 	  
@@ -274,11 +284,14 @@ We finish this section with a technical result which will be useful in future se
 		  \item Show that $H$ is a subgroup of $S_4$ (in Chapter \ref{chap:action} we'll call this the \emph{stabilizer} of 4).
 		  \item Using Corollary \ref{cor:normalconj}, or otherwise, determine whether $H$ is a normal subgroup of $S_4$.
 		\end{enumerate}
+		
+		
+		\item Prove Corollary \ref{cor:normalconj}.
 	  
 	  
 	  \item\label{exs:directprodfactor}\begin{enumerate}
 	    \item Suppose $G=H\times K$, $J\triangleleft H$ and let $\widetilde J=J\times\{e_K\}$. Prove that $\widetilde J\triangleleft G$.\par
-	    (\emph{When $J=H$ this is sometimes written simply $H\triangleleft G$. A similar result holds for $K$.})
+	    (\emph{When $J=H$ this is often written $H\triangleleft (H\times K)$. A similar result holds for $K$.})
 	    \item Explain how Example \ref*{ex:cosetexs}.\ref{ex:cosetsubspace} fits into part (a).
 	  \end{enumerate} 
 	  
