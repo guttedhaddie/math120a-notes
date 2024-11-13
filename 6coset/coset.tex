@@ -1002,7 +1002,9 @@ For factor groups of infinite or non-abelian groups, more varied strategies may 
 	
 
 	\begin{enumerate}\setcounter{enumi}{1}
-	  \item $\ip{2\pi}=2\pi\Z=\{2\pi n:n\in\Z\}$ is a subgroup of the abelian group $(\R,+)$. In any given coset, there is a unique real number $x$ such that $0\le x<2\pi$ (think `take the remainder modulo $2\pi$'). It follows that
+	  \item Since $(D_n:R_n)=2$ ($n$ rotations and $n$ reflections!), we see that $\quotient{D_n}{R_n}$ has order 2 and is thus isomorphic to $\Z_2$. The function $\psi(0)=R_n$, $\psi(1)=\{\text{reflections}\}$ is an isomorphism. Note how the factor group calculation $(\mu_iR_n)(\mu_jR_n)=R_n$ ($\leftrightsquigarrow 1+1=0\in\Z_2$) says that the composition of two reflections is a rotation.
+	  
+	  \item $\ip{2\pi}=2\pi\Z=\{2\pi n:n\in\Z\}$ is a subgroup of $(\R,+)$. In any given coset, there is a unique real number $x$ such that $0\le x<2\pi$ (think `take the remainder modulo $2\pi$'). It follows that
 	  \[
 	  	\quotient{\R}{2\pi\Z}=\bigl\{x+2\pi\Z:x\in[0,2\pi)\bigr\}
 	  \]
@@ -1076,10 +1078,10 @@ For factor groups of infinite or non-abelian groups, more varied strategies may 
 	\end{quote}
 	
 	\begin{enumerate}
-	  \item List the cosets of the subgroup $H=\ip{3}$ in $G=\Z_{15}$. By mimicing the proof of Theorem \ref{thm:znisomdefn} show that the following $\psi$ is a well-defined homomorphism
-	  \[
-	  	\psi:\Z_3\mapsto \quotient GH:x\mapsto x+H
-	  \]
+	  \item List the cosets of the subgroup $H=\ip{3}$ in $G=\Z_{15}$. By mimicking the proof of Theorem \ref{thm:znisomdefn}, show that $\psi:\Z_3\mapsto \quotient GH:x\mapsto x+H$ is a well-defined homomorphism.
+% 	  \[
+% 	  	\psi:\Z_3\mapsto \quotient GH:x\mapsto x+H
+% 	  \]
 	
 		
 		\item  (Recall Exercise \ref*{sec:cosetnormal}.\ref{exs:VfactorV})\lstsp If $H=\bigl\{(0,0),(0,2),(2,0),(2,2)\bigr\}$, identify the factor group $\quotient{\Z_4\times\Z_4}H$.
@@ -1125,9 +1127,15 @@ For factor groups of infinite or non-abelian groups, more varied strategies may 
 	
 	
 		\item In Example \ref*{ex:normalmoreex}.\ref{ex:a4normal} we saw that $\Z_3\cong\quotient{A_4}{V}$. Find an explicit isomorphism.
-	
+			
 	
 		\item Exercise \ref*{sec:cosetnormal}.\ref{exs:d4normal} showed that $\{\rho_0,\rho_2\}$ is a normal subgroup of $D_4$. To what well-known group is the factor group $\quotient{D_4}{\{\rho_0,\rho_2\}}$ isomorphic? Prove your assertion.
+		
+	
+		\item\begin{enumerate}
+		  \item Identify the factor group $\quotient{S_n}{A_n}\cong K$ where $K$ is some well-understood basic group. Describe an explicit isomorphism $\psi:K\to\quotient{S_n}{A_n}$ and verify that it is such.
+		  \item Repeat for the factor group $\quotient{\rO_n(\R)}{\rSO_n(\R)}$.
+		\end{enumerate}
 		
 		
 		\item\label{exs:normaldirectfactor} (Recall Exercise \ref*{sec:cosetnormal}.\ref{exs:directprodfactor})\lstsp Suppose $G=H\times K$, $J\triangleleft H$ and $\widehat J=J\times\{e_K\}$. Prove that $\quotient G{\widetilde J}=\quotient HJ\times K$.\par
