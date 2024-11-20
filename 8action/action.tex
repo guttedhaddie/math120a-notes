@@ -234,7 +234,7 @@ We first encountered orbits in the context of the symmetric groups $S_n$. The sa
 \end{examples}
 
 \footnotetext{%
-	Unhelpfully, we now have two meanings of \emph{transitive}; one for equivalence relations and one for actions.%
+	Unhelpfully, we now have two distinct meanings of \emph{transitive}; one for equivalence relations and one for actions.%
 }
 
 
@@ -519,18 +519,15 @@ Here is an example of how the class equation may be applied.
 % 	The two are equivalent: if $y$ has order $p$, then $\ip{y}$ is a subgroup of order $p$. If $H\le G$ has order $p$, then $H\cong \Z_p$ is cyclic.%
 % }
 
-It might feel as if we've done this already; Exercise \ref*{chap:direct}.\ref{exs:abeliansubgroup} covers abelian groups, but this depends on the fundamental theorem, which first requires Cauchy for abelian groups! 
-
-
-
 \begin{proof}
 	\begin{enumerate}
-	  \item A proof for when $G$ is abelian is in the exercises.
-	  \item If $G$ is non-abelian, apply the Lemma. If the resulting subgroup is abelian, part 1 finishes things off. Otherwise repeat. If we never reach an abelian subgroup, then we have an infinite sequence of proper subgroups and thus a decreasing sequence of positive integers; contradiction.\qedhere
+	  \item A proof when $G$ is abelian is in Exercise \ref{exs:cauchysthmabelian}.
+	  \item If $G$ is non-abelian, apply the Lemma. If the resulting subgroup is abelian, part 1 finishes things off. Otherwise repeat. If we never reached an abelian subgroup, then we'd have an infinite sequence of proper subgroups and thus a decreasing sequence of positive integers; contradiction.\qedhere
 	\end{enumerate}
 \end{proof}
 
-Cauchy's Theorem may be extended to prove that if $p^k$ divides $G$, then $G$ has a subgroup of order $p^k$. This is the beginning of the Sylow theory of $p$-subgroups which has applications to group classification and the existence of sequences of normal subgroups. 
+
+Haven't we done this already?! Exercise \ref*{chap:direct}.\ref{exs:abeliansubgroup} appears to cover abelian groups, but this depends on the Fundamental Theorem (\ref{thm:fund}) whose proof requires Cauchy for abelian groups\ldots! Indeed Cauchy's Theorem may be extended to prove that if $p^k$ divides $G$, then $G$ has a subgroup of order $p^k$. This is the beginning of the Sylow theory of $p$-subgroups which has applications to group classification and the existence of sequences of normal subgroups. 
 
 
 \goodbreak
@@ -599,17 +596,18 @@ Cauchy's Theorem may be extended to prove that if $p^k$ divides $G$, then $G$ ha
 	% 	To finish, observe that every index $(G:\Stab(x))$ in the class equation is divisible by $p$, as is $\nm G$. We conclude that $p$ divides $\nm{Z(G)}$.
 	
 		
-		\item We prove the abelian part of Cauchy's Theorem by induction on the order of $G$.
+		\item\label{exs:cauchysthmabelian} We prove the abelian part of Cauchy's Theorem by induction on the order $n=\nm G$.
 		\begin{enumerate}
-		  \item Explain why the base case $\nm G=2$ is true.
-		  \item Suppose $p$ divides $\nm G\ge 3$ and assume the result holds for all abelian groups of order $<\nm G$.
+		  \item Explain why the base case $n=\nm G=2$ is true.
+		  \item Fix $n\ge 3$ and assume $p$ divides the order $n$ of some abelian group $G$. For the induction hypothesis, assume that if $\nm H<n$ and $p\bigm|\nm{H}$, then $H$ has a subgroup of order $p$. %divides $\nm G\ge 3$ and assume the result holds for all abelian groups of order $<\nm G$.
 		  \begin{itemize}
-				\item Choose any $x\neq e$; denote its order by $m=\nm{\ip x}$ (necessarily $m\ge 2$).
-				\item Choose a prime $q$ dividing $m$, define $y:=x^{m/q}$ and let $H:=\ip y$.
+				\item Let $x\in G$ be a non-identity element with order $m=\nm{\ip x}$ (necessarily $m\ge 2$).
+				\item Choose any prime $q$ dividing $m$, define $y:=x^{m/q}$ and let $H:=\ip y$.
 			\end{itemize}
-			Why are we done if $q=p$?
-		  \item If $q\neq p$, explain why there exists a coset $zH\in \quotient GH$ of order $p$.
-		  \item Prove that $z^q$ has order $p$ in $G$.
+			\begin{enumerate}
+			  \item What is the order of $H$? Explain why are we done if $q=p$.
+		  	\item If $q\neq p$, use the induction hypothesis to explain why there exists a coset $zH\in \quotient GH$ of order $p$. Now prove that $z^q$ has order $p$ in $G$.
+		  \end{enumerate}
 		\end{enumerate}
 		
 		
