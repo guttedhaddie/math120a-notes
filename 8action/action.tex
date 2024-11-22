@@ -476,14 +476,15 @@ One reason to count the number of orbits of an action is that we often want to c
 
 We finish with a taste of where group theory traditionally goes next.\smallbreak
 
-Suppose $G$ acts on a finite set $X$, that $x_1\ldots,x_r$ are representatives of the distinct orbits and that $x_1,\ldots,x_s$ enumerate the 1-element orbits ($\Stab(x_j)=G \iff j\le s$). Then, by counting elements,
+Suppose $G$ acts on a finite set $X$ and denote by $X_G=\{x\in X:\forall g\in G, g\cdot x=x\}$ the subset of $X$ that is fixed by the action of $G$ (the set of 1-element orbits). Suppose also that $x_1,\ldots,x_r$ are representatives of the distinct remaining (larger) orbits. Then, by counting elements,
 \[
-	\nm X=s+\sum_{j=s+1}^r\nm{Gx_j} 
-	=s+\sum_{j=s+1}^r\bigl(G:\Stab(x_j)\bigr)
+	\nm X=\nm{X_G}+\sum_{j=1}^r\nm{Gx_j} 
+	=\nm{X_G}+\sum_{j=1}^r\bigl(G:\Stab(x_j)\bigr)
+	=\nm{X_G}+ \sum_{j=1}^r \frac{\nm G}{\nm{\Stab(x_j)}}
 \]
 When $G$ acts on itself by conjugation, the 1-element orbits together comprise the center of $G$ and we obtain the \emph{class equation}:
 \[
-	\nm{G}=\nm{Z(G)}+\sum_{j=s+1}^r \bigl(G:\Stab(x_j)\bigr)
+	\nm{G} =\nm{Z(G)}+\sum_{j=1}^r \frac{\nm G}{\nm{\Stab(x_j)}}
 \]
 
 \begin{example}{}{}
@@ -509,15 +510,17 @@ Here is an example of how the class equation may be applied.
 	If $p$ divides $\nm{\Stab(x)}$, then we're done. If not, then $p$ divides $\nm{Gx}=\bigl(G:\Stab(x)\bigr)$. If this holds for all non-trivial orbits, the class equation says that $\nm{Z(G)}$ is divisible by $p$.
 \end{proof}
 
-%The Lemma can be used as part of an induction process to prove a famous result.
 
 \begin{thm}{Cauchy}{}
 	If a prime $p$ divides $\nm G$, then $G$ contains a subgroup/element of order $p$. 
 \end{thm}
 
-% \footnotetext{%
-% 	The two are equivalent: if $y$ has order $p$, then $\ip{y}$ is a subgroup of order $p$. If $H\le G$ has order $p$, then $H\cong \Z_p$ is cyclic.%
-% }
+% 
+% 
+% \begin{example}{}{}
+% 	$S_4\times \Z_{10}\times D_6$ has order $24\cdot 10\cdot 12=2^6\cdot 3^2\cdot 5$ and thus has subgroups of orders 2, 3 \& 5 by Cauchy's Theorem. It of course has subgroups of many other orders.
+% \end{example}
+
 
 \begin{proof}
 	\begin{enumerate}
@@ -611,24 +614,6 @@ Haven't we done this already?! Exercise \ref*{chap:direct}.\ref{exs:abeliansubgr
 		\end{enumerate}
 		
 		
-		
-	% \begin{description}
-	% 	\item[\normalfont\emph{Base case}: ] If $\nm G=2$, then the only suitable prime is $p=2$. Certainly $G$ has a subgroup order 2.
-	% 	\item[\normalfont\emph{Induction step}: ] Suppose $\nm G\ge 3$ and assume the result holds for all abelian groups of order $<\nm G$. Suppose $p$ divides $\nm G$. We make some choices:
-	% 	\begin{itemize}
-	% 		\item Choose any $x\neq e$; let its order be $m=\nm{\ip x}$ (necessarily $m\ge 2$).
-	% 		\item Choose some prime $q$ dividing $m$.
-	% 		\item Define $y:=x^{m/q}$ and let $H=\ip y$.
-	% 	\end{itemize} 
-	% 	Plainly $y$ has order $q$. If $p=q$ we are done! Otherwise, since $G$ is abelian we have $H\triangleleft G$ and can form the factor group $\quotient GH$. This has order $\frac nq<n$ and $\frac nq$ is divisible by $p$; by the induction hypothesis there exists a coset $zH$ with order $p$. In particular, $z\not\in H$ and
-	% 	\[z^pH=H\implies z^p\in H=\ip{y}\implies z^p=y^k=x^{\frac{mk}q}\text{ for some $k\in\Z$}\]
-	% 	But then\footnotemark{} $z^q\neq e$ and
-	% 	\[(z^q)^p=(z^p)^q=x^{mk}=e\]
-	% 	whence that $z^q$ has order $p$.\qedhere
-	% \end{description}
-	% 
-	% \footnotetext{If $z^q=e$, then $(zH)^q=z^qH=H$ so $zH$ has order 1 or $q$; not $p$.}
-		
 	\end{enumerate}
 \end{exercises}
 
@@ -636,170 +621,210 @@ Haven't we done this already?! Exercise \ref*{chap:direct}.\ref{exs:abeliansubgr
 
 \iffalse
 
-\section{The Sylow theorems}
+\subsection{The Sylow Theorems (optional and non-examinable)}
 
-\emph{In this final section many of the proofs are technical and above the level of the class. They are included for completeness and interest only. Make sure you understand the statements of the theorems and how they are used before working hard on understanding the proofs.}\\
-
-Recall Lagrange (Theorem \ref{thm:lagrange}), and how it doesn't have a converse: e.g.~$A_4$ has order 12, but no subgroup of order 6. However, the Fundamental Theorem of Finitely Generated Abelian Groups (Theorem \ref{thm:fund}) tells us everything about subgroups of finite Abelian groups. In particular Theorem \ref{thm:abelsub} says that finite Abelian groups have subgroups of every order dividing that of the order of the parent group. For finite non-Abelian groups the story is more complicated. The Sylow theorems go some way toward establishing the existence (in the non-Abelian case) and number (in both cases) of certain subgroups.
-
-Let $G$ act on a set $X$, and suppose there are $r$ distinct orbits of $G$ on $X$ and let $x_1,\ldots,x_r$ be elements of $X$, one from each orbit. Suppose moreover that $x_1,\ldots,x_s$ are in the 1-element orbits of $G$: i.e.~$Gx_i=\{gx_i:g\in G\}=\{x_i\}$ for each $i=1,\ldots,s$. Label $X_G=\{x_1,\ldots,x_s\}$. Then, by summing the number of elements in each orbit, we have
-\[\nm X=\sum_{i=1}^r\nm{Gx_i}=\nm{X_G}+\sum_{i=s+1}^r\nm{Gx_i}.\tag*{($\ast$)}\]
-
-CLASS EQUATION
-
-\begin{thm}{}{pmod}
-Let $\nm G$ be a power of a prime $p$ and $X$ a finite set acted on by $G$. Then $\nm X\equiv\nm{X_G}\pmod p$.
-\end{thm}
-
-\begin{proof}
-$\nm{Gx_i}=(G:G_{x_i})=\frac{\nm G}{\nm{G_{x_i}}}\implies \nm G=\nm{Gx_i}\nm{G_{x_i}}$. Hence the size of each orbit $\nm{Gx_i}$ divides $\nm G$ for each $i$. For $i=s+1\ldots,r$, these orbits contain more than one element, and so $\nm{Gx_i}$ is divisible by $p$ for $i=s+1\ldots,r$. Substituting into the above equation gives the result.
-\end{proof}
+These go some way toward establishing the existence and number of certain subgroups.
 
 \begin{defn}{}{}
-Let $p$ be prime. $G$ is a \emph{$p$-group} if every element of $G$ has order a power of $p$.\\
+	Let $p$ be prime. $G$ is a \emph{$p$-group} if every element of $G$ has order a power of $p$.\\
 A subgroup $H$ of a group $G$ is a \emph{$p$-subgroup of $G$} if it is a $p$-group in its own right.
 \end{defn}
 
 \begin{examples}{}{}
-\exstart $G=\Z_8$ is a $2$-group.
-\begin{enumerate}\setcounter{enumi}{1}
-\item $\Z_9$ is a 3-subgroup of $\Z_{18}$ (note that $\Z_{18}$ is not a $p$-group).
-\item $\Z_3\times\Z_3$ is a 3-subgroup of $\Z_3\times\Z_6$.
-\item $V$ is a 2-subgroup of $S_4$.
-\item $\Z_4\times\Z_4$ is a 2-subgroup of $\Z_4\times\Z_8$ (this last is \emph{also} a 2-group).
-\end{enumerate}
+	\exstart $G=\Z_8$ is a $2$-group.
+	\begin{enumerate}\setcounter{enumi}{1}
+		\item $\Z_9$ is a 3-subgroup of $\Z_{18}$ (note that $\Z_{18}$ is not a $p$-group).
+		\item $\Z_3\times\Z_3$ is a 3-subgroup of $\Z_3\times\Z_6$.
+		\item $V$ is a 2-subgroup of $S_4$.
+		\item $\Z_4\times\Z_4$ is a 2-subgroup of $\Z_4\times\Z_8$ (this last is \emph{also} a 2-group).
+	\end{enumerate}
 \end{examples}
 
 Note that $G$ need not be a $p$-group in the second part of the definition, although certainly all subgroups of $p$-groups are themselves $p$-subgroups.
 
-For the next theorem we consider equation $(\ast)$ for the case when $X=G$ acts on itself by conjugation. In this case we have $X_G=\{g\in G:gxg^{-1}=x,\forall x\in G\}=Z(G)$, the \emph{center} of $G$ (Section \ref{sec:center}).
-
-\begin{thm}{Cauchy}{}
-Suppose that $p$ is a prime that divides the order of a finite group $G$. Then $ G$ contains an element $x$ of order $p$ and thus a subgroup $\ip x\le G$ of order $p$ (indeed $\ip x\cong\Z_p$).
-\end{thm}
-
-
-\begin{example}{}{}
-$S_4\times \Z_{10}\times D_6$ has order $24\cdot 10\cdot 12=2^6\cdot 3^2\cdot 5$ and thus has subgroups of orders 2, 3 \& 5 by Cauchy's Theorem. It of course has subgroups of many other orders.
-\end{example}
+% For the next theorem we consider equation $(\ast)$ for the case when $X=G$ acts on itself by conjugation. In this case we have $X_G=\{g\in G:gxg^{-1}=x,\forall x\in G\}=Z(G)$, the \emph{center} of $G$ (Section \ref{sec:center}).
+% 
+% \begin{thm}{Cauchy}{}
+% Suppose that $p$ is a prime that divides the order of a finite group $G$. Then $ G$ contains an element $x$ of order $p$ and thus a subgroup $\ip x\le G$ of order $p$ (indeed $\ip x\cong\Z_p$).
+% \end{thm}
+% 
+% 
+% \begin{example}{}{}
+% $S_4\times \Z_{10}\times D_6$ has order $24\cdot 10\cdot 12=2^6\cdot 3^2\cdot 5$ and thus has subgroups of orders 2, 3 \& 5 by Cauchy's Theorem. It of course has subgroups of many other orders.
+% \end{example}
 
 
 \begin{defn}{}{normalizer}
-Suppose that $H\le G$ is a subgroup. The stabilizer of $H$ under the action of $G$ by conjugation is the \emph{normalizer} of $H$. Explicitly,
-\[G_H=\{g\in G:gHg^{-1}=H\}=\{g\in G:ghg^{-1}\in H,\forall h\in H\}.\]
+	The stabilizer of $H\le G$ under conjugation is the \emph{normalizer} of $H$:
+	\[
+		G_H:=\Stab(H)=\{g\in G:gHg^{-1}=H\}
+		=\{g\in G:gh g^{-1}\in H,\forall h\in H\}
+	\]
 \end{defn}
 
 
-Note that $G_H$ does not fix every element of the subgroup $H$, it merely keeps $H$ together while perhaps permuting its elements.\\
-$G_H$ is a subgroup of $G$ (either by general principles since it is an isotropy subgroup, or by a question in the homework). Moreover, $H$ is a normal subgroup of $G_H$. It is clear that $G_H$ is the largest subgroup of $G$ having $H$ as a normal subgroup.
+The normalizer of $H$ merely keeps $H$ together while perhaps permuting its elements. The following should be clear:
+\begin{itemize}
+  \item $H\triangleleft G\iff G_H=G$
+  \item $H\triangleleft G_H$ and $G_H$ is the largest subgroup of $G$ having $H$ as a normal subgroup.
+\end{itemize}
 
 
-\begin{lemm}{}{pgroup}
-If $H$ is a $p$-subgroup of $G$, then $(G_H:H)=(G:H)\pmod p$.
+\begin{lemm}{}{pmod}
+	Let $\nm G=p^k$ where $p$ is prime, and suppose $X$ is a finite set acted on by $G$. Then $\nm X\equiv\nm{X_G}\pmod p$.
 \end{lemm}
 
 \begin{proof}
-Let $H$ act on the set of left cosets $\mathcal L$ of $H$ in $G$ by left multiplication. I.e.~$h\cdot(gH)=(hg)H$. Clearly $\nm{\mathcal L}=(G:H)$.\\
-Now let $\mathcal L_H=\{$left cosets of $H$ fixed by $H$\}. I.e.
-\begin{align*}
-gH\in\mathcal L_H&\iff hgH=gH,\forall h\in H\\
-&\iff g^{-1}hg\in H,\forall h\in H\iff g\in G_H.
-\end{align*}
-Thus $\nm{\mathcal L_H}=(G_H:H)$, the number of left cosets of $H$ in $G_H$.\\
-Since $H$ is a $p$-group, Theorem \ref{thm:pmod} gives $\nm{\mathcal L}\equiv\nm{\mathcal L_H}\pmod p$, and hence the result.
+	In the class equation, each $\frac{\nm G}{\nm{\Stab(x_j)}}$ is divisible by $p$.
 \end{proof}
 
+
+\begin{lemm}{}{pgroup}
+	If $H$ is a $p$-subgroup of $G$, then $(G_H:H)\equiv (G:H)\pmod p$.
+\end{lemm}
+
+\begin{proof}
+	Let $H$ act on the set of left cosets $\mathcal L$ of $H$ in $G$ by left multiplication: $h\cdot(gH)=(hg)H$. By definition, $\nm{\mathcal L}=(G:H)$.\par
+	Let $\mathcal L_H=\{$left cosets of $H$ fixed by $H$\}: $gH\in\mathcal L_H\Longleftrightarrow \forall h\in H, \ hgH=gH$. Observe:
+	\[
+		gH\in\mathcal L_H\iff \forall h\in H,\ g^{-1}hg\in H\iff g\in G_H
+	\]
+	Thus $\nm{\mathcal L_H}=(G_H:H)$, the number of (left) cosets of $H$ in $G_H$.\smallbreak
+	Since $H$ is a $p$-group, Lemma \ref{lemm:pmod} gives $\nm{\mathcal L}\equiv\nm{\mathcal L_H}\pmod p$ which is the result.
+\end{proof}
+
+
+\goodbreak
+
+
 \begin{thm}{1st Sylow theorem}{}
-Let $\nm G=p^nm$ for $p$ prime, $n\ge 1$ and $m$ not divisible by $p$. Then:
-\begin{enumerate}
-\item $G$ contains a subgroup of order $p^i$ for every $i=1\ldots,n$.
-\item Any subgroup $H\le G$ of order $p^i$ for $i=1\ldots,n-1$ is a normal subgroup of a subgroup of $G$ of order $p^{i+1}$.
-\end{enumerate}
+	Let $\nm G=p^nm$ where $p$ is prime, $n\ge 1$ and $p\nmid m$. Then:
+	\begin{enumerate}
+		\item $G$ contains a subgroup of order $p^i$ for each $i=1\ldots,n$.
+		\item Any such subgroup with $i<n$ is a normal subgroup of some subgroup of order $p^{i+1}$.
+	\end{enumerate}
 \end{thm}
 
 \begin{proof}
-We argue by induction. $G$ has a subgroup of order $p$ by Cauchy's theorem. Suppose, for the induction hypothesis, that $G$ has a subgroup $H$ of order $p^i$.
-
-Then $(G:H)=p^{n-i}m$ is divisible by $p$. Since $H$ is a $p$-group, Lemma \ref{lemm:pgroup} says that $(G_H:H)$ is divisible by $p$. Now $H$ is a normal subgroup of $G_H$ (see above Remark) and so the factor group $G_H/H$ exists and has order divisible by $p$. By Cauchy's theorem, $G_H/H$ has a subgroup $K$ of order $p$.\\
-Now let $\gamma:G_H\to G_H/H$ be the canonical homomorphism ($\gamma(g)=gH$ for $g\in G_H$). Then
-\[\gamma^{-1}(K)=\{g\in G_H:\gamma(g)\in K\}\]
-is a subgroup of $G_H$, and thus of $G$. Clearly $H$ is normal in $\gamma^{-1}(K)\le G_H$, and so, by the first Isomorphism Theorem,
-\[\gamma^{-1}(K)/H\cong\gamma(\gamma^{-1}(K))=K.\]
-Since $K$ has order $p$, and $H$ has order $p^i$, it is clear that $\gamma^{-1}(K)$ has order $p^{i+1}$. We are done.
+	We argue by induction. Cauchy's Theorem is the base case: $G$ has a subgroup of order $p$.\smallbreak
+	For the induction hypothesis, fix $i<n$ and suppose $G$ has a subgroup $H$ of order $p^i$. Plainly 
+	\[
+		(G:H)=p^{n-i}m
+	\]
+	is divisible by $p$. Consider the factor group $\quotient{G_H}H$ (order $(G_H:H)$). Since $H$ is a $p$-group, Lemma \ref{lemm:pgroup} says that $p$ divides the order of $\quotient{G_H}H$; Cauchy says there is a subgroup $K\le \quotient{G_H}H$ of order $p$.\par
+	Let $\gamma:G_H\to\quotient{G_H}H$ be the canonical homomorphism, then the inverse image
+	\[
+		\gamma^{-1}(K)=\bigl\{g\in G_H:\gamma(g)\in K\bigr\}
+	\]
+	is a subgroup of $G_H$ and thus of $G$. Clearly $H$ is normal in $\gamma^{-1}(K)\le G_H$; by the first Isomorphism Theorem,
+	\[
+		\quotient{\gamma^{-1}(K)}H\cong\gamma\bigl(\gamma^{-1}(K)\bigr)=K
+	\]
+	Since $K$ has order $p$, and $H$ has order $p^i$, it is clear that $\gamma^{-1}(K)$ has order $p^{i+1}$. We are done.
 \end{proof}
 
 The first Sylow theorem says that given $G$ of order $p^nm$ there exists a chain of subgroups $H_i$ of order $p^i$ which are normal inside each other:
-\[\{e\}\triangleleft H_1\triangleleft H_2\triangleleft\cdots\triangleleft H_n\le G.\]
+\[
+	\{e\}\triangleleft H_1\triangleleft H_2\triangleleft\cdots\triangleleft H_n\le G
+\]
 Only the final subgroup inclusion need not be normal. The third Sylow theorem gives a method whereby you can often tell if the final inclusion is normal.
 
 \begin{defn}{}{}
-A \emph{Sylow $p$-group} of a group $G$ is a $p$-group of maximal size (not contained in any larger $p$-group).
+	A \emph{Sylow $p$-subgroup} of a group $G$ is a $p$-subgroup of maximal size (not contained in any larger $p$-subgroup).
 \end{defn}
 
-It is clear that the Sylow $p$-subgroups of $G$ constitute all the subgroups of $G$ of order $p^n$. Moreover, any $p$-subgroup of $G$ is necessarily contained in a Sylow $p$-subgroup of $G$ by the second part of the Theorem.
+When $\nm G=p^nm$ as in the first theorem, the Sylow $p$-subgroups of $G$ constitute all subgroups of order $p^n$. Moreover, any $p$-subgroup of $G$ is necessarily contained in a Sylow $p$-subgroup of $G$ by the second part of the first theorem.
 
 \begin{examples}{}{}
-\exstart Let $G$ be a group of order $100=2^2\cdot 5^2$. By the first Sylow theorem, $G$ has at least one Sylow 5-subgroup of order 25, and at least one Sylow 2-subgroup of order 4.
-\begin{enumerate}
-\item 
-\item Let $H$ be a group of order $1800=2^3\cdot 3^2\cdot 5^2$. Thus $H$ has at least one Sylow 2-subgroup of order 8, at least one Sylow 3-subgroup of order 9, and at least one Sylow 5-subgroup of order 25.
-\end{enumerate}
+	\exstart Let $G$ be a group of order $100=2^2\cdot 5^2$. Then $G$ has at least one Sylow 5-subgroup of order 25, and at least one Sylow 2-subgroup of order 4.
+	\begin{enumerate}\setcounter{enumi}{1}
+		\item Let $G$ be a group of order $1800=2^3\cdot 3^2\cdot 5^2$. Thus $G$ has at least one Sylow 2-subgroup of order 8, at least one Sylow 3-subgroup of order 9, and at least one Sylow 5-subgroup of order 25.
+	\end{enumerate}
 \end{examples}
 
-The second and third Sylow theorems give us information about how Sylow $p$-subgroups are related, and how many there might be of a given group.
+The second and third Sylow theorems give us information about how Sylow $p$-subgroups are related, and how many there might be in a given group.
 
 \begin{thm}{Second Sylow theorem}{}
-Any two Sylow $p$-subgroups of a finite group $G$ are conjugate.
+	If $G$ is a finite group, then any two Sylow $p$-subgroups are conjugate.
 \end{thm}
 
 \begin{proof}
-Let $P_1,P_2$ be two Sylow $p$-subgroups of $G$. Since all Sylow $p$-subgroups have the same order (for fixed $p$), we have
-\[P_2=x^{-1}P_1x\iff x^{-1}yx\in P_2, \forall y\in P_1\iff yxP_2=xP_2\iff xP_2\in\mathcal L_{P_1},\]
-the set of left cosets of $P_2$ fixed by the left action of $P_1$. It suffices to show that $\mathcal L_{P_1}$ is non-empty.\\
-By Lemma \ref{lemm:pgroup}, $\nm{\mathcal L_{P_1}}\equiv\nm{\mathcal L}=(G:P_2)\pmod p$, where $\mathcal L$ is the set of left cosets of $P_2$ in $G$.\\
-Since $(G:P_2)$ is not divisible by $p$, we have $\nm{\mathcal L_{P_1}}\neq 0$, as required.
+	Suppose $P_1$ and $P_2$ are two Sylow $p$-subgroups of $G$. Since all such have the same order, we see that the groups are conjugate (by some $x\in G$), if and only if
+	\begin{align*}
+		\forall y\in P_1,\ x^{-1}yx\in P_2 &\iff \forall y\in P_1,\ yxP_2=xP_2\\
+		&\iff xP_2\in\mathcal L_{P_1}
+	\end{align*}
+	That is, the left coset $xP_2$ is fixed by the left action of $P_1$. It suffices to show that $\mathcal L_{P_1}$ is non-empty.\par
+	By Lemma \ref{lemm:pgroup}, $\nm{\mathcal L_{P_1}}\equiv\nm{\mathcal L}=(G:P_2)\pmod p$, where $\mathcal L$ is the set of left cosets of $P_2$ in $G$.\par
+	Since $(G:P_2)$ is not divisible by $p$, we have $\nm{\mathcal L_{P_1}}\neq 0$, as required.
 \end{proof}
 
 \begin{thm}{Third Sylow theorem}{}
-Suppose that the prime $p$ divides the order of the finite group $G$. Then the number of Sylow $p$-subgroups of $G$ is congruent to 1 modulo $p$ and divides $\nm G$.
+	The number of Sylow $p$-subgroups of $G$ is congruent to 1 modulo $p$ and divides $\nm G$.
 \end{thm}
 
 \begin{proof}
-\def\SSS{\mathcal{S}}
-Let $P$ be a Sylow $p$-subgroup of $G$, and let $\SSS$ be the set of all Sylow $p$-subgroups of $G$.\\
-$G$ acts on $\SSS$ by conjugation. However, all Sylow $p$-subgroups of $G$ are conjugate so that there is only one orbit of $\SSS$ under $G$. Recall Proposition \ref{prop:orbits}: we have
-\[\nm{\SSS}=\nm{\text{orbit $GP$ of $P$}}=(G:G_P)=\nm{G}{\nm{G_P}}.\]
-This is clearly a divisor of $\nm G$ and so the number of Sylow $p$-subgroups divides the order $G$.\\
-$P$ acts on $\SSS$ by conjugation: if $x\in P$, and $Q\in\SSS$ another Sylow $p$-subgroup, then $xQx^{-1}$ is also a Sylow $p$-subgroup and thus in $\SSS$. Since $P$ is a $p$-group acting on a set $\SSS$, Lemma \ref{lemm:pgroup} implies that
-\[\nm{\SSS}\equiv\nm{\SSS_P}\pmod p.\]
-That is, the number of $p$-subgroups is congruent modulo $p$ to the cardinality of the set of $p$-subgroups fixed under the action of $P$.\\
-Suppose $Q\in \SSS_P$. Then $xQx^{-1}=Q$ for all $x\in P$ and so $P\le G_Q$, the normalizer of $Q$. However, we also clearly have $Q\le G_Q$. We claim that $P,Q$ are Sylow $p$-subgroups of $G_Q$. For this, observe that $P,Q$ are $p$-groups and thus $p$-subgroups of $G_Q$. If they were not Sylow $p$-subgroups of $G_Q$, then they would be contained in strictly larger Sylow $p$-subgroups of $G_Q$. But $P,Q$, being Sylow $p$-subgroups of $G$, are the largest $p$-subgroups of $G$. $G_Q\le G$ says that the Sylow $p$-subgroups of $G_Q$ must be at most the same size as those of $G$.\\
-By the second Sylow theorem, $P,Q$ are conjugate subgroups in $G_Q$: i.e.~$P,Q$ are conjugate by an element $y\in G_Q$. But $Q$ is a normal subgroup of $G_Q$ (see the Remarks after Defintion \ref{defn:normalizer}) and so $Q=P$. Hence $\SSS_P=\{P\}$ and so
-\[\nm{\SSS}\equiv 1\pmod p.\]
-The number of Sylow $p$-subgroups of $G$ is thus congruent to 1 modulo $p$.
+	\def\SSS{\mathcal{S}}
+	Let $P$ be a Sylow $p$-subgroup of $G$, and $\SSS$ the set of all such. Consider two actions on $\SSS$.
+	\begin{enumerate}
+	  \item $G$ acts on $\SSS$ by conjugation: If $g\in G$ and $Q\in\SSS$, then $xQx^{-1}$ is another Sylow $p$-subgroup. By the second Sylow Theorem, there is only one orbit of $\SSS$ under $G$. But then
+		\[
+		\nm{\SSS}=\nm{\text{orbit $GP$ of $P$}}=(G:G_P)=\frac{\nm{G}}{\nm{G_P}}
+		\]
+		This is clearly a divisor of $\nm G$ and so the number of Sylow $p$-subgroups divides the order $G$.
+		\item	The Sylow $p$-subgroup $P$ also acts on $\SSS$ by conjugation.\footnotemark{} Since $P$ is a $p$-group acting on a set $\SSS$, Lemma \ref{lemm:pgroup} implies that
+		\[
+			\nm{\SSS}\equiv\nm{\SSS_P}\pmod p
+		\]
+		That is, the number of $p$-subgroups is congruent modulo $p$ to the cardinality of the set of $p$-subgroups fixed by the action of $P$.\par
+		Suppose $Q\in \SSS_P$. Then, for any $x\in P$ we have $xQx^{-1}=Q$, from which 
+		\[
+			P\le G_Q \tag{$P$ is a subgroup of the \emph{normalizer} of $Q$}
+		\]
+		However, we also have $Q\le G_Q\le G$. Since $P,Q$ are Sylow $p$-subgroups of $G$, it follows that they are also Sylow $p$-subgroups of $G_Q$. By the second Sylow theorem, $P,Q$ are conjugate in $G_Q$: that is, $Q=yPy^{-1}$ for some $y\in G_Q$. But $Q$ is a normal subgroup of $G_Q$, whence $Q=P$. We conclude that $P$ is the only Sylow $p$-subgroup fixed by the action of $P$ (i.e., $\SSS_P=\{P\}$), whence
+	\[
+		\nm{\SSS}\equiv 1\pmod p\tag*{\qedhere}
+	\]
+	\end{enumerate}
 \end{proof}
 
+\footnotetext{Since $P$ is a subgroup of $G$, there need not be only one orbit. Indeed, as the proof shows, the only way there can be one orbit is if $P$ is the unique Sylow $p$-subgroup of $G$.}
+
+\goodbreak
+
 \begin{examples}{}{}
-\exstart In our example where $\nm G=100$, the only divisors of $G$ are 1, 2, 4, 5, 10, 20, 25, 50 \& 100.\\
-The only one of these numbers to be simultaneously congruent to 1 modulo 5 is 1 itself. There is therefore only one Sylow 5-subgroup of $G$. Since this is the only subgroup of order 25 it must be self-conjugate and thus normal.\\
-Conversely, of the above string of numbers, 1, 5 and 25 are congruent to 1 modulo 2, hence there may be 1, 5 or 25 distinct Sylow 2-subgroups of $G$.\\
-We now give two examples of where we can see the Sylow $p$-subgroups explicitly.
-\begin{enumerate}\setcounter{enumi}{1}
-\item[]\begin{enumerate}
-	\item $\Z_{100}$ clearly has order 100. Its subgroups are $\Z_k$ for $k$ each of the divisors listed above. There is thus one Sylow 5-subgroup $\Z_{25}$ and one Sylow 2-subgroup $\Z_4$.
-	\item $D_{50}$ also has order 100. Its single subgroup of order 25 consists of exactly half of the 50 rotations: $\Z_{25}\cong\{\rho_0,\rho_2,\ldots,\rho_{48}\}$. Here there are 25 distinct Sylow-2 subgroups, all isomorphic to the Klein 4-group $V$. Labeling the reflections $\mu_1,\ldots,\mu_{50}$, these are
-	\[V_i=\{\rho_0,\rho_{25},\mu_i,\mu_{i+25}\},\quad i=1,\ldots,25.\]
-	Notice that $D_{50}$ has no subgroup isomorphic to $\Z_4$ (reflections have order 2 and rotations have orders 1, 5 or 25): by the second Sylow theorem all Sylow 2-subgroups are conjugate and thus isomorphic, so we need not look for $\Z_4$ subgroups.
+	\exstart Suppose $\nm G=100$, which has divisors 1, 2, 4, 5, 10, 20, 25, 50 \& 100.
+	\begin{enumerate}\setcounter{enumi}{1}
+		\item[]\begin{itemize}
+			\item The only divisor congruent to 1 modulo 5 is 1 itself. By the third theorem, there is precisely one Sylow 5-subgroup of $G$. Since this is the only subgroup of order 25, it must be self-conjugate and thus normal.
+			\item	The divisors 1, 5 and 25 are congruent to 1 modulo 2, hence there might be 1, 5 or 25 distinct Sylow 2-subgroups of $G$.
+		\end{itemize}
+		We now give two sub-examples where the Sylow $p$-subgroups can be seen explicitly.
+		\begin{enumerate}
+			\item $\Z_{100}$ has one Sylow 5-subgroup $\ip{4}\cong\Z_{25}$, and one Sylow 2-subgroup $\ip{25}\cong\Z_4$.
+			\item $D_{50}$ has one Sylow 5-subgroup of order 25 consisting of half of the 50 rotations:
+			\[
+				\ip{\rho_2}=\{\rho_0,\rho_2,\ldots,\rho_{48}\}\cong\Z_{25}
+			\]
+			There are 25 distinct Sylow-2 subgroups, each of which is isomorphic to the Klein 4-group $V$. These may be described explicitly if we label the reflections $\mu_1,\ldots,\mu_{50}$:
+			\[
+				V_i=\{\rho_0,\rho_{25},\mu_i,\mu_{i+25}\},\quad i=1,\ldots,25
+			\]
+			Note that $D_{50}$ has no subgroups isomorphic to $\Z_4$ (reflections have order 2 and rotations have orders 1, 5 or 25). By the second Sylow theorem all Sylow 2-subgroups are conjugate and thus isomorphic, so we need not look for $\Z_4$ subgroups regardless.
+		\end{enumerate}
+	
+		\item Suppose $\nm G=20=2^2\cdot 5$. The divisors of $\nm G$ are 1, 2, 4, 5, 10 and 20. The must be either one or five Sylow 2-subgroups; and one Sylow 5-subgroup of $G$, which is necessarily normal. Thus $G$ has a normal subgroup isomorphic to $\Z_5$. A similar analysis to the above will show what these are when $G$ is either $\Z_{20}$ or $D_{10}$.
+	
+		\item Let $\nm G=225=3^2\cdot 5^2$. The divisors of $\nm G$ are 1, 3, 5, 9, 15, 25, 45, 75, 225. Thus $G$ has either one or 25 distinct Sylow 3-subgroups, and only one Sylow 5-subgroup (which is thus normal).
+	
+		\item Let $G$ have order $pq$, where $p<q$ are distinct primes $\ge 3$. Then all proper subgroups of $G$ are cyclic (isomorphic to $\Z_p$ or $\Z_q$). Moreover, $\Z_q$ is a Sylow $q$-subgroup of $G$. The third Sylow theorem states that there can only be one, $p$ or $q$ of these, and that this number is congruent to 1 modulo $q$. If there were $p$ such subgroups, then
+		\[
+			p\equiv 1\pmod q\implies p=1+\lambda q \tag{for some $\lambda\in\N$}
+		\]
+		which contradicts $p<q$. We conclude that there is only one Sylow $q$-subgroup of $G$.\smallbreak
+		The other argument is false. For example if $p=3$ and $q=7$, then $q\equiv 1\pmod p$, so there may be one or seven Sylow 3-subgroups of $G$. The former situation in fact yields $\Z_{21}$, while the latter results in a new (non-abelian) group, not seen in these notes.\smallbreak
+		In general it can be shown that if $G$ has order $pq$, where $p<q$ are any primes such that $q-1$ is not divisible by $p$, then $G\cong\Z_{pq}$. For example, the groups $\Z_{15}$, $\Z_{33}$, $\Z_{35}$, etc., are the only groups up to isomorphism of their given order.
 	\end{enumerate}
-
-\item Now suppose that $\nm G=20=2^2\cdot 5$. The divisors of $\nm G$ are 1, 2, 4, 5, 10 and 20. There must be either 1 or 5 Sylow 2-subgroups; and 1 Sylow 5-subgroup of $G$, which is necessarily normal. Thus $G$ has a normal subgroup isomorphic to $\Z_5$. You should be able to perform a similar analysis to the previous example to see what these subgroups are in the cases where $G$ is $\Z_{20}$ and $D_{10}$.
-
-\item Let $\nm G=225=3^2\cdot 5^2$. The divisors of $\nm G$ are 1, 3, 5, 9, 15, 25, 45, 75, 225. There must be either 1 or 25 Sylow 3-subgroups of $G$, and only one Sylow 5-subgroup (which is thus normal).
-
-\item Let $G$ have order $pq$, where $p<q$ are distinct primes $\ge 3$. Then all proper subgroups of $G$ are isomorphic to $\Z_p,\Z_q$. More is true. $\Z_q$ is a Sylow $q$-subgroup of $G$. The third Sylow theorem states that there can only be 1, $p$ or $q$ of these, and that the number is congruent to 1 modulo $q$. If there were $p$, then $p\equiv 1\pmod q\implies p=1+\lambda q$ for some necessarily positive integer $\lambda$, which is a contradition since $p<q$. There is thus only one Sylow $q$-subgroup of $G$.\\
-The other argument is false: for example if $p,q=3,7$, then $q\equiv 1\pmod p$, so there may be 1 or 7 Sylow 3-subgroups of $G$. The former yields $\Z_{21}$, while the latter yields a new group, not seen in this class.\\
-In general it can be shown that if $G$ has order $pq$, where $p<q$ are any primes such that $q-1$ is not divisible by $p$, then $G\cong\Z_{pq}$. For example, the groups $\Z_{15},\Z_{33},\Z_{35}$, etc., are the only groups up to isomorphism of their given order.
-\end{enumerate}
 \end{examples}
 
 \section*{Homogeneous spaces --- for interest only}
