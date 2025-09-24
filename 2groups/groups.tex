@@ -606,7 +606,7 @@ where all four groups under addition. If $G$ has only finitely many subgroups, t
 \clearpage
 
 
-\subsection{Modular Arithmetic}
+\subsection{Modular Arithmetic}\label{sec:modarith}
 
 Many commonly encountered examples in abstract algebra make use of \emph{modular arithmetic}: the addition and multiplication of \emph{remainders.} Such arithmetic should be at least somewhat familiar so we offer only a brief refresher. At present, these groups are very informal and are introduced primarily to supply examples; more rigorous discussions will be given in Chapters \ref{chap:cyclic} \& \ref{chap:coset}.
 
@@ -797,7 +797,7 @@ As in Example \ref{ex:z4subgroup}, in Chapter \ref{chap:cyclic} we'll see that t
 	   	\item Hypothesize for which integers $n\ge 2$ the set $\{1,2,3,\ldots,n-1\}$ forms a group under multiplication modulo $n$. If you want a challenge, try to prove your assertion.
 	  \end{enumerate}
 	  	  
-	  \item The set $\Z_n^\times$ denotes the \emph{units} in $\Z_n$, those elements which are relatively prime to $n$:
+	  \item\label{exs:znunits} The set $\Z_n^\times$ denotes the \emph{units} in $\Z_n$, those elements which are relatively prime to $n$:
 	  \[
 	  	\Z_n^\times=\bigl\{x\in\Z_n:\gcd(x,n)=1\bigr\}
 	  \]
@@ -805,7 +805,7 @@ As in Example \ref{ex:z4subgroup}, in Chapter \ref{chap:cyclic} we'll see that t
 	  \begin{enumerate}
 	    \item Construct the Cayley tables for the groups $\Z_3^\times=\{1,2\}$ and $\Z_4^\times=\{1,3\}$.
 	    \item\label{exs:z5times} Construct the Cayley table for the group $\Z_5^\times=\{1,2,3,4\}$. Now identify its \emph{subgroups.} 
-	    \item Construct the Cayley tables for $\Z_8^\times$ and $\Z_9^\times$. What is the order of each group?
+	    \item\label{exs:znunits89} Construct the Cayley tables for $\Z_8^\times$ and $\Z_9^\times$. What is the order of each group?
 	    \item (Hard)\lstsp Prove that $\Z_n^\times$ forms an abelian group under multiplication modulo $n$ by verifying the group axioms.\par
 	    (\emph{Hint: Recall Bézout's identity $\gcd(x,n)=1\Longleftrightarrow\exists\kappa,\lambda\in\Z$ such that $\kappa x+\lambda n=1$})
 	    \item\begin{enumerate}
@@ -961,10 +961,10 @@ A similar discussion applies to any geometric figure.
 
 These are often straightforward to observe by drawing two shapes in such a way that all the symmetries of one are also symmetries of the other. Since the symmetries of both shapes form a group, this pictorial approach justifies the only necessary condition in Definition \ref{defn:subgroup}: the subset property.
 
-\begin{examples}{}{}
+\begin{examples}{}{hexsubgroup}
 	\exstart For any $n$, we see that $R_n< S^1$: every rotation of a regular $n$-gon is also a rotation of a circle (with the same center).
 	\begin{enumerate}\setcounter{enumi}{1}
-	  \item\label{ex:hexsubgroup} Consider a \textcolor{blue}{regular hexagon}, inside which have been drawn two \textcolor{red}{equilateral triangles}. Every symmetry of either triangle is also a symmetry the hexagon. We conclude:
+	  \item\label{ex:hexsubgroup2} Consider a \textcolor{blue}{regular hexagon}, inside which have been drawn two \textcolor{red}{equilateral triangles}. Every symmetry of either triangle is also a symmetry the hexagon. We conclude:
 	 	\begin{center}
 			\includegraphics[scale=0.9]{group-hexagon3}
 			\qquad\qquad
@@ -1187,12 +1187,12 @@ The \emph{orthogonal group} $\rO_n(\R)=\{A\in\rM_n(\R):A^TA=I\}$ consists of tho
 In the previous sections, you should have felt like you were encountering similar examples in different contexts. A key goal of abstract mathematics is the comparison of similar/identical structures with outwardly different appearances. The standard approach to such comparison is uses \emph{functions.}
 
 \begin{example}{}{z3r3iso}
-	Compare the group $\Z_3$ to the rotation group $R_3$ of an equilateral triangle. Their Cayley tables look almost identical, particularly if we write $\rho_0$ for the identity in $R_3$. To a mathematician, the groups have the same \emph{structure}; they are merely labelled differently.\par
+	Compare the rotation group $R_3$ of an equilateral triangle to the modular arithmetic group $\Z_3$. Their Cayley tables look almost identical, particularly if we write $\rho_0$ for the identity in $R_3$. To a mathematician, the groups have the same \emph{structure}; they are merely labelled differently.\par
 	\begin{minipage}[t]{0.63\linewidth}\vspace{-5pt}
-		\emph{Relabelling} means defining an \emph{invertible function} $\mu:\Z_3\to R_3$: here $\mu(x)=\rho_1^x$ (that is $\mu(0)=\rho_0$, $\mu(1)=\rho_1$, $\mu(2)=\rho_2$).\smallbreak
-		Since the Cayley tables describe all possible interactions between the elements of each group, it is clear that $\mu$ satisfies
+		\emph{Relabelling} means defining an \emph{invertible function} $\mu:R_3\to \Z_3$: the obvious choice from looking at the tables is $\mu(\rho_k)=k$.\smallbreak
+		Since the tables describe all possible interactions between the elements of each group, it is clear that $\mu$ satisfies
 		\[
-			\forall x,y\in\Z_3,\ \ \mu(x+_3y)=\mu(x)\circ\mu(y)
+			\forall \rho_j,\rho_k\in R_3,\ \ \mu(\rho_j\circ\rho_k)=\mu(\rho_j)+_3\mu(\rho_k)
 		\]
 	\end{minipage}
 	\hfill
@@ -1200,24 +1200,24 @@ In the previous sections, you should have felt like you were encountering simila
 		\flushright\def\arraystretch{1.5}
 		\begin{tabular}{@{}cc@{}}\def\arraystretch{1}
 			$\begin{array}[t]{c||c|c|c}
-				+_3&\textcolor{red}{0}&\textcolor{blue}{1}&\textcolor{Green}{2}\\\hline\hline
-				\textcolor{red}{0}&\textcolor{red}{0}&\textcolor{blue}{1}&\textcolor{Green}{2}\\\hline
-				\textcolor{blue}{1}&\textcolor{blue}{1}&\textcolor{Green}{2}&\textcolor{red}{0}\\\hline
-				\textcolor{Green}{2}&\textcolor{Green}{2}&\textcolor{red}{0}&\textcolor{blue}{1}
-			\end{array}$
-			&\def\arraystretch{1}
-			$\begin{array}[t]{c||c|c|c}
 				\circ&\rho_{\textcolor{red}{0}}&\rho_{\textcolor{blue}{1}}&\rho_{\textcolor{Green}{2}}\\\hline\hline
 				\rho_{\textcolor{red}{0}}&\rho_{\textcolor{red}{0}}&\rho_{\textcolor{blue}{1}}&\rho_{\textcolor{Green}{2}}\\\hline
 				\rho_{\textcolor{blue}{1}}&\rho_{\textcolor{blue}{1}}&\rho_{\textcolor{Green}{2}}&\rho_{\textcolor{red}{0}}\\\hline
 				\rho_{\textcolor{Green}{2}}&\rho_{\textcolor{Green}{2}}&\rho_{\textcolor{red}{0}}&\rho_{\textcolor{blue}{1}}
+			\end{array}$
+			&\def\arraystretch{1}
+			$\begin{array}[t]{c||c|c|c}
+				+_3&\textcolor{red}{0}&\textcolor{blue}{1}&\textcolor{Green}{2}\\\hline\hline
+				\textcolor{red}{0}&\textcolor{red}{0}&\textcolor{blue}{1}&\textcolor{Green}{2}\\\hline
+				\textcolor{blue}{1}&\textcolor{blue}{1}&\textcolor{Green}{2}&\textcolor{red}{0}\\\hline
+				\textcolor{Green}{2}&\textcolor{Green}{2}&\textcolor{red}{0}&\textcolor{blue}{1}
 			\end{array}$\\
-			$(\Z_3,+_3)$
-			&
 			$(R_3,\circ)$
+			&
+			$(\Z_3,+_3)$
 		\end{tabular}
 	\end{minipage}\bigbreak
-	This is a critical formula. To see why, suppose we are given remainders $x,y\in\Z_3$ and consider two courses of action:
+	Indeed, both sides simply equal $j+_3k$! This is a critical formula. To see why, suppose we are given remainders $x,y\in\Z_3$ and consider two courses of action:
 	\begin{enumerate}\itemsep2pt
 	  \item \emph{First combine} the remainders $x+_3y$ in $\Z_3$, \emph{then map} to $R_3$ using the function to obtain $\mu(x+_3y)$.
 	  \item \emph{First map} both remainders to $R_3$ using $\mu$, \emph{then combine} in $R_3$ to obtain $\mu(x)\circ\mu(y)$.
@@ -1243,7 +1243,7 @@ The notation is typical: $\mu$ (rather than $\phi$) is often used when we know w
 
 
 \begin{examples}{}{}
-	\exstart (\ref{ex:z3r3iso} cont.)\quad 	We have \emph{isomorphic groups} $\Z_3\cong R_3$. Indeed the function $\mu:\Z_3\to R_3$ is an \emph{isomorphism of groups} (or \emph{group isomorphism}).
+	\exstart (\ref{ex:z3r3iso} cont.)\quad 	We have \emph{isomorphic groups} $R_3\cong\Z_3$. Indeed the function $\mu:R_3\to\Z_3$ is an \emph{isomorphism of groups} (or \emph{group isomorphism}).
 	
 	\begin{enumerate}\setcounter{enumi}{1}
 	  \item The%
@@ -1290,7 +1290,7 @@ The notation is typical: $\mu$ (rather than $\phi$) is often used when we know w
 \footnotetext{%
 	The scalar multiplication condition $\rT(\lambda\vv)=\lambda \rT(\vv)$ of a linear map is not relevant here.%
 }
-
+\vspace{-5pt}
 
 \boldsubsubsection{Establishing Isomorphicity}
 
@@ -1298,7 +1298,7 @@ We must do four things if we suspect binary structures $(G,*)$ and $(H,\star)$ t
 \begin{quote}
 	\begin{description}
 		\item[\emph{Definition}:] Define $\mu:G\to H$ and, if necessary, verify that it is a function.\footnote{%
-			If $G$ is a set of equivalence classes, you will need to check that $\phi$ is \emph{well-defined.} This will become important later.%
+			If $G$ is a set of equivalence classes, you also need to check that $\phi$ is \emph{well-defined.} This will become important later, and is why we haven't (yet) had an example where $\Z_n$ is the \emph{domain} of a homomorphism\ldots%
 			}
 		\item[\emph{Homomorphism}:] Verify that $\mu(x\opast y)=\mu(x)\opstar\mu(y)$ for all $x,y\in G$.
 		\item[\emph{Injectivity/1--1}:] Check that $\mu(x)=\mu(y)\Longrightarrow x=y$.
@@ -1376,6 +1376,8 @@ Here is a non-exhaustive list of structural properties; we'll check some in Exer
 	  
 	  \begin{minipage}[t]{0.72\linewidth}\vspace{0pt}
 	  	\item The binary structures defined by the two tables are non-isomorphic. For instance, the first is commutative while the second is not.
+	  		  
+	  	\item $\rGL_2(\R)$ and $(\R,+)$ are non-isomorphic for the same reason: the first is non-abelian and the second abelian.
 	  \end{minipage}
 	  \hfill
 	  \begin{minipage}[t]{0.27\linewidth}\vspace{0pt}
@@ -1394,11 +1396,12 @@ Here is a non-exhaustive list of structural properties; we'll check some in Exer
 	  \end{minipage}
 	  \par 
 	 	
-% 	  \item The groups $(\Z_6,+_6)$ and $D_3$ both have order six, but are non-isomorphic since $\Z_6$ is abelian and $D_3$ is not.
+% 	  \item The groups $(\Z_6,+_6)$ and $D_3$ both have order six, but are non-isomorphic since $\Z_6$ is abelian and $D_3$ is not
 	  
 	  \item To see that $(\Q,+)$ and $(\R,+)$ are non-isomorphic groups, it is enough to recall that the sets have different cardinalities: $\Q$ is \emph{countably infinite} while $\R$ is \emph{uncountable.}
-	  
-	  \item $\rGL_2(\R)$ and $(\R,+)$ have the same cardinality. However, since the first is non-abelian and the second abelian, the two groups are non-isomorphic. 
+
+
+		\item The groups $(\Z,+)$ and $(\Q,+)$ have the same (countably infinite) order, and are both abelian. To see that they are non-isomorphic, consider the equation $x+x=1$ which has no solutions in $\Z$. If $\mu:\Z\to\Q$ were an isomorphism, then the equation $\mu(x)+\mu(x)=\mu(1)$ does have a solution $y=\mu(x)=\frac 12\mu(1)$ in $\Q$. But then $x=\mu^{-1}(y)$ solves the original equation: contradiction!
 	\end{enumerate}
 \end{examples}
 
@@ -1438,10 +1441,7 @@ Suppose $\mu:G\to H$ is a bijection of \emph{sets}, where one of $G,H$ has a bin
 			\[
 				\mu^{-1}(0)=\sqrt[3]{-8}=-2
 			\]
-			As a sanity check, observe that
-			\[
-				x\opast (-2)=\sqrt[3]{x^3+(-2)^3+8}=x
-			\]
+			As a sanity check, observe that $x\opast (-2)=\sqrt[3]{x^3+(-2)^3+8}=x$.
 			\item[\emph{Push-forward}:] View $\mu:(\R,+)\to (\R,*)$ as an isomorphism. Computation of $*$ is an exercise.
   \end{description} 
 \end{example}
@@ -1497,9 +1497,9 @@ For the same reason, several of the following Exercises (particularly number \re
 	    $\phi:(\R,+)\to (\R,\cdot)$, \ $\phi(x)=2^x$
 	    \setcounter{enumii}{6}
 	    
-	    \item \makebox[210pt][l]{$\phi:(\Z_4,+_4)\to (R_8,\circ)$, \ $\phi(x)=\rho_{2x}$\hfill (h)\ }
+	    \item %\makebox[210pt][l]{$\phi:(R_4,\circ)\to (\Z_8,+_8)$, \ $\phi(\rho_k)=2k$\hfill (h)\ }
 	    $\phi:(\rM_2(\R),\cdot)\to (\R,\cdot)$, \ $\phi(A)=\det A$
-	    \setcounter{enumii}{8}
+	    %\setcounter{enumii}{8}
 	    
 	    \item $\phi:(\rM_n(\R),+)\to (\R,+)$, $\phi(A)=\tr A$ \ (trace: add the entries on the main diagonal)
 	  \end{enumerate}
@@ -1508,7 +1508,7 @@ For the same reason, several of the following Exercises (particularly number \re
 	  \item Show that $(\Z,+)\cong (n\Z,+)$ for any \emph{non-zero} constant $n$.
 	  
 	  
-	  \item In Example \ref{ex:z3r3iso} we saw that $\Z_3\cong R_3$ via the explicit isomorphism $\mu(x)=\rho_1^x$. Find a \emph{second} isomorphism $\psi:\Z_3\to R_3$.
+% 	  \item In Example \ref{ex:z3r3iso} we saw that $R_3\cong \Z_3$ via the explicit isomorphism $\mu(\rho_k)=k$. Find a \emph{second} isomorphism $\psi:R_3\to\Z_3$.
 	  
 	  
 	  \item Prove or disprove: $(\R^3,+)\cong(\R^3,\times)$ (cross product). 
@@ -1534,38 +1534,11 @@ For the same reason, several of the following Exercises (particularly number \re
 	  
 	  
 		\item Show that $x\opast y=x+y-xy$ is the pull-back of $(\R^\times,\cdot)$ to $\R\setminus\{1\}$ by $\mu(x)=1-x$. Use this to provide an alternative quick argument for Exercise \ref*{sec:groupaxioms}.\ref{exs:pullback1}.
-	
+		
 	  
-	  \item\label{exs:structural1} Suppose $\mu:(G,*)\to (H,\star)$ is an isomorphism of binary structures. Prove:
-	  \begin{enumerate}
-	    \item\label{exs:structidentity} If $e$ is the identity for $G$, then $\mu(e)$ is the identity for $H$.
-	    
-	    \item If $x\in G$ has an inverse $y$, then $\mu(y)$ is an inverse to $\mu(x)$ (in $H$).
-	    
-	    \item Suppose $\phi:G\to H$ is a \emph{group homomorphism.} Show that parts (a), (b) still hold: $\phi(e_G)=e_H$ and $\phi(x^{-1})=\bigl(\phi(x)\bigr)^{-1}$.\par
-	    For a challenge: What happens if $\phi$ is merely a homomorphism of binary structures?
-	  \end{enumerate}
-	
-		
-		\goodbreak
+	  \item Recall Exercise \ref*{sec:modarith}.\ref{exs:znunits89}. Prove that the Klein four-group and $\Z_8^\times$ are isomorphic.
 		
 		
-	  \item\label{exs:kernelintro} Given a group homomorphism $\phi:G\to H$ , define the \emph{image} $\phi(G)$ and \emph{kernel} $K$ as follows:
-	  \[
-	  	\phi(G)=\image \phi=\bigl\{\phi(x):x\in G\bigr\},\qquad
-	  	K:=\bigl\{x\in G:\phi(x)=e\bigr\}
-	  \]
-	  \begin{enumerate}
-	    \item Compute the image and kernel of the homomorphism $\phi:(\R^\times,\cdot)\to(\R^\times,\cdot)$ defined by $\phi(x)=x^2$.
-	    \item Prove that $\phi(G)$ is a subgroup of $H$ (in general, not just for the example in (a)!).
-	    \item Prove that $K$ is a subgroup of $G$.
-	  \end{enumerate}
-	  (\emph{We'll return to these important concepts later})
-			
-		
-		\goodbreak
-		
-	
 	  \item\begin{enumerate}
 	    \item Prove that $S:=\left\{
 	    \begin{smatrix}
@@ -1595,7 +1568,39 @@ For the same reason, several of the following Exercises (particularly number \re
 				\sin\theta&\cos\theta
 			\end{pmatrix}
 		\]
+		
+		
+		\goodbreak
 	  
+	  
+	  \item\label{exs:structural1} Suppose $\mu:(G,*)\to (H,\star)$ is an isomorphism of binary structures. Prove:
+	  \begin{enumerate}
+	    \item\label{exs:structidentity} If $e$ is the identity for $G$, then $\mu(e)$ is the identity for $H$.
+	    
+	    \item If $x\in G$ has an inverse $y$, then $\mu(y)$ is an inverse to $\mu(x)$ (in $H$).
+	    
+	    \item Suppose $\phi:G\to H$ is a \emph{group homomorphism.} Show that parts (a), (b) still hold: $\phi(e_G)=e_H$ and $\phi(x^{-1})=\bigl(\phi(x)\bigr)^{-1}$.\par
+	    For a challenge: What happens if $\phi$ is merely a homomorphism of binary structures?
+	  \end{enumerate}
+	
+		
+		\goodbreak
+		
+		
+	  \item\label{exs:kernelintro} Given a group homomorphism $\phi:G\to H$ , define the \emph{image} $\phi(G)$ and \emph{kernel} $K$ as follows:
+	  \[
+	  	\phi(G)=\image \phi=\bigl\{\phi(x):x\in G\bigr\},\qquad
+	  	K:=\bigl\{x\in G:\phi(x)=e\bigr\}
+	  \]
+	  \begin{enumerate}
+	    \item Compute the image and kernel of $\phi:(\R^\times,\cdot)\to(\R^\times,\cdot)$ where $\phi(x)=x^2$.
+	    \item Prove that $\phi(G)$ is a subgroup of $H$ (in general, not just for the example in (a)!).
+	    \item Prove that $K$ is a subgroup of $G$.
+	  \end{enumerate}
+	  (\emph{We'll return to these important concepts later})
+			
+		
+
 		
 		\item\label{exs:qnoniso} The groups $(\Q,+)$ and $(\Q^+,\cdot)$ are both abelian and both have the same cardinality: nonetheless, we prove that they are \emph{non-isomorphic.}\par
 		Assume, for contradiction, that $\mu:\Q\to\Q^+$ is an isomorphism.
@@ -1609,11 +1614,12 @@ For the same reason, several of the following Exercises (particularly number \re
 	
 		\item Recall the magic square property (Exercise \ref*{sec:groupaxioms}.\ref{exs:magicsquare}).
 		\begin{enumerate}
-		  \item Up to isomorphism, explain why there is a unique group of order 3.\par
+		  \item Up to isomorphism, explain why there is a unique group of order three.\par
 		  (\emph{This is another reason the groups in Example \ref{ex:z3r3iso} must be isomorphic}!)
 		  
-		  \item Show that there are only two ways to complete a Cayley table of order 4 up to isomorphism.\par
+		  \item Show that, up to isomorphism, there are precisely two groups of order four.\par
 			(\emph{Hint: If $G=\{e,a,b,c\}$, why may we assume, without loss of generality, that $b^2=e$? Your answers should look like the Klein four-group $V$ and the group $\Z_4$.})
+			\item (Hard) \ What happens for order five?
 		\end{enumerate}
 			
 			
