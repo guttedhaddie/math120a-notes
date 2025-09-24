@@ -4,19 +4,23 @@
 \input{preamble-commands}
 
 \includeonly{
+%1intro/complex-numbers,
 1intro/intro,
 2groups/groups,
-3cyclic/cyclic,
-4direct/direct,
-5perm/perm,
-6coset/coset,
-7homo/homo,
-8action/action,
+%3cyclic/cyclic,
+%4direct/direct,
+% 5perm/perm,
+% 6coset/coset,
+% 7homo/homo,
+% 8action/action,
 }
 
 \begin{document}
 
-%\pagenumbering{arabic}
+\pagenumbering{roman}
+\include{1intro/complex-numbers}
+
+\pagenumbering{arabic}
 \include{1intro/intro}
 \include{2groups/groups}
 \include{3cyclic/cyclic}
