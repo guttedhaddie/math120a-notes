@@ -480,16 +480,16 @@ The prefix \emph{sub-} in mathematics usually indicates a \emph{subset} that ret
 Thankfully one doesn't have to check all the group axioms to see that a subset is a subgroup.
 
 \begin{thm}{Subgroup criterion}{subgroup}
-	Let $G$ be a group. A non-empty subset $H\subseteq G$ is a subgroup if and only if it satisfies the closure and inverse axioms with respect to the same binary operation:
+	Let $G$ be a group. A non-empty subset $H\subseteq G$ is a subgroup if and only if it is \emph{closed} and has \emph{inverses} in $H$ (with respect to the group operation on $G$):
 	\[
-		\forall h,k\in H, \ hk\in H \text{ and }  h^{-1}\in H \tag{$\ast$}
+		\forall h,k\in H,\ \ hk\in H \text{ and }  h^{-1}\in H \tag{$\ast$}
 	\]
 \end{thm}
 
 \begin{proof}
 	\begin{description}
 	\item[$(\Rightarrow)$] $H$ is a group and therefore satisfies all the axioms, including closure and inverse.
-	\item[$(\Leftarrow)$] By assumption, $H$ satisfies the closure and inverse axioms. Moreover, the group operation on $G$ is automatically associative on any subset,\footnotemark{} including $H$. It remains only to verify that the identity element $e$ lies in $H$.\par
+	\item[$(\Leftarrow)$] By assumption, $H$ satisfies the \emph{closure} axiom. Moreover, the group operation on $G$ is automatically \emph{associative} on any subset,\footnotemark{} including $H$. It remains to verify that the \emph{identity} element $e$ (of $G$) lies in $H$, for then our assumption ($h^{-1}\in H$) says that that \emph{inverse} axiom is also satisfied.\par
 	Since $H\neq\emptyset$, we may choose some (any!) $h\in H$. By ($\ast$), $h^{-1}\in H$. A second application of ($\ast$) finishes things off:
 	\[
 		e=hh^{-1}\in H \tag*{\qedhere}
@@ -498,7 +498,7 @@ Thankfully one doesn't have to check all the group axioms to see that a subset i
 \end{proof}
 
 \footnotetext{%
-	Associativity (Definition \ref{defn:assoc}) does not care whether $x(yz)=(xy)z$ lives in any given subset!%
+	Associativity does not care where $x(yz)=(xy)z$ lives: ``$\in G$'' does not appear in  Definition \ref{defn:assoc}!%
 }
 
 \begin{examples}{}{subgroup2}
