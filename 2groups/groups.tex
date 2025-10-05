@@ -1298,7 +1298,7 @@ We must do four things if we suspect binary structures $(G,*)$ and $(H,\star)$ t
 \begin{quote}
 	\begin{description}
 		\item[\emph{Definition}:] Define $\mu:G\to H$ and, if necessary, verify that it is a function.\footnote{%
-			If $G$ is a set of equivalence classes, you also need to check that $\phi$ is \emph{well-defined.} This will become important later, and is why we haven't (yet) had an example where $\Z_n$ is the \emph{domain} of a homomorphism\ldots%
+			If $G$ is a set of equivalence classes, we also need to check that $\phi$ is \emph{well-defined.} This subtlety is why we haven't (yet) had an example where $\Z_n$ is the \emph{domain} of a homomorphism. We will do so later (Example \ref*{ex:unisoex}.\ref{ex:unisoex2}, Theorem \ref{thm:cyclicisomorph}, etc.).
 			}
 		\item[\emph{Homomorphism}:] Verify that $\mu(x\opast y)=\mu(x)\opstar\mu(y)$ for all $x,y\in G$.
 		\item[\emph{Injectivity/1--1}:] Check that $\mu(x)=\mu(y)\Longrightarrow x=y$.
@@ -1396,12 +1396,15 @@ Here is a non-exhaustive list of structural properties; we'll check some in Exer
 	  \end{minipage}
 	  \par 
 	 	
-% 	  \item The groups $(\Z_6,+_6)$ and $D_3$ both have order six, but are non-isomorphic since $\Z_6$ is abelian and $D_3$ is not
+ 	  %\item The groups $(\Z_6,+_6)$ and $D_3$ both have order six, but are non-isomorphic since $\Z_6$ is abelian and $D_3$ is not
 	  
 	  \item To see that $(\Q,+)$ and $(\R,+)$ are non-isomorphic groups, it is enough to recall that the sets have different cardinalities: $\Q$ is \emph{countably infinite} while $\R$ is \emph{uncountable.}
 
 
 		\item The groups $(\Z,+)$ and $(\Q,+)$ have the same (countably infinite) order, and are both abelian. To see that they are non-isomorphic, consider the equation $x+x=1$ which has no solutions in $\Z$. If $\mu:\Z\to\Q$ were an isomorphism, then the equation $\mu(x)+\mu(x)=\mu(1)$ does have a solution $y=\mu(x)=\frac 12\mu(1)$ in $\Q$. But then $x=\mu^{-1}(y)$ solves the original equation: contradiction!
+ 	  
+ 	  
+ 	  \item $(S^1,\cdot)$ and $(\R,+)$ are non-isomorphic: consider the equations $x*x=e$\ldots
 	\end{enumerate}
 \end{examples}
 
@@ -1411,7 +1414,7 @@ Many properties are non-structural and therefore \emph{cannot} be used to show n
 
 \boldsubsubsection{Transferring a Binary Structure}
 
-Suppose $\mu:G\to H$ is a bijection of \emph{sets}, where one of $G,H$ has a binary structure. We may \emph{define} a binary structure on the other set simply by imposing the homomorphism property on $\mu$: this converts $\mu$ into an isomorphism
+Suppose $\mu:G\to H$ is a bijection of \emph{sets}, where one of $G,H$ has a binary structure. A binary structure may be \emph{defined} on the other by insisting that $\mu$ be an isomorphism.
 
 \begin{example}{}{pull-back}
 % \exstart As already seen, $\phi:2\Z\to3\Z:x\mapsto\frac 32x$ is a bijection. Define $\star$ on $3\Z$ by
@@ -1431,17 +1434,17 @@ Suppose $\mu:G\to H$ is a bijection of \emph{sets}, where one of $G,H$ has a bin
 % \end{quote}
   The function $\mu(x)=x^3+8$ is a bijection $\R\to\R$. Starting with the binary (group) structure $(\R,+)$ and treating $\mu$ as an isomorphism, we may create a new isomorphic structure. There are two ways to do this:
   \begin{description}
-  	\item[\emph{Pull-back}:] View $\mu:(\R,*)\to (\R,+)$ as an isomorphism. Since $\mu(x\opast y)=\mu(x)+\mu(y)$, the new operation $\ast$ must be
+  	\item[\emph{Pull-back}:] Suppose $\mu:(\R,*)\to (\R,+)$. Since $\mu(x\opast y)=\mu(x)+\mu(y)$, the new operation $\ast$ must be
 			\[
 				x\opast y:=\mu^{-1}\bigl(\mu(x)+\mu(y)\bigr) 
 				=\mu^{-1}(x^3+y^3+16) 
 				=\sqrt[3]{x^3+y^3+8}
 			\]
-			All structural properties must transfer from $(\R,+)$ to $(\R,*)$: for instance, $(\R,*)$ is an abelian group, and its identity element is
+			All structural properties transfer from $(\R,+)$ to $(\R,*)$: for instance, $(\R,*)$ is an abelian group with identity element
 			\[
 				\mu^{-1}(0)=\sqrt[3]{-8}=-2
 			\]
-			As a sanity check, observe that $x\opast (-2)=\sqrt[3]{x^3+(-2)^3+8}=x$.
+			As a sanity check, observe that we really do have $x\opast (-2)=\sqrt[3]{x^3+(-2)^3+8}=x$!
 			\item[\emph{Push-forward}:] View $\mu:(\R,+)\to (\R,*)$ as an isomorphism. Computation of $*$ is an exercise.
   \end{description} 
 \end{example}
