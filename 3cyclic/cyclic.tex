@@ -321,12 +321,12 @@ For the purposes of the proof we introduce a set $S:=\{m\in\N:g^m=e\}$ of natura
 		\item[Case 1: $S=\emptyset$.]\quad Suppose $x>y$ and that $g^x=g^y$. Then $g^{x-y}=e\Longrightarrow x-y\in S$: contradiction. The elements $\ldots,g^{-2},g^{-1},e,g,g^2,\ldots$ are \emph{distinct,} and so $\mu:\Z\to G:x\mapsto g^x$ is bijective.
 		\item[Case 2: $\min S=n$.]\quad We first check that $\mu:\Z_n\to G:x\mapsto g^x$ is well-defined:
 		\begin{align*}
-			\textcolor{red}{y=x}\in\Z_n&\implies y=x+kn\text{ for some $k\in\Z$ \ (as integers)}\\
-			&\mathrel{\textcolor{red}{\implies}} \mu(y) =\textcolor{red}{g^y} =g^{x+kn}=g^x(g^n)^k =\textcolor{red}{g^x} =\mu(x) \tag{$n\in S$, so $g^n=e$}
+			y=x\in\Z_n&\implies y=x+kn\text{ for some $k\in\Z$ \ (as integers)}\\
+			&\implies \mu(y) =g^y =\textcolor{red}{g^{x+kn}=g^x(g^n)^k =g^x} =\mu(x) \tag{$n\in S$, so $g^n=e$}
 		\end{align*}
-		This \textcolor{red}{moreover} tells us that $G$ is \emph{finite} (there is at most one element of $G$ for each $x\in\Z_n$)
+		This \textcolor{red}{moreover} tells us that $G$ is \emph{finite} (there are at most $n$ distinct elements of $G$)
 		\[
-			G=\ip{g}=\{\ldots,g^{-2},g^{-1},e,g,g^2,\ldots\}=\{e,g,\ldots,g^{n-1}\}
+			G=\ip{g} =\{\ldots,g^{-2},g^{-1},e,g,g^2,\ldots\} =\{e,g,\ldots,g^{n-1}\}
 		\]
 		Now suppose two of these terms were equal; if $0\le y\le x\le n-1$, then
 		\[
