@@ -280,40 +280,57 @@ In the next section we'll essentially repeat this discussion in the abstract, so
 
 \subsection{The Classification and Structure of Cyclic Groups}\label{sec:cyclicclass}
 
-We describe all cyclic groups, their generators, and subgroup structures. 
+This section is significantly more abstract that what has come before: take your time, read carefully, and use the examples to help. Our goal is to describe general properties of all cyclic groups, including  their generators and subgroup structures. The first result is, mercifully, very simple.
 
 \begin{lemm}{}{}
 	Every cyclic group is abelian.
 \end{lemm}
 
 \begin{proof}
-	Let $G=\ip g$. Since any two elements of $G$ can be written $g^k,g^l$ for some $k,l\in\Z$, we see that
+	Let $G=\ip g$. Any two elements of $G$ can be written $g^k,g^l$ for some $k,l\in\Z$. The result follows from standard exponential notation and the fact that addition of integers is commutative:
 	\[
 		g^kg^l=g^{k+l}=g^{l+k}=g^lg^k\tag*{\qedhere}
 	\]
 \end{proof}
 
-The converse is \emph{false}: the Klein four-group $V$ is abelian but not cyclic (Exercise \ref*{sec:cycdef}.\ref{exs:kleinnoncyclic}).\smallbreak
+Note that the converse is \emph{false}: the Klein four-group $V$ is abelian but not cyclic (Exercise \ref*{sec:cycdef}.\ref{exs:kleinnoncyclic}).\medbreak
 
-The remaining discussion is significantly more abstract: take your time, read carefully, and use the examples to help. We start by observing a pattern you might already have guessed.
-
+Our major classification theorem proves a pattern you've likely already guessed.
 
 \begin{thm}{Isomorphs}{cyclicisomorph}
-	Every cyclic group $G=\ip g$ is isomorphic either to $\Z$ or to some $\Z_n$.\smallbreak
-	Explicitly, $\mu:\Z_{(n)}\to G:x\mapsto g^x$ is an isomorphism: we map generator (1) to generator ($g$).
+	Every cyclic group $G=\ip g$ is isomorphic either to $\Z$ or to some $\Z_n$:
+	\begin{itemize}\itemsep0pt
+	  \item If $G$ is infinite, then $G\cong\Z$.
+	  \item If $G$ is finite with order $n$, then $G\cong\Z_n$.
+	\end{itemize}
+	In either case, $\mu:\Z_{(n)}\to G:x\mapsto g^x$ is an explicit isomorphism.
 \end{thm}
 
-For the purposes of the proof we introduce a set $S:=\{m\in\N:g^m=e\}$ of natural numbers ($mg=e$ if $G$ is additive) which helps detect the \emph{order} of $G$. Here are a few examples of the Theorem.
+To help understand the theorem and set up the proof, some remarks and examples are helpful.
+\begin{description}
+  \item[Map Generator to Generator] The isomorphism $\mu$ maps the generator $1\in\Z_{(n)}$ to the generator $g$ of $G$. This idea allows you to quickly construct a suitable isomorphism in any example.
+  \item[\emph{The} Cyclic Group of Order $n$?] The theorem says that, \emph{up to isomorphism}, there is a unique cyclic group of order $n$. For this reason, many algebraists use the symbol $\Z_n$ (or $C_n$ for `cyclic') to refer to any example of a cyclic group of order $n$ (e.g. $R_n$, $U_n$, etc.). For clarity, in these notes, $\Z_n$ will always be the explicit group of remainders under addition modulo $n$.
+  \item[The Order of $G=\ip g$] This concept plays a crucial role in the proof, though its appearance is novel. It is helpful to introduce a set of positive integers
+  \[
+  	S:=\{m\in\N:g^m=e\} \tag{$mg=e$ if $G$ is additive}
+  \]
+  The proof will demonstrate that the order of a \emph{finite} cyclic group $G=\ip g$ is precisely the minimal element of $S$.
+\end{description}
+
 
 \begin{examples}{}{}
-	\exstart $\Z_4=\ip 1$ is additive, so $S=\{m\in\N:m=0\in\Z_4\}=\{\textcolor{red}{4},8,12,\ldots\}$. The minimal element $\textcolor{red}{4}$ is the order of $G=\nm{\Z_4}$.
+	\exstart $\Z_4=\ip 1$ is additive, so $S=\{m\in\N:m=0\in\Z_4\}=\{\textcolor{red}{4},8,12,\ldots\}$. The minimal element $\textcolor{red}{4}$ is plainly the order of $\nm{\Z_4}$.
 	\begin{enumerate}\setcounter{enumi}{1}
-	  \item (Example \ref*{ex:unisoex}.\ref{ex:unisoex2}) \ In $U_3=\ip\zeta$, we have $\zeta^m=1\Longleftrightarrow 3\mid m$. Plainly $S=\{\textcolor{red}{3},6,9,\ldots\}$; its minimal element $\textcolor{red}{3}$ is the order of $U_3$. Moreover $\mu(x)=\zeta^x$ is the isomorphism $\mu:\Z_3\to U_3$ seen before!
+	  \item (Example \ref*{ex:unisoex}.\ref{ex:unisoex2}) \ In $U_3=\ip\zeta$, we have $\zeta^m=1\Longleftrightarrow 3\mid m$, whence $S=\{\textcolor{red}{3},6,9,\ldots\}$. Plainly $\textcolor{red}{3}$ is the order of $U_3$. Moreover $\mu(x)=\zeta^x$ is the isomorphism $\mu:\Z_3\to U_3$ seen previously!
 	  \item $5\Z=\ip 5$ is an infinite cyclic group. In this case, $S=\{m\in\N:5m=0\}=\emptyset$ is \emph{empty}. We have an isomorphism $\mu:\Z\to 5\Z:x\mapsto 5x$ \ (map the generator 1 of $\Z$ to the generator 5 of $5\Z$).
 	\end{enumerate}
 \end{examples}
 
-%As the examples suggest, $S$ distinguishes the finite/infinite cases \emph{and} detects the order of $G$.
+As the examples suggest, $S$ distinguishes the finite/infinite cases and detects the order of $G$.
+
+
+\goodbreak
+
 
 \begin{proof}
 	We first establish that $\mu$ is a bijection. The generic cases depend on the minimal element of $S$.
@@ -334,19 +351,19 @@ For the purposes of the proof we introduce a set $S:=\{m\in\N:g^m=e\}$ of natura
 		\]
 		We conclude that $G=\{e,g,\ldots,g^{n-1}\}$ has order $n$, and that $\mu$ is a bijection.
 	\end{description}\medskip
-	To finish the proof, observe that the homomorphism property in both cases is merely standard exponential notation
+	Finally, note that the homomorphism property in both cases is merely standard exponential notation
 	\[
 		\mu(x+y)=g^{x+y}=g^xg^y=\mu(x)\mu(y)\tag*{\qedhere}
 	\]
 \end{proof}
 
-\goodbreak
-
-The use of $S$ in the proof yields a useful alternative notion of order.
+As advertised, the use of $S$ in the proof yields a useful alternative notion for the order of an element.
 
 \begin{cor}{Order of an element}{orderdefn}
 	If finite, the order of $g$ equals the minimal positive integer $n$ for which $g^n=e$. Moreover $g^m=e\Longleftrightarrow n\mid m$.
 \end{cor}
+
+Otherwise said, if $g$ has order $n$, then $S=\{m\in\N:g^m=e\}=\{kn:k\in\N\}$ is the set of positive multiples of $n$.
 
 
 
@@ -368,20 +385,29 @@ The use of $S$ in the proof yields a useful alternative notion of order.
 \end{examples}
 
 
+\goodbreak
+
+
 \boldsubsubsection{Subgroups of Cyclic Groups are also Cyclic!}
 
-The motivation for this is simple: for instance, observe that the subgroup $2\Z\le\Z$ is generated by 2, the \emph{minimal positive integer} in the subgroup. Our goal, given a subgroup $H\le G=\ip g$, is to identify a suitable `minimal' element of $H$ and then demonstrate that this generates $H$.
+For the remainder of this section we describe the complete subgroup structure of all cyclic groups. Our approach is motivated by a simple example.
+
+\begin{example}{}{}
+	The cyclic subgroup $2\Z\le\Z$ is generated by 2: the \emph{minimal positive integer} in the subgroup.
+\end{example}
+
+For an abstract subgroup $H$ of a cyclic group $G=\ip g$, our goal is to identify a suitable `minimal element' of $H$ and then demonstrate that this generates $H$.
 
 \begin{thm}{Subgroups of Cyclic Groups}{cyclic1}
-	Any subgroup of a cyclic group is cyclic.
+	Every subgroup of a cyclic group is cyclic.
 \end{thm}
 
 \begin{proof}
-	Suppose $H$ is a subgroup of $G=\ip g$. If $H=\{e\}$ is trivial, we are done: $H=\ip e$ is cyclic!\smallbreak
-	Otherwise, let $s\in\N$ be minimal so that $g^s\in H$ (we may assume $s>0$ since $g^{-s}$ is also in $H$). We prove that $H$ is generated by $g^s$ by establishing the set equality $H=\ip{g^s}$.
+	Suppose $H$ is a subgroup of $G=\ip g$. Let $s$ be the smallest \emph{positive} integer\footnotemark{} such that $g^s\in H$.
+	We prove that $H$ is generated by $g^s$ by establishing the set equality $H=\ip{g^s}$.
 	\begin{description}\itemsep0pt
-		\item[$(\supseteq)$] This is trivial since $g^s\in H$ and $H$ is a group (closure and inverse axioms of $H$!).
-		\item[$(\subseteq)$] Let $g^m\in H$. By the division algorithm, there exist unique integers $q,r$ such that
+		\item[$(\supseteq)$] Since $H$ is a group, the closure and inverse axioms force $(g^s)^k\in H$ for all $k\in\Z$.
+		\item[$(\subseteq)$] Let $g^m\in H$. We must prove that $g^m\in\ip{g^s}$. By the division algorithm, there exist unique integers $q,r$ such that
 		\[
 			m=qs+r\quad\text{and}\quad 0\le r<s
 		\]
@@ -393,18 +419,27 @@ The motivation for this is simple: for instance, observe that the subgroup $2\Z\
 	\end{description}
 \end{proof}
 
-If the proof seems hard, rewrite it for our motivational example: $G=\Z$, $H=2\Z$ and $s=2$; remember that $G$ is \emph{additive}, so ($\ast$) is simply $r=-2s+m\in 2\Z$\ldots
 
+\footnotetext{%
+	 This exists for two reasons:
+	\begin{enumerate}
+	  \item $H$ is a non-empty subset of $G=\ip g$ and so must contain some element $g^k$. We may assume $k\ge 1$ since the subgroup also contains $g^{-k}$ (inverse axiom).
+	  \item The set of natural numbers $\{k\in\N:g^k\in H\}$ is non-empty and so (well-ordering) has a minimal element $s$.
+	\end{enumerate}
+	Note that $s=1\Longleftrightarrow H=\ip{e}$ is the trivial subgroup ($g^1=e^1=e\in H$). In this special case the division algorithm argument is trivial: every $m=q\cdot 1+0$ is immediately a multiple of 1, and $g^m=e$ for all $m$. 
+}
 
-\goodbreak
+If the proof seems hard, try rewriting it for our motivational example, where $G=\Z$, $H=2\Z$ and $s=2$; remember that $G$ is \emph{additive}, so ($\ast$) is simply $r=-2s+m\in 2\Z$!
 
-We finish by considering the finite and infinite cases separately. The later is very simple.
+\medskip
+
+We finish by considering the finite and infinite cases separately. The latter is very simple.
 
 \begin{cor}{Subgroups of infinite cyclic groups}{infcyclic}
 	If $G$ is an infinite cyclic group and $H\le G$, then either $H=\{e\}$ is trivial, or $H\cong G$.
 \end{cor}
 
-The proof as an exercise---just generalize the following example!
+The proof as an exercise---just generalize the following generic example!
 
 \begin{example}{}{}
 	We write things out explicitly in additive notation when $G=\Z$. By Theorem \ref{thm:cyclic1}, every subgroup has the form $\ip s=s\Z$ (the multiples of $s\in\Z$). There are two generic situations:
@@ -415,18 +450,18 @@ The proof as an exercise---just generalize the following example!
 \end{example}
 
 
-\smallskip
+\goodbreak
 
 
-\emph{Finite} cyclic groups are a little more complicated so we first consider an example.
+\emph{Finite} cyclic groups are more complicated, so we first illustrate the main result with an example.
 
 \begin{example}{}{u6z6explicit}
-	Consider $U_6=\{1,\zeta,\zeta^2,\zeta^3,\zeta^4,\zeta^5\}$ under multiplication. Since all subgroups are cyclic, we need only consider the subgroup $\ip x$ generated by each element $x$.
+	Consider the 6\th{} roots of unity $U_6=\{1,\zeta,\zeta^2,\zeta^3,\zeta^4,\zeta^5\}$. Since every subgroup of $U_6$ is necessarily cyclic (Theorem \ref{thm:cyclic1}), it is enough to consider each cyclic subgroup $\ip z$ in turn (for each $z\in U_6$). We obtain three proper subgroups, as arranged in the subgroup diagram below.
 	\[
 		\makebox[230pt][l]{%
 			$\def\arraystretch{1.05}
 			\begin{array}[t]{l|c}
-				x & \text{subgroup}\ip x\\ \hline
+				z & \text{subgroup}\ip z\\ \hline
 				1 & \{1 \} \\
 				\textcolor{red}{\zeta} & \textcolor{red}{\{1,\zeta,\zeta^2,\zeta^3,\zeta^4,\zeta^5\}}\\
 				\textcolor{blue}{\zeta^2} & \textcolor{blue}{\{1,\zeta^2,\zeta^4\}}\\
@@ -443,8 +478,8 @@ The proof as an exercise---just generalize the following example!
 			}$
 		}
 	\]
-	Observe the repetitions: $\ip{\textcolor{red}{\zeta}}=\ip{\textcolor{red}{\zeta^5}}=U_6$ and $\ip{\textcolor{blue}{\zeta^2}}=\ip{\textcolor{blue}{\zeta^4}}=U_3$.
-	\smallbreak
+	Observe the repetitions: $\ip{\textcolor{red}{\zeta}}=\ip{\textcolor{red}{\zeta^5}}=U_6$ and $\ip{\textcolor{blue}{\zeta^2}}=\ip{\textcolor{blue}{\zeta^4}}=U_3$. Note also that we really do have \emph{equality} of groups here: for instance, $\textcolor{blue}{\zeta^2}=(e^{\frac{2\pi i}6})^2=e^{\frac{2\pi i}3}$ is a generator of $U_3$.
+	\medbreak
 	For comparison, here is the same data for subgroups of the additive group $(\Z_6,+_6)$.
 	\[
 		\makebox[230pt][l]{%
@@ -470,18 +505,15 @@ The proof as an exercise---just generalize the following example!
 	Since $U_6\cong\Z_6$, differences are entirely notational. One subtle distinction is that we don't use \emph{equals} in the second subgroup diagram: for instance, $\textcolor{blue}{\ip{2}}=\{0,2,4\}$ is \emph{isomorphic} but \emph{not equal} to $\Z_3=\{0,1,2\}$.
 \end{example}
 
-As previewed in Lemma \ref{lemm:cyclicsg}, Example \ref{ex:u6z6explicit} should suggest a pattern: the subgroups of $\Z_n$ are precisely those generated by the divisors of $n$, with one subgroup for each divisor: 
+The Example should suggest a pattern (previewed in Lemma \ref{lemm:cyclicsg}): the subgroups of $\Z_n$ are precisely those generated by the divisors of $n$, with one subgroup for each divisor: 
 \[
 	\tcbhighmath{d\mid n\Longrightarrow \ip d\cong\Z_{\frac nd},\quad\text{moreover }\gcd(s,n)=d\Longrightarrow \ip s=\ip d}
 \]
 Our final result merely asserts this for general finite cyclic groups.
 
 
-\goodbreak
-
-
 \begin{cor}{Subgroups of finite cyclic groups}{subscyclic}
-	Let $G=\ip g$ have order $n$. For each divisor of $n$, $G$ has a \textbf{unique subgroup} with this order; these are moreover the only subgroups of $G$.\par
+	Let $G=\ip g$ have order $n$. For each divisor of $n$, $G$ has a \textbf{unique subgroup} with this order; these are moreover the \textbf{only} subgroups of $G$.\par
 	More precisely, 
 	\[
 		d=\gcd(s,n)\Longrightarrow \ip{g^s}=\langle{g^d}\rangle, \quad\text{where this subgroup has order $\tfrac nd$ \ (isomorphic to $\Z_{\frac nd}$)}
@@ -489,6 +521,7 @@ Our final result merely asserts this for general finite cyclic groups.
 	In particular: $g^s$ has order $\frac n{\gcd(s,n)}$ and generates $G$ if and only if $\gcd(s,n)=1$.
 \end{cor}
 
+As with Theorem \ref{thm:cyclic1}, if the proof seems hard, try rewriting it when $G=\Z_n$.
 
 \begin{proof}
 	Suppose $d=\gcd(s,n)$. We prove set inclusion in both directions.
@@ -508,70 +541,75 @@ Our final result merely asserts this for general finite cyclic groups.
 	\]
 \end{proof}
 
-As with Theorem \ref{thm:cyclic1}, rewriting the proof for the special case $G=\Z_n$ might make things clearer. It is more important first to get used to the pattern via \emph{examples}.
-
-% As before, the result is worth restating for the additive group $(\Z_n,+_n)$:
-% \[
-% 	\tcbhighmath{d=\gcd(s,n)\Longrightarrow \ip s=\ip d\cong\Z_{\frac nd},
-% 	\quad\text{in particular, $s$ generates $\Z_n$}\Longleftrightarrow \gcd(s,n)=1}
-% \]
+ %It is more important first to get used to the pattern via \emph{examples}.
 
 
 
 \begin{example}{}{}
-% \begin{enumerate}
-%   \begin{minipage}[t]{0.85\linewidth}\vspace{0pt}
-%   \item $\Z_8$ is generated by $1,3,5$ and $7$, since these are precisely the elements $s\in\Z_8$ for which $\gcd(s,8)=1$. For example,
-%   \[\Z_8=\ip 5=\{5,2,7,4,1,6,3,0\}\cong C_{\frac 8{\gcd(5,8)}}\]
-%   The subgroup generated by 6 is
-%   \[\ip 6=\{6,4,2,0\}\]
-%   which has order $4=\frac 8{\gcd(6,8)}$ in accordance with the Theorem. This subgroup is also generated by 2. The complete collection of subgroups and their generators is shown in the table, and the subgroup diagram is also drawn.
-%   \[\begin{array}{l|c|c|c}
-%     x & \gcd(x,8) & \quotient{8}{\gcd(x,8)} & \text{subgroup generated }\ip x\\ \hline
-% 0(8) & 0(8)  & 1 & C_1\\
-% 4 & 4 & 2 & C_2\\
-% 2,6 & 2 & 4 & C_4\\
-% 1,3,5,7 & 1 & 8 & \Z_8\\
-%     \end{array}\]
-%   \end{minipage}\begin{minipage}[t]{0.15\linewidth}\vspace{60pt}
-%     \[ \xymatrix{\Z_{8}=\ip{1} \ar@{-}[d]\\
-% C_{4}\cong\ip 2 \ar@{-}[d]\\
-% C_2\cong\ip 4 \ar@{-}[d]\\
-% C_1\cong\ip 0}\]
-%   \end{minipage}
-We describe the subgroups of $\Z_{30}$ and construct its subgroup diagram. The first column lists each divisor $d$ of $30$ (the possible values of $\gcd(\textcolor{red}{x},30)$). The second column has the isomorphic group $\Z_{\frac{30}d}$, while the third lists the explicit subgroup generated by each $\textcolor{red}{x}\in\Z_{30}$.
-  \[
-  	\def\arraystretch{1.05}
-  	\begin{array}[t]{c|c|c}
-			d=\gcd(\textcolor{red}{x},30) & \text{Isomorph }\Z_{\frac{30}d} & \text{Subgroup } \ip{\textcolor{red}{x}} \\\hline
-			1 & \Z_{30} & \{0,\textcolor{red}{1},2,3,\ldots,\textcolor{red}{7},\ldots,\textcolor{red}{11},12,\textcolor{red}{13},\ldots,\textcolor{red}{17},18,\textcolor{red}{19},\ldots,\textcolor{red}{23},\ldots,\textcolor{red}{29}\}\\
-			2 & \Z_{15} & \{0,\textcolor{red}{2},\textcolor{red}{4},6,\textcolor{red}{8},10,12,\textcolor{red}{14},\textcolor{red}{16},18,20,\textcolor{red}{22},24,\textcolor{red}{26},\textcolor{red}{28}\}\\
-			3 & \Z_{10} & \{0,\textcolor{red}{3},6,\textcolor{red}{9},12,15,18,\textcolor{red}{21},24,\textcolor{red}{27}\}\\
-			5 & \Z_6 & \{0,\textcolor{red}{5},10,15,20,\textcolor{red}{25}\}\\
-			6 & \Z_5 & \{0,\textcolor{red}{6},\textcolor{red}{12},\textcolor{red}{18},\textcolor{red}{24}\}\\
-			10 & \Z_3 & \{0,\textcolor{red}{10},\textcolor{red}{20}\}\\
-			15 & \Z_2 & \{0,\textcolor{red}{15}\}\\
-			0\,(30) & \Z_1 & \{\textcolor{red}{0}\}
-   \end{array}
-  \]
-    
-	\begin{minipage}[t]{0.62\linewidth}\vspace{0pt}
-		The generators of each subgroup are \textcolor{red}{red} in the table. The `smallest' generator is used for each subgroup in the subgroup diagram.\smallbreak
-		The \emph{shape} of the subgroup diagram (this one looks something like a cube) depends on the fact that in the \emph{prime decomposition} $30=2\cdot 3\cdot 5$, each prime appears \emph{exactly once}.
-	\end{minipage}
-	\hfill
-	\begin{minipage}[t]{0.36\linewidth}\vspace{-5pt}
-		\flushright%
-		$\xymatrix @C4pt @R11pt{%
-		 	& \ip{1}=\Z_{30} \ar@{-}[dl] \ar@{-}[d] \ar@{-}[dr] & \\
-			\ip{2}\cong \Z_{15} \ar@{-}[d] \ar@{-}[dr] & \ip{3}\cong\Z_{10} \ar@{-}[dl] \ar@{-}[dr] & \ip{5}\cong\Z_6 \ar@{-}[d] \ar@{-}[dl] \\
-			\ip{6}\cong\Z_5 \ar@{-}[dr] & \ip{10}\cong \Z_{3} \ar@{-}[d] & \ip{15}\cong\Z_2 \ar@{-}[dl] \\
- & \ip{0}\cong\Z_1 &}$
-	\end{minipage}
- 
+	\exstart $\Z_8$ is generated by $1,3,5$ and $7$: precisely the elements for which $\gcd(s,8)=1$. For example,
+	\begin{enumerate}
+  	\begin{minipage}[t]{0.87\linewidth}\vspace{-16pt}
+		  \item[]
+		  \[
+		  	\ip 5=\{5,2,7,4,1,6,3,0\} =\Z_8
+		  \]
+		  Similarly, the subgroup $\ip 6=\{6,4,2,0\}$ has order $4=\frac 8{\gcd(6,8)}$. The complete collection of subgroups is in the table: the first column lists each divisor $d$ of 8 (the possible values of $\gcd(\textcolor{red}{x},8)$), while the second column has the explicit subgroup generated by each $\textcolor{red}{x}$, and the group isomorph $\Z_{\frac 8d}$. The `smallest' generator is used for each subgroup in the subgroup diagram. 
+		  \[
+		  	\def\arraystretch{1.05}
+		    \begin{array}{c|l@{\,}l}
+		    	d=\gcd(\textcolor{red}{x},8) & \multicolumn{2}{c}{\text{Subgroup } \ip{\textcolor{red}{x}}\cong\Z_{\frac 8d}}\\\hline
+					1 & \{0, \textcolor{red}{1}, 2, \textcolor{red}{3}, 4, \textcolor{red}{5}, 6,  \textcolor{red}{7}\} &=\Z_8\\
+					2 & \{0, \textcolor{red}{2}, 4, \textcolor{red}{6}\} &\cong\Z_4\\
+					4 & \{0, \textcolor{red}{4}\} &\cong\Z_2\\
+					8 & \{\textcolor{red}{0}\} &\cong\Z_1
+		    \end{array}
+		  \]
+  	\end{minipage}
+  	\hfill
+  	\begin{minipage}[t]{0.1\linewidth}\vspace{35pt}
+ 			\flushright
+	 		$\xymatrix{%
+	 			\ip 1=\Z_{8} \ar@{-}[d]\\
+				\ip 2\cong\Z_4 \ar@{-}[d]\\
+				\ip 4\cong\Z_2 \ar@{-}[d]\\
+				\ip 0\cong\Z_1
+			}
+			\hspace{-4pt}$
+		\end{minipage}
+		\setcounter{enumi}{1}
+		\item	We repeat the discussion for $\Z_{30}$.
+	  \[
+	  	\def\arraystretch{1.05}
+	  	\begin{array}[t]{c|l@{\,}l}
+				d=\gcd(\textcolor{red}{x},30) & \multicolumn{2}{c}{\text{Subgroup } \ip{\textcolor{red}{x}}\cong\Z_{\frac{30}d}} \\\hline
+				1 & \{0,\textcolor{red}{1},2,3,\ldots,\textcolor{red}{7},\ldots,\textcolor{red}{11},12,\textcolor{red}{13},\makebox[0cm][l]{$\ldots$} \hfill\\
+				& \hfill\textcolor{red}{17},18,\textcolor{red}{19},\ldots,\textcolor{red}{23},\ldots,\textcolor{red}{29}\} &=\Z_{30}\\
+				2 & \{0,\textcolor{red}{2},\textcolor{red}{4},6,\textcolor{red}{8},10,12,\textcolor{red}{14},\textcolor{red}{16},\hfill\\
+				& \hfill 18,20,\textcolor{red}{22},24,\textcolor{red}{26},\textcolor{red}{28}\} &\cong\Z_{15}\\
+				3 & \{0,\textcolor{red}{3},6,\textcolor{red}{9},12,15,18,\textcolor{red}{21},24,\textcolor{red}{27}\}  &\cong\Z_{10}\\
+				5 & \{0,\textcolor{red}{5},10,15,20,\textcolor{red}{25}\} &\cong\Z_{6}\\
+				6 & \{0,\textcolor{red}{6},\textcolor{red}{12},\textcolor{red}{18},\textcolor{red}{24}\}  &\cong\Z_{5}\\
+				10 & \{0,\textcolor{red}{10},\textcolor{red}{20}\} &\cong\Z_{3}\\
+				15 & \{0,\textcolor{red}{15}\} &\cong\Z_{2}\\
+				30 & \{\textcolor{red}{0}\} &\cong\Z_{1}
+	   \end{array}
+	   \hfill
+	   \xymatrix @C0pt @R30pt{%
+			 	& \ip{1}=\Z_{30} \ar@{-}[dl] \ar@{-}[d] \ar@{-}[dr] & \\
+				\ip{2}\cong \Z_{15} \ar@{-}[d] \ar@{-}[dr] & \ip{3}\cong\Z_{10} \ar@{-}[dl] \ar@{-}[dr] & \ip{5}\cong\Z_6 \ar@{-}[d] \ar@{-}[dl] \\
+				\ip{6}\cong\Z_5 \ar@{-}[dr] & \ip{10}\cong \Z_{3} \ar@{-}[d] & \ip{15}\cong\Z_2 \ar@{-}[dl] \\
+	 & \ip{0}\cong\Z_1 &
+	 		}
+	 		\hspace{-4pt}
+	  \]
+  \end{enumerate}
+  
+  You should consider how the \emph{shape} of the subgroup diagram for $\Z_n$ depends on the \emph{prime decomposition} of $n$: for instance, each prime appears exactly once in $30=2\cdot 3\cdot 5$.
 \end{example}
 
+
 \goodbreak
+
 
 \begin{exercises}
 	Key concepts:\quad \emph{Every cyclic group isomorphic to $\Z$ or $\Z_n$}
@@ -650,7 +688,7 @@ We describe the subgroups of $\Z_{30}$ and construct its subgroup diagram. The f
 	\end{enumerate}
 \end{exercises}
 
-
+\clearpage
 
 \subsection{Direct Products \& Finite Abelian Groups}\label{sec:direct}
 
@@ -836,7 +874,7 @@ Recall that $\Z_2\times\Z_3\cong \Z_6$ is cyclic, whereas $\Z_2\times\Z_2\cong V
 
 \boldsubsubsection{The Fundamental Theorem of Finite(ly Generated) Abelian Groups}
 
-We've used the direct product to create finite abelian groups from cyclic building blocks. While we don't yet have the technology to prove it, our final result provides a powerful converse.
+We've used the direct product to create finite abelian groups from cyclic building blocks. While we don't have the technology to prove it, our final result provides a powerful converse.
 
 \begin{thm}{}{fund}
 	Every finite abelian group is isomorphic to a group of the form
@@ -928,9 +966,9 @@ There are \emph{nine} non-isomorphic non-abelian groups of order 16: $D_8$ and t
 
 
 \begin{exercises}
-	Key concepts:
+	Key concepts:\quad \emph{Direct product \quad Order of an element via lcm \quad Cyclic/gcd criteria} 
 	\begin{quote}
-		\emph{Direct product \quad Order of an element via lcm \quad Cyclic/gcd criteria\quad Fundamental theorem}
+		\emph{Fundamental theorem of finitely generated abelian groups}
 	\end{quote}
 	
 	
@@ -1006,3 +1044,4 @@ There are \emph{nine} non-isomorphic non-abelian groups of order 16: $D_8$ and t
 	\end{enumerate}
 \end{exercises}
 
+\clearpage
