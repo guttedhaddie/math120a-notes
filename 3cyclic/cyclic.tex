@@ -299,7 +299,7 @@ Our major classification theorem proves a pattern you've likely already guessed.
 
 \begin{thm}{Isomorphs}{cyclicisomorph}
 	Every cyclic group $G=\ip g$ is isomorphic either to $\Z$ or to some $\Z_n$:
-	\begin{itemize}\itemsep0pt
+	\begin{itemize}
 	  \item If $G$ is infinite, then $G\cong\Z$.
 	  \item If $G$ is finite with order $n$, then $G\cong\Z_n$.
 	\end{itemize}
@@ -308,28 +308,34 @@ Our major classification theorem proves a pattern you've likely already guessed.
 
 To help understand the theorem and set up the proof, some remarks and examples are helpful.
 \begin{description}
-  \item[Map Generator to Generator] The isomorphism $\mu$ maps the generator $1\in\Z_{(n)}$ to the generator $g$ of $G$. This idea allows you to quickly construct a suitable isomorphism in any example.
+  \item[Map Generator to Generator] The isomorphism maps the generator $1\in\Z_{(n)}$ to the generator $g$ of $G$. Together with the homomorphism property, this idea \emph{defines} $\mu$
+  \[
+  	\mu(1)=g\implies \mu(x)=\mu(x+\cdots +x)=\bigl(\mu(1)\bigr)^x=g^x
+  \]
+  This observation makes it easy to find suitable isomorphisms in examples.
   \item[\emph{The} Cyclic Group of Order $n$?] The theorem says that, \emph{up to isomorphism}, there is a unique cyclic group of order $n$. For this reason, many algebraists use the symbol $\Z_n$ (or $C_n$ for `cyclic') to refer to any example of a cyclic group of order $n$ (e.g. $R_n$, $U_n$, etc.). For clarity, in these notes, $\Z_n$ will always be the explicit group of remainders under addition modulo $n$.
-  \item[The Order of $G=\ip g$] This concept plays a crucial role in the proof, though its appearance is novel. It is helpful to introduce a set of positive integers
+  \item[The Order of $G=\ip g$] It is helpful to introduce a set of positive integers
   \[
   	S:=\{m\in\N:g^m=e\} \tag{$mg=e$ if $G$ is additive}
   \]
-  The proof will demonstrate that the order of a \emph{finite} cyclic group $G=\ip g$ is precisely the minimal element of $S$.
+  This set plays a crucial role in the proof, distinguishing the finite/infinite cases and detecting the order of $G$\ldots
 \end{description}
 
 
 \begin{examples}{}{}
 	\exstart $\Z_4=\ip 1$ is additive, so $S=\{m\in\N:m=0\in\Z_4\}=\{\textcolor{red}{4},8,12,\ldots\}$. The minimal element $\textcolor{red}{4}$ is plainly the order of $\nm{\Z_4}$.
-	\begin{enumerate}\setcounter{enumi}{1}
+	\begin{enumerate}\setcounter{enumi}{1}%\itemsep2pt
 	  \item (Example \ref*{ex:unisoex}.\ref{ex:unisoex2}) \ In $U_3=\ip\zeta$, we have $\zeta^m=1\Longleftrightarrow 3\mid m$, whence $S=\{\textcolor{red}{3},6,9,\ldots\}$. Plainly $\textcolor{red}{3}$ is the order of $U_3$. Moreover $\mu(x)=\zeta^x$ is the isomorphism $\mu:\Z_3\to U_3$ seen previously!
+	  
+	  \goodbreak
+	  
 	  \item $5\Z=\ip 5$ is an infinite cyclic group. In this case, $S=\{m\in\N:5m=0\}=\emptyset$ is \emph{empty}. We have an isomorphism $\mu:\Z\to 5\Z:x\mapsto 5x$ \ (map the generator 1 of $\Z$ to the generator 5 of $5\Z$).
 	\end{enumerate}
 \end{examples}
 
-As the examples suggest, $S$ distinguishes the finite/infinite cases and detects the order of $G$.
 
 
-\goodbreak
+%\goodbreak
 
 
 \begin{proof}
