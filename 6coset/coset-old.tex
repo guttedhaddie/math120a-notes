@@ -1,30 +1,29 @@
 \graphicspath{{6coset/asy/}}
-\setcounter{section}{4}
 
-\section{Cosets, Factor Groups \& The First Isomorphism Theorem}\label{chap:coset}
+\section{Cosets \& Factor Groups}\label{chap:coset}
 
-In this chapter we partition a group into subsets in such a way that the \emph{set of subsets} inherits a natural group structure. This will likely feel very abstract and difficult, though it is really nothing new; it is precisely the idea behind modular arithmetic!
+In this chapter we partition a group in such a way that the \emph{set of subsets} inherits a natural group structure. At first this will likely feel very abstract and difficult, though it is really nothing new; it is precisely the idea behind modular arithmetic! Examples like this are the key to understanding abstract concepts: write everything out by hand until it becomes easy---there is no shortcut!
 
 \begin{example}{}{cosetsimple}
-	In $\Z_3=\{0,1,2\}$ the elements are really \emph{subsets} $[0],[1],[2]$ of the \emph{integers} $\Z$: that is,
+	In $\Z_3=\{0,1,2\}$ the elements are really \emph{subsets} $[0],[1],[2]$ of the \emph{integers} $\Z$:
 	\begin{gather*}
 		[0]=\{x\in\Z:x \equiv 0\negthickspace\pmod 3\} =\{\ldots,-3,0,3,6,\ldots\}\\
 		[1]=\{x\in\Z:x \equiv 1\negthickspace\pmod 3\} =\{\ldots,-2,1,4,7,\ldots\}\\
 		[2]=\{x\in\Z:x \equiv 2\negthickspace\pmod 3\} =\{\ldots,-1,2,5,8,\ldots\}
 	\end{gather*}
-	When we write $1\operatorname{\textcolor{blue}{+_3}}2=0\in\Z_3$, what we really mean is
+	When we write $1\operatorname{\textcolor{blue}{+_3}}2=0\in\Z_3$, we really mean
 	\[
 		\forall x\in[1], y\in[2]
 		\text{ we have }
 		x\operatorname{\textcolor{red}{+}}y\in [0]
 	\]
-	The \textcolor{red}{group operation (addition)} on $\Z$ naturally induces the \textcolor{blue}{group operation (addition modulo 3)} on the set of subsets $\Z_3=\{[0],[1],[2]\}$. 
+	\textcolor{red}{Addition} on $\Z$ naturally induces \textcolor{blue}{addition modulo 3} on the set of subsets $\Z_3=\{[0],[1],[2]\}$.
 \end{example}
 
 
 \subsection{Cosets \& Normal Subgroups}\label{sec:cosetnormal}
 
-Our primary goal is to generalize Example \ref{ex:cosetsimple}. Start by observing that the identity element $[0]\in\Z_3$ is a \emph{subgroup} of $\Z$ from which the other subsets $[1]$, $[2]$ may be obtained by \emph{translation.}
+Our primary goal is to generalize the example. Start by observing that the identity element $[0]$ is a \emph{subgroup} of $\Z$ from which the sets $[1]$, $[2]$ may be obtained by \emph{translation.}
 
 \begin{defn}{}{}
 	Let $H$ be a subgroup of $G$ and $g\in G$. The \emph{left coset} of $H$ containing $g$ is 
@@ -70,16 +69,16 @@ The last observation is in fact general---the proof is an exercise.
 \end{lemm}
 
 
-A subgroup of a non-abelian group \emph{might} be normal, but is more likely not to be (see Example \ref*{ex:cosetexs}.\ref{ex:nonnormalcosets}).
+For non-abelian groups, most subgroups are typically \emph{not} normal: see Example \ref*{ex:cosetexs}.\ref{ex:nonnormalcosets} below.
 
 
 \begin{examples}{}{cosetexs}
-	\exstart\label{ex:cosets1} The subgroup $H=\ip 2=\{0,2,4\}\le\Z_6$ has two distinct cosets (left $=$ right since $\Z_6$ is abelian):
+	\exstart\label{ex:cosets1} Consider the subgroup $H=\ip 2=\{0,2,4\}\le\Z_6$. The (two) distinct cosets of $H$ are as follows (left $=$ right since $\Z_6$ is abelian!):
 	\begin{align*}
 		H&=\{0,2,4\}&&\bigl(=2+H=4+H\bigr)\\
 		1+H&=\{1,3,5\}&&\bigl(=3+H=5+H\bigr)
 	\end{align*}
-	Observe how the cosets \textbf{partition} $\Z_6$ into equal-sized subsets.
+	Observe how the cosets \emph{partition} $\Z_6$ into equal-sized subsets.
 	
 % 	\exstart\label{ex:cosets1} Consider the subgroup $H=\ip 4=\{0,4,8\}\le\Z_{12}$. This is cyclic with order 3. The distinct cosets of $\ip 4$ are as follows (left $=$ right since $\Z_{12}$ is abelian!):
 % 	\begin{align*}
@@ -91,7 +90,7 @@ A subgroup of a non-abelian group \emph{might} be normal, but is more likely not
 % 	Observe how the cosets \emph{partition} $\Z_{12}$ into equal-sized subsets. 
 
 	\begin{enumerate}\setcounter{enumi}{1}
-		\item\label{ex:nonnormalcosets} The left and right cosets of the subgroup $H=\{e,\mu_1\}\le D_3$ are as follows:
+		\item\label{ex:nonnormalcosets} By revisiting the multiplication table for $D_3$ (Example \ref{ex:motiv}) or using cycle notation, we verify that the left and right cosets of the subgroup $H=\{e,\mu_1\}$ are as follows:
 		\[
 			\renewcommand{\arraystretch}{1.15}
 			\begin{array}{l@{\hspace*{.3cm}}|@{\hspace*{.3cm}}l}
@@ -101,16 +100,16 @@ A subgroup of a non-abelian group \emph{might} be normal, but is more likely not
 				\rho_2H=\mu_2H=\{\rho_2,\mu_2\} & H\rho_2=H\mu_3=\{\rho_1,\mu_3\}
 			\end{array}
 		\]
-		To verify this, either revisit the multiplication table for $D_3$ (Example \ref{ex:d3}) or use cycle notation (e.g. Example \ref{ex:disym}).	This time the left and right cosets of $H$ are not the same: $H$ is \emph{not} a normal subgroup of $D_3$. The \textbf{partitioning} observation still holds: the left cosets partition $D_3$ into three equal-sized subsets; the right cosets also partition $D_3$ into equal-sized (but different) subsets.
+		This time the left and right cosets of $H$ are not all the same: $H$ is \emph{not} a normal subgroup of $D_3$. The partitioning observation still holds: the left cosets partition $D_3$ into three equal-sized subsets; the right cosets also partition into equal-sized subsets, just different ones.
 	
 	  
 		\begin{minipage}[t]{0.65\linewidth}\vspace{0pt}
 			\item\label{ex:cosetsubspace} Consider a 1-dimensional subspace $\textcolor{blue}{W}\le\R^2$. Each coset
 			\[
-				\textcolor{Green}{\vu+W} =\{\vu+\vw:\vw\in W\}
+				\textcolor{Green}{\vu+W}=\{\vu+\vw:\vw\in W\}
 			\]
-			is a line parallel to $W$. Once again, the cosets (all lines parallel to $W$) \textbf{partition} $\R^2$.\smallbreak
-			If this feels too abstract, consider the special case where $W$ is the $y$-axis: each coset is a vertical line (same $x$-co-ordinate).\smallbreak
+			is a line parallel to $W$. Note again that the cosets (all lines parallel to $W$) \emph{partition} $\R^2$.\smallbreak
+			We can be more explicit in the special case when $W$ is the $y$-axis: each coset is a vertical line $\{(x,y):y\in\R\}$ ($x$ constant).\smallbreak
 			More generally, if $W$ is a subspace of some vector space, then the cosets $\vu+W$ are the sets parallel to $W$. Only the zero coset $W=\V0+W$ is a sub\emph{space.}
 		\end{minipage}
 		\hfill
@@ -119,7 +118,7 @@ A subgroup of a non-abelian group \emph{might} be normal, but is more likely not
 		\end{minipage}
 	
 	
-		\item Consider the alternating group $A_n$ as a subgroup of $S_n$. Generalizing the argument from Theorem \ref{thm:alt}, we see that for any $\alpha\in A_n$ and $\sigma\in S_n$,
+		\item Recall Theorem \ref{thm:alt}. Generalizing the argument, we see that for any $\alpha\in A_n$ and $\sigma\in S_n$,
 		\[
 			\alpha\sigma\text{ even }
 			\iff \sigma\text{ even }
@@ -137,9 +136,7 @@ A subgroup of a non-abelian group \emph{might} be normal, but is more likely not
 	\end{enumerate}
 \end{examples}
 
-
 \goodbreak
-
 
 As observed in the examples, the cosets of any subgroup $H\le G$ seem to partition $G$.
 
