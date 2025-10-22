@@ -1,9 +1,9 @@
-\graphicspath{{6coset/asy/}}
+\graphicspath{{5coset/asy/}}
 \setcounter{section}{4}
 
-\section{Cosets, Factor Groups \& The First Isomorphism Theorem}\label{chap:coset}
+\section{Cosets, Lagrange's Theorem \& Factor Groups}\label{chap:coset}
 
-In this chapter we partition a group into subsets in such a way that the \emph{set of subsets} inherits a natural group structure. This will likely feel very abstract and difficult, though it is really nothing new; it is precisely the idea behind modular arithmetic!
+The overarching goal of this chapter is to partition a group into subsets in such a way that the \emph{set of subsets} inherits a natural group structure. This is a long and abstract story, though it is really nothing new; it is precisely the idea behind modular arithmetic!
 
 \begin{example}{}{cosetsimple}
 	In $\Z_3=\{0,1,2\}$ the elements are really \emph{subsets} $[0],[1],[2]$ of the \emph{integers} $\Z$: that is,
@@ -141,7 +141,7 @@ A subgroup of a non-abelian group \emph{might} be normal, but is more likely not
 \goodbreak
 
 
-As observed in the examples, the cosets of any subgroup $H\le G$ seem to partition $G$.
+As observed in the examples, the cosets of any subgroup $H\le G$ partition $G$.
 
 \begin{thm}{}{cosetpart}
 	Let $H$ be a subgroup of $G$. Then the left cosets of $H$ partition $G$. Moreover,
@@ -156,14 +156,14 @@ As observed in the examples, the cosets of any subgroup $H\le G$ seem to partiti
 	\]
 \end{thm}
 
-The \textcolor{blue}{blue} criterion is often very easy to check. Before reading the proof, convince yourself that each of our previous examples satisfies the result. When $H$ is non-normal, note that the right cosets partition $G$ differently to the left cosets (e.g.\ Example \ref*{ex:cosetexs}.\ref{ex:nonnormalcosets}).
+The \textcolor{blue}{blue} criterion is often very easy to check. Before reading the proof, convince yourself that each of our previous examples satisfies the result. When $H$ is non-normal, the right cosets partition $G$ differently to the left cosets (e.g.\ Example \ref*{ex:cosetexs}.\ref{ex:nonnormalcosets}).
 
 \begin{example}{}{}
-	This should seem familiar when $G=\Z$ and $H=n\Z$. Then, written additively,
+	This should seem familiar when $G=\Z$ and $H=n\Z$. Written additively,
 	\[
 		a+H=b+H\mathrel{\textcolor{red}{\iff}} b-a\in H\iff n\mid b-a \iff a\equiv b\pmod n
 	\]
-	The cosets of $H$ are precisely the equivalence classes modulo $n$. Indeed, in a previous course, you've possibly encountered the following proof in the context of modular arithmetic.
+	The cosets of $H$ are precisely the equivalence classes modulo $n$. Indeed you've likely encountered the main proof in the context of modular arithmetic.
 \end{example}
 
 \begin{proof}
@@ -173,31 +173,28 @@ The \textcolor{blue}{blue} criterion is often very easy to check. Before reading
 		\iff \exists h\in H\text{ such that }y=xh
 		\iff x^{-1}y=h\in H
 	\]
-	Now define a relation $\sim$ on $G$ via $x\sim y\Longleftrightarrow y\in xH$. This is an equivalence relation:
+	Now define a relation $\sim$ on $G$ via $x\sim y\Longleftrightarrow x^{-1}y\in H$. We claim that this is an equivalence relation:
 	\begin{quote}
 		\begin{description}\itemsep2pt
-			\item[\normalfont\emph{Reflexivity}:] $x\sim x$ since $x^{-1}x=e\in H$.
-			\item[\normalfont\emph{Symmetry}:] $x\sim y\implies x^{-1}y\in H\implies (x^{-1}y)^{-1}\in H$, since $H$ is a subgroup. But then
-			\[
-				y^{-1}x\in H\implies y\sim x
-			\]
-			\item[\normalfont\emph{Transitivity}:] If $x\sim y$ and $y\sim z$ then $x^{-1}y\in H$ and $y^{-1}z\in H$. But $H$ is closed, whence
+			\item[\normalfont\emph{Reflexivity}:] $x\sim x$ since $x^{-1}x=\textcolor{Green}{e\in H}$.
+			\item[\normalfont\emph{Symmetry}:] $x\sim y\Longrightarrow x^{-1}y\in H \mathrel{\textcolor{Green}{\Longrightarrow}} y^{-1}x=(x^{-1}y)^{-1}\in H \Longrightarrow y\sim x$.
+			\item[\normalfont\emph{Transitivity}:] If $x\sim y$ and $y\sim z$ then $x^{-1}y\in H$ and $y^{-1}z\in H$. But \textcolor{Green}{$H$ is closed}, whence
 			\[
 				x^{-1}z=(x^{-1}y)(y^{-1}z)\in H\implies x\sim z
 			\]
 		\end{description}
 	\end{quote}
-	The equivalence classes therefore partition $G$. Since $x\sim y\iff y\in xH$, the equivalence class of $x$ is indeed the left coset $xH$, as required.\qedhere
+	The equivalence classes therefore partition $G$. Since $x\sim y\iff y\in xH$, the equivalence class of $x$ is indeed the left coset $xH$.\qedhere
 \end{proof}
 
 
 
-The subgroup status of $H$ is precisely what guarantees a partition (compare Theorem \ref{thm:subgroup}):
+The \textcolor{Green}{subgroup status} of $H$ is precisely what guarantees a partition (compare Theorem \ref{thm:subgroup}):
 \begin{quote}
 	\begin{description}\itemsep2pt
-		\item[\normalfont\emph{Reflexivity}:]  $H$ contains the identity (and is thus non-empty).
-		\item[\normalfont\emph{Symmetry}:] $H$ satisfies the inverse axiom.
-		\item[\normalfont\emph{Transitivity}:] $H$ is closed under the group operation.
+		\item[\normalfont\emph{Reflexivity}:]  $H$ contains the \textcolor{Green}{identity} (and is thus \textcolor{Green}{non-empty}).
+		\item[\normalfont\emph{Symmetry}:] $H$ satisfies the \textcolor{Green}{inverse axiom}.
+		\item[\normalfont\emph{Transitivity}:] $H$ is \textcolor{Green}{closed} under the group operation.
 	\end{description}
 \end{quote}
 
@@ -210,16 +207,15 @@ When $H$ is not a subgroup, the coset construction need not produce a partition.
 	\]
 \end{example}
 
+
 \goodbreak
 
-We finish with a useful result for identifying when a subgroup is normal \emph{without} explicitly having to compute its cosets. The proof is left as an exercise.
+By combining the criteria in Theorem \ref{thm:cosetpart}, we obtain a useful result for identifying when a subgroup is normal \emph{without} explicitly having to compute its cosets. The proof is an exercise.
 
 \begin{cor}{}{normalconj}
 	Normal subgroups are precisely those which are closed under \textbf{conjugation}:
   \[
-  	H\triangleleft G\iff \forall g\in G,\ \forall h\in H,
-  	\ \text{ we have }\ 
-  	gh g^{-1}\in H
+  	H\triangleleft G\iff H\le G\text{ and \ }\forall g\in G,\ \forall h\in H, \	gh g^{-1}\in H
   \]
 \end{cor}
 
@@ -239,12 +235,65 @@ Since this holds for all $g$, we may equivalently observe $g^{-1}hg\in H$.
 % \end{proof}
 
 
+\boldsubsubsection{Kernels and Normal Subgroups}
+
+In Exercise \ref*{sec:morph}.\ref{exs:kernelintro} we defined the \emph{kernel} and \emph{image} of a homomorphism $\phi:G\to L$:
+\[
+	\ker\phi =\bigl\{g\in G:\phi(g)=e\bigr\},\qquad \image\phi=\bigl\{\phi(g):g\in G\bigr\}
+\]
+and verified that these are \emph{subgroups} (of $G$ and $L$ respectively). The rest of this section describes part of the intimate relationship between kernels, images and normal subgroups; a relationship that will be explained more fully in Section \ref{sec:1stiso}.
+
+
+\begin{examples}{}{}
+	\exstart It is easily checked that $\phi(x)=2x\pmod 4$ defines a homomorphism $\phi:\Z\to\Z_4$. We compute:
+	\[
+		\ker\phi=\{x\in\Z:2x\equiv 0\negthickspace\pmod 4\}=2\Z,
+		\qquad
+		\image\phi=\{0,2\}
+	\]
+	Plainly $\ker\phi$ is a subgroup of $\Z$ and $\image\phi$ is a subgroup of $\Z_4$.
+	\begin{enumerate}\setcounter{enumi}{1}
+	  \item Every linear map $\rT:V\to W$ between vector spaces is a homomorphism. In linear algebra its kernel is better known as its \emph{nullspace}
+		\[
+			\ker\rT=\mathcal N(\rT)=\bigl\{\vv\in V:\rT(\vv)=\V0\bigr\}
+		\]
+		If $\rT=\rL_A:\R^n\to \R^m$ is left-multiplication by a matrix $A$, then $\image\rT$ is the \emph{column space} of $A$.
+	\end{enumerate}
+\end{examples}
+
+Since the groups in these examples are all abelian, all subgroups are automatically normal. In fact the kernel of \emph{every} homomorphism is a normal subgroup, though the same cannot be said for images.
+
+\begin{lemm}{}{homosub}
+	If $\phi:G\to L$ is a homomorphism, then $\ker\phi\triangleleft G$.
+\end{lemm}
+
+\begin{proof}
+	Exercise \ref*{sec:morph}.\ref{exs:structural1} verified that $\ker\phi\le G$. For normality, we appeal to Corollary \ref{cor:normalconj}. Let $g\in G$, $k\in\ker\phi$, apply the homomorphism property and the fact that $\phi(g^{-1})=\phi(g)^{-1}$ (Exercise \ref{sec:morph}.\ref{exs:structural2}):
+	\[
+		\phi(gk g^{-1})=\phi(g)\phi(k)\phi(g)^{-1}
+	  =\phi(g)\phi(g)^{-1}=e_L
+	  \implies gk g^{-1}\in\ker\phi\tag*{\qedhere}
+	\]
+\end{proof}
+
+
+\begin{examples}{}{}
+	\exstart $\det:\rGL_n(\R)\to\R^\times$ is a homomorphism. We obtain a normal subgroup
+	\[
+		\ker\det=\{A\in\rGL_n(\R):\det A=1\}
+		\triangleleft\rGL_n(\R)
+	\]
+	Otherwise said, $\rSL_n(\R)$ is a normal subgroup of $\rGL_n(\R)$.
+	\begin{enumerate}\setcounter{enumi}{1}
+  	\item (Example \ref*{ex:cosetexs}.\ref{ex:nonnormalcosets}, cont.) \ $\phi:\Z_2\to D_3$ defined by $\phi(x)=\mu_1^x$ is a homomorphism. Certainly $\ker\phi=\{0\}\triangleleft\Z_2$, however $\image\phi=\{e,\mu_1\}$ is not a \emph{normal} subgroup of $S_3$.
+	\end{enumerate}
+\end{examples}
+
+\goodbreak
+
 
 \begin{exercises}{}{}
-	Key concepts:
-	\begin{quote}
-		\emph{Left/right cosets\qquad normal subgroup\qquad (left) cosets partition group}
-	\end{quote}
+	Key concepts:\quad \emph{left/right cosets \& partitioning\quad normal subgroup\quad kernels are normal}
 
 	\begin{enumerate}
 	  \item Find the cosets of each subgroup: since the groups are abelian, left and right cosets are equal.
@@ -270,10 +319,9 @@ Since this holds for all $g$, we may equivalently observe $g^{-1}hg\in H$.
 		
 	
 		\item\label{exs:d4normal}\begin{enumerate}
-		  \item Find the left and right cosets of $H=\{\rho_0,\delta_1\}\le D_4$. Is the subgroup normal?
+		  \item Find the left and right cosets of $H=\{\rho_0,\delta_1\}\le D_4$. Is $H$ normal? (see Examples \ref{ex:disym})
 			\item Repeat for the subgroup $K=\{\rho_0,\rho_2\}$.
 		\end{enumerate}
-		(\emph{Hint: Use cycle notation---e.g. Examples \ref{ex:disym}---or look up the Cayley table})
 	  
 	  
 	  \item Prove Lemma \ref{lemm:cosetbasic1}: every subgroup of an abelian group is normal.
@@ -286,18 +334,14 @@ Since this holds for all $g$, we may equivalently observe $g^{-1}hg\in H$.
 	  \end{enumerate}
 	  
 	
-		\item Let $H=\{\sigma\in S_4:\sigma(4)=4\}$.
-		\begin{enumerate}
-		  \item Show that $H$ is a subgroup of $S_4$ (in Chapter \ref{chap:action} we'll call this the \emph{stabilizer} of 4).
-		  \item Using Corollary \ref{cor:normalconj}, or otherwise, determine whether $H$ is a normal subgroup of $S_4$.
-		\end{enumerate}
+		\item Let $H=\{\sigma\in S_4:\sigma(4)=4\}$. Show that $H$ is a subgroup of $S_4$. Is it \emph{normal}?
 		
 		
 		\item Prove Corollary \ref{cor:normalconj}.
 	  
 	  
 	  \item\label{exs:directprodfactor}\begin{enumerate}
-	    \item Suppose $G=H\times K$, $J\triangleleft H$ and let $\widetilde J=J\times\{e_K\}$. Prove that $\widetilde J\triangleleft G$.\par
+	    \item Suppose $G=H\times K$, \ $J\triangleleft H$ and let $\widetilde J=J\times\{e_K\}$. Prove that $\widetilde J\triangleleft G$.\par
 	    (\emph{When $J=H$ this is often written $H\triangleleft (H\times K)$. A similar result holds for $K$.})
 	    \item Explain how Example \ref*{ex:cosetexs}.\ref{ex:cosetsubspace} fits into part (a).
 	  \end{enumerate} 
@@ -308,10 +352,47 @@ Since this holds for all $g$, we may equivalently observe $g^{-1}hg\in H$.
 			a\sim b\iff \exists h\in H,\ k\in K \ \text{ such that }\ a=hb k
 		\]
 		\begin{enumerate}
-	  	\item Prove that $\sim$ is an equivalence relation on $G$.
-	  	\item Describe the elements of the equivalence class of $a\in G$; this is a \emph{double coset}.
-	  	\item Consider $H=\{e,(1\,2)\}$ and $K=\{e,(1\,3)\}$ as subgroups of $S_3$. Compute the double cosets.
+	  	\item Prove that $\sim$ is an equivalence relation on $G$ and describe the elements of the equivalence class of $a\in G$; this is called a \emph{double coset}.
+	  	\item Compute the double cosets of $H=\{e,(1\,2)\}$ and $K=\{e,(1\,3)\}$ as subgroups of $S_3$. 
 		\end{enumerate}
+		
+		
+		\item Verify that $\phi:\Z\to\Z_n:x\mapsto x\pmod n$ is a homomorphism. What is its kernel? 
+			
+		\item State a linear map $\rT:\R^2\to\R^2$ whose kernel is the $y$-axis (a normal subgroup of $\R^2$\ldots)
+		
+		
+		\item Find the kernel and image of each homomorphism and verify that $\ker\phi$ is normal:
+		\begin{enumerate}
+		  \item The \emph{trace} of a matrix $\tr:M_2(\R)\to\R:
+		  \smash{
+			  \begin{smatrix}
+					a&b\\c&d
+			  \end{smatrix}
+		  }
+		  \mapsto a+d$.
+			
+			\item $\rT:\R^3\to\R^4:\vx\mapsto 
+			\begin{smatrix}
+				1&1&-1\\
+				0&3&-1\\
+				1&4&-2\\
+				2&5&-3
+			\end{smatrix}$
+		\end{enumerate}
+		
+		
+		\item Explain why the map $\phi$ is a homomorphism and find $\ker\phi$:
+		\[
+			\phi:S_n\to \bigl(\{1,-1\},\cdot\bigr):\sigma \mapsto 
+			\begin{cases}
+	  		1&\text{ if $\sigma$ even}\\
+	  		-1&\text{ if $\sigma$ odd}
+			\end{cases}
+		\]
+		
+		
+	  \item Consider $\phi:D_4\to D_4:\sigma\mapsto \sigma^2$. Show that $\phi$ is \emph{not} a homomorphism.
 	\end{enumerate}
 \end{exercises}
 
@@ -319,7 +400,7 @@ Since this holds for all $g$, we may equivalently observe $g^{-1}hg\in H$.
 \clearpage
 
 
-\subsection{Lagrange's Theorem \& Indices}\label{sec:lagrange}
+\subsection{Lagrange's Theorem \& Indices (Counting Cosets)}\label{sec:lagrange}
 
 
 We've been inching towards a powerful result; hopefully you've hypothesized this already!
@@ -340,7 +421,7 @@ Note that the converse is \emph{false}: e.g.{} $A_4$ has order 12, but no subgro
 
 
 \begin{proof}
-	Suppose $H\le G$ and fix $g\in G$. The function
+	Suppose $H\le G$ and fix $g\in G$. The function \emph{left-multiplication by $g$}
 	\[
 		L_g:H\to gH:h\mapsto gh
 	\]
@@ -415,8 +496,7 @@ The index is also the cardinality of the set of \emph{right} cosets (Exercise \r
 		1+H=\{1,3,5,\ldots,19\}
 		\]
 	\begin{enumerate}\setcounter{enumi}{1}
-	  \item Recall (Example \ref{ex:orthogonal} \& Exercise %\hyperref[exs:subgpmatrix]{\ref*{sec:subgroup}.\ref*{exs:subgpmatrix}}) 
-	  \ref*{sec:subgroup}.\ref{exs:subgpmatrix} the orthogonal and special orthogonal groups
+	  \item\label{ex:indexeasy2} Recall (Example \ref{ex:orthogonal} \& Exercise \ref*{sec:subgroup}.\ref{exs:subgpmatrix}) the orthogonal and special orthogonal groups
 	  \[
 	  	\rO_n(\R)=\{A\in M_n(\R):A^TA=I\},\qquad
 	  	\rSO_n(\R)=\{A\in\rO_n(\R):\det A=1\}
@@ -432,7 +512,8 @@ The index is also the cardinality of the set of \emph{right} cosets (Exercise \r
 	\end{enumerate}
 \end{examples}
 
-\begin{thm}{}{}
+
+\begin{thm}{}{tower}
 	If $K\le H\le G$ is a sequence of subgroups, then
 	\[
 		(G:K)=(G:H)(H:K)
@@ -536,21 +617,154 @@ Our proof also covers infinite groups and infinite indices. You are \emph{strong
 \end{examples}
 
 
+\goodbreak
+
+
+\boldsubsubsection{Kernels, Images, Indices and Describing Homomorphisms}
+
+In Lemma \ref{lemm:homosub}, we saw that the kernel of a homomorphism $\phi:G\to L$ is a normal subgroup of $G$. We continue our development of this important idea by considering the \emph{index} $(G:\ker\phi)$.
+
+\begin{lemm}{}{homobij}
+	Let $\phi:G\to L$ be a homomorphism. Then there is precisely one coset of $\ker\phi$ for each element of $\image\phi$:
+	\[
+		g_1\ker\phi=g_2\ker\phi
+		\iff \phi(g_1)=\phi(g_2)
+	\]
+	Otherwise said $(G:\ker\phi)=\nm{\image\phi}$.
+\end{lemm}
+
+The proof is nothing more than an abstraction of Example \ref*{ex:indexeasy}.\ref{ex:indexeasy2} (where $\phi=\det:\rO_2(\R)\to\R^\times$).
+
+\begin{proof}
+	For all $g_1,g_2\in G$, we have
+	\begin{align*}
+		g_1\ker\phi=g_2\ker\phi&\iff g_2^{-1}g_1\in\ker\phi \tag{Theorem \ref{thm:cosetpart}}\\
+		&\iff\phi(g_2^{-1}g_1)=e_L\tag{Definition of $\ker\phi$}\\
+		&\iff \phi(g_2)^{-1}\phi(g_1)=e_L\tag{Homomorphism properties}\\
+		&\iff \phi(g_1)=\phi(g_2)\tag*{\qedhere}
+	\end{align*}
+\end{proof}
+
+We'll extend this idea in Section \ref{sec:1stiso}. For the moment we apply it to help describe homomorphisms.
+
+\begin{thm}{}{}
+	Let $\phi:G\to L$ be a homomorphism. If $G$ is finite, then $\image\phi$ is a finite group whose order divides that of $G$. The same holds for $L$. Otherwise said,
+	\[
+		\nm G<\infty
+		\implies\nm{\image\phi}\Bigm| \nm G
+		\quad\text{and}\quad 
+		\nm L<\infty\implies\nm{\image\phi}\Bigm| \nm L
+	\]
+	If both groups are finite, then $\smash[t]{\nm{\image\phi}\Bigm|\gcd\bigl(\nm G,\nm L)}$.
+\end{thm}
+
+\begin{proof}
+	If $G$ is a finite group, then $\ker\phi\le G$ is finite. Apply Lemma \ref{lemm:homobij} to see that
+	\[
+		\nm{\image\phi}=(G:\ker\phi) =\smash[b]{\frac{\nm G}{\nm{\ker\phi}}}
+	\]
+	is a divisor of $\nm G$. The second situation $\nm{\image\phi}\Bigm|\nm{L}$ is Lagrange's Theorem (\ref{thm:lagrange}).
+\end{proof}
+
+
+\begin{example}{}{}
+% 	\exstart If $\phi:\Z_{17}\to\Z_{13}$ is a homomorphism, then $\gcd(17,13)=1\Longrightarrow\nm{\image\phi}=1$. Thus $\image\phi=\{0\}$ is the trivial subgroup of $\Z_{13}$, and $\phi:x\mapsto 0\ (\forall x\in\Z_{17})$ the trivial homomorphism.\vspace{-5pt}
+%	\begin{enumerate}\setcounter{enumi}{1}
+% 	  \item[] More generally, if $\gcd\bigl(\nm G,\nm L\bigr)=1$, then the trivial homomorphism $\phi:g\mapsto e_L$ is the unique homomorphism $\phi:G\to L$.
+% 
+	  %\item 
+	  We describe all homomorphisms $\phi:\Z_4\to S_3$.\smallbreak
+	  Since $\Z_4$ is cyclic, we need only describe what $\phi$ does to a generator (e.g. 1) to obtain the entire homomorphism: $\phi(x)=\bigl(\phi(1)\bigr)^x$. There are \emph{six} choices for $\phi(1)\in S_3$, though not all will work.\smallbreak
+	  
+	  The Theorem tells us that $\nm{\image\phi}=1$ or 2; the only common divisors of $4=\nm{\Z_4}$ and $6=\nm{S_3}$.
+	  \begin{itemize}
+	    \item If $\nm{\image\phi}=1$, then $\image\phi=\{e\}$ and we obtain the trivial homomorphism $\phi_0(x)=e,\ \forall x\in\Z_4$.
+	    \item If $\nm{\image\phi}=2$, then $\image\phi$ is a subgroup of order 2, of which $S_3$ has exactly three: $\{e,(2\,3)\}$, $\{e,(1\,3)\}$, $\{e,(1\,2)\}$. This results in three further homomorphisms (for a grand total of four)
+	  \[
+	  	\phi_1(x)=(2\,3)^x,\qquad 
+	  	\phi_2(x)=(1\,3)^x,\qquad
+	  	\phi_3(x)=(1\,2)^x
+	  \]
+	  \end{itemize}
+%	\end{enumerate}
+\end{example}
+
+
+\goodbreak
+
+
+We now turn to the general question of homomorphisms between finite cyclic groups $\phi:\Z_m\to\Z_n$. Two facts make this relatively simple:
+\begin{enumerate}
+  \item As above, it is enough to define $\phi(1)$, for then $\phi(x)=\phi(1)+\cdots+\phi(1)=\phi(1)\cdot x$.
+  \item $\nm{\image\phi}$ must divide $d=\gcd(m,n)$. Since $\Z_n$ has exactly one subgroup of each order dividing $n$ (Corollary \ref{cor:subscyclic}), $\image\phi$ must be a subgroup of the \emph{unique} subgroup of $\Z_n$ of order $d$:
+	\[
+		\image\phi\le\ip{\frac nd}
+		=\left\{0,\frac nd,\frac{2n}d,\ldots,\frac{(d-1)n}d\right\}
+	\]
+	It is enough to let $\phi(1)$ be each element of this subgroup in turn and see what happens\ldots
+\end{enumerate} 
+
+\begin{cor}{}{homoszmn}
+	There are $d=\gcd(m,n)$ distinct homomorphisms $\phi:\Z_m\to\Z_n$, namely
+	\[
+		\phi_k(x)=\frac{kn}{d}x
+		\quad\text{where}\quad 
+		k=0,\ldots,d-1
+	\]
+\end{cor}
+
+\begin{proof}
+	Following the above discussion, it remains only to check that each $\phi_k$ is a well-defined function. Note that $x=y\in\Z_m\Longleftrightarrow y=x+\lambda m$ for some $m\in\Z$, from which
+	\[
+	\phi_k(y)=\phi_k(x+\lambda m)
+	=\frac{kn}d(x+\lambda m) 
+	=\frac{kn}dx+\lambda k\textcolor{blue}{\frac md} n
+	=\frac{kn}dx =\phi_k(x)
+	\tag{in $\Z_n$}
+	\]
+	where we used the fact that $\textcolor{blue}{\frac md}$ is an \emph{integer.}
+\end{proof}
+
+
+\goodbreak
+
+
+\begin{example}{}{homoz12-20}
+	We describe all homomorphisms $\phi:\Z_{12}\to\Z_{20}$.\smallbreak
+	Since $\gcd(12,20)=4$, we see that $\image\phi\le\ip{5}=\{0,5,10,15\}\le\Z_{20}$. There are four choices:
+	\[
+		\phi_0(x)=0,\qquad 
+		\phi_1(x)=5x,\qquad 
+		\phi_2(x)=10x,\qquad 
+		\phi_3(x)=15x\pmod{20}
+	\]
+	We similarly see that there are four distinct homomorphisms $\psi:\Z_{20}\to\Z_{12}$:
+	\[
+		\psi_0(x)=0,\qquad 
+		\psi_1(x)=3x,\qquad 
+		\psi_2(x)=6x,\qquad 
+		\psi_3(x)=9x\pmod{12}
+	\]
+\end{example} 
+
+
 \begin{exercises}
-	Key concepts:
+	Key concepts:\quad \emph{Lagrange's Theorem\qquad index of a subgroup\qquad $(G:\ker\phi)=\nm{\image\phi}$}
 	\begin{quote}
-		\emph{Lagrange's Theorem\qquad index of a subgroup}
+		\emph{describing homomorphisms\qquad $\nm{\image\phi}\Bigm|\gcd\bigl(\nm G,\nm L\bigr)$}
 	\end{quote}
-	
+
 	
 	\begin{enumerate}
 	  \item Find the indices of the following subgroups:
 		\begin{enumerate}
-	  	\item \makebox[150pt][l]{$\ip 9\le\Z_{12}$\hfill (b)\lstsp}\makebox[150pt][l]{$6\Z\le 2\Z$\hfill (c)\lstsp}$(\Q^+,\cdot)\le(\Q^\times,\cdot)$
+	  	\item $\ip 9\le\Z_{12}$\qquad\qquad
+	  	(b) \ $6\Z\le 2\Z$\qquad\qquad
+	  	(c) \ $(\Q^+,\cdot)\le(\Q^\times,\cdot)$
 		\end{enumerate}
 
 
-		\item Let $G=\Z_8$, $H=\ip 2$ and $K=\ip 4$. Write out all the cosets for the three subgroup relations $K\le H$, $H\le G$ and $K\le G$, and verify the index multiplication formula.
+		\item Let $G=\Z_8$, $H=\ip 2$ and $K=\ip 4$. Write out all the cosets for the three subgroup relations $K\le H$, $H\le G$ and $K\le G$, and verify the index multiplication formula (Theorem \ref{thm:tower}).
 	  
 	  
 		\item Let $G$ have order $pq$ where $p,q$ are both prime. Show that every proper subgroup of $G$ is cyclic.
@@ -585,8 +799,81 @@ Our proof also covers infinite groups and infinite indices. You are \emph{strong
 		  (\emph{Hint: what does it mean for $a+b\sqrt 2$ and $c+d\sqrt 2$ to lie in the same coset of $H$?})
 		\end{enumerate}
 	  
-	  \item\label{exs:zqindex} The sets $\Q$ and $\Z$ are both groups under addition. Show that there is precisely one coset of $\Z$ in $\Q$ for each rational number in the interval $[0,1)$. Hence conclude that $(\Q:\Z)=\aleph_0$ is countably infinite.
+	  \item\label{exs:zqindex} The sets $\Q$ and $\Z$ are both groups under addition. Show that there is exactly one coset of $\Z$ in $\Q$ for each rational $q\in[0,1)$. Hence conclude that $(\Q:\Z)=\aleph_0$ is countably infinite.
+		
+
+	  \item Check that you have a homomorphism (use Corollary \ref{cor:homoszmn}) and compute its kernel and image.
+	  \begin{enumerate}
+	    \item $\phi:\Z_{8}\to\Z_{14}$ defined by $\phi(x)=7x\pmod{14}$.
+	    
+	    \item $\phi:\Z_{36}\to\Z_{20}$ defined by $\phi(x)=5x\pmod{20}$.
+		\end{enumerate}
 	
+		
+		\item Describe all homomorphisms between the groups:
+		\begin{enumerate}
+		  \item \makebox[160pt][l]{$\phi:\Z_{15}\to\Z_{80}$\hfill (b)}\lstsp $\phi:\Z\to\Z_3$ 
+		  \item[(c)] \makebox[160pt][l]{$\phi:\Z_6\to D_4$\hfill (d)}\lstsp $\phi:\Z_{15}\to A_4$
+		\end{enumerate}
+		
+			
+% 		\item *Find the kernel and image of each homomorphism:
+% 		\begin{enumerate}
+% 		  \item The \emph{trace} of a matrix $\tr:M_2(\R)\to\R:
+% 		  \smash{
+% 			  \begin{smatrix}
+% 					a&b\\c&d
+% 			  \end{smatrix}
+% 		  }
+% 		  \mapsto a+d$.
+% 			
+% 			\item $\rT:\R^3\to\R^4:\vx\mapsto 
+% 			\begin{smatrix}
+% 				1&1&-1\\
+% 				0&3&-1\\
+% 				1&4&-2\\
+% 				2&5&-3
+% 			\end{smatrix}$
+% 		\end{enumerate}
+% 		
+% 		
+% 		\item *Explain why the map $\phi$ is a homomorphism and find $\ker\phi$:
+% 		\[
+% 			\phi:S_n\to \bigl(\{1,-1\},\cdot\bigr):\sigma \mapsto 
+% 			\begin{cases}
+% 	  		1&\text{ if $\sigma$ even}\\
+% 	  		-1&\text{ if $\sigma$ odd}
+% 			\end{cases}
+% 		\]
+	
+	
+		\item\begin{enumerate}
+		  \item Prove Part 4 of Lemma \ref{lemm:homosub}: if $\phi:G\to L$ is a homomorphism, then $\image\phi\le L$.
+		 	\item If $H\le G$ and $\phi:G\to L$ a homomorphism, prove that $\phi(H):=\{\phi(h):h\in H\}\le\image\phi$.
+		  \item Give an example to show that $\image\phi$ need not be a normal subgroup of $L$.
+		\end{enumerate}
+	
+		
+		\item\label{exs:totient} Prove that the number of distinct \emph{isomorphisms} $\phi:\Z_n\to\Z_n$ equals the cardinality of the group of units in $\Z_n$ (see Exercise \ref*{sec:cyclicclass}.\ref{exs:znmult}))
+		\[
+			\nm{\Z_n^\times}=\nm{\{x\in\Z_n:\gcd(x,n)=1\}}
+		\]
+			
+			  
+	  \item Prove that $\phi:\Z_m\times\Z_n\to\Z_m\times\Z_n$ is a well-defined homomorphism if and only if there exist integers $a,b,c,d$ for which
+	  \[
+	  	\phi(x,y)=\bigl(ax+by,cx+dy\bigr),\quad 
+	  	m\mid bn\quad
+	  	\text{and}\quad n\mid cm
+	  \]
+	  (\emph{Hint: let $(a,c)=\phi(1,0)$, etc.})
+	  
+	
+		\item Find all homomorphisms $\phi:\Z_2\times\Z_7\to\Z_2\times\Z_5$. How do you know that there are no more?
+		
+% 		  
+% 	  \item *Consider $\phi:D_4\to D_4:\sigma\mapsto \sigma^2$. Show that $\phi$ is \emph{not} a homomorphism.
+		
 	\end{enumerate}
 \end{exercises}
 
@@ -595,7 +882,7 @@ Our proof also covers infinite groups and infinite indices. You are \emph{strong
 
 \subsection{Factor Groups}\label{sec:factor}
 
-Given $H\le G$, we ask whether the set of left cosets $\{gH:g\in G\}$ has a \emph{natural} group structure (inherited from that of $G$, rather than imposed by some external choice). To see how this might (or might not) work, we recall some previous examples.
+Given $H\le G$, we ask whether the set of left cosets $\{gH:g\in G\}$ has a \emph{natural group structure}: natural here means inherited from that of $G$, rather than being imposed by some external choice. To see how this might (or might not) work, recall some previous examples.
 
 \begin{examples*}{\ref{ex:cosetexs}, cont}{}
 	\exstart The set of (left) cosets for $H=\ip 2=\{0,2,4\}\le\Z_6$ is
@@ -710,10 +997,14 @@ If the natural multiplication of cosets is well-defined, the fact that $hH=H$ an
 \[
  	(hg)H=gH,\text{ or equivalently }	g^{-1}hg\in H \tag{Theorem \ref{thm:cosetpart}}
 \]
-Since this holds \emph{for all} $g\in G$ and $h\in H$, Corollary \ref{cor:normalconj} says that \textbf{$\boldsymbol{H}$ is a normal subgroup of $\boldsymbol G$.} Not only is the converse true also, but the resulting structure forms a group under this operation.
+Since this holds \emph{for all} $g\in G$ and $h\in H$, Corollary \ref{cor:normalconj} says that \textbf{$\boldsymbol{H}$ is a normal subgroup of $\boldsymbol G$.} Not only is the converse also true, but the resulting structure forms a group under this operation.
 
 \begin{thm}{}{}
-	Suppose $H\le G$. The natural operation ($\ast$) defines a group structure on the set of (left) cosets if and only if $H$ is a normal subgroup of $G$.
+	Suppose $H\le G$ and consider the natural operation ($\ast$) on the set of (left) cosets.
+	\begin{enumerate}
+	  \item ($\ast$) is well-defined if and only if $H$ is a normal subgroup of $G$.
+	  \item	In such cases, $(\ast)$ defines a \emph{group structure} on the set of cosets.
+	\end{enumerate}
 \end{thm}
 
 Since this process only works when $H$ is a normal subgroup, the prefix `left' is irrelevant.
@@ -722,79 +1013,29 @@ Since this process only works when $H$ is a normal subgroup, the prefix `left' i
 	Given $H\triangleleft G$, the set of cosets is termed a \emph{factor group,} written $\quotient GH$ \ \ ('$G$ mod $H$').
 \end{defn}
 
-The notation for a factor group meshes with the index: if $G$ is finite, then $\nm{\quotient GH}=(G:H)=\frac{\nm G}{\nm H}$.
-
-
-\begin{proof}
-	The above discussion shows that well-definition of $(\ast)$ implies $H\triangleleft G$.\smallbreak
-	For the converse, assume $H\triangleleft G$, and suppose $xH=aH$ and $yH=bH$. By Theorem \ref{thm:cosetpart}, $h:=x^{-1}a$ and $\tilde h:=y^{-1}b$ are both in $H$. But then,
-	\[
-		(xy)^{-1}(ab)=y^{-1}(x^{-1}a)b =y^{-1}hb =(y^{-1}hy)\tilde h
-	\]
-	which lies in $H$ by Corollary \ref{cor:normalconj} ($y^{-1}hy\in H$). We conclude that $(xy)H=(ab)H$, justifying well-definition ($\dag$).\smallbreak	
-	It remains only to check that $\left(\quotient GH,\cdot\right)$ is a group in such cases.
-	\begin{description}
-		\item[\normalfont\emph{Closure}:] Given $aH,bH\in\quotient GH$, we see that $aH\cdot bH=(ab)H$ is also coset.
-		\item[\normalfont\emph{Associativity}:] $aH\cdot(bH\cdot cH)=aH\cdot(bc)H=a(bc)H$. Similarly $(aH\cdot bH)\cdot cH=(ab)cH$. By the associativity of $(G,\cdot)$, these cosets are identical.
-		\item[\normalfont\emph{Identity}:] $eH\cdot aH=(ea)H=aH=(ae)H=aH\cdot eH$, so the \emph{identity coset} $H$ is the identity in $\quotient GH$.
-		\item[\normalfont\emph{Inverse}:] $a^{-1}H\cdot aH=(a^{-1}a)H=eH=H$, etc., therefore $(aH)^{-1}=a^{-1}H$.\qedhere
-	\end{description}
-\end{proof}
-
-\clearpage
-
-\iffalse
-The examples indicate that only some subgroups $H\le G$ behave nicely when trying to view the set of left cosets as a group. But which subgroups? To answer this question, we repeat some of our discussion abstractly. Let $H$ be a subgroup of $G$ and define the natural multiplication of left cosets\footnote{Since this operation arises naturally from that on $G$, we use the same notation (here multiplication).}
-\[
-	aH\cdot bH:=(ab)H
-\]
-This is well-defined precisely when
-\[
-	\forall a,b\in G,\ \forall x\in aH,\ y\in bH,
-	\quad \text{we have}\quad 
-	(ab)H=(xy)H
-\]
-Let us trace through what this means for the subgroup $H$, using the (defining) fact that 
-\[
-	x\in aH\iff \exists h\in H\ \text{ such that }\  x=ah
-\]
-The natural operation is well-defined if and only if
-\begin{align*}
-	&\forall a,b\in G,\ h,h_1\in H,\ (ab)H=(ahbh_1)H=(ah b)H\\
-	\iff &\forall a,b\in G,\ h\in H,\ (ab)^{-1}(ah b)\in H \tag{Theorem \ref{thm:cosetpart}}\\
-	\iff &\forall b\in G,\ h\in H,\ b^{-1}hb\in H\\
-	\iff&H\triangleleft G \tag{Corollary \ref{cor:normalconj}}
-\end{align*}
-This proves the critical part of an amazing result!
-
-\begin{thm}{}{}
-	Suppose $H\le G$. The set of (left) cosets forms a group under the natural operation
-	\[
-		aH\cdot bH:=(ab)H \tag{$\ast$}
-	\]
-	if and only if $H$ is a normal subgroup of $G$.
-\end{thm}
-
-Since this process only works when $H$ is a normal subgroup, the prefix `left' is irrelevant.
-
-\begin{defn}{}{}
-	Given $H\triangleleft G$, the set of cosets is termed a \emph{factor group,} written $\quotient GH$ \ \ ('$G$ mod $H$').
-\end{defn}
-
-The notation for a factor group meshes with the index: if $G$ is finite, then $\nm{\quotient GH}=(G:H)=\frac{\nm G}{\nm H}$.
-
+Factor group notation looks like division because if $G$ is finite, then $\nm{\quotient GH}=(G:H)=\frac{\nm G}{\nm H}$.
 
 \begin{proof}
-	The above discussion shows that the natural operation ($\ast$) is well-defined if and only if $H\triangleleft G$. It remains only to check that $\left(\quotient GH,\cdot\right)$ is a group in such cases.
-	\begin{description}
-		\item[\normalfont\emph{Closure}:] Given cosets $aH,bH\in\quotient GH$,  the operation ($\ast$) says that $aH\cdot bH=(ab)H$ is also coset.
-		\item[\normalfont\emph{Associativity}:] $aH\cdot(bH\cdot cH)=aH\cdot(bc)H=a(bc)H$. Similarly $(aH\cdot bH)\cdot cH=(ab)cH$. By the associativity of $(G,\cdot)$, these cosets are identical.
-		\item[\normalfont\emph{Identity}:] $eH\cdot aH=(ea)H=aH=(ae)H=aH\cdot eH$, so the \emph{identity coset} $H$ is the identity in $\quotient GH$.
-		\item[\normalfont\emph{Inverse}:] $a^{-1}H\cdot aH=(a^{-1}a)H=eH=H$, etc., therefore $(aH)^{-1}=a^{-1}H$.\qedhere
-	\end{description}
+	\begin{enumerate}
+	  \item\begin{description}
+	  	\item[$(\Rightarrow)$] The above discussion shows that well-definition of $(\ast)$ implies $H\triangleleft G$.
+	  	\item[$(\Leftarrow)$] Assume $H\triangleleft G$, and suppose $xH=aH$ and $yH=bH$. By Theorem \ref{thm:cosetpart}, $h:=x^{-1}a$ and $\tilde h:=y^{-1}b$ are both in $H$. But then,
+		\[
+			(xy)^{-1}(ab)=y^{-1}(x^{-1}a)b =y^{-1}hb =(y^{-1}hy)\tilde h
+		\]
+		which lies in $H$ by Corollary \ref{cor:normalconj} ($y^{-1}hy\in H$). We conclude that $(xy)H=(ab)H$ ($\dag$).
+	  \end{description}
+	  \item	Since the natural operation is well-defined, we need only verify the group axioms for $\left(\quotient GH,\cdot\right)$.
+		\begin{description}
+			\item[\normalfont\emph{Closure}:] Given $aH,bH\in\quotient GH$, we see that $aH\cdot bH=(ab)H$ is also coset.
+			\item[\normalfont\emph{Associativity}:] $aH\cdot(bH\cdot cH)=aH\cdot(bc)H=a(bc)H$. Similarly $(aH\cdot bH)\cdot cH=(ab)cH$. By the associativity of $(G,\cdot)$, these cosets are identical.
+			\item[\normalfont\emph{Identity}:] The \emph{identity coset} $H=eH$ does the job: $eH\cdot aH=(ea)H=aH=(ae)H=aH\cdot eH$.
+			\item[\normalfont\emph{Inverse}:] $a^{-1}H\cdot aH=(a^{-1}a)H=eH=H$, etc., therefore $(aH)^{-1}=a^{-1}H$.\qedhere
+		\end{description}
+	\end{enumerate}
 \end{proof}
 
-\fi
+
 \goodbreak
 
 
@@ -811,10 +1052,11 @@ This coset is precisely what we have been calling `$x$' in $\Z_n$! This provides
 	Let $n\in\N$. The group $\Z_n$ is the factor group $\quotient{\Z}{n\Z}$
 \end{defn}
 
-We typically drop the repeated $n\Z$ terms when calculating, recovering our familiar notation
+We typically drop the repeated $n\Z$ terms when calculating, recovering our familiar notation: e.g.
 \[
 	4+5=2\in\Z_7\quad\text{means}\quad (4+7\Z)+(5+7\Z)=2+7\Z \in\quotient{\Z}{7\Z}
 \]
+
 
 \boldsubsubsection{Factor Groups of Finite Cyclic Groups}
 
@@ -839,28 +1081,21 @@ The first example on page \pageref{sec:factor} shows that $\quotient{\Z_6}{\ip 2
 If $s\nmid n$, Corollary \ref{cor:subscyclic} says that $\ip s=\ip d$ where $d=\gcd(s,n)$, whence $\quotient{\Z_n}{\ip s}\cong\Z_{\gcd(s,n)}$.
 
 \begin{proof}
-	Define $\smash[b]{\psi:\Z_d\to\quotient{\Z_n}{\ip d}:x\mapsto x+\ip d}$; we prove that this is an isomorphism.
-	\begin{description}%\itemsep2pt
-		\item[\normalfont\emph{Well-definition/injectivity}:\footnotemark] For any $x,y\in\Z_d$,
-		\[
-			x=y\ (\in\Z_d)\iff x-y\in\ip d\iff x+\ip d=y+\ip d\iff \psi(x)=\psi(y)
-		\]\vspace{-20pt}
+	Define $\psi:\Z_d\to\quotient{\Z_n}{\ip d}:x\mapsto x+\ip d$. We prove that this is an isomorphism.
+	\begin{description}
+		\item[\normalfont\emph{Well-definition/injectivity}:] For any $x,y\in\Z_d$,
+		\begin{align*}
+			x=y\ (\in\Z_d)&\iff x-y\in\ip d\iff x+\ip d=y+\ip d\\
+			&\iff \psi(x)=\psi(y)
+		\end{align*}
 		\item[\normalfont\emph{Surjectivity}:] Any coset $x+\ip d$ (being $\psi(x)$) lies in $\operatorname{range}(\psi)$.	
 		\item[\normalfont\emph{Homomorphism}:] For any $x,y\in\Z_d$,
-		\[\psi(x+y)=(x+y)+\ip d=\bigl(x+\ip d\bigr)+\bigl(y+\ip d\bigr)=\psi(x)+\psi(y)\tag*{\qedhere}\]
+		\begin{align*}
+			\psi(x+y)&=(x+y)+\ip d =\bigl(x+\ip d\bigr)+\bigl(y+\ip d\bigr)\\
+			&=\psi(x)+\psi(y) \tag*{\qedhere}		
+		\end{align*}
 	\end{description}
 \end{proof}
-
-\footnotetext{%
-	Well-definition is required since the domain $\Z_d$ is a set of \emph{equivalence classes.} That these arguments are mutual \emph{converses} should not be a surprise: for a given function $\mu:A\to B$, compare the meanings,
-% 	\begin{quote}
-% 		Well-definition:\lstsp $a=b\Longrightarrow \mu(a)=\mu(b)$\qquad\qquad\\  Injectivity:\lstsp $\mu(a)=\mu(b)\Longrightarrow a=b$
-% 	\end{quote}
-	\begin{itemize}
-	  \item Well-definition:\lstsp $a=b\Longrightarrow \mu(a)=\mu(b)$
-		\item Injectivity:\lstsp $\mu(a)=\mu(b)\Longrightarrow a=b$
-	\end{itemize}
-}
 
 
 \goodbreak
@@ -868,7 +1103,7 @@ If $s\nmid n$, Corollary \ref{cor:subscyclic} says that $\ip s=\ip d$ where $d=\
 
 \boldsubsubsection{Finite Abelian Examples}
 
-If $G$ is finite abelian, then any subgroup $H$ is normal and $\quotient GH$ is also a finite abelian group (exercise). By the Fundamental Theorem (\ref{thm:fund}), there exist positive integers $m_1,\ldots,m_k$ for which
+If $G$ is finite abelian, then any subgroup $H$ is normal and $\quotient GH$ is also a finite abelian group (exercise). By the Fundamental Theorem (\ref{thm:fund}), there are positive integers $m_1,\ldots,m_k$ for which
 \[
 	\quotient GH\cong \Z_{m_1}\times\cdots\times\Z_{m_k}
 	\quad\text{and}\quad
@@ -879,30 +1114,30 @@ Our goal in these examples is to \emph{identify} $\smash{\quotient GH}$ as a dir
 \goodbreak
 
 \begin{examples}{}{factorfiniteabelian}
-	Let $G=\Z_4\times\Z_8$. We identify the factor group $\quotient GH$ for three distinct subgroups $H$.
+	Let $G=\Z_4\times\Z_8$. We identify the factor group $\quotient GH$ for three subgroups $H$.
 	\begin{enumerate}
-	  \item If $H=\ip{(0,1)}=\bigl\{(0,0),(0,1),\ldots,(0,7)\bigr\}$, then the factor group $\quotient GH$ has order $\frac{\nm G}{\nm H}=\frac{4\cdot 8}8=4$, and is thus isomorphic either to $\Z_4$ or $\Z_2\times\Z_2$. Here are two strategies for deciding which.
-	  \begin{enumerate}
-		  \item Identify a `nice' representative of each coset:
+	  \item Let $H=\ip{(0,1)}=\bigl\{(0,0),(0,1),\ldots,(0,7)\bigr\}$. The factor group $\quotient GH$ has order $\frac{\nm G}{\nm H}=\frac{4\cdot 8}8=4$, and is thus isomorphic either to $\Z_4$ or $\Z_2\times\Z_2$. Here are two naïve strategies for deciding which is correct; a third, more rigorous, approach will be discussed in Section \ref{sec:1stiso}.
+	  \begin{description}
+		  \item[Describe the cosets] Find a `nice' representative of each coset,
 			\[
 				(x,y)+H=(v,w)+H\iff (x,y)-(v,w)=(x-v,y-w)\in H\iff x=v
 			\]
-			Each coset therefore contains a unique element $(x,0)$ where $x\in \Z_4$, and we may write
+			Each coset contains a unique element $(x,0)$ where $x\in \Z_4$. We may therefore write
 			\[
 				\quotient{G}{H}=\Bigl\{H,\ (1,0)+H,\ (2,0)+H,\ (3,0)+H\Bigr\}
 			\]
-			\item Consider possible orders of elements (cosets): observe that
+			\item[Orders of elements] Consider possible orders of cosets in $\quotient GH$,
 			\[
-				k\bigl((1,0)+H\bigr) =(k,0)+H=H\iff (k,0)\in H\iff 4\mid k
+				k\bigl((1,0)+H\bigr) =(k,0)+H=H\iff (k,0)\in H\iff 4\mid k \tag{$\ast$}
 			\]
-			whence $\quotient GH$ contains an element $(1,0)+H$ of order 4. Plainly $\quotient GH$ is cyclic ($\cong \Z_4$).
-		\end{enumerate}
-		Either method essentially proves that $\psi:\Z_4\to\quotient GH:x\mapsto (x,0)+H$ is an isomorphism.
+			Since $\quotient GH$ contains an element $(1,0)+H$ of order 4, it must be cyclic ($\cong \Z_4$).
+		\end{description}
+		Either approach essentially proves that $\psi:\Z_4\to\quotient GH:x\mapsto (x,0)+H$ is an isomorphism.
 			
 			 
-	  \item If $H=\ip{(0,2)}=\bigl\{(0,0),(0,2),(0,4),(0,6)\bigr\}$, then $\nm{\quotient GH}=\frac{32}4=8$: the factor group is isomorphic to one of $\Z_8$, $\Z_4\times\Z_2$ or $\Z_2\times\Z_2\times\Z_2$. We again follow our two strategies.
-		\begin{enumerate}
-		  \item Identify the cosets:
+	  \item Let $H=\ip{(0,2)}=\bigl\{(0,0),(0,2),(0,4),(0,6)\bigr\}$. This time $\nm{\quotient GH}=\frac{32}4=8$, so the factor group is isomorphic to one of $\Z_8$, $\Z_4\times\Z_2$ or $\Z_2\times\Z_2\times\Z_2$. We again follow our two strategies.
+	  \begin{description}
+		  \item[Describe the cosets]
 			\[
 				(x,y)+H=(v,w)+H\iff (x-v,y-w)\in H\iff 
 				\begin{cases}
@@ -915,30 +1150,28 @@ Our goal in these examples is to \emph{identify} $\smash{\quotient GH}$ as a dir
 				\quotient GH=\Bigl\{H,\ (1,0)+H,\ (2,0)+H,\ \ldots,\ (3,1)+H\Bigr\} =\Bigl\{(x,y)+H: \textcolor{red}{x\in\Z_4},\ \textcolor{blue}{y\in\Z_2}\Bigr\}
 			\]
 			In fact $\psi:\Z_4\times\Z_2\to\quotient GH:(x,y)\mapsto (x,y)+H$ is an isomorphism.
-			\item Consider possible orders of elements:
-			\begin{itemize}
-	  		\item $\quotient GH$ has an element $(1,0)+H$ of order 4, which rules out $\Z_2\times\Z_2\times\Z_2$.
-	  		\item We rule out $\Z_8$ by observing that all elements of $\quotient GH$ have order dividing 4:
-	  		\[
-	  			4\bigl((x,y)+H\bigr)
-	  			=(4x,4y)+H
-	  			=(0,4y)+H
-	  			=2y\bigl((0,2)+H\bigr)
-	  			=H
-	  		\]
-			\end{itemize}
+			\item[Orders of elements] Exactly as in ($\ast$), the coset $(1,0)+H$ has order 4. This rules out the possibility of $\Z_2\times\Z_2\times\Z_2$ (contains elements of maximum order 2).\par
+	  	We rule out $\Z_8$ by observing that all elements of $\quotient GH$ have order dividing 4:
+	  	\[
+	  		4\bigl((x,y)+H\bigr)
+	  		=(4x,4y)+H
+	  		=(0,4y)+H
+	  		=2y\bigl((0,2)+H\bigr)
+	  		=H
+	  	\]
 			By process of elimination, we conclude that $\quotient GH\cong\Z_4\times\Z_2$.
-	  \end{enumerate}
+	  \end{description}
+
 
 		\goodbreak
 	
-		\item\label{ex:factoriso3} If $H=\ip{(2,4)}=\bigl\{(0,0),(2,4)\bigr\}$, then the factor group has order $\nm{\quotient GH}=\frac{32}2=16$ and we must consider \emph{five} non-isomorphic possibilities:\footnotemark{}
+	
+		\item\label{ex:factoriso3} Let $H=\ip{(2,4)}=\bigl\{(0,0),(2,4)\bigr\}$. The factor group has order $\nm{\quotient GH}=\frac{32}2=16$ and we must consider \emph{five} non-isomorphic possibilities:\footnotemark{}
 		\[
 			\Z_{16},\quad \Z_2\times\Z_8,\quad \Z_4\times\Z_4,\quad \Z_2\times\Z_2\times\Z_4,\quad \Z_2\times\Z_2\times\Z_2\times\Z_2
 		\]
-		Once again we follow our strategies:
-		\begin{enumerate}
-		  \item Identify the cosets. This is a little trickier than before.
+	  \begin{description}
+		  \item[Describe the cosets] This is a little trickier than before.
 		  \begin{itemize}
 	  		\item If $x=2n$ is even, then
 	  		\[
@@ -959,26 +1192,26 @@ Our goal in these examples is to \emph{identify} $\smash{\quotient GH}$ as a dir
 			\[
 				(0,0),\ (0,1),\ \ldots,\ (0,7),\ (1,0),\ \ldots,\ (1,7) \tag{$(x,y)$ where $x\in\Z_2$, $y\in\Z_8$}
 			\]
-			This suggests $\quotient GH\cong\Z_2\times\Z_8$: while this is true, verification isn't straightforward, for the obvious `function' $\psi:\Z_2\times\Z_8:(x,y)\mapsto(x,y)+H$ isn't well-defined ($\psi(2,0)\neq\psi(0,0)$)!
+			This \emph{suggests} $\quotient GH\cong\Z_2\times\Z_8$, though our argument isn't quite a proof since the obvious `function' $\psi:\Z_2\times\Z_8\to\quotient GH:(x,y)\mapsto(x,y)+H$ isn't well-defined ($\psi(2,0)\neq\psi(0,0)$).
 		  
-			\item Consider orders of elements. The coset $(0,1)+H$ has order 8 in $\quotient GH$, since
+			\item[Orders of Elements] The coset $(0,1)+H$ has order 8 in $\quotient GH$, since
 			\[
 				k\bigl((0,1)+H\bigr)=(0,k)+H=H\iff 8\mid k
 			\]
-			This reduces our options to $\Z_{16}$ and $\Z_2\times\Z_8$. Moreover, any coset has order dividing 8:
+			This reduces our options to $\Z_{16}$ and $\Z_2\times\Z_8$ since these are the only possibilities containing an element of order 8. Moreover, any coset has order dividing 8:
 			\[
 				8\Bigl((x,y)+H\Bigr)
 				=(8x,8y)+H
 				=(0,0)+H
 			\]
 	  	This rules out $\Z_{16}$, leaving $\Z_2\times\Z_8$ as the only possibility.
-		\end{enumerate}
+		\end{description}
 	\end{enumerate}
 \end{examples}
 
 
 \footnotetext{%
-	The previous examples may have lulled you into a false sense of security! While $H=\ip 2\times \ip 4$ is a direct product just like $G=\Z_4\times\Z_8$, we \emph{cannot divide groups} in the way you might expect:
+	The previous examples might have created a false sense of security. While $H=\ip 2\times \ip 4$ is a direct product just like $G=\Z_4\times\Z_8$, we \emph{cannot divide groups} in the way you might expect:
 	\[
 		\quotient GH
 		\mathrel{\textcolor{red}{\ncong}}
@@ -1218,3 +1451,273 @@ For factor groups of infinite or non-abelian groups, more varied strategies may 
 	\end{enumerate}
 
 \end{exercises}
+
+
+
+
+
+
+\subsection{The First Isomorphism Theorem}\label{sec:1stiso}
+
+We've seen that all kernels of group homomorphisms are normal subgroups. In fact \emph{all} normal subgroups are the kernel of some homomorphism.
+
+\begin{thm}{Canonical Homomorphism}{}
+	Let $G$ be a group and $H\triangleleft G$. Then the function
+	\[
+		\gamma:G\to \quotient GH
+		\quad\text{defined by}\quad 
+		\gamma(g)=gH
+	\]
+	is a homomorphism with $\ker\gamma=H$.
+\end{thm}
+
+\begin{proof}
+	Since $H$ is normal, $\quotient GH$ is a group. By the definition of multiplication in $\quotient GH$,
+	\[
+		\gamma(g_1)\gamma(g_2)
+		=g_1H\cdot g_2H
+		=(g_1g_2)H
+		=\gamma(g_1g_2)
+	\]
+	whence $\gamma$ is a group homomorphism. Moreover, the identity in the factor group is $H$, whence
+	\[
+		\ker\gamma=\{g\in G:\gamma(g)=H\} 
+		=\{g\in G:gH=H\}=H
+		\tag*{\qedhere}
+	\]
+\end{proof}
+
+This might feel a little sneaky and unsatisfying; we'd perhaps have preferred a homomorphism that doesn't have a factor group as its image! However, a companion result says that, among all homomorphisms with the same kernel, $\gamma$'s appearance is unavoidable.
+
+\begin{thm}{1\st{} Isomorphism Thm}{}
+	Let $\phi:G\to L$ be a homomorphism with kernel $H$. Then
+	\[
+		\mu:\quotient GH\to\image\phi
+		\quad \text{defined by}\quad 
+		\mu(gH)=\phi(g)
+	\]
+	is an isomorphism. Otherwise said, $\quotient G{\ker\phi}\cong\image\phi$.
+\end{thm}
+
+
+\begin{minipage}[t]{0.69\linewidth}\vspace{-5pt}
+	These results may be summarized in a \emph{commutative diagram:} a homomorphism $\phi:G\to L$ \emph{factors} as $\phi=\mu\circ\gamma$, where $\gamma$ is the canonical homomorphism with kernel $\ker\phi$. This theorem is very important, and has analogues in several other parts of mathematics: e.g., the rank--nullity theorem from linear algebra is of close kin.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}\vspace{-5pt}
+	\flushright$\xymatrix{%
+		G \ar[rr]^{\phi} \ar[dr]_\gamma && \image\phi\\
+		& \quotient G{\ker\phi} \ar[ur]_{\mu} &
+	}$
+\end{minipage}
+
+
+
+\begin{proof}
+	The factor group exists since $\ker\phi\triangleleft G$ (Lemma \ref{lemm:homosub}). We check the isomorphism properties:
+  \begin{description}
+		\item[\normalfont\emph{Well-definition and Bijectivity}:] These are immediate from Lemma \ref{lemm:homobij} after writing $H=\ker\phi$:
+		\[
+			g_1H=g_2H
+			\iff \phi(g_1)=\phi(g_2)
+			\iff \mu(g_1H)=\mu(g_2H)
+		\]
+		\item[\normalfont\emph{Homomorphism}:] For all $g_1H,g_2H\in\quotient GH$,
+		\begin{align*}
+			\mu(g_1H\cdot g_2H)
+			&=\mu(g_1g_2H)=\phi(g_1g_2)
+				\tag{definition of $\mu$}\\ 
+				&=\phi(g_1)\phi(g_2)
+				\tag{$\phi$ is a homomorphism}\\
+			&=\mu(g_1H)\mu(g_2H)
+		\end{align*}
+  \end{description}
+	We conclude that $\mu$ is an isomorphism.
+\end{proof}
+
+
+\begin{examples}{}{}
+	\exstart Let $\phi:\Z_{12}\to\Z_{20}$ be the homomorphism $\phi(x)=5x\!\!\pmod{20}$ (Example \ref{ex:homoz12-20}). Its kernel and image are
+	\begin{gather*}
+		\ker\phi
+		=\bigl\{x\in\Z_{12}:5x\equiv 0\negthickspace\pmod{20}\bigr\}
+		=\{0,4,8\}
+		=\ip 4\le \Z_{12}\\
+		\image\phi=\{5x\in\Z_{20}:x\in\Z_{12}\}
+		=\{0,5,10,15\}
+		=\ip{5}\le\Z_{20}
+	\end{gather*}
+	The relevant factor group is
+	\begin{align*}
+		\quotient{\Z_{12}}{\ker\phi}
+		&=\Bigl\{\{0,4,8\},\{1,5,9\},\{2,6,10\},\{3,7,11\}\Bigr\}
+		=\bigl\{\ip 4,1+\ip 4,2+\ip 4,3+\ip 4\bigr\}
+	\end{align*}
+	The canonical homomorphism $\gamma$ and the isomorphism $\mu$ are\vspace{-5pt}
+	\begin{enumerate}\setcounter{enumi}{1}
+	  \item[]\begin{quote}
+			$\SelectTips{cm}{}\xymatrix @C40pt @R0pt{%
+				\rlap{$\gamma(x)=x+\ip 4$} &&& \Z_{12} \ar@{->}[r]_-{\textstyle\gamma} \ar@{->}@/^15pt/[rr]^{\textstyle\phi} & \quotient{\Z_{12}}{\ip 4} \ar@{->}[r]_-{\textstyle\mu} & \image\phi\\
+				\rlap{$\mu\bigl(x+\ip 4\bigr)=5x$} &&& x \ar@{|->}[r] & x+\ip 4 \ar@{|->}[r] & 5x
+			}$
+		\end{quote}
+	  
+	\item (Example \ref{ex:normalmoreex}.1)\lstsp $\phi:\R\to(\C^\times,\cdot):x\mapsto e^{ix}$ is a homomorphism with
+  \[
+  	\ker\phi=\{x\in\R:e^{ix}=1\}=\ip{2\pi}=2\pi\Z\le\R
+  	\quad\text{and}\quad 
+  	\image\phi=S^1
+  	\tag{$S^1$ is the circle group}
+  \]
+  The canonical homomorphism $\gamma$ and the isomorphism $\mu$ from the theorem are
+  \[
+  	\gamma:\R\to\quotient{\R}{\ip{2\pi}}:x\mapsto x+\ip{2\pi}
+  	\quad\text{and}\quad
+  	\mu:\quotient\R{\ip{2\pi}}\to S^1:x+\ip{2\pi}\mapsto e^{ix}
+  \]
+  Note that $\mu$ is precisely the isomorphism we saw previously!
+  
+  \item $\phi:\Z\times\Z\to\Z:(x,y)\mapsto 3x-2y$ is a homomorphism. Moreover
+  \[
+  	\phi(x,y)=(0,0)\iff 3x=2y\iff (x,y)=(2n,3n)\text{ for some $n\in\Z$}
+  \]
+  We conclude that $\ker\phi=\ip{(2,3)}$. The canonical homomorphism is
+  \[
+  	\gamma:\Z\times\Z\to
+  	\quotient{\Z\times\Z}{\ip{(2,3)}}:
+  	(x,y)\mapsto (x,y)+\ip{(2,3)}
+  \]
+  Since $\phi$ is surjective (e.g., $n=\phi(n,n)$), the 1\st{} isomorphism theorem tells us that
+  \[
+  	\quotient{\Z\times\Z}{\ip{(2,3)}}\cong\Z
+  	\quad\text{via}\quad 
+  	\mu\bigl((x,y)+\ip{(2,3)}\bigr)=3x-2y
+  \]
+  
+  \item $\phi(x,y)=(x,y-x)$ is a well-defined homomorphism $\phi:\Z\times\Z_6\to\Z_3\times\Z_6$. Moreover,
+  \begin{gather*}
+  	\phi(x,y)=(0,0)\iff
+  	\begin{cases}
+  		x=3k,\text{ and}\\
+  		y=x=3k\in\Z_6
+  	\end{cases}\\
+  	\text{whence}\quad
+  	\ker\phi=\ip{(3,3)}=\bigl\{\ldots,(-6,0),(-3,3),(0,0),(3,3),(6,0),\ldots\bigr\}
+  \end{gather*}
+  Plainly $\phi$ is surjective ($(m,n)=\phi(m,n+m)$); we conclude that $\quotient{\Z\times\Z_6}{\ip{(3,3)}}\cong\Z_3\times\Z_6$ via the isomorphism $\mu\bigl((x,y)+\ip{(3,3)})=(x,y-x)$.
+	\end{enumerate}
+\end{examples}
+
+\vfil
+
+\goodbreak
+
+
+With a little creativity, the 1\st{} isomorphism theorem may be applied to the identification of factor groups: given $H\triangleleft G$, cook up a homomorphism $\phi:G\to L$ with $\ker\phi=H$, then $\quotient GH\cong\image\phi$. We revisit some examples from the previous section in this context.
+
+\begin{examples*}{\ref{ex:factorfiniteabelian},\,mk.II}{}
+	Let $G=\Z_4\times\Z_8$. For each subgroup $H$, we describe a homomorphism $\phi:G\to L$ with $\ker\phi =H$. While there are often several possible choices for $\phi$, ours will line up with what we saw in the original incarnations. Hopefully you'll feel that the reasons for our choices are independent of earlier discussions. %Note that if $\phi(1,0)=(a,c)$ and $\phi(0,1)=(b,d)$, then
+	%\[\phi(x,y)=(ax+by,cx+dy)\]
+	\begin{enumerate}
+	  \item Given $H=\ip{(0,1)}$, we need a homomorphism where $\phi(0,1)$ is the identity. A simple way to do this is to ignore $y$ and define
+	  \[
+	  	\phi:\Z_4\times\Z_8\to\Z_4:(x,y)\mapsto x
+	  \]
+	  This indeed has kernel $\ker\phi=\{(0,y):y\in\Z_8\} =H$, whence
+	  \[
+	  	\quotient GH\cong\image\phi=\Z_4
+	  \]
+	  via the isomorphism $\mu:(x,y)+H\mapsto x$.\par
+	  To connect back to the original problem, note that $(x,y)+H=(x,0)+H$ for all $x,y$, whence $\mu$ is the \emph{inverse} of the isomorphism $\psi:x\mapsto (x,0)+H$ stated previously!
+	
+	  \item Given $H=\ip{(0,2)}$ we require $\phi(0,2)$ to be the identity. This may be achieved by taking $y$ modulo 2 and defining
+	  \[
+	  	\phi:\Z_4\times\Z_8\to\Z_4\times\Z_2:(x,y)\mapsto (x,y)
+	  \]
+	  This is a well-defined ($\textcolor{red}{\phi(x+4m,y+8n)=\phi(x,y)}$, since $2\mid 8$) homomorphism with the required kernel $=H$. Moreover, $\phi$ is surjective, whence
+	  \[
+	  	\quotient GH\cong \image\phi= \Z_4\times\Z_2
+	  \]
+	  via the isomorphism $\mu\bigl((x,y)+H\bigr) =(x,y)$. Once again $\mu$ is the inverse of $\psi(x,y)=(x,y)+H$ in the original example.
+	  
+	  \item For the last version, finding a homomorphism with kernel $H=\ip{(2,4)}=\{(0,0),(2,4)\}$, is somewhat trickier. One approach is to observe that
+	  \[
+	  	(x,y)\in H\iff x\equiv 0\negthickspace\pmod 2\ \text{ and }\ y-2x\equiv 0\negthickspace\pmod 8
+	  \]
+	  We therefore choose
+	  \[
+	 		\phi:\Z_4\times\Z_8\to\Z_2\times\Z_8:(x,y)\mapsto\bigl(x,y-2x\bigr)
+	 	\]
+	  It is worth checking that this is \textcolor{red}{well-defined}: the $\textcolor{red}{2}x$ in the second factor is crucial! Certainly $\phi$ has the correct kernel. It is moreover surjective, e.g.\ $(m,n)=\phi(m,n+2m)$, whence
+	  \[
+	  	\quotient GH\cong\image\phi=\Z_2\times\Z_8
+	  \]
+	  via the isomorphism $\mu\bigl((x,y)+H\bigr)=(x,y-2x)$.
+	\end{enumerate}
+\end{examples*}
+
+
+\goodbreak
+
+\begin{exercises}{}{}
+	Key concepts:
+	\begin{quote}
+		\emph{Canonical homomorphism $\gamma:G\to\quotient GH$\qquad 1\st{} isomorphism theorem $\mu:\quotient G{\ker\phi}\cong\image\phi$}
+	\end{quote}
+	
+	\begin{enumerate}
+	  \item Let $\phi:\Z_{18}\to\Z_{12}$ be the homomorphism $\phi(x)=10x$. 
+	  \begin{enumerate}
+	    \item Find the kernel of and image of $\phi$.
+	    \item List the elements of the factor group $\smash[b]{\quotient{\Z_{18}}{\ker\phi}}$.
+	    \item State an explicit isomorphism $\mu:\quotient{\Z_{18}}{\ker\phi}\to\image\phi$.
+	    \item To what basic group $\Z_n$ is the factor group isomorphic?
+	  \end{enumerate}
+	  
+	 	
+	 	\item Repeat the previous question for the homomorphism $\phi:\Z\to\Z_{20}:x\mapsto 8x$.
+	  
+	  
+	  \item For each function $\phi:\Z\times\Z\to\Z$, find the kernel and identify the factor group $\smash{\quotient{\Z\times\Z}{\ker\phi}}$.
+	  \begin{enumerate}
+	    \item $\phi(x,y)=3x+y$\qquad\qquad (b)\lstsp $\phi(x,y)=2x-4y$
+	  \end{enumerate}  
+	  
+	    
+	  \item\begin{enumerate}
+	  	\item If a subgroup $H$ of $G=\Z_{15}\times\Z_3$ has order 5, find its elements.
+			\item Show that $\phi(x,y)=(x,y)$ is a homomorphism $\phi:G\to\Z_3\times\Z_3$ with $\ker\phi=H$.
+			\item What does the 1\st{} isomorphism theorem tell us about the factor group $\quotient GH$?
+		\end{enumerate}
+	  
+	  
+	  \item Suppose $G$ is a finite group with normal subgroup $H$ and that $\phi:G\to L$ is a homomorphism with $\ker\phi=H$. Prove that $(G:H)\le \nm L$ with equality if and only if $\phi$ is surjective.
+	  
+	  
+	  \item Consider the map $\phi:\Z\times\Z_{12}\to \Z_3\times\Z_6$ defined by
+	  \[
+	  	\phi(x,y)=\bigl(2x+y,y\bigr)
+	  \]
+	  \begin{enumerate}
+	    \item Verify that $\phi$ is a well-defined homomorphism.
+	    \item Compute $\ker\phi$ and identify the factor group $\quotient{\Z\times\Z_{12}}{\ker\phi}$
+	  \end{enumerate}
+	  
+	  
+	  \item Let $H=\ip{(3,1)}\le G=\Z_9\times\Z_3$. Find an explicit homomorphism $\phi:G\to\Z_9$ whose kernel is $H$, and thus identify the factor group $\quotient GH$.\par
+	  (\emph{Hint: $(x,y)\in H=\{(0,0),(3,1),(6,2)\}\iff\ldots$})
+	  
+	  \item Consider $H=\ip{(3,3)}\le G=\Z_9\times\Z_9$. Find a surjective homomorphism $\phi:G\to\Z_3\times\Z_9$ whose kernel is $H$ and hence prove that $\quotient GH\cong\Z_3\times\Z_9$.
+	  
+	  
+	  \item Let $\phi:S^1\to S^1:z\mapsto z^2$.
+	  \begin{enumerate}
+	    \item Find the kernel of $\phi$ and describe the canonical homomorphism $\gamma:S_1\to\smash{\quotient{S^1}{\ker\phi}}$.
+	    \item What does the first isomorphism theorem say about the factor group $\smash{\quotient{S^1}{\ker\phi}}$.
+	    \item For each $n$, identify the factor group $\smash{\quotient{S^1}{U_n}}$, where $U_n$ is the group of $n\th$ roots of unity.
+	  \end{enumerate}
+	 
+	  %\item Recall Example \ref*{ex:normalmoreex}.\ref{ex:nastyiso}. If $H=\ip{(1,2,2)}\le G=\Z_5\times\Z_6\times\Z$, try to find a surjective homomorphism $\phi:G\to \Z_5\times\Z_6\times\Z_2$ with $\ker\phi=H$.
+	\end{enumerate}
+\end{exercises}
+

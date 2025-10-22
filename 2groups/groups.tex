@@ -1582,23 +1582,20 @@ For the same reason, several of the following Exercises (particularly number \re
 	    
 	    \item If $x\in G$ has an inverse $y$, then $\mu(y)$ is an inverse to $\mu(x)$ (in $H$).
 	    
-	    \item Suppose $\phi:G\to H$ is a \emph{group homomorphism.} Show that parts (a), (b) still hold: $\phi(e_G)=e_H$ and $\phi(x^{-1})=\bigl(\phi(x)\bigr)^{-1}$.\par
+	    \item\label{exs:structural2} Suppose $\phi:G\to H$ is a \emph{group homomorphism.} Show that parts (a), (b) still hold: $\phi(e_G)=e_H$ and $\phi(x^{-1})=\bigl(\phi(x)\bigr)^{-1}$.\par
 	    For a challenge: What happens if $\phi$ is merely a homomorphism of binary structures?
 	  \end{enumerate}
 	
 		
-		\goodbreak
-		
-		
-	  \item\label{exs:kernelintro} Given a group homomorphism $\phi:G\to H$ , define the \emph{image} $\phi(G)$ and \emph{kernel} $K$ as follows:
+	  \item\label{exs:kernelintro} Given a group homomorphism $\phi:G\to H$ , define the \emph{image} $\phi(G)$ and \emph{kernel} $\ker\phi$ as follows:
 	  \[
 	  	\phi(G)=\image \phi=\bigl\{\phi(x):x\in G\bigr\},\qquad
-	  	K:=\bigl\{x\in G:\phi(x)=e\bigr\}
+	  	\ker\phi:=\bigl\{x\in G:\phi(x)=e\bigr\}
 	  \]
 	  \begin{enumerate}
 	    \item Compute the image and kernel of $\phi:(\R^\times,\cdot)\to(\R^\times,\cdot)$ where $\phi(x)=x^2$.
 	    \item Prove that $\phi(G)$ is a subgroup of $H$ (in general, not just for the example in (a)!).
-	    \item Prove that $K$ is a subgroup of $G$.
+	    \item Prove that $\ker\phi$ is a subgroup of $G$.
 	  \end{enumerate}
 	  (\emph{We'll return to these important concepts later})
 			
