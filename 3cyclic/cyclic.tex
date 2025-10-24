@@ -74,8 +74,6 @@ We formalize this idea by considering the subset of a group that may be produced
 \end{examples*}
 
 
-%\boldsubsubsection{The Roots of Unity}
-
 Another commonly encountered family of cyclic groups arise as subgroups of $(\C^\times,\cdot)$ (or $(S^1,\cdot)$).
 
 \begin{defn}{Roots of Unity}{}
@@ -106,22 +104,7 @@ Another commonly encountered family of cyclic groups arise as subgroups of $(\C^
 \end{minipage}
 \bigbreak
 
-% 
-% \begin{lemm}{}{}
-% 	The $n\th$ roots of unity are precisely the $n$ (complex) roots of the equation $z^n=1$.\
-% \end{lemm}
-% 
-% \begin{proof}
-% 	Plainly $(\zeta^k)^n=(e^{\frac{2\pi ik}n})^n=e^{2\pi ik}=1$, so every element of $U_n$ solves $z^n=1$.\smallbreak
-% 	For the converse, suppose $z^n=1$. Take the modulus to obtain $\nm{z}^n=1$. Since $\nm{z}$ is a non-negative real number, we see that $\nm{z}=1$, whence its polar form is $z=e^{i\theta}$. Now compute:
-% 	\[
-% 		1=z^n=(e^{i\theta})^n=e^{in\theta}\iff n\theta=2\pi k
-% 	\]
-% 	for some integer $k$ ($\ast$). But then $\theta=\frac{2\pi k}n$ and so
-% 	\[
-% 		z=e^{i\theta}=e^{\frac{2\pi i}nk}=\left(e^{\frac{2\pi i}n}\right)^k=\zeta^k\tag*{\qedhere}
-% 	\]
-% \end{proof}
+
 
 \begin{examples}{}{unisoex}
 	\exstart Observe that $\zeta_6^2=(e^{\frac{2\pi i}6})^2 =e^{\frac{2\pi i}3} =\zeta_3$.\par
@@ -193,26 +176,6 @@ In the next section we'll essentially repeat this discussion in the abstract, so
 	\end{enumerate}
 \end{examples}
 
-
-
-% 
-% 
-% The groups $\Z_n$ are typically those to which other cyclic groups are compared. Indeed in the next section we'll see that \emph{any} cyclic group of order $n$ is isomorphic to $\Z_n$!
-
-% \begin{example}{}{}
-% 	$(\Z_3,+_3)$ is isomorphic to the rotation group $(R_3,\circ)$ via $\phi(k)=\rho_{k\pmod 3}$.
-% 	\smallbreak
-% 	It is worth doing this slowly, since the domain is a set of equivalence classes:
-% 	\begin{description}
-% 		\item[\emph{Well-definition}:] If $y=x\in\Z_3$, then $y\equiv x\equiv r\pmod 3$ for some $r\in\{0,1,2\}$. But then
-% 		\[
-% 			\phi(y)=\rho_r=\phi(x)
-% 		\]
-% 		\item[\emph{Bijection}:] This is trivial $\phi:\{0,1,2\}\to\{\rho_0,\rho_1,\rho_2\}$.
-% 		\item[\emph{Homomorphism}:] This is the formula for composition of rotations
-% 		$\rho_k\rho_l=\rho_{k+l\negthickspace\pmod 3}$
-% 	\end{description}
-% \end{example}
 
 
 \begin{exercises}
@@ -334,8 +297,6 @@ To help understand the theorem and set up the proof, some remarks and examples a
 \end{examples}
 
 
-
-%\goodbreak
 
 
 \begin{proof}
@@ -546,9 +507,6 @@ As with Theorem \ref{thm:cyclic1}, if the proof seems hard, try rewriting it whe
 		\langle{g^d}\rangle=\bigl\{e,g^d,g^{2d},\ldots,g^{n-d}\bigr\}\tag*{\qedhere}
 	\]
 \end{proof}
-
- %It is more important first to get used to the pattern via \emph{examples}.
-
 
 
 \begin{example}{}{}

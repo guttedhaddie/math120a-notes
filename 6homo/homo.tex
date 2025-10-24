@@ -1,23 +1,634 @@
 \graphicspath{{6homo/asy/}}
 \setcounter{section}{5}
 
-\section{Factor Groups \& The First Isomorphism Theorem}\label{chap:homo}
+\section{Homomorphisms \& The First Isomorphism Theorem}\label{chap:homo}
 
-In this chapter we further discuss homomorphisms. Of particular importance is the relationship between normal subgroups, homomorphisms and factor groups, which will lead us (in the next section) to a superior method for identifying factor groups.\smallbreak
-Unless otherwise stated, all homomorphisms in this chapter are between \emph{groups.}
+The main goal of this chapter is to discuss the link between homomorphisms, normal subgroups and factor groups. The key result is the subject of Section \ref{sec:1stiso}: the First Isomorphism Theorem.%\smallbreak
+%All homomorphisms in this chapter are between \emph{groups.}
 
-\subsection{Ker and Im - done}
+\subsection{Kernels, Images and Normal Subgroups}
+
+In Section \ref{sec:morph} we established several important facts that are worth refreshing and summarizing here.
+
+\begin{defn}{}{}
+	The \emph{kernel} and \emph{image} of a (group\footnotemark) homomorphism $\phi:G\to L$ are the sets
+	\[
+		\ker\phi =\bigl\{g\in G:\phi(g)=e\bigr\},\qquad \image\phi=\bigl\{\phi(g):g\in G\bigr\}
+	\]
+\end{defn}
+
+\footnotetext{%
+	All homomorphisms in this chapter (indeed outside of Section \ref{sec:morph}) are between \emph{groups}.%
+}
+
+
+\begin{lemm}{}{kerimrefresh}
+	Suppose $\phi:G\to L$ is a homomorphism.
+	\begin{enumerate}
+		\item (Exercise \ref*{sec:morph}.\ref{exs:structural2}) \ $\phi$ maps identity to identity and inverse to inverse:
+		\[
+			\smash{\phi(e_G)=\phi(e_L)
+			\quad\text{and}\quad
+			\forall g\in G, \ \bigl(\phi(g)\bigr)^{-1}=\phi(g^{-1})}
+		\]
+		\item (Exercise \ref*{sec:morph}.\ref{exs:kernelintro}) \ $\ker\phi$ is a subgroup of $G$ and $\image \phi$ is a subgroup of $L$.
+	\end{enumerate}
+\end{lemm}
+
+Do these exercises now, even if you did them earlier!
+
+
+\begin{examples}{}{}
+	\exstart The function $\phi(x)=2x\negthickspace\pmod 4$ defines a homomorphism $\phi:\Z\to\Z_4$ with
+	\[
+		\ker\phi=\{x\in\Z:2x\equiv 0\negthickspace\negthickspace\pmod 4\}=2\Z,
+		\qquad
+		\image\phi=\{0,2\}
+	\]
+	Plainly $\ker\phi$ is a subgroup of $\Z$ and $\image\phi$ is a subgroup of $\Z_4$.
+	\begin{enumerate}\setcounter{enumi}{1}
+	  \item Every linear map $\rT:V\to W$ between vector spaces is a homomorphism. In linear algebra its kernel is better known as its \emph{nullspace}
+		\[
+			\ker\rT=\mathcal N(\rT)=\bigl\{\vv\in V:\rT(\vv)=\V0\bigr\}
+		\]
+		If $\rT=\rL_A:\R^n\to \R^m$ is left-multiplication by a matrix $A$, then $\image\rT$ is the \emph{column space} of $A$.
+	\end{enumerate}
+\end{examples}
+
+
+Since the groups in these examples are abelian, all subgroups are automatically normal. In fact the kernel of \emph{every} homomorphism is a normal subgroup, though the same cannot be said for images.
+
+\begin{lemm}{}{homosub}
+	If $\phi:G\to L$ is a homomorphism, then $\ker\phi\triangleleft G$.
+\end{lemm}
+
+
+\begin{proof}
+	The kernel is a subgroup by part 2 of Lemma \ref{lemm:kerimrefresh}, so we need only check normality. For this we appeal to the conjugation criterion (Corollary \ref{cor:normalconj}). If $g\in G$ and $k\in\ker\phi$, then
+	\[
+		\phi\bigl(gk g^{-1}\bigr) =\phi(g)\phi(k)\phi(g)^{-1}
+	  =\phi(g)\phi(g)^{-1} =e_L
+	  \implies gk g^{-1}\in\ker\phi
+	\]
+	Note how the first equality used the homomorphism property and part 1 of the Lemma.
+\end{proof}
+
+
+\goodbreak
+
+
+\begin{examples}{}{}
+	\exstart (Recall Exercises \ref*{sec:geomgroups}.\ref{exs:subgpmatrix1} \& \ref*{sec:morph}.\ref{exs:easyhomoexdet}) \ We've seen that $\det:\rGL_n(\R)\to\R^\times$ is a homomorphism. We therefore obtain a normal subgroup
+	\[
+		\ker\det=\{A\in\rGL_n(\R):\det A=1\}
+		\triangleleft\rGL_n(\R)
+	\]
+	Otherwise said, $\rSL_n(\R)$ is a normal subgroup of $\rGL_n(\R)$.
+	\begin{enumerate}\setcounter{enumi}{1}
+  	\item (Example \ref*{ex:cosetexs}.\ref{ex:nonnormalcosets}, cont.) \ $\phi:\Z_2\to D_3$ defined by $\phi(x)=\mu_1^x$ is a homomorphism. Certainly $\ker\phi=\{0\}\triangleleft\Z_2$, however $\image\phi=\{e,\mu_1\}$ is not a \emph{normal} subgroup of $S_3$.
+	\end{enumerate}
+\end{examples}
+
+
+\boldsubsubsection{Kernels, Images and Describing Homomorphisms}
+
+Since every kernel is a normal subgroup, it makes sense to ask how its cosets may be counted and distinguished.
+
+\begin{lemm}{}{homobij}
+	Let $\phi:G\to L$ be a homomorphism. There is precisely one coset of $\ker\phi$ for each element of $\image\phi$:
+	\[
+		g_1\ker\phi=g_2\ker\phi
+		\iff \phi(g_1)=\phi(g_2)
+	\]
+	Otherwise said, the \emph{index} equals the order of the image: $(G:\ker\phi)=\nm{\image\phi}$.
+\end{lemm}
+
+The proof is an abstraction of Example \ref*{ex:indexeasy}.\ref{ex:indexeasy2} (where $\phi=\det:\rO_2(\R)\to\R^\times$).
+
+\begin{proof}
+	For all $g_1,g_2\in G$, we have
+	\begin{align*}
+		g_1\ker\phi=g_2\ker\phi&\iff g_2^{-1}g_1\in\ker\phi \tag{Theorem \ref{thm:cosetpart}}\\
+		&\iff\phi(g_2^{-1}g_1)=e_L\tag{Definition of $\ker\phi$}\\
+		&\iff \phi(g_2)^{-1}\phi(g_1)=e_L\tag{Homomorphism properties}\\
+		&\iff \phi(g_1)=\phi(g_2)\tag*{\qedhere}
+	\end{align*}
+\end{proof}
+
+The Lemma is really part of the upcoming punchline in Section \ref{sec:1stiso}. For the moment we apply it to help describe and count homomorphisms.
+
+\begin{thm}{}{}
+	Let $\phi:G\to L$ be a homomorphism. If $G$ is finite, then $\image\phi$ is a finite group whose order divides that of $G$. The same holds for $L$. Otherwise said,
+	\[
+		\nm G<\infty
+		\implies\nm{\image\phi}\Bigm| \nm G
+		\quad\text{and}\quad 
+		\nm L<\infty\implies\nm{\image\phi}\Bigm| \nm L
+	\]
+	If both groups are finite, then $\smash[t]{\nm{\image\phi}\Bigm|\gcd\bigl(\nm G,\nm L)}$.
+\end{thm}
+
+\begin{proof}
+	If $G$ is a finite group, then $\ker\phi\le G$ is finite. Apply Lemma \ref{lemm:homobij} to see that
+	\[
+		\nm{\image\phi}=(G:\ker\phi) =\smash[b]{\frac{\nm G}{\nm{\ker\phi}}}
+	\]
+	is a divisor of $\nm G$. The second situation $\nm{\image\phi}\Bigm|\nm{L}$ is Lagrange's Theorem (\ref{thm:lagrange}).
+\end{proof}
+
+
+\goodbreak
+
+
+\begin{examples}{}{}
+	\exstart If $\phi:G\to L$ is a homomorphism and $\gcd\bigl(\nm G,\nm L\bigr)=1$, then we have $\nm{\image\phi}=1$. The image is necessarily the \emph{trivial subgroup} $\image\phi=\{e_L\}$ and there is exactly one homomorphism, namely the \emph{trivial homomorphism} ($\forall g\in G,\ \phi(g)=e_L$).\vspace{-2pt}
+	\begin{enumerate}\setcounter{enumi}{1}
+	  \item Consider all homomorphisms $\phi:\Z_4\to S_3$. Since the domain is cyclic, describing $\phi(1)$ is enough to obtain $\phi(x)=\bigl(\phi(1)\bigr)^x$. Since $\gcd(\nm{\Z_4},\nm{S_3})=2$, we have $\nm{\image\phi}=1$ or 2. Either:
+	  \begin{itemize}
+	    \item $\image\phi=\{e\}$ and we obtain the trivial homomorphism $\phi_0(x)=e$.
+	    \item $\image\phi$ is a subgroup of order 2, of which $S_3$ has exactly three: $\{e,(2\,3)\}$, $\{e,(1\,3)\}$, $\{e,(1\,2)\}$. This results in three further homomorphisms (for a total of four)
+	  \[
+	  	\phi_1(x)=(2\,3)^x,\qquad 
+	  	\phi_2(x)=(1\,3)^x,\qquad
+	  	\phi_3(x)=(1\,2)^x
+	  \]
+	  \end{itemize}
+	\end{enumerate}
+\end{examples}
+
+We now turn to the general question of homomorphisms between finite cyclic groups $\phi:\Z_m\to\Z_n$. Two facts make this relatively simple:
+\begin{enumerate}\itemsep2pt
+  \item As above, choosing $\phi(1)$ defines the homomorphism: $\phi(x)=\phi(1)+\cdots+\phi(1)=\phi(1)\cdot x$.
+  \item $\nm{\image\phi}$ must divide $d=\gcd(m,n)$. Since $\Z_n$ has exactly one subgroup of each order dividing $n$ (Corollary \ref{cor:subscyclic}), $\image\phi$ must be a subgroup of the \emph{unique} subgroup $\ip{\frac nd}\le\Z_n$ of order $d$:
+	\[
+		\image\phi\le\ip{\frac nd}
+		=\left\{0,\frac nd,\frac{2n}d,\ldots,\frac{(d-1)n}d\right\}
+	\]
+	It is enough to see what happens if we let $\phi(1)$ be each element of this subgroup in turn\ldots
+\end{enumerate} 
+
+\begin{cor}{}{homoszmn}
+	There are $d=\gcd(m,n)$ distinct homomorphisms $\phi:\Z_m\to\Z_n$, namely
+	\[
+		\phi_k(x)=\frac{kn}{d}x
+		\quad\text{where}\quad 
+		k=0,\ldots,d-1
+	\]
+\end{cor}
+
+\begin{proof}
+	We check that each $\phi_k$ is well-defined; the calculation uses the fact that $\textcolor{blue}{\frac md}$ is an \emph{integer.} 
+	\begin{align*}
+		x=y\in\Z_m
+		&\implies y=x+\lambda m \text{ for some $m\in\Z$}\\
+		&\implies \phi_k(y)
+		\begin{array}[t]{@{\;}l@{}}
+			=\phi_k(x+\lambda m)
+			=\dfrac{kn}d(x+\lambda m) 
+			=\dfrac{kn}dx+\lambda k\textcolor{blue}{\dfrac md} n
+			=\dfrac{kn}dx\\
+			=\phi_k(x)
+		\end{array}
+		\tag{in $\Z_n$}
+	\end{align*}
+	By observation 1, each $\phi_k$ is a homomorphism. Observation 2 says there are no other candidates.
+\end{proof}
+
+
+\begin{example}{}{homoz12-20}
+	We describe all homomorphisms $\phi:\Z_{12}\to\Z_{20}$.\smallbreak
+	Since $\gcd(12,20)=4$, we see that $\image\phi\le\ip{5}=\{0,5,10,15\}\le\Z_{20}$. There are four choices:
+	\[
+		\phi_0(x)=0,\qquad 
+		\phi_1(x)=5x,\qquad 
+		\phi_2(x)=10x,\qquad 
+		\phi_3(x)=15x\pmod{20}
+	\]
+	We similarly see that there are four distinct homomorphisms $\psi:\Z_{20}\to\Z_{12}$:
+	\[
+		\psi_0(x)=0,\qquad 
+		\psi_1(x)=3x,\qquad 
+		\psi_2(x)=6x,\qquad 
+		\psi_3(x)=9x\pmod{12}
+	\]
+\end{example} 
+
+Most of these examples rely on the domain of a homomorphism being cyclic (observation 1). It is typically much harder to find and describe homomorphisms when the domain is non-cyclic.
+
+\goodbreak
+
+
+\begin{exercises}
+	Key concepts:\quad \emph{$(G:\ker\phi)=\nm{\image\phi}$\quad $\nm{\image\phi}\Bigm|\gcd\bigl(\nm G,\nm L\bigr)$}
+
+	
+	\begin{enumerate}
+	  \item Check that you have a homomorphism (use Corollary \ref{cor:homoszmn}) and compute its kernel and image.
+	  \begin{enumerate}
+	    \item $\phi:\Z_{8}\to\Z_{14}$ defined by $\phi(x)=7x\pmod{14}$.
+	    
+	    \item $\phi:\Z_{36}\to\Z_{20}$ defined by $\phi(x)=5x\pmod{20}$.
+		\end{enumerate}
+	
+		
+		\item Describe all homomorphisms between the groups:
+		\begin{enumerate}
+		  \item \makebox[160pt][l]{$\phi:\Z_{15}\to\Z_{80}$\hfill (b)}\lstsp $\phi:\Z\to\Z_3$ 
+		  \item[(c)] \makebox[160pt][l]{$\phi:\Z_6\to D_4$\hfill (d)}\lstsp $\phi:\Z_{15}\to A_4$
+		\end{enumerate}
+		
+			
+% 		\item *Find the kernel and image of each homomorphism:
+% 		\begin{enumerate}
+% 		  \item The \emph{trace} of a matrix $\tr:M_2(\R)\to\R:
+% 		  \smash{
+% 			  \begin{smatrix}
+% 					a&b\\c&d
+% 			  \end{smatrix}
+% 		  }
+% 		  \mapsto a+d$.
+% 			
+% 			\item $\rT:\R^3\to\R^4:\vx\mapsto 
+% 			\begin{smatrix}
+% 				1&1&-1\\
+% 				0&3&-1\\
+% 				1&4&-2\\
+% 				2&5&-3
+% 			\end{smatrix}$
+% 		\end{enumerate}
+% 		
+% 		
+% 		\item *Explain why the map $\phi$ is a homomorphism and find $\ker\phi$:
+% 		\[
+% 			\phi:S_n\to \bigl(\{1,-1\},\cdot\bigr):\sigma \mapsto 
+% 			\begin{cases}
+% 	  		1&\text{ if $\sigma$ even}\\
+% 	  		-1&\text{ if $\sigma$ odd}
+% 			\end{cases}
+% 		\]
+
+
+		
+		
+		\item *Verify that $\phi:\Z\to\Z_n:x\mapsto x\pmod n$ is a homomorphism. What is its kernel? 
+			
+		\item *State a linear map $\rT:\R^2\to\R^2$ whose kernel is the $y$-axis (a normal subgroup of $\R^2$\ldots)
+		
+		
+		\item *Find the kernel and image of each homomorphism and verify that $\ker\phi$ is normal:
+		\begin{enumerate}
+		  \item The \emph{trace} of a matrix $\tr:M_2(\R)\to\R:
+		  \smash{
+			  \begin{smatrix}
+					a&b\\c&d
+			  \end{smatrix}
+		  }
+		  \mapsto a+d$.
+			
+			\item $\rT:\R^3\to\R^4:\vx\mapsto 
+			\begin{smatrix}
+				1&1&-1\\
+				0&3&-1\\
+				1&4&-2\\
+				2&5&-3
+			\end{smatrix}$
+		\end{enumerate}
+		
+		
+		\item *Explain why the map $\phi$ is a homomorphism and find $\ker\phi$:
+		\[
+			\phi:S_n\to \bigl(\{1,-1\},\cdot\bigr):\sigma \mapsto 
+			\begin{cases}
+	  		1&\text{ if $\sigma$ even}\\
+	  		-1&\text{ if $\sigma$ odd}
+			\end{cases}
+		\]
+		
+		
+	  \item *Consider $\phi:D_4\to D_4:\sigma\mapsto \sigma^2$. Show that $\phi$ is \emph{not} a homomorphism.
+	
+	
+		\item\begin{enumerate}
+		  \item Prove Part 4 of Lemma \ref{lemm:homosub}: if $\phi:G\to L$ is a homomorphism, then $\image\phi\le L$.
+		 	\item If $H\le G$ and $\phi:G\to L$ a homomorphism, prove that $\phi(H):=\{\phi(h):h\in H\}\le\image\phi$.
+		  \item Give an example to show that $\image\phi$ need not be a normal subgroup of $L$.
+		\end{enumerate}
+	
+		
+		\item\label{exs:totient} Prove that the number of distinct \emph{isomorphisms} $\phi:\Z_n\to\Z_n$ equals the cardinality of the group of units in $\Z_n$ (see Exercise \ref*{sec:cyclicclass}.\ref{exs:znmult}))
+		\[
+			\nm{\Z_n^\times}=\nm{\{x\in\Z_n:\gcd(x,n)=1\}}
+		\]
+			
+			  
+	  \item Prove that $\phi:\Z_m\times\Z_n\to\Z_m\times\Z_n$ is a well-defined homomorphism if and only if there exist integers $a,b,c,d$ for which
+	  \[
+	  	\phi(x,y)=\bigl(ax+by,cx+dy\bigr),\quad 
+	  	m\mid bn\quad
+	  	\text{and}\quad n\mid cm
+	  \]
+	  (\emph{Hint: let $(a,c)=\phi(1,0)$, etc.})
+	  
+	
+		\item Find all homomorphisms $\phi:\Z_2\times\Z_7\to\Z_2\times\Z_5$. How do you know that there are no more?
+		
+% 		  
+% 	  \item *Consider $\phi:D_4\to D_4:\sigma\mapsto \sigma^2$. Show that $\phi$ is \emph{not} a homomorphism.
+		
+	\end{enumerate}
+\end{exercises}
+
+\clearpage
+
+
+\subsection{The First Isomorphism Theorem}\label{sec:1stiso}
+
+Lemma \ref{lemm:homosub} says that every kernel is a normal subgroup. In fact \emph{all} normal subgroups arise this way.
+
+\begin{thm}{Canonical Homomorphism}{}
+	Let $G$ be a group and $H\triangleleft G$. The function
+	\[
+		\gamma:G\to \quotient GH
+		\quad\text{defined by}\quad 
+		\gamma(g)=gH
+	\]
+	is a homomorphism with $\ker\gamma=H$.
+\end{thm}
+
+\begin{proof}
+	Since $H$ is normal, $\quotient GH$ is a factor group. By the definition of multiplication in $\quotient GH$,
+	\[
+		\gamma(g_1)\gamma(g_2)
+		=g_1H\cdot g_2H
+		=(g_1g_2)H
+		=\gamma(g_1g_2)
+	\]
+	whence $\gamma$ is a group homomorphism. Moreover, the identity in the factor group is $H$, whence
+	\[
+		g\in \ker\gamma \iff \gamma(g)=H \iff g\in H 
+		\tag*{\qedhere}
+	\]
+\end{proof}
+
+This might feel a little sneaky, and we'd have preferred a codomain that wasn't a factor group! Our hope is vain however, for the next result---arguably the most important in elementary group theory---shows that \textbf{every homomorphism with the same kernel is essentially $\gamma$ in disguise.}
+
+\begin{thm}{1\st{} Isomorphism}{}
+	Let $\phi:G\to L$ be a homomorphism with kernel $H$. Then
+	\[
+		\mu:\quotient GH\to\image\phi
+		\quad \text{defined by}\quad 
+		\mu(gH)=\phi(g)
+	\]
+	is an isomorphism. Otherwise said: $\phi=\mu\circ\gamma$ and $\quotient G{\ker\phi}\cong\image\phi$.
+\end{thm}
+
+
+\begin{minipage}[t]{0.69\linewidth}\vspace{-5pt}
+	These results may be summarized in a \emph{commutative diagram}: $\phi=\mu\circ\gamma$ means that we get the same result by following arrows from $G$ to $\image\phi$ regardless of the chosen path.\medbreak
+	The 1\st{} isomorphism theorem has analogues in several other parts of mathematics: at the very least you should have met its close kin from linear algebra, the rank--nullity theorem.
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.3\linewidth}\vspace{-5pt}
+	\flushright$\xymatrix{%
+		G \ar[rr]^{\phi} \ar[dr]_\gamma && \image\phi\\
+		& \quotient G{\ker\phi} \ar[ur]_{\mu} &
+	}$
+\end{minipage}\medbreak
+
+
+
+
+\begin{proof}
+	The factor group exists since $\ker\phi\triangleleft G$ (Lemma \ref{lemm:homosub}). We check the isomorphism properties:
+  \begin{description}
+		\item[\normalfont\emph{Well-definition and Bijectivity}:] These are immediate after writing $H=\ker\phi$:
+		\[
+			g_1H=g_2H
+			\underset{\text{\ref{lemm:homobij}}}{\overset{\text{Lemma}}{\iff}} \phi(g_1)=\phi(g_2)
+			\iff \mu(g_1H)=\mu(g_2H)
+		\]
+		\item[\normalfont\emph{Homomorphism}:] For all $g_1H,g_2H\in\quotient GH$,
+		\begin{align*}
+			\mu(g_1H\cdot g_2H)
+			&=\mu(g_1g_2H)=\phi(g_1g_2)
+				\tag{coset multiplication \& definition of $\mu$}\\ 
+			&=\phi(g_1)\phi(g_2)
+				\tag{$\phi$ is a homomorphism}\\
+			&=\mu(g_1H)\mu(g_2H)
+				\tag{definition of $\mu$ again}
+		\end{align*}
+  \end{description}
+	We conclude that $\mu$ is an isomorphism.
+\end{proof}
+
+
+\begin{examples}{}{}
+	\exstart Let $\phi:\Z_{12}\to\Z_{20}$ be the homomorphism $\phi(x)=5x\!\!\pmod{20}$ (Example \ref{ex:homoz12-20}). Its kernel and image are
+	\begin{gather*}
+		\ker\phi
+		=\bigl\{x\in\Z_{12}:5x\equiv 0\negthickspace\pmod{20}\bigr\}
+		=\{0,4,8\}
+		=\ip 4\le \Z_{12}\\
+		\image\phi=\{5x\in\Z_{20}:x\in\Z_{12}\}
+		=\{0,5,10,15\}
+		=\ip{5}\le\Z_{20}
+	\end{gather*}
+	The relevant factor group is
+	\begin{align*}
+		\quotient{\Z_{12}}{\ker\phi}
+		&=\Bigl\{\{0,4,8\},\{1,5,9\},\{2,6,10\},\{3,7,11\}\Bigr\}
+		=\bigl\{\ip 4,1+\ip 4,2+\ip 4,3+\ip 4\bigr\}
+	\end{align*}
+	The canonical homomorphism $\gamma$ and the isomorphism $\mu$ are\vspace{-8pt}
+	\begin{enumerate}\setcounter{enumi}{1}
+	  \item[]\begin{quote}
+			$\SelectTips{cm}{}\xymatrix @C40pt @R0pt{%
+				\rlap{$\gamma(x)=x+\ip 4$} &&& \Z_{12} \ar@{->}[r]_-{\scriptstyle\gamma} \ar@{->}@/^12pt/[rr]^{\scriptstyle\phi} & \quotient{\Z_{12}}{\ip 4} \ar@{->}[r]_-{\scriptstyle\mu} & \image\phi\\
+				\rlap{$\mu\bigl(x+\ip 4\bigr)=5x$} &&& x \ar@{|->}[r] & x+\ip 4 \ar@{|->}[r] & 5x
+			}$
+		\end{quote}
+	  
+	\item The homomorphism $\phi:\R\to(\C^\times,\cdot):x\mapsto e^{2\pi ix}$ has
+  \[
+  	\ker\phi=\bigl\{x\in\R:e^{2\pi ix}=1\bigr\} =\Z
+  	\quad\text{and}\quad 
+  	\image\phi=S^1
+  	\tag{$S^1$ is the circle group}
+  \]
+  The canonical homomorphism $\gamma$ and the isomorphism $\mu$ from the theorem are
+  \[
+  	\gamma:\R\to\quotient{\R}{\Z}:x\mapsto x+\Z
+  	\quad\text{and}\quad
+  	\mu:\quotient\R{\Z}\to S^1:x+\Z\mapsto e^{2\pi ix}
+  \]
+  
+  \item The homomorphism $\phi:\Z\times\Z\to\Z:(x,y)\mapsto 3x-2y$ satisfies
+  \[
+  	\phi(x,y)=(0,0)\iff 3x=2y\iff (x,y)=(2n,3n)\text{ for some $n\in\Z$}
+  \]
+  We conclude that $\ker\phi=\ip{(2,3)}$. The canonical homomorphism is therefore
+  \[
+  	\gamma:\Z\times\Z\to
+  	\quotient{\Z\times\Z}{\ip{(2,3)}}:
+  	(x,y)\mapsto (x,y)+\ip{(2,3)}
+  \]
+  Since $n=\phi(n,n)$, the homomorphism is surjective: $\image\phi=\Z$. By the 1\st{} isomorphism theorem,
+  \[
+  	\quotient{\Z\times\Z}{\ip{(2,3)}}\cong\Z
+  	\quad\text{via}\quad 
+  	\mu\bigl((x,y)+\ip{(2,3)}\bigr)=3x-2y
+  \]
+  
+  \item $\phi(x,y)=(x,y-x)$ is a well-defined homomorphism $\phi:\Z\times\Z_6\to\Z_3\times\Z_6$. Moreover,
+  \begin{gather*}
+  	\phi(x,y)=(0,0)\iff
+  	\begin{cases}
+  		x=3k,\text{ and}\\
+  		y=x=3k\in\Z_6
+  	\end{cases}\\
+  	\text{whence}\quad
+  	\ker\phi=\ip{(3,3)}=\bigl\{\ldots,(-6,0),(-3,3),(0,0),(3,3),(6,0),\ldots\bigr\}
+  \end{gather*}
+  Moreover, $\phi$ is surjective: e.g. $(m,n)=\phi(m,n+m)$. We conclude that
+	\[
+		\quotient{\Z\times\Z_6}{\ip{(3,3)}}\cong\Z_3\times\Z_6
+		\quad\text{via}\quad
+		\mu\bigl((x,y)+\ip{(3,3)})=(x,y-x)
+	\]
+	\end{enumerate}
+\end{examples}
+
+\vfil
+
+\goodbreak
+
+\boldsubsubsection{Identifying Factor Groups (revisited)}
+
+The 1\st{} isomorphism theorem may be applied to the identification of factor groups. Given $H\triangleleft G$, we cook up a homomorphism $\phi:G\to L$ with $\ker\phi=H$ and conclude that $\quotient GH\cong\image\phi$. This typically requires some creativity: there are many options, and both $L$ and a formula for $\phi$ need to be found simultaneously! We revisit some examples from the previous section in this context.
+
+\begin{examples*}{\ref{ex:factorfiniteabelian},\,mk.II}{}
+	For each subgroup $H$ of $G=\Z_4\times\Z_8$, we hunt for a suitable homomorphism with $\ker\phi =H$.
+	\begin{enumerate}
+	  \item Given $H=\ip{(0,1)}$, we need a homomorphism for which $\phi(0,1)$ is the identity. This is very simple: just ignore $y$! Define
+	  \[
+	  	\phi:\Z_4\times\Z_8\to\Z_4:(x,y)\mapsto x
+	  \]
+	  This indeed has kernel $\ker\phi=\{(0,y):y\in\Z_8\} =H$. By the 1\st{} isomorphism theorem,
+	  \[
+	  	\quotient GH\cong\image\phi=\Z_4
+	  	%\quad\text{via}\quad
+	  	%\mu:(x,y)+H\mapsto x
+	  \]
+	  via the isomorphism $\mu\bigl((x,y)+H\bigr)=x$. Note that $(x,y)+H=(x,0)+H$, whence $\mu$ is the \emph{inverse} of the isomorphism $\psi:x\mapsto (x,0)+H$ stated previously!
+	
+	  \item Given $H=\ip{(0,2)}$ we require $\phi(0,2)$ to be the identity. This may be achieved by taking $y$ modulo 2 and defining
+	  \[
+	  	\phi:\Z_4\times\Z_8\to\Z_4\times\Z_2:(x,y)\mapsto (x,y)
+	  \]
+	  This is well-defined
+	  \[
+	   	\phi(x+4m,y+8n)=(x+4m,y+8n)=(x,y)=\phi(x,y)\tag{since $2\mid 8$}
+	  \]
+	  and a homomorphism with required kernel $H$. Moreover, $\phi$ is surjective, whence
+	  \[
+	  	\quotient GH\cong \image\phi= \Z_4\times\Z_2
+	  \]
+	  via the isomorphism $\mu\bigl((x,y)+H\bigr) =(x,y)$. Once again $\mu$ is the inverse of $\psi(x,y)=(x,y)+H$ in the original example.
+	  
+	  \item Finding a homomorphism with kernel $H=\ip{(2,4)}=\bigl\{(0,0),(2,4)\bigr\}$ is somewhat trickier. One approach is to observe that
+	  \[
+	  	(x,y)\in H\iff x\equiv 0\negthickspace\negthickspace\pmod 2
+	  	\ \text{ and }\ 
+	  	y-2x\equiv 0\negthickspace\negthickspace\pmod 8
+	  \]
+	  We therefore choose
+	  \[
+	 		\phi:\Z_4\times\Z_8\to\Z_2\times\Z_8:(x,y)\mapsto\bigl(x,y-2x\bigr)
+	 	\]
+	  It is worth checking that this is \textcolor{red}{well-defined}: the $\textcolor{red}{2}x$ in the second co-ordinate is crucial! Certainly $\phi$ has the correct kernel. It is moreover surjective: $(m,n)=\phi(m,n+2m)$. In conclusion,
+	  \[
+	  	\quotient GH\cong\image\phi=\Z_2\times\Z_8
+	  \]
+	  via the isomorphism $\mu\bigl((x,y)+H\bigr)=(x,y-2x)$.
+	\end{enumerate}
+\end{examples*}
+
+
+More EXAMPLES: see leftovers in pervious section\ldots E.g. $\quotient{\Z\times\Z}{\ip{(1,1)}}$
+
+Another Exercise: prove that $\quotient{\Q}{\Z}\cong S^1_{\Q}=\{e^{2\pi iq}:q\in\Q\}$.
+
+\goodbreak
+
+\begin{exercises}{}{}
+	Key concepts:
+	\begin{quote}
+		\emph{Canonical homomorphism $\gamma:G\to\quotient GH$\qquad 1\st{} isomorphism theorem $\mu:\quotient G{\ker\phi}\cong\image\phi$}
+	\end{quote}
+	
+	\begin{enumerate}
+	  \item Let $\phi:\Z_{18}\to\Z_{12}$ be the homomorphism $\phi(x)=10x$. 
+	  \begin{enumerate}
+	    \item Find the kernel of and image of $\phi$.
+	    \item List the elements of the factor group $\smash[b]{\quotient{\Z_{18}}{\ker\phi}}$.
+	    \item State an explicit isomorphism $\mu:\quotient{\Z_{18}}{\ker\phi}\to\image\phi$.
+	    \item To what basic group $\Z_n$ is the factor group isomorphic?
+	  \end{enumerate}
+	  
+	 	
+	 	\item Repeat the previous question for the homomorphism $\phi:\Z\to\Z_{20}:x\mapsto 8x$.
+	  
+	  
+	  \item For each function $\phi:\Z\times\Z\to\Z$, find the kernel and identify the factor group $\smash{\quotient{\Z\times\Z}{\ker\phi}}$.
+	  \begin{enumerate}
+	    \item $\phi(x,y)=3x+y$\qquad\qquad (b)\lstsp $\phi(x,y)=2x-4y$
+	  \end{enumerate}  
+	  
+	    
+	  \item\begin{enumerate}
+	  	\item If a subgroup $H$ of $G=\Z_{15}\times\Z_3$ has order 5, find its elements.
+			\item Show that $\phi(x,y)=(x,y)$ is a homomorphism $\phi:G\to\Z_3\times\Z_3$ with $\ker\phi=H$.
+			\item What does the 1\st{} isomorphism theorem tell us about the factor group $\quotient GH$?
+		\end{enumerate}
+	  
+	  
+	  \item Suppose $G$ is a finite group with normal subgroup $H$ and that $\phi:G\to L$ is a homomorphism with $\ker\phi=H$. Prove that $(G:H)\le \nm L$ with equality if and only if $\phi$ is surjective.
+	  
+	  
+	  \item Consider the map $\phi:\Z\times\Z_{12}\to \Z_3\times\Z_6$ defined by
+	  \[
+	  	\phi(x,y)=\bigl(2x+y,y\bigr)
+	  \]
+	  \begin{enumerate}
+	    \item Verify that $\phi$ is a well-defined homomorphism.
+	    \item Compute $\ker\phi$ and identify the factor group $\quotient{\Z\times\Z_{12}}{\ker\phi}$
+	  \end{enumerate}
+	  
+	  
+	  \item Let $H=\ip{(3,1)}\le G=\Z_9\times\Z_3$. Find an explicit homomorphism $\phi:G\to\Z_9$ whose kernel is $H$, and thus identify the factor group $\quotient GH$.\par
+	  (\emph{Hint: $(x,y)\in H=\{(0,0),(3,1),(6,2)\}\iff\ldots$})
+	  
+	  \item Consider $H=\ip{(3,3)}\le G=\Z_9\times\Z_9$. Find a surjective homomorphism $\phi:G\to\Z_3\times\Z_9$ whose kernel is $H$ and hence prove that $\quotient GH\cong\Z_3\times\Z_9$.
+	  
+	  
+	  \item Let $\phi:S^1\to S^1:z\mapsto z^2$.
+	  \begin{enumerate}
+	    \item Find the kernel of $\phi$ and describe the canonical homomorphism $\gamma:S_1\to\smash{\quotient{S^1}{\ker\phi}}$.
+	    \item What does the first isomorphism theorem say about the factor group $\smash{\quotient{S^1}{\ker\phi}}$.
+	    \item For each $n$, identify the factor group $\smash{\quotient{S^1}{U_n}}$, where $U_n$ is the group of $n\th$ roots of unity.
+	  \end{enumerate}
+	 
+	  %\item Recall Example \ref*{ex:normalmoreex}.\ref{ex:nastyiso}. If $H=\ip{(1,2,2)}\le G=\Z_5\times\Z_6\times\Z$, try to find a surjective homomorphism $\phi:G\to \Z_5\times\Z_6\times\Z_2$ with $\ker\phi=H$.
+	\end{enumerate}
+\end{exercises}
+
 
 
 
 \clearpage
 
-\subsection{1st iso done}
-
-
 \subsection{Conjugation, Cycle Types, Centers and Automorphisms}\label{sec:conj}
 
-Put at end of actions chapter: mother of all actions!
 
 In this section we consider an important type of homomorphism and some its consequences.
 
