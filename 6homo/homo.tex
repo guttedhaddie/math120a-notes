@@ -6,7 +6,7 @@
 The main goal of this chapter is to discuss the link between homomorphisms, normal subgroups and factor groups. The key result is the subject of Section \ref{sec:1stiso}: the First Isomorphism Theorem.%\smallbreak
 %All homomorphisms in this chapter are between \emph{groups.}
 
-\subsection{Kernels, Images and Normal Subgroups}
+\subsection{Kernels, Images and Normal Subgroups}\label{sec:kerimage}
 
 In Section \ref{sec:morph} we established several important facts that are worth refreshing and summarizing here.
 
@@ -315,9 +315,9 @@ Most of these examples rely on the domain of a homomorphism being cyclic (observ
 		\end{enumerate}
 	
 		
-		\item\label{exs:totient} Prove that the number of distinct \emph{isomorphisms} $\phi:\Z_n\to\Z_n$ equals the cardinality of the group of units in $\Z_n$ (see Exercise \ref*{sec:cyclicclass}.\ref{exs:znmult}))
+		\item\label{exs:totient} Prove that the number of distinct \emph{isomorphisms} $\phi:\Z_n\to\Z_n$ equals the cardinality of the group of units in $\Z_n$ (see Exercise \ref*{sec:cyclicclass}.\ref{exs:znunits}))
 		\[
-			\nm{\Z_n^\times}=\nm{\{x\in\Z_n:\gcd(x,n)=1\}}
+			\nm{\Z_n^\times}=\nm{\bigl\{x\in\Z_n:\gcd(x,n)=1\bigr\}}
 		\]
 			
 			  
@@ -461,6 +461,7 @@ This might feel a little sneaky, and we'd have preferred a codomain that wasn't 
   	\quad\text{and}\quad
   	\mu:\quotient\R{\Z}\to S^1:x+\Z\mapsto e^{2\pi ix}
   \]
+  Think about how this relates to Example \ref*{ex:indexeasy}.\ref{ex:ZsubgroupRindex}. 
   
   \item The homomorphism $\phi:\Z\times\Z\to\Z:(x,y)\mapsto 3x-2y$ satisfies
   \[
