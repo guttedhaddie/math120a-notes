@@ -838,30 +838,34 @@ In the previous sections we viewed a permutation in terms of its orbits. An alte
 	Other decompositions are possible, for instance $(1\,7)(3\,6)(5\,7)(4\,7)(3\,6)(6\,7)$.
 \end{example}
 
-While representations as a product of transpositions are non-unique, a simple commonality may easily be observed via a \emph{matrix notation.} Consider, for instance,
+While representations as a product of transpositions are non-unique, a simple commonality may be observed via \emph{matrix notation.} Consider, for instance,
 \[
 	\begin{pmatrix}
 		1&0&0&0\\ 0&0&0&1\\ 0&0&1&0\\ 0&1&0&0
 	\end{pmatrix}
-	\fourvec 1234
-	=\fourvec 1432\quad\text{and}\quad
+	\fourvec{a}{b}{c}{d}
+	=\fourvec{a}{d}{c}{b}\quad\text{and}\quad
 	\begin{pmatrix}
 		0&0&1&0\\ 0&0&0&1\\  0&1&0&0\\ 1&0&0&0
 	\end{pmatrix}
-	\fourvec 1234
-	=\fourvec 3421\tag{$\ast$}
+	\fourvec{a}{b}{c}{d}
+	=\fourvec{c}{d}{b}{a}
 \] 
-Each of these $4\times 4$ matrices \emph{permutes} the values 1, 2, 3, 4 when placed in a column vector. The matrices plainly correspond to the transposition $(2\,4)$ and the 4-cycle $(1\,3\,2\,4)$ in $S_4$.
+Each of these $4\times 4$ matrices \emph{permutes} the rows of any $4\times k$ matrix following it. These matrices correspond naturally to two elements of $S_4$:
+\begin{itemize}
+  \item The transposition $(2\,4)$ (swap rows 2 and 4).
+  \item The 4-cycle $(1\,4\,2\,3)$ (map row 1 to row 4, row 4 to row 2, etc.)
+\end{itemize} 
 
 \begin{defn}{}{}
-	An $n\times n$ \emph{permutation matrix} is a matrix obtained from the identity matrix by permuting its \emph{rows.} Equivalently, it is zero except for a single 1 in each row and column.
+	A \emph{permutation matrix} is square matrix which is zero except for a single 1 in each row and column. Equivalently, it is obtained by permuting the \emph{rows} of the identity matrix.
 \end{defn}
 
 \begin{lemm}{}{}
 	The set of $n\times n$ permutation matrices forms a multiplicative group isomorphic to $S_n$.
 \end{lemm}
 
-We omit a formal proof, though it relies on essentially one fact from elementary linear algebra: that \emph{row operations} preserve the solution set of a system of linear equations. For instance $(\ast)$ describes two linear systems $A\vx=\vb$ and $C\vx=\vd$ with identical solutions $\vx$, differing only by row operations.
+We omit a formal proof, though the rough idea is hopefully clear: replace each $\sigma\in S_n$ with its corresponding permutation matrix and observe that composition corresponds to matrix multiplication.
 \smallbreak
 
 What does this have to do with transpositions? Since a transposition swaps two elements, it corresponds to multiplication by a \emph{row-swapping elementary matrix}; any such matrix has determinant $-1$. Suppose that a permutation is written as a product of transpositions:
