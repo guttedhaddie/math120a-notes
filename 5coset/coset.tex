@@ -818,11 +818,12 @@ Naïve identification of factor groups often boils down to a two-step hack.
   \item Find the order of the factor group $\smash{\quotient GH}$ by computing the index $(G:H)$.
   \item Determine which group of order $(G:H)$ is correct.
 \end{enumerate}
-If $\quotient GH$ is abelian, the Fundamental Theorem of Finitely Generated Abelian Groups (\ref{thm:fund}) might be useful for supplying candidates. Step 2 can often be accomplished by considering the possible orders of elements (cosets). With this in mind we make a minor notational observation.
+If $\quotient GH$ is abelian, the Fundamental Theorem (\ref{thm:fund}) might supply candidates. Step 2 can often be accomplished by considering orders of elements (cosets). The simple observation can help with this.
 
-\begin{lemm}{}{}
+\begin{lemm}{}{ordercoset}
 	Let $\quotient GH$ be a factor group. Then $(gH)^m=H\Longleftrightarrow g^m\in H$\quad ($mg\in H$ if $G$ additive).\par
-	By Corollary \ref{cor:orderdefn}, the \textbf{order of the element} $gH\in \quotient GH$ is the smallest $m\in\N$ for which $g^m\in H$.
+	By Corollary \ref{cor:orderdefn}, the \textbf{order of the element} $gH\in \quotient GH$ is the smallest $m\in\N$ for which $g^m\in H$.\par
+	Moreover, this number $\min\{m\in\N:g^m\in H\}$ divides the order of $g$ (in $G$).
 \end{lemm}
 
 
@@ -1055,6 +1056,10 @@ We'll see more examples, and revisit others, in Section \ref{sec:1stiso} once we
 		
 		\item\label{exs:normaldirectfactor} (Exercise \ref*{sec:cosetnormal}.\ref{exs:directprodfactor}, cont.)\lstsp Suppose $G=H\times K$, $J\triangleleft H$ and $\widehat J=J\times\{e_K\}$. Prove that $\quotient G{\widetilde J}=\quotient HJ\times K$.\par
 		Can you quickly verify Examples \ref{ex:factorfiniteabelian}.1, 2, and \ref*{ex:normalmoreex}.\ref{ex:projectvectspace} in this language?
+		
+		
+		\item\label{exs:ordercoset} Complete the proof of Lemma \ref{lemm:ordercoset} by showing that the order of the element/coset $gH\in\quotient GH$ divides the order of the element $g\in G$.\par
+		(\emph{Hint: Use the division algorithm similarly to the proof of Theorem \ref{thm:cyclic1}})
 		
 		
 		\item (Hard) \ Let $H=\ip{(2,3)}\le G=\Z_5\times \Z$. Prove that $\quotient GH\cong \Z_{15}$.
