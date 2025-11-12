@@ -741,7 +741,7 @@ If $\rho=(2\,4\,3)$ and $\sigma=(1\,2)(3\,4)$ in $S_4$, then
   This plainly has the same cycle-type as $\sigma$. Moreover, it may be obtained by applying $\rho$ to the entries of $\sigma$!
   \[
   	\rho\sigma\rho^{-1}=(1\,4)(2\,3) 
-  	=\bigl(\rho(1)\,\rho(2)\bigr)\bigl(\rho(3)\,\rho(4)\bigr)
+  	=\bigl(\rho(1)\,\rho(2)\bigr)\bigl(\rho(3)\,\rho(4)\bigr) \tag{$\ast$}
   \]
   \begin{minipage}[t]{0.75\linewidth}\vspace{-5pt}
 	  This tells us how to reverse the process: given 2,2-cycles $\sigma=(1\,2)(3\,4)$ and $\tau=(1\,4)(2\,3)$ simply place $\sigma$ on top of $\tau$ in a table to define a suitable $\rho=(2\,4\,3)$ for which $\rho\sigma\rho^{-1}=\tau$.
@@ -756,7 +756,7 @@ If $\rho=(2\,4\,3)$ and $\sigma=(1\,2)(3\,4)$ in $S_4$, then
 \end{example}
 
 
-The proof might be a notational horror, but it simply amounts to the example done abstractly!
+The proof is a notational horror, but it amounts to nothing more than the example done abstractly: our goal is to recognize $\rho\sigma\rho^{-1}$ in exactly the form $(\ast)$, taking $\rho$ of each entry in each cycle.
 
 
 \begin{proof}
@@ -780,7 +780,7 @@ The proof might be a notational horror, but it simply amounts to the example don
 				=\rho\rho^{-1}(x)=x
 			\]
 		\end{enumerate}
-		We conclude that $\rho\sigma\rho^{-1}=\bigl(\rho(a_1)\cdots\rho(a_k)\bigr)$	is also a $k$-cycle!\par
+		We conclude that $\rho\sigma\rho^{-1}=\bigl(\rho(a_1)\cdots\rho(a_k)\bigr)$	is \textbf{also a $k$-cycle}!\par
 		More generally, if $\sigma=\sigma_1\cdots\sigma_l$ is a product of disjoint cycles, then
 		\[
 			\rho\sigma\rho^{-1} =(\rho\sigma_1\rho^{-1})(\rho\sigma_2\rho^{-1})\cdots (\rho\sigma_l\rho^{-1})
@@ -822,7 +822,7 @@ The proof might be a notational horror, but it simply amounts to the example don
 		=(2\,3)(4\,6\,7)(1\,4\,5)(2\,7\,6)(2\,3)(4\,7\,6)
 		=(1\,6\,5)(3\,4\,7) =\tau
 	\]
-	Other choices of $\rho$ are available: just write the orbits of $\sigma,\tau$ in different orders.
+	Other choices of $\rho$ are available: just write the orbits of $\sigma,\tau$ in different orders. Can you figure out \emph{how many} distinct choice of $\rho$ will work?
 	\begin{enumerate}\setcounter{enumi}{1}
 		\item\label{ex:conjexample2} (Example \ref*{sec:factor}.\ref{ex:a4normal}) \ We checked previously that $V=\bigl\{e,(1\,2)(3\,4),(1\,3)(2\,4),(1\,4)(2\,3)\bigr\}$ is a normal subgroup of $A_4$. Since $V$ contains the identity and all 2,2-cycles it is closed under conjugacy and thus a normal subgroup of both $A_4$ and $S_4$.
 	\end{enumerate}
