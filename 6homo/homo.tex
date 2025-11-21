@@ -758,42 +758,41 @@ If $\rho=(2\,4\,3)$ and $\sigma=(1\,2)(3\,4)$ in $S_4$, then
 
 The proof is a notational horror, but it amounts to nothing more than the example done abstractly: our goal is to recognize $\rho\sigma\rho^{-1}$ in exactly the form $(\ast)$, taking $\rho$ of each entry in each cycle.
 
-
 \begin{proof}
 	\begin{description}
-		\item[\normalfont($\Rightarrow$)] Consider conjugation by $\rho\in S_n$. First let $\sigma=(a_1\cdots a_k)$ be a $k$-cycle and write
+		\item[\normalfont($\Rightarrow$)] First consider conjugation of a $k$-cycle $\sigma=(a_1\cdots a_k)$ by $\rho\in S_n$. We claim that
 		\[
-			A=\{a_1,\ldots,a_k\},\qquad R=\rho(A)=\bigl\{\rho(a_1),\ldots,\rho(a_k)\bigr\}
+			\rho\sigma\rho^{-1}=\bigl(\rho(a_1)\cdots\rho(a_k)\bigr)
 		\]
-		Since $\rho$ is a bijection, $\nm R=k$ and $x\in R\Longleftrightarrow \rho^{-1}(x)\in A$. To evaluate $\rho\sigma\rho^{-1}$ as a function, we must consider two sub-cases:
+		is \textbf{also a $k$-cycle.} Since this is an equality of functions, we verify by evaluating on all elements of $X=\{1,2,\ldots,n\}$. There are two cases, which correspond to partitioning $X=A\cup(X\setminus A)$ where $A=\{a_1,\ldots,a_k\}$. First observe that $\rho$ bijectively maps $A\to A$ and $X\setminus A\to X\setminus A$.
 		\begin{enumerate}
-			\item Suppose $x\in R$. Write $x=\rho(a_j)$. But then
+			\item Suppose $x\in A$. Since $A=\rho(A)$, we may uniquely write $x=\rho(a_j)$. But then
 			\[
 				\rho\sigma\rho^{-1}(x) =\rho\sigma\rho^{-1}\bigl(\rho(a_j)\bigr)
 				=\rho\sigma(a_j)=\rho(a_{j+1})
 			\]
 			where $a_{k+1}$ is understood to equal $a_1$.
-			\item Suppose $x\not\in R$. Since $\rho^{-1}(x)\not\in A$, it is unmoved by $\sigma$, whence
+			\item Suppose $x\not\in A$. We know that $\rho^{-1}(x)\not\in A$ is unmoved by $\sigma$, whence
 			\[
 				\rho\sigma\rho^{-1}(x) 
 				=\rho\sigma(\rho^{-1}(x))
 				=\rho\rho^{-1}(x)=x
 			\]
 		\end{enumerate}
-		We conclude that $\rho\sigma\rho^{-1}=\bigl(\rho(a_1)\cdots\rho(a_k)\bigr)$	is \textbf{also a $k$-cycle}!\par
+		We conclude that $\rho\sigma\rho^{-1}=\bigl(\rho(a_1)\cdots\rho(a_k)\bigr)$	is as claimed.
 		More generally, if $\sigma=\sigma_1\cdots\sigma_l$ is a product of disjoint cycles, then
 		\[
 			\rho\sigma\rho^{-1} =(\rho\sigma_1\rho^{-1})(\rho\sigma_2\rho^{-1})\cdots (\rho\sigma_l\rho^{-1})
 		\]
 		has the same cycle-type as $\sigma$.
-		\item[\normalfont($\Leftarrow$)] Suppose $\sigma=\sigma_1\cdots\sigma_l$ and $\tau=\tau_1\cdots\tau_l\in S_n$ have the same cycle type, written so that corresponding orbits have the same length. Moreover, assume we've included all necessary single-element orbits so that $\bigcup\sigma_i=\{1,\ldots,n\}=\bigcup\tau_i$. Define a permutation $\rho$ by writing the orbits of $\sigma$ and $\tau$ on top each other
+		\item[\normalfont($\Leftarrow$)] Suppose $\sigma=\sigma_1\cdots\sigma_l$ and $\tau=\tau_1\cdots\tau_l\in S_n$ have the same cycle-type, written so that corresponding orbits have the same length. Assume we've all single-element orbits are included so that $\bigcup\sigma_i=\{1,\ldots,n\}=\bigcup\tau_i$. Define $\rho\in S_n$ by writing the orbits of $\sigma$ and $\tau$ on top each other
 		\[
 			\begin{array}{l||c|c|c|c}
 	      x&\sigma_1 &\sigma_2 & \cdots & \sigma_l\\\hline
 	      \rho(x)&\tau_1 & \tau_2 & \cdots & \tau_l
 	    \end{array}
 	  \]
-		Since the orbits of $\tau$ partition $X=\{1,\ldots,n\}$, this is plainly a permutation. Finally, if $s_{i,j}$ and $t_{i,j}$ are the $j\th$ elements of the orbits $\sigma_i$ and $\tau_i$, then
+		Since the orbits of $\sigma$, \& $\tau$ partition $X=\{1,\ldots,n\}$, this is plainly defines a permutation. Finally, if $s_{i,j}$ and $t_{i,j}$ are the $j\th$ elements of the orbits $\sigma_i$ and $\tau_i$, then
 		\[
 			\rho\sigma\rho^{-1}(t_{i,j})
 			=\rho\sigma(s_{i,j})=\rho\bigl(s_{i,j+1}\bigr)
@@ -802,6 +801,51 @@ The proof is a notational horror, but it amounts to nothing more than the exampl
 		We conclude that $\rho\sigma\rho^{-1}=\tau$, as required.\qedhere
 	\end{description}
 \end{proof}
+
+
+% \begin{proof}
+% 	\begin{description}
+% 		\item[\normalfont($\Rightarrow$)] Consider conjugation by $\rho\in S_n$. First let $\sigma=(a_1\cdots a_k)$ be a $k$-cycle and write
+% 		\[
+% 			A=\{a_1,\ldots,a_k\},\qquad R=\rho(A)=\bigl\{\rho(a_1),\ldots,\rho(a_k)\bigr\}
+% 		\]
+% 		Since $\rho$ is a bijection, $\nm R=k$ and $x\in R\Longleftrightarrow \rho^{-1}(x)\in A$. To evaluate $\rho\sigma\rho^{-1}$ as a function, we must consider two sub-cases:
+% 		\begin{enumerate}
+% 			\item Suppose $x\in R$. Write $x=\rho(a_j)$. But then
+% 			\[
+% 				\rho\sigma\rho^{-1}(x) =\rho\sigma\rho^{-1}\bigl(\rho(a_j)\bigr)
+% 				=\rho\sigma(a_j)=\rho(a_{j+1})
+% 			\]
+% 			where $a_{k+1}$ is understood to equal $a_1$.
+% 			\item Suppose $x\not\in R$. Since $\rho^{-1}(x)\not\in A$, it is unmoved by $\sigma$, whence
+% 			\[
+% 				\rho\sigma\rho^{-1}(x) 
+% 				=\rho\sigma(\rho^{-1}(x))
+% 				=\rho\rho^{-1}(x)=x
+% 			\]
+% 		\end{enumerate}
+% 		We conclude that $\rho\sigma\rho^{-1}=\bigl(\rho(a_1)\cdots\rho(a_k)\bigr)$	is \textbf{also a $k$-cycle}!\par
+% 		More generally, if $\sigma=\sigma_1\cdots\sigma_l$ is a product of disjoint cycles, then
+% 		\[
+% 			\rho\sigma\rho^{-1} =(\rho\sigma_1\rho^{-1})(\rho\sigma_2\rho^{-1})\cdots (\rho\sigma_l\rho^{-1})
+% 		\]
+% 		has the same cycle-type as $\sigma$.
+% 		\item[\normalfont($\Leftarrow$)] Suppose $\sigma=\sigma_1\cdots\sigma_l$ and $\tau=\tau_1\cdots\tau_l\in S_n$ have the same cycle type, written so that corresponding orbits have the same length. Moreover, assume we've included all necessary single-element orbits so that $\bigcup\sigma_i=\{1,\ldots,n\}=\bigcup\tau_i$. Define a permutation $\rho$ by writing the orbits of $\sigma$ and $\tau$ on top each other
+% 		\[
+% 			\begin{array}{l||c|c|c|c}
+% 	      x&\sigma_1 &\sigma_2 & \cdots & \sigma_l\\\hline
+% 	      \rho(x)&\tau_1 & \tau_2 & \cdots & \tau_l
+% 	    \end{array}
+% 	  \]
+% 		Since the orbits of $\tau$ partition $X=\{1,\ldots,n\}$, this is plainly a permutation. Finally, if $s_{i,j}$ and $t_{i,j}$ are the $j\th$ elements of the orbits $\sigma_i$ and $\tau_i$, then
+% 		\[
+% 			\rho\sigma\rho^{-1}(t_{i,j})
+% 			=\rho\sigma(s_{i,j})=\rho\bigl(s_{i,j+1}\bigr)
+% 			=t_{i,j+1}=\tau\bigl(t_{i,j}\bigr)
+% 		\]
+% 		We conclude that $\rho\sigma\rho^{-1}=\tau$, as required.\qedhere
+% 	\end{description}
+% \end{proof}
 
 
 \goodbreak
