@@ -3,80 +3,86 @@
 
 \section{Group Actions}\label{chap:action}
 
-
 \subsection{Group Actions, Fixed Sets and Isotropy Subgroups}\label{sec:action1}
 
-In this final chapter, we revisit a central idea: groups are interesting and useful often because of how they \emph{transform sets.} Recall how the symmetric group $S_n$ was defined in terms of what its elements do to the set $\{1,\ldots,n\}$. This is an example of a general situation.
+You may feel by now that groups are worthy of study purely in their own right---if so great! For many, however, the fundamental reason to care about groups is because of how they \emph{transform sets.} Recall how the symmetric group $S_n$ (Section \ref{chap:perm}) was defined in terms of what its elements do to the set $\{1,\ldots,n\}$. This is an example of a general situation.
 
-\begin{defn}{}{}
-A group $G$ \emph{acts\footnotemark} on a set $X$ via a map $\cdot:G\times X\to X$ if,
-\begin{enumeratea}
-  \item $\forall x\in X,\ e\cdot x=x$,\quad and,
-  \item $\forall x\in X,\ g,h\in G,\  g\cdot (h\cdot x)=(gh)\cdot x$.
-\end{enumeratea}
+\begin{defn}{}{action}
+	An \emph{action\footnotemark} of a group $G$ on a set $X$ is a function $\cdot:G\times X\to X$ for which,
+	\begin{enumeratea}
+	  \item $\forall x\in X,\ e\cdot x=x$,\quad and,
+	  \item $\forall x\in X,\ g,h\in G,\  g\cdot (h\cdot x)=(gh)\cdot x$.
+	\end{enumeratea}
 \end{defn}
 
-\footnotetext{This is really a \emph{left} action. There is an analogous definition of a \emph{right action.} In this course, all actions will be left.}
+\footnotetext{%
+	This is strictly a \emph{left} action. There is an analogous definition of a \emph{right action.} In these notes, all actions will be left.%
+}
 
-Part (b) says $g\mapsto g\cdot$ is a homomorphism of \emph{binary structures} (the functions $X\to X$ needn't form a group).
+Part (b) says $g\mapsto g\cdot$ is a homomorphism of \emph{binary structures} $(G,\cdot)\to\big(\{f:X\to X\},\circ\big)$.
 
 \begin{examples}{}{actioneasy}
-\exstart The symmetric $S_n$ group acts on $X=\{1,2,\ldots,n\}$. As a sanity check:\vspace{-3pt}
-\begin{enumerate}\setcounter{enumi}{1}
-  \item[]\begin{enumerate}
-		\item $e(x)=x$ for all $x\in \{1,\ldots,n\}$.
-		\item $\sigma\bigl(\tau(x)\bigr)=(\sigma\tau)(x)$ is composition of functions!
+	\exstart The symmetric $S_n$ group acts on $X=\{1,2,\ldots,n\}$. As a sanity check:\vspace{-3pt}
+	\begin{enumerate}\setcounter{enumi}{1}
+	  \item[]\begin{enumerate}
+			\item $e(x)=x$ for all $x\in \{1,\ldots,n\}$.
+			\item $\sigma\bigl(\tau(x)\bigr)=(\sigma\tau)(x)$ is simply composition of functions!
+		\end{enumerate}
+	  
+	  \item If $X$ is the set of orientations of a regular $n$-gon centered at the origin and with one vertex at $(1,0)$, then $D_n$ acts on $X$ by rotations and reflections. This is essentially our definition of $D_n$!
+		
+	  \item Any group $G$ acts on itself by left multiplication ($X=G$). This is essentially the proof of Cayley's Theorem (\ref{thm:cayley}). $G$ also acts on itself by conjugation ($c_g\circ c_h=c_{gh}$ is Theorem \ref{thm:aut}).
+	  
+	  \item Matrix groups act on vector spaces by matrix multiplication. For example the orthogonal group $\rO_2(\R)$ transforms vectors via rotations and reflections:
+		\[
+			\rO_2(\R)\times\R^2\to\R^2:(A,\vv)\mapsto A\vv
+		\]
+	  
+	  \item\label{ex:orthmultaction} A group can act on many different sets. Here are three further actions of the orthogonal group:
+		\begin{enumerate}
+	  	\item[i.] $\rO_2(\R)$ acts on $X=\{1,-1\}$ via $A\cdot x:=(\det A)x$.
+			\item[ii.] $\rO_2(\R)$ acts on $X=\R^3$ via $A\cdot\vv:=A(v_1\vi+v_2\vj)+v_3\vk$.
+			\item[iii.] $\rO_2(\R)$ acts on the unit circle $X=S^1\subseteq\R^2$ via matrix multiplication $A\cdot\vv:=A\vv$.
+		\end{enumerate}
 	\end{enumerate}
-  \item Any group $G$ acts on itself by left multiplication. This is essentially Cayley's Theorem (\ref{thm:cayley}). It also acts on itself by conjugation ($c_g\circ c_h=c_{gh}$ is Theorem \ref{thm:aut}).
-  \item If $X$ is the set of orientations of a regular $n$-gon such that one vertex is at $(1,0)$ and the center is at $(0,0)$, then $D_n$ acts on $X$ by rotations and reflections. Note that $X$ has cardinality $2n$.
-  \item Matrix groups act on vector spaces by matrix multiplication. For example the orthogonal group $\rO_2(\R)$ can be seen to transform vectors via rotations and reflections.
-	\[
-		\rO_2(\R)\times\R^2\to\R^2:(A,\vv)\mapsto A\vv
-	\]
-  
-  \item\label{ex:orthmultaction} A group can act on many different sets. Here are three further actions of the orthogonal group:
-	\begin{enumerate}
-  	\item[i.] $\rO_2(\R)$ acts on the set $X=\{1,-1\}$ via $A\cdot x:=(\det A)x$.
-		\item[ii.] $\rO_2(\R)$ acts on the set $X=\R^3$ via $A\cdot\vv:=A(v_1\vi+v_2\vj)+v_3\vk$.
-		\item[iii.] $\rO_2(\R)$ acts on the unit circle $X=S^1\subseteq\R^2$ via matrix multiplication $A\cdot\vv:=A\vv$.
-	\end{enumerate}
-\end{enumerate}
 \end{examples}
 
-We often use an action to visualize a group; in this context, some actions are better than others. Consider the three actions of $\rO_2(\R)$ in part \ref*{ex:orthmultaction} above:
-\begin{enumerate}\itemsep0pt
-  \item[i.] The set $X$ is very small. Many matrices act in exactly the same way so the action is an unhelpful means of visualizing the group.
-	\item[ii.] The set $X$ feels too large. The action leaves any vertical vector untouched.
-	\item[iii.] The circle $X=S^1$ is large enough so that the action of distinct matrices can be distinguished without being inefficiently large.\footnote{A \emph{Goldilocks} action, perhaps?}
+We often use actions to help visualize a group (or even define it!); in this context, some actions are better than others. Consider the three actions of $\rO_2(\R)$ in part \ref*{ex:orthmultaction} above.
+\begin{enumerate}\itemsep2pt
+  \item[i.] $X=\{1,-1\}$ is too small to provide a detailed picture of the group since many matrices act in the same way: e.g.{} $\begin{smatrix}1&0\\0&1\end{smatrix}$ and $\begin{smatrix}-1&0\\0&-1\end{smatrix}$ both ``multiply by 1 ($=\det A$)''.
+	\item[ii.] $X=\R^3$ is unnecessarily large. The action leaves any vertical vector untouched.
+	\item[iii.] $X=S^1$ is large enough that the action of distinct matrices can be distinguished without being inefficiently large (a \emph{Goldilocks} action, perhaps?).
 \end{enumerate}
 
-\goodbreak
+
+\pagebreak[3]
+
 
 These notions can be formalized.
 
-
-
 \begin{defn}{}{}
-Let $G\times X\to X$ be an action.
-\begin{enumerate}
-  \item The \emph{fixed set} of $g\in G$ is the set
-  \[
-  	\Fix(g):=\{x\in X:g\cdot x=x\} \tag{also written $X_g$, though we won't do this}
-  \]
-  \item The \emph{isotropy subgroup} or \emph{stabilizer} of $x\in X$ is the set
-  \[
-  	\Stab(x):=\{g\in G:g\cdot x=x\} \tag{also written $G_x$}
-  \] 
-  \item The action is \emph{faithful} if the only element of $G$ which fixes everything is the identity. This can be stated in two equivalent ways:
-  \begin{enumerate}
-    \item $\Fix(g)=X\iff g=e$\qquad\qquad\qquad (b)\lstsp$\bigcap\limits_{x\in X}\Stab(x)=\{e\}$
-  \end{enumerate}
-  \item The action is \emph{transitive} if any element of $X$ may be transformed to any other:
-	\[
-		\forall x,y\in X,\ \exists g\in G\ \text{ such that }\  y=g\cdot x
-	\]
-\end{enumerate}
+	Let $G\times X\to X$ be an action.
+	\begin{enumerate}
+	  \item The \emph{fixed set} of $g\in G$ is the set (subset of $X$)
+	  \[
+	  	\Fix(g):=\{x\in X:g\cdot x=x\} \tag{also written $X_g$}
+	  \]
+	  \item The \emph{isotropy subgroup} or \emph{stabilizer} of $x\in X$ is the set (subset of $G$)
+	  \[
+	  	\Stab(x):=\{g\in G:g\cdot x=x\} \tag{also written $G_x$}
+	  \] 
+	  \item The action is \emph{faithful} (or \emph{effective}) if the only element of $G$ fixing everything is $e$. Equivalently:
+	  \begin{enumerate}
+	    \item $\Fix(g)=X\iff g=e$\qquad\qquad\qquad (b)\lstsp$\bigcap\limits_{x\in X}\Stab(x)=\{e\}$
+	  \end{enumerate}
+	  \item The action is \emph{transitive} if any element of $X$ may be transformed to any other:
+		\[
+			\forall x,y\in X,\ \exists g\in G\ \text{ such that }\  y=g\cdot x
+		\]
+	\end{enumerate}
 \end{defn}
+
+Very loosely, an action that is both faithful and transitive is likely reasonable for visualizing a group.
 
 \begin{examples*}{\ref{ex:actioneasy} cont}{}
 	\exstart The action of $S_n$ on $\{1,2,\ldots,n\}$ is both faithful and transitive:
@@ -85,9 +91,13 @@ Let $G\times X\to X$ be an action.
 	  	\item[\normalfont\emph{Faithful}:] if $\sigma(x)=x$ for all $x\in\{1,2,\ldots,n\}$, then $\sigma=e$.
 	  	\item[\normalfont\emph{Transitive}:] if $x\neq y$, then the 2-cycle $(x\,y)$ maps $x\mapsto y$.
 	  \end{description}
-	  \item The action of a group on itself by left multiplication is both faithful and transitive. Conjugation is more complex: in most situations it is neither.
+	  
 	  \item $D_n$ acts faithfully and transitively on the orientations of the $n$-gon.
+	  
+	  \item The action of a group on itself by left multiplication is both faithful and transitive. Conjugation is more complex: in most situations it is neither.
+	  
 	  \item The action of $\rO_2(\R)$ on $\R^2$ is faithful but not transitive: for instance the zero vector cannot be transformed into any other vector so $\Stab(\V0)=\rO_2(\R)$.
+	  
 	  \item We leave these as exercises.
 	%   \begin{enumerate}
 	%     \item[i.] The action $A\cdot x=\det(A)x$ is transitive, but not faithful: indeed if $A$ is any orthogonal matrix with determinant 1, then $\Fix(A)=X$.
@@ -103,23 +113,32 @@ Let $G\times X\to X$ be an action.
 \end{lemm}
 
 \begin{proof}
-	$\Stab(x)$ is a non-empty subset of $G$ since $e\in \Stab(x)$. It sufficient to show that it is closed under multiplication and inverses. Let $g,h\in\Stab(x)$, then
-	\[
-		(gh)\cdot x=g\cdot(h\cdot x)
-		=g\cdot x=x\implies gh\in\Stab(x)
-	\]
-	Moreover
-	\[
-		x=g\cdot x
-		\implies g^{-1}\cdot x=g^{-1}\cdot (g\cdot x)
-		=(g^{-1}g)\cdot x=e\cdot x=x
-		\tag*{\qedhere}
-	\]
+	We use the subgroup criterion:
+	\begin{description}
+		\item[\normalfont\emph{Non-emptiness}] Part (a) of Definition \ref{defn:action} says that $e\in \Stab(x)$.
+		\item[\normalfont\emph{Closure}] This is part (b) of the Definition. Let $g,h\in\Stab(x)$, then
+		\[
+			(gh)\cdot x=g\cdot(h\cdot x)
+			=g\cdot x=x\implies gh\in\Stab(x)
+		\]
+		\item[\normalfont\emph{Closure}] This relies on both parts of the Definition. If $g\in\Stab(x)$, then
+		\begin{align*}
+			x=g\cdot x
+			&\implies g^{-1}\cdot x=g^{-1}\cdot (g\cdot x)
+			=(g^{-1}g)\cdot x=e\cdot x=x\\
+			&\implies g^{-1}\in \Stab(x)
+			\tag*{\qedhere}
+		\end{align*}
+	\end{description}
 \end{proof}
+
+
+\pagebreak[3]
+
 
 \begin{example}{}{actiond3}
 	The dihedral group $D_3=\{e,\rho_1,\rho_2,\mu_1,\mu_2,\mu_3\}$ acts on the set $X$ of vertices of an equilateral triangle.\footnotemark\ The fixed sets and stabilizers for this action are as follows:\par
-	\begin{minipage}[t]{0.74\linewidth}\vspace{-10pt}
+	\begin{minipage}[t]{0.74\linewidth}\vspace{-17pt}
 		\[
 			\begin{array}[t]{c|c}
 				\text{Element $g$}&\Fix(g)\\\hline
@@ -140,19 +159,19 @@ Let $G\times X\to X$ be an action.
 		\]
 	\end{minipage}
 	\hfill
-	\begin{minipage}[t]{0.25\linewidth}\vspace{-20pt}
-		\flushright\includegraphics{perm-d3}
-	\end{minipage}\smallbreak
-	$D_3$ also acts on the set of \emph{edges} of the triangle $Y=\bigl\{\{1,2\},\{1,3\},\{2,3\}\bigr\}$. You needn't write all these out since, by the symmetry of the triangle, stabilizing an edge is equivalent to stabilizing its opposite vertex. Still, here is the data:
+	\begin{minipage}[t]{0.25\linewidth}\vspace{-17pt}
+		\flushright\includegraphics[scale=0.95]{perm-d3}
+	\end{minipage}\medbreak
+	$D_3$ also acts on the set of \emph{edges} of the triangle $E =\big\{\{1,2\},\{1,3\},\{2,3\}\big\}$. You needn't write all these out since stabilizing an edge is equivalent to stabilizing its opposite vertex. Still, here is the data:
 	\[
 		\begin{array}[t]{c|c}
 			\text{Element $g$}&\Fix(g)\\\hline
-			e&\bigl\{1,2,3\bigr\}\\
+			e&E\\
 			\rho_1&\emptyset\\
 			\rho_2&\emptyset\\
-			\mu_1&\bigl\{\{2,3\}\bigr\}\\
-			\mu_2&\bigl\{\{1,3\}\bigr\}\\
-			\mu_3&\bigl\{\{1,2\}\bigr\}
+			\mu_1&\big\{\{2,3\}\big\}\\
+			\mu_2&\big\{\{1,3\}\big\}\\
+			\mu_3&\big\{\{1,2\}\big\}
 		\end{array}
 		\qquad
 		\begin{array}[t]{c|c}
@@ -168,20 +187,16 @@ Let $G\times X\to X$ be an action.
 	Recall that $\rho_1$ rotates \ang{120} counter-clockwise, that $\rho_2=\rho_1^2$ and that $\mu_i$ reflects across the altitude through vertex $i$.
 }
 
-
 \begin{exercises}{}{}
-	Key concepts:
-	\begin{quote}
-		\emph{(left) action\quad $\Fix(g)$\quad $\Stab(x)\le G$\quad faithful/transitive actions}
-	\end{quote}
+	Key concepts:\quad \emph{(left) action\quad $\Fix(g)$\quad $\Stab(x)\le G$\quad faithful \& transitive actions}
 	
 	\begin{enumerate}
 	  \item For part \ref*{ex:orthmultaction} of Example \ref{ex:actioneasy}, determine whether each action is faithful and/or transitive.
 	
 		
-		\item\label{exs:orbitsigma1} Let $G=\ip{\sigma}\le S_6$ where $\sigma=(1\,2\,3\,4\,5\,6)$. $G$ acts on the set $X=\{1,2,3,4,5,6\}$ in a natural way.
+		\item\label{exs:orbitsigma1} Consider the cyclic subgroup $G=\ip\sigma$ of $S_6$ generated by the 6-cycle $\sigma=(1\,2\,3\,4\,5\,6)$.
 		\begin{enumerate}
-		  \item State the fixed sets and stabilizers for this action.
+		  \item State the fixed sets and stabilizers for the natural action of $G$ on the set $X=\{1,2,3,4,5,6\}$.
 		  \item Is the action of $G$ faithful? Transitive?
 		\end{enumerate}
 		
@@ -189,21 +204,29 @@ Let $G\times X\to X$ be an action.
 		\item\label{exs:orbitsigma2} Repeat the previous question when $\sigma=(1\,3)(2\,4\,6)$.
 		
 	
-		\item Mimic Example \ref{ex:actiond3} for the actions of $D_4$ on $X=\{$vertices$\}$ and $Y=\{$edges$\}$ of the square.\\
+		\item Mimic Example \ref{ex:actiond3} for the actions of $D_4$ on $X=\{$vertices$\}$ and $E=\{$edges$\}$ of the square.\\
 		(\emph{Use whatever notation you like; $\rho,\mu,\delta$ or cycle notation})
 	
 	
-		\item Suppose $G$ acts on $X$.
+		\item Prove that \emph{left multiplication} of $G$ on itself $g\cdot x=gx$ is:
 		\begin{enumerate}
-		  \item Let $Y\subseteq X$ and define $\Stab Y=\{g\in G:\forall y\in Y, g\cdot y=y\}$. Prove that $\Stab Y$ is a subgroup of $G$.
-			\item Let $G$ act on itself by conjugation ($X=G$!). What is another name for the subgroup $\Stab G$?
+		  \item \emph{Free}: $\textcolor{red}{\exists} x\in G,\ g\cdot x=x\Longrightarrow g=e$ \ (this is stronger than faithfulness [$\forall$ versus $\textcolor{red}{\exists}$]).
+		  \item \emph{Transitive}.
 		\end{enumerate}
-		
+			
+		\item Suppose that $G$ acts on itself ($X=G$) by \emph{conjugation} $g\cdot x= gx g^{-1}$.
+		\begin{enumerate}
+		  \item Prove that conjugation is faithful if and only if the \emph{center} is trivial: $Z(G)=\{e\}$.
+		  \item If $G$ is abelian, is conjugation faithful? Transitive? Explain.
+		  \item If $G=S_n$, is conjugation faithful? Transitive? Explain.
+		\end{enumerate}
+	
 	
 		\item Suppose $G$ has a left action on $X$. Prove that $G$ acts faithfully on $X$ if and only if no two distinct elements of $G$ have the same action on every element.
 	
 	\end{enumerate}
 \end{exercises}
+
 
 \clearpage
 
@@ -211,12 +234,12 @@ Let $G\times X\to X$ be an action.
 
 \subsection{Orbits \& Burnside's Formula}
 
-We first encountered orbits in the context of the symmetric groups $S_n$. The same idea applies to any action.
+We first met orbits in the context of the symmetric groups $S_n$. The same idea applies to any action.
 
 \begin{defn}{}{}
 	Let $G\times X\to X$ be an action. The \emph{orbit} of $x\in X$ under $G$ is the set of elements into which $x$ may be transformed:
 	\[
-		Gx=\{g\cdot x:g\in G\}\subseteq X
+		Gx=\{g\cdot x:g\in G\}\subseteq X \tag{also written $G\cdot x$}
 	\]
 \end{defn}
 
@@ -226,16 +249,16 @@ We first encountered orbits in the context of the symmetric groups $S_n$. The sa
 	\[
 		Gx=\{\sigma^k(x):k\in\Z\}=\orb_x(\sigma)
 	\]
-	The definition of orbits therefore coincides with that seen earlier in the course.
+	The definition of orbits therefore coincides with that in Section \ref{sec:orbits}.
 	\begin{enumerate}\setcounter{enumi}{1}
-	  \item A transitive \emph{action\footnotemark} has only one orbit.
+	  \item A transitive action\footnotemark{} has only one orbit.
 	  
 	  \item If $\rO_2(\R)$ acts on $\R^2$ by matrix multiplication, then the orbits are circles centered at the origin!
 	\end{enumerate}
 \end{examples}
 
 \footnotetext{%
-	Unhelpfully, we now have two distinct meanings of \emph{transitive}; one for equivalence relations and one for actions.%
+	We now have two meanings of \emph{transitive}; one for equivalence relations and one for actions. Be careful!%
 }
 
 
@@ -243,19 +266,9 @@ We first encountered orbits in the context of the symmetric groups $S_n$. The sa
 	The orbits of an action partition $X$.
 \end{lemm}
 
-Since this is almost identical to the corresponding result for orbits in $S_n$ (Lemma \ref{lemm:orbit}), we leave the proof as an exercise.\smallbreak
+We omit the proof: compare the special case where $S_n$ acts on $X=\{1,\ldots,n\}$ (Lemma \ref{lemm:orbit}).\smallbreak
 
-Our next result is analogous to Lemma \ref{lemm:homobij}, where we counted the number of (left) cosets of $\ker\phi$.
-
-% \begin{proof}
-% Define $x\sim y\iff y\in Gx\iff \exists g\in G$ such that $g\cdot x=y$. We claim that $\sim$ is an equivalence relation.
-% \begin{description}
-% 	\item[\normalfont\emph{Reflexivity}:] $x=e\cdot x\implies x\sim x$.
-% 	\item[\normalfont\emph{Symmetry}:] $g\cdot x=y\implies x=g^{-1}\cdot y$, thus $x\sim y\implies y\sim x$.
-% 	\item[\normalfont\emph{Transitivity}:] If $x\sim y$ and $y\sim z$, then $y=g\cdot x$ and $z=h\cdot y$ for some $g,h\in G$. But then $z=(hg)\cdot x$, whence $x\sim z$.\qedhere
-% \end{description}
-% \end{proof}
-
+Our next result is analogous to Lemma \ref{lemm:homobij} where we counted the number of (left) cosets of $\ker\phi$.
 
 
 \begin{lemm}{}{actionorbits2}
@@ -265,16 +278,15 @@ Our next result is analogous to Lemma \ref{lemm:homobij}, where we counted the n
 	\]
 \end{lemm}
 
-
 \begin{proof}
 	Observe that
-	\[
+	\begin{align*}
 		g\cdot x=h\cdot x
-		\iff h^{-1}g\cdot x=x
-		\iff h^{-1}g\in \Stab(x)
-		\iff g\Stab(x)=h\Stab(x)
-	\]
-	The contrapositive says that distinct elements of the orbit $Gx$ correspond to distinct left cosets.
+		&\iff h^{-1}g\cdot x=x
+		\iff h^{-1}g\in \Stab(x)\\
+		&\iff g\Stab(x)=h\Stab(x)
+	\end{align*}
+	Otherwise said (contrapositive) distinct elements of $Gx$ correspond to distinct left cosets.
 \end{proof}
 
 
@@ -288,19 +300,47 @@ Our next result is analogous to Lemma \ref{lemm:homobij}, where we counted the n
 		\sigma^4=(2\,7\,3),\quad 
 		\sigma^5=(1\,4)(2\,3\,7)
 		\]
-	The Lemma is easily verifiable: for instance if $x=3$,
+	The Lemma is easily verifiable: for instance,
 	\begin{gather*}
-		\Stab(x)=\{\tau\in G:\tau(3)=3\}=\{\sigma^k:\sigma^k(3)=3\}=\{e,\sigma^3\}\\
-		\implies (G:\Stab(x))=\frac 62=3=\nm{\{2,3,7\}}=\nm{Gx}
+		\Stab(3)=\{\tau\in G:\tau(3)=3\}=\{\sigma^k:\sigma^k(3)=3\}=\{e,\sigma^3\}\\
+		\implies \big(G:\Stab(3)\big)=\frac 62=3=\nm{\{2,3,7\}}=\nm{G3}
 	\end{gather*}
 \end{example}
 
+\boldsubsubsection{Burnside's Formula}
 
+It can be useful to count the \emph{number} of orbits of an action. For \emph{finite} actions, this can be done in two different ways, which leads to an interesting formula. We start by observing that
+% \[
+% 	S=\big\{(g,x)\in G\times X:g\cdot x=x\big\}
+% 	\quad\text{has cardinality}\quad
+% 	\nm S=\sum\limits_{x\in X}^{\phantom{a}}\nm{\Stab(x)}
+% 	=\sum\limits_{g\in G}\nm{\Fix(g)}
+% \]
+\[
+	S=\big\{(g,x)\in G\times X:g\cdot x=x\big\}
+\]
+has cardinality
+\[
+	\nm S=\sum\limits_{x\in X}\nm{\Stab(x)}
+	=\sum\limits_{g\in G}\nm{\Fix(g)}
+\]
+We now count the elements of $S$ in a different way. Since $(G:\Stab(x))=\frac{\nm G}{\nm{\Stab(x)}}$, we see that
+\[
+	\frac{\nm S}{\nm G}=\sum_{x\in X}\frac{\nm{\Stab(x)}}{\nm G}
+		=\sum_{x\in X}\frac 1{(G:\Stab(x))} 
+		=\sum_{x\in X}\frac{1}{\nm{Gx}}
+		\tag*{($\ast$)}
+\]
+where we used Lemma \ref{lemm:actionorbits2} for the last equality. Consider a fixed orbit $Gy$. Since $\nm{Gx}=\nm{Gy}$ is \emph{constant} for each $x\in Gy$, we conclude that
+\[
+	\sum_{x\in Gy}\frac{1}{\nm{Gx}}
+	=\frac{\nm{Gy}}{\nm{Gy}}=1
+\]
+The summation ($\ast$) therefore counts 1 for \emph{each distinct orbit}. In concludsion:
 
-It is often useful to count the \emph{number} of orbits of an action. For \emph{finite} actions, this turns out to be possible in two different ways.
 
 \begin{thm}{Burnside's formula}{}
-	Let $G$ be a finite group acting on a finite set $X$. Then the number of orbits in $X$ under $G$ satisfies
+	Let $G$ be a finite group acting on a finite set $X$. Then
 	\[
 		\text{\# orbits}
 		=\frac{1}{\nm G}\sum_{x\in X}\nm{\Stab(x)}
@@ -308,38 +348,38 @@ It is often useful to count the \emph{number} of orbits of an action. For \emph{
 	\]
 \end{thm}
 
-\begin{proof}
-	By Lemma \ref{lemm:actionorbits2},
-	It follows that
-	\[
-		\frac 1{\nm G}\sum_{x\in X}\nm{\Stab(x)} 
-		=\sum_{x\in X}\frac{\nm{\Stab(x)}}{\nm G} 
-		=\sum_{x\in X}\frac 1{(G:\Stab(x))} 
-		=\sum_{x\in X}\frac{1}{\nm{Gx}}
-		\tag*{($\ast$)}
-	\]
-	Consider a fixed orbit $Gy$. Since $\nm{Gx}=\nm{Gy}$ for each $x\in Gy$, we see that
-	\[
-		\sum_{x\in Gy}\frac{1}{\nm{Gx}}
-		=\frac{\nm{Gy}}{\nm{Gy}}=1
-	\]
-	The sum ($\ast$) therefore counts 1 for each distinct orbit in $X$ and therefore returns the number of orbits.\smallbreak
-	For the second equality, observe that
-	\[
-		S=\{(g,x)\in G\times X:g\cdot x=x\}
-	\]
-	has cardinality
-	\[
-		\nm S=\sum\limits_{x\in X}\nm{\Stab(x)}
-		=\sum\limits_{g\in G}\nm{\Fix(g)}
-		\tag*{\qedhere}
-	\]
-\end{proof}
+% \begin{proof}
+% 	By Lemma \ref{lemm:actionorbits2},
+% 	It follows that
+% 	\[
+% 		\frac 1{\nm G}\sum_{x\in X}\nm{\Stab(x)} 
+% 		=\sum_{x\in X}\frac{\nm{\Stab(x)}}{\nm G} 
+% 		=\sum_{x\in X}\frac 1{(G:\Stab(x))} 
+% 		=\sum_{x\in X}\frac{1}{\nm{Gx}}
+% 		\tag*{($\ast$)}
+% 	\]
+% 	Consider a fixed orbit $Gy$. Since $\nm{Gx}=\nm{Gy}$ for each $x\in Gy$, we see that
+% 	\[
+% 		\sum_{x\in Gy}\frac{1}{\nm{Gx}}
+% 		=\frac{\nm{Gy}}{\nm{Gy}}=1
+% 	\]
+% 	The sum ($\ast$) therefore counts 1 for each distinct orbit in $X$ and therefore returns the number of orbits.\smallbreak
+% 	For the second equality, observe that
+% 	\[
+% 		S=\{(g,x)\in G\times X:g\cdot x=x\}
+% 	\]
+% 	has cardinality
+% 	\[
+% 		\nm S=\sum\limits_{x\in X}\nm{\Stab(x)}
+% 		=\sum\limits_{g\in G}\nm{\Fix(g)}
+% 		\tag*{\qedhere}
+% 	\]
+% \end{proof}
 
 
 
 \begin{example*}{\ref{ex:burnsimple} cont}{}
-	When $G=\ip\sigma=\ip{(1\,4)(2\,7\,3)}$ acts on $X=\{1,2,3,4,5,6,7\}$, the stabilizers and fixed sets are as follows:
+	Recall that $G=\ip\sigma=\ip{(1\,4)(2\,7\,3)}$ acting on $X=\{1,2,3,4,5,6,7\}$ has \emph{four} orbits. The stabilizers and fixed sets are as follows:
 	\[
 		\begin{array}{c|c}
 			x\in X&\Stab(x)\\\hline
@@ -363,7 +403,7 @@ It is often useful to count the \emph{number} of orbits of an action. For \emph{
 			\multicolumn{2}{c}{}
 		\end{array}
 	\]
-	Burnside's formula just sums the number of elements in all of the subsets in the right column of each table:
+	Burnside's formula merely sums the cardinalities of all the subsets in the right column of each table:
 	\begin{align*}
 		4=\text{\# orbits}
 		&=\frac{1}{\nm G}\sum_{x\in X}\nm{\Stab(x)}
@@ -373,18 +413,17 @@ It is often useful to count the \emph{number} of orbits of an action. For \emph{
 	\end{align*}
 \end{example*}
 
-\goodbreak
 
-One reason to count the number of orbits of an action is that we often want to consider objects as equivalent if they differ by the action of some simple group.
+
+One reason to count the number of orbits of an action is that we often want to consider objects as equivalent if they differ by the action of some group.
 
 \begin{example}{}{toy}
-	A child's toy consists of a wooden equilateral triangle where the edges are to be painted using any choice of colors from the rainbow. How many distinct toys could we create?\smallbreak
-	There are two problems: we need to describe the variety of possible toys, and we need to know what \emph{distinct} means!\smallbreak
-	We use group actions to address both problems:
+	A child's toy consists of a wooden equilateral triangle whose edges are painted using any choice of colors of the rainbow. How many distinct toys could we create?\smallbreak
+	This might feel like an imprecisely-posed problem, but think for a moment like a child: wouldn't they likely consider the two pictured triangles below to be the same? The language of group actions can help make this precise.
 	\begin{itemize}
-	  \item A toy may be considered as a subset of $X=\{$painted triangles$\}=\{$ordered color triples$\}$. Since there are 7 choices for the color of each edge, we see that $\nm X=7^3=343$ is a large set!
+	  \item If we orient each triangle the same way, then a single toy may be considered as an element of $X=\{$ordered color triples$\}$. Since there are 7 choices for the color of each edge, we see that $\nm X=7^3=343$ (a large set!).\par
 		\begin{minipage}[t]{0.55\linewidth}\vspace{0pt}
-		  \item Two toys are equivalent if they differ by a rotation in 3-dimensions. This amount to the natural action of $D_3$ on $X$: for instance
+		  \item Two toys are equivalent if they differ only by a rotation in 3-dimensions. This amounts to the natural action of $D_3$ on $X$: for instance, taking $\rho_1$ to rotate \ang{120} counter-clockwise,
 		  \[
 		  	\rho_1\cdot (\text{red,green,violet})
 		  	=(\text{violet,red,green})
@@ -395,72 +434,74 @@ One reason to count the number of orbits of an action is that we often want to c
 			\hfill\includegraphics{actions-triangles}
 		\end{minipage}
 	\end{itemize}
-	The number of orbits is the number of distinct toys, which we may compute using Burnside. Since it would be time consuming to compute the stabilizer of each element of $X$, we use the fixed set approach.
-	\begin{itemize}
-	  \item Identity $e$: \ Plainly $\Fix(e)=X$, since $e$ leaves every coloring unchanged.
-	  \item Rotations $\rho_1,\rho_2$: \ If a color-scheme is fixed by $\rho_j$, then all pairs of adjacent edges must be the same color. The only color-schemes fixed by $\rho_j$ are those where all sides have the same color, whence $\nm{\Fix(\rho_i)}=7$.
-	  \item Reflections $\mu_1,\mu_2,\mu_3$: \ Since $\mu_j$ swaps two edges, anything in its fixed set must have these edges the same. We have 7 choices for the color of the switched edges, and an independent choice of 7 colors for the other edge, whence $\nm{\Fix(\mu_j)}=7^2=49$.
-	\end{itemize}
+	The number of distinct toys is therefore the number of orbits of $D_3$ on $X$, which we may compute using Burnside. Since it would be time consuming to find the stabilizer of each element of $X$, we use the fixed set approach.
+	\begin{description}
+	  \item[\normalfont\emph{Identity} $e$:] For any action $\Fix(e)=X$.
+	  \item[\normalfont\emph{Rotations} $\rho_1,\rho_2$:] If a color-scheme is fixed by $\rho_j$, then all pairs of adjacent edges must be the same color. Since there are seven colors in the rainbow, we see that $\nm{\Fix(\rho_i)}=7$.
+	  \item[\normalfont\emph{Reflections} $\mu_1,\mu_2,\mu_3$:] Since $\mu_j$ swaps two edges, any color-scheme in its fixed set must have these edges the same color. We have 7 choices for the color of the switched edges, and an independent choice of 7 colors for the other edge. It follows that $\nm{\Fix(\mu_j)}=7^2=49$.
+	\end{description}
 	The number of distinct toys is therefore
 	\begin{align*}
 		\text{\# orbits}
 		&=\frac 1{\nm{D_3}}\sum_{\sigma\in D_3}\nm{\Fix(\sigma)}
-			=\frac 16(7^3+7+7+7^2+7^2+7^2)\\
+			=\frac 16(7^3 + \!\underbrace{7+7}_{\text{rotations}}\! + \,\underbrace{7^2+7^2+7^2}_{\text{reflections}})\\
 		&=\frac 76(49+1+1+7+7+7)=84
-	\end{align*}
-	The question was a little tricky because we are allowed multiple sides to have the same color. A simpler version would restrict to the situation where all sides had to be different colors. In this case $D_3$ acts on a set of color schemes with cardinality $\nm Y=7\cdot 6\cdot 5=210$. Moreover, only the identity element has a non-empty fixed set; in this situation the number of distinct toys would be
+	\end{align*}\smallskip
+	
+	For simpler version of the problem, consider the situation where all sides must be different colors. In this case $D_3$ acts on a set of color-schemes with cardinality $\nm Y=7\cdot 6\cdot 5=210$. Moreover, only the identity element has a non-empty fixed set. The number of distinct three-colored toys is therefore
 	\[
 		\text{\# orbits}
 		=\frac 1{\nm{D_3}}\sum_{\sigma\in D_3}\nm{\Fix(g)}
 		=\frac 16(210+0+\cdots+0)
 		=\frac{210}6=35
 	\]
-	Of course you could answer these questions by pure combinatorics without any resort to group theory!
+	Of course you are welcome to answer questions like these using pure combinatorics without any resort to group theory!
 \end{example}
 
-\goodbreak
+\pagebreak[3]
 
-\boldsubsubsection{Dice-rolling for Geeks!}
+\begin{example}{Dice-rolling for Geeks}{}
+	Various games (such as Dungeons \& Dragons) make use of polyhedral dice beyond merely the cube (see, for instance, Exercise \ref*{sec:geomgroups}.\ref{exs:dnddice}).\medbreak
+	Since dice are for rolling, we consider two such to be equivalent if one can be rotated into the other. It shouldn't be hard to convince yourself that the pictured tetrahedral dice are distinct (non-equivalent): the first \emph{cannot} be rotated to make the second.\par
+	\begin{minipage}[t]{0.6\linewidth}\vspace{-5pt}
+		Indeed, it is not difficult to see that these are the \emph{only} tetrahedral dice: if you place 4 on the table, then the remaining faces must be numbered 1, 2, 3 either \emph{counter-clockwise} or \emph{clockwise}.\medbreak
+		For larger dice, such a counting approach is impractical. However, with a little thinking about symmetry groups, Burnside's formula will ride to the rescue.
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.39\linewidth}\vspace{-10pt}
+		\flushright
+			\href{https://www.math.uci.edu/~ndonalds/math120a/perm-a4.html}{\includegraphics[scale=0.1]{perm-a4.png}}
+			\quad
+		  \href{https://www.math.uci.edu/~ndonalds/math120a/actions-a4-2.html}{\includegraphics[scale=0.1]{actions-a4-2.png}}
+	\end{minipage}
+	\bigbreak
 
-\begin{minipage}[t]{0.69\linewidth}\vspace{-10pt}
-	Games like Dungeons \& Dragons make use of several differently shaped dice: rather than simply using the standard 6-sided cubic die, situations might require rolling, say, a 4-sided tetrahedral die or a 20-sided icosahedral die.\smallbreak
-	Since dice are designed for rolling, we consider two dice to be the same if one can be rotated into the other. Play with the two tetrahedral dice on the right; you should be convinced that you cannot rotate one to make the other so these dice are distinct.\smallbreak
-	It is not difficult to see that, up to rotations, these are the \emph{only} tetrahedral dice just by counting!
-	\begin{itemize}
-	  \item Place face 4 on the table.
-	  \item When looking from above, the remaining faces are numbered 1, 2, 3 either clockwise or counter-clockwise. 
-	\end{itemize}
-	For larger dice, this approach is not practical! However, with a little thinking about symmetry groups, Burnside's formula will ride to the rescue.\smallbreak
 	Suppose a regular polyhedron has $f$ faces, each with $n$ sides.
-	\end{minipage}\hfill\begin{minipage}[t]{0.3\linewidth}\vspace{-20pt}
-	\flushright
-		\href{https://www.math.uci.edu/~ndonalds/math120a/perm-a4.html}{\includegraphics[scale=0.15]{perm-a4.png}}\bigbreak
-	  \href{https://www.math.uci.edu/~ndonalds/math120a/actions-a4-2.html}{\includegraphics[scale=0.15]{actions-a4-2.png}}
-\end{minipage}\par
-
-\begin{itemize}
-  \item The faces may be labelled 1 thorough $f$ in $f!$ distinct ways: the set of distinct labellings is $X$.
-  \item We may rotate the polyhedron so that any face is mapped to any other, \emph{in any orientation.} It follows that the rotation group $G$ has $fn$ elements.
-	\item Each non-identity element of the rotation group moves at least one face, whence
-	\[
-		\nm{\Fix(g)}=
-		\begin{cases}
-			X&\text{if }g=e\\
-			\emptyset&\text{if }g\neq e
-		\end{cases}
-	\]
-	\item The number of distinct dice for a regular polyhedron is therefore
-	\[
-		\text{\# orbits}
-		=\frac 1{\nm G}\nm{\Fix(e)}
-		=\frac{\nm X}{\nm G}
-		=\frac{f!}{fn}
-		=\frac{(f-1)!}{n}
-	\]
-	We don't need to know what the rotation group is, only its \emph{order}. For completeness, here are all the possibilities for the regular platonic solids.
+	\begin{itemize}
+	  \item The faces may be labelled 1 thorough $f$ in $f!$ distinct ways. Denote the set of distinct labellings by $X$.
+	  \item We may rotate the polyhedron so that any face is mapped to any other, \emph{in any orientation.} For instance, the face labelled 1 may be rotated to any of the $f$ faces, before rotating the polyhedron around that face in any of $n$ orientations. The rotation group $G$ of the polyhedron therefore has $fn$ elements.
+		\item Each non-identity element of the rotation group $G$ moves at least one face, whence
+		\[
+			\nm{\Fix(g)}=
+			\begin{cases}
+				X&\text{if }g=e\\
+				\emptyset&\text{if }g\neq e
+			\end{cases}
+		\]
+		\item By Burnside's formula, the number of distinct dice for a regular polyhedron is therefore
+		\[
+			\text{\# orbits}
+			=\frac 1{\nm G}\nm{\Fix(e)}
+			=\frac{\nm X}{\nm G}
+			=\frac{f!}{fn}
+			=\frac{(f-1)!}{n}
+		\]
+	\end{itemize}
+	
+	Here is the complete data for all the regular platonic solids.
 	\begin{quote}
-		\begin{tabular}{l|c|c|c|l}
-			Polyhedron & $f$ & $n$ & Rotation Group & $\#$ distinct dice\\\hline
+		\begin{tabular}{l||c|c|c|l}
+			Polyhedron & $f$ & $n$ & Rotation Group & $\#$ distinct dice (orbits)\\\hline\hline
 			Tetrahedron & 4 & 3 & $A_4$ & 2\\
 			Cube & 6 & 4 & $S_4$ & 30\\
 			Octahedron & 8 & 3 &  $S_4$ & 1,680\\
@@ -468,12 +509,106 @@ One reason to count the number of orbits of an action is that we often want to c
 			Icosahedron & 20 & 3 & $A_5$ & 40,548,366,802,944,000
 		\end{tabular}
 	\end{quote}
-\end{itemize} 
+	Note that we don't need an explicit description of the rotation group, only its \emph{order} $\nm G$. We saw that the rotation group of regular tetrahedron was $A_4$ in Example \ref{ex:tetra}.\ref{ex:tetra2}. Proving that the remaining groups are as claimed is somewhat trickier\ldots
+\end{example}
 
 
-\goodbreak
+\pagebreak[3]
 
-\boldsubsubsection{Subgroups of Prime Order \& the Class Equation}
+
+\begin{exercises}{}{}
+	Key concepts:\qquad \emph{Orbits partition $X$\qquad $\nm{Gx}=(G:\Stab(x))$\qquad	Burnside's formula}
+	
+	\begin{enumerate}
+	  \item Determine the orbits of $G=\ip\sigma$ on $X=\{1,2,3,4,5,6\}$ for each of Exercises \ref*{sec:action1}.\ref{exs:orbitsigma1} and \ref{exs:orbitsigma2}. In both cases verify Burnside's formula.
+	  
+	  
+		\item Revisit Example \ref{ex:toy}. How may distinct toys may be created if:
+		\begin{enumerate}
+		  \item A maximum of two colors can be used?
+		  \item Exactly two colors must be used?
+		\end{enumerate}
+		
+	  
+	  \item Prove Lemma \ref{lemm:actionorbit}: the orbits of a (left) action partition $X$.
+	  
+		
+		\item A 10-sided die (see Exercise \ref*{sec:geomgroups}.\ref{exs:dnddice}) is shaped so that all faces are congruent \emph{kites}: five faces are arranged around the north pole and five around the south.
+		\begin{enumerate}
+		  \item Argue that the group of rotational symmetries of such a die has ten elements, and that it is isomorphic to $D_5$.
+		  \item Use Burnside's formula to determine how many distinct 10-sided dice (faces numbered 1 to 10) may be produced.
+		\end{enumerate}
+		
+	
+	
+	
+	
+		\begin{minipage}[t]{0.74\linewidth}\vspace{-6pt}
+			\item A soccer ball is constructed from 20 regular hexagons and 12 regular pentagons as in the picture.\par
+			Suppose the 20 hexagonal patches are all to have different colors, as are the 12 pentagonal patches. How many distinct balls may be produced?
+			
+			\item The faces of a cuboid measuring $1\times 1\times 2$\,in are to be painted using (at most) two colors. Up to equivalence by rotations, how many ways can this be done? 
+		\end{minipage}\hfill\begin{minipage}[t]{0.25\linewidth}\vspace{-25pt}
+			\flushright\includegraphics[scale=0.15]{ball}
+		\end{minipage}
+		
+		
+			
+	
+		%is to be made into an extremely unfair die by painting the numbers 1 to 6, one on each face. If we assume that the orientation of the numbers on each face is irrelevant, how many distinct dice can we make?\\
+	% To apply Burnside we need a set $X$ and group $G$ acting on $X$ such that the orbits of the action consist of indistinct dice. Thus let $X$ be the set of all possible labelings of the faces and $G$ be the group of rotations of the prism. There are clearly $6!$ possible ways to label the faces. The group of rotations is a little trickier. Consider one of the square faces. We can leave this face where it is by performing the identity of one of three rotations. Alternatively, we can swap this face with the other square face before rotating. The result is a rotation group\footnote{We don't need to know $G$ in terms of the standard lists, just its order. However, it isn't hard to see that the rotation group is isomorphic to $D_4$.} of order 8. learly the cyclic group of order 4, generated by a $90^\circ$ rotation. Every face of a labelled cuboid has a different number, thus any element of the rotation group changes every labelling, with the exception of the identity which changes nothing. Therefore
+	% \[\Fix(g)=\begin{cases}
+	%       X,&\text{if }g=e,\\ \emptyset,&\text{if }g\neq e.
+	%       \end{cases}\]
+	% It follows that the number of distinct dice is
+	% \[\frac{1}{\nm G}\sum_{g\in G}\nm{\Fix(g)}=\frac{6!}{8}=90.\]
+	% This question can also be answered very simply using combinatorics. There are $\binom{6}{2}$ choices for the pair of numbers to be painted on the square ends. Once these are chosen, there are 6 configurations of the remaining 4 numbers on the longer sides (up to rotation of the end squares). We therefore obtain $\binom{6}{2}\cdot 6=90$ distinct dice.
+	
+	
+		\item Repeat the previous question for a regular tetrahedron.
+		
+		
+		\def\ca#1{\textcolor{red}{#1}}
+		\def\cb#1{\textcolor{blue}{#1}}
+		\def\cc#1{\textcolor{Green}{#1}}
+		\def\cd#1{\textcolor{Magenta}{#1}}
+		\begin{minipage}[t]{0.69\linewidth}\vspace{0pt}
+			\item (Hard) A cube has four \emph{diagonals}: $\ca{a},\cb{b},\cc{c},\cd{d}$, which are permuted by its rotation group. For instance, we might rotate by \ang{180} around an axis through the midpoints of the sides $\cl{\ca{a_1}\cb{b_1}}$ and $\cl{\ca{a_2}\cb{b_2}}$. This switches diagonals $\ca{a}$ and $\cb{b}$, but leaves $\cc{c}$ and $\cd{d}$ alone and therefore acts as the 2-cycle $(\ca{a}\,\cb{b})$ on $\{\ca{a},\cb{b},\cc{c},\cd{d}\}$. As a function on vertices,
+			\[
+				(\ca{a}\,\cb{b}):
+				\begin{pmatrix}
+					\ca{a_1}&\cb{b_1}&\cc{c_1}&\cd{d_1}\\
+					\ca{a_2}&\cb{b_2}&\cc{c_2}&\cd{d_2}
+				\end{pmatrix}
+				\mapsto
+				\begin{pmatrix}
+					\cb{b_1}&\ca{a_1}&\cc{c_2}&\cd{d_2}\\
+					\cb{b_2}&\ca{a_2}&\cc{c_1}&\cd{d_1}
+				\end{pmatrix}
+			\]
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.3\linewidth}\vspace{0pt}
+			\hfill\href{https://www.math.uci.edu/~ndonalds/math120a/actions-cube.html}{\includegraphics[scale=0.9]{actions-cube}}
+		\end{minipage}
+		
+		
+		\begin{enumerate}
+		  \item Describe as best you can how to rotate the cube in a way that corresponds to each of the following rotations (written in cycle notation):
+		  \[
+		  	(\ca{a}\,\cb{b}\,\cc{c}),\quad (\ca{a}\,\cb{b}\,\cc{c}\,\cd{d}),\quad (\ca{a}\,\cb{b})(\cc{c}\,\cd{d})
+		  \]
+		  Hence argue that the rotation group of the cube is isomorphic to $S_4$.
+		  \item A cube can operate as a ``3-sided'' die by labelling two each of its faces using the numbers 1, 2, 3. In how many distinct ways can this be done?
+		\end{enumerate}
+	\end{enumerate}
+\end{exercises}
+
+\clearpage
+
+\iffalse
+
+\subsection{Subgroups of Prime Order \& the Class Equation}
 
 We finish with a taste of where group theory traditionally goes next.\smallbreak
 
@@ -495,6 +630,7 @@ When $G$ acts on itself by conjugation, the 1-element orbits together comprise t
 		=1+6+8+6+3
 	\]
 \end{example}
+Ex repeat for $S_3$, etc.
 
 Here is an example of how the class equation may be applied.
 
@@ -534,66 +670,7 @@ Here is an example of how the class equation may be applied.
 Haven't we done this already?! Exercise \ref*{sec:direct}.\ref{exs:abeliansubgroup} appears to cover abelian groups, but this depends on the Fundamental Theorem (\ref{thm:fund}) whose proof requires Cauchy for abelian groups\ldots! Indeed Cauchy's Theorem may be extended to prove that if $p^k$ divides $G$, then $G$ has a subgroup of order $p^k$. This is the beginning of the Sylow theory of $p$-subgroups which has applications to group classification and the existence of sequences of normal subgroups. 
 
 
-\goodbreak
-
-\begin{exercises}{}{}
-	Key concepts:
-	\begin{quote}
-		\emph{Orbits of $G$ partition $X$\qquad Cardinality of orbit $\nm{Gx}=(G:\Stab(x))$ divides $\nm G$\\
-	Burnside's formula for counting number of orbits}
-	\end{quote}
-	
-	\begin{enumerate}
-	  \item Determine the orbits of $G=\ip\sigma$ on $X=\{1,2,3,4,5,6\}$ for each of Exercises \ref*{sec:action1}.\ref{exs:orbitsigma1} and \ref{exs:orbitsigma2}. In both cases verify Burnside's formula.
-	  
-	  
-		\item Revisit Example \ref{ex:toy}. How may distinct toys may be created if:
-		\begin{enumerate}
-		  \item A maximum of two colors can be used?
-		  \item Exactly two colors must be used?
-		\end{enumerate}
-		
-	  
-	  \item Prove Lemma \ref{lemm:actionorbit}: the orbits of a left action partition $X$.
-	  
-		
-		\item A 10-sided die is shaped so that all faces are congruent \emph{kites}: five faces are arranged around the north pole and five around the south, so that each face is adjacent to four others.
-		\begin{enumerate}
-		  \item Argue that the group of rotational symmetries of such a die has ten elements.\par
-		  (\emph{In fact it is non-abelian and is therefore isomorphic to $D_5$}).
-		  \item Use Burnside's formula to determine how many distinct 10-sided dice may be produced.
-		\end{enumerate}
-		
-	
-	
-	
-	
-		\begin{minipage}[t]{0.74\linewidth}\vspace{-6pt}
-			\item A soccer ball is constructed from 20 regular hexagons and 12 regular pentagons as in the picture.\par
-			Suppose the 20 hexagonal patches are all to have different colors, as are the 12 pentagonal patches. How many distinct balls may be produced?
-			
-			\item The faces of a cuboid measuring $1\times 1\times 2$\,in is to be painted using (at most) two colors. Up to equivalence by rotations, how many ways can this be done? 
-		\end{minipage}\hfill\begin{minipage}[t]{0.25\linewidth}\vspace{-25pt}
-			\flushright\includegraphics[scale=0.15]{ball}
-		\end{minipage}
-		
-		
-			
-	
-		%is to be made into an extremely unfair die by painting the numbers 1 to 6, one on each face. If we assume that the orientation of the numbers on each face is irrelevant, how many distinct dice can we make?\\
-	% To apply Burnside we need a set $X$ and group $G$ acting on $X$ such that the orbits of the action consist of indistinct dice. Thus let $X$ be the set of all possible labelings of the faces and $G$ be the group of rotations of the prism. There are clearly $6!$ possible ways to label the faces. The group of rotations is a little trickier. Consider one of the square faces. We can leave this face where it is by performing the identity of one of three rotations. Alternatively, we can swap this face with the other square face before rotating. The result is a rotation group\footnote{We don't need to know $G$ in terms of the standard lists, just its order. However, it isn't hard to see that the rotation group is isomorphic to $D_4$.} of order 8. learly the cyclic group of order 4, generated by a $90^\circ$ rotation. Every face of a labelled cuboid has a different number, thus any element of the rotation group changes every labelling, with the exception of the identity which changes nothing. Therefore
-	% \[\Fix(g)=\begin{cases}
-	%       X,&\text{if }g=e,\\ \emptyset,&\text{if }g\neq e.
-	%       \end{cases}\]
-	% It follows that the number of distinct dice is
-	% \[\frac{1}{\nm G}\sum_{g\in G}\nm{\Fix(g)}=\frac{6!}{8}=90.\]
-	% This question can also be answered very simply using combinatorics. There are $\binom{6}{2}$ choices for the pair of numbers to be painted on the square ends. Once these are chosen, there are 6 configurations of the remaining 4 numbers on the longer sides (up to rotation of the end squares). We therefore obtain $\binom{6}{2}\cdot 6=90$ distinct dice.
-	
-	
-		\item Repeat the previous question for a regular tetrahedron.
-		
-		
-		
+\begin{exercises}{}
 		\item Suppose $G$ is a finite group with order $p^n$ where $p$ is a prime. If $x\in G$ lies in a conjugacy class with at least 2 elements, prove that the order of $\Stab(x)$ divides $p^{n-1}$. Now use the class equation to prove that $p$ divides the order of the center $Z(G)$.
 	% 	If $Gx$ is an orbit with at least 2 elements, then $\nm{Gx}=\frac{\nm G}{\Stab(x)}=\frac{p^n}{\Stab (x)}\ge 2\implies \nm{\Stab(x)}\le \frac 12p^n<p^n$. Since $\Stab(x)$ is a subgroup of $G$ it must have order dividing $p^n$.
 	% 	
@@ -614,13 +691,11 @@ Haven't we done this already?! Exercise \ref*{sec:direct}.\ref{exs:abeliansubgro
 		  \end{enumerate}
 		\end{enumerate}
 		
-		
-	\end{enumerate}
 \end{exercises}
 
-\clearpage
+\goodbreak
 
-\iffalse
+
 
 \subsection{The Sylow Theorems (optional and non-examinable)}
 
