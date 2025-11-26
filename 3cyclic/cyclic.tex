@@ -838,7 +838,7 @@ Recall that $\Z_2\times\Z_3\cong \Z_6$ is cyclic, whereas $\Z_2\times\Z_2\cong V
 
 \boldsubsubsection{The Fundamental Theorem of Finite(ly Generated) Abelian Groups}
 
-We've used the direct product to create finite abelian groups from cyclic building blocks. While we don't have the technology to prove it, our final result provides a powerful converse.
+Direct products create finite abelian groups from cyclic building blocks. Our final result provides a powerful converse, though we don't have the technology to prove it (yet---though see Section \ref{sec:pgroup}).
 
 \begin{thm}{}{fund}
 	Every finite abelian group is isomorphic to a group of the form
@@ -971,7 +971,7 @@ There are \emph{nine} non-isomorphic non-abelian groups of order 16: $D_8$ and t
 		\item State three non-isomorphic groups of order 50.
 		
 		
-		\item Suppose $p,q$ are distinct primes. Up to isomorphism, how many abelian groups are there of order $p^2q^2$?
+		\item Let $p,q$ be distinct primes. Up to isomorphism, how many abelian groups have order $p^2q^2$?
 		
 		
 		\item Give a simple explanation for why $D_8$ is not isomorphic to $\Z_2\times Q_8$.
@@ -990,8 +990,8 @@ There are \emph{nine} non-isomorphic non-abelian groups of order 16: $D_8$ and t
 		\end{enumerate}
 		
 		
-		\item\label{exs:abeliansubgroup} Suppose $G$ is a finite abelian group and that $m$ is a divisor of $\nm G$. Prove that $G$ has a subgroup of order $m$.\par
-		(\emph{Hint: use the prime decomposition of $m$ and the fundamental theorem to identify a suitable subgroup of $\Z_{p_1^{r_1}}\times\cdot\times\Z_{p_k^{r_k}}$ })
+		\item\label{exs:abeliansubgroup} Suppose $G$ is finite abelian and that $m$ divides $\nm G$. Prove that $G$ has a subgroup of order $m$.\par
+		(\emph{Hint: use the prime decomposition of $m$ and the Fundamental Theorem})
 		
 	 	
 		\item Suppose $G$ is an abelian group and let $T\subseteq G$ be the subset of elements with \emph{finite order.}
@@ -1004,6 +1004,26 @@ There are \emph{nine} non-isomorphic non-abelian groups of order 16: $D_8$ and t
 		    \item $G=(\R^\times,\cdot)$\qquad\qquad ii. \ $G=(S^1,\cdot)$
 			\end{enumerate}
 		\end{enumerate}
+		
+		
+% 		\item\label{exs:directprodabelian} Let $G$ be abelian. Suppose it has subgroups $H,K$ which satisfy
+% 		\[
+% 			G=HK=\{hk:h\in H,k\in K\}\quad\text{and}\quad H\cap K=\{e\}
+% 		\]
+% 		Prove that $H\times K\cong G$ via the isomorphism $\psi:(h,k)\mapsto hk$.
+		
+% 		\item We first check the $\psi$ is a homomorphism:
+% 			\begin{align*}
+% 				\psi\big((h_1,k_1)(h_2,k_2)\bigr) &=\psi(h_1h_2,k_1k_2)=h_1h_2k_1k_2 =h_1k_1h_2k_2 \tag{$G$ abelian}\\
+% 				&=\psi(h_1,k_1)\psi(h_2,k_2)
+% 			\end{align*}
+% 			Now observe injectivity:
+% 			\[
+% 				\psi(h_1,k_1)=\psi(h_2,k_2)\implies h_1k_1=h_2k_2\implies h_2^{-1}h_1=k_1k_2^{-1}
+% 			\]
+% 			This last lies in $H\cap K$, and so must be the identity. We conclude that $(h_1,k_1)=(h_2,k_2)$.\par
+% 			Finally, $\psi$ is surjective by definition.
+			
 	
 	\end{enumerate}
 \end{exercises}
