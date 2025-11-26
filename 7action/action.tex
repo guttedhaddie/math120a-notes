@@ -94,7 +94,7 @@ Very loosely, an action that is both faithful and transitive is likely reasonabl
 	  
 	  \item $D_n$ acts faithfully and transitively on the orientations of the $n$-gon.
 	  
-	  \item The action of a group on itself by left multiplication is both faithful and transitive. Conjugation is more complex: in most situations it is neither.
+	  \item The action of a group on itself by left multiplication is both faithful and transitive. Conjugation is more complex: in this context, the stabilizer of $x\in G$ is called its \emph{centralizer} $C(x)=\Stab(x)$.
 	  
 	  \item The action of $\rO_2(\R)$ on $\R^2$ is faithful but not transitive: for instance the zero vector cannot be transformed into any other vector so $\Stab(\V0)=\rO_2(\R)$.
 	  
@@ -232,7 +232,7 @@ Very loosely, an action that is both faithful and transitive is likely reasonabl
 
 
 
-\subsection{Orbits \& Burnside's Formula}
+\subsection{Orbits \& Burnside's Formula}\label{sec:burnside}
 
 We first met orbits in the context of the symmetric groups $S_n$. The same idea applies to any action.
 
@@ -291,8 +291,8 @@ Our next result is analogous to Lemma \ref{lemm:homobij} where we counted the nu
 \end{proof}
 
 
-\begin{example}{}{burnsimple}
-	Let $\sigma=(1\,4)(2\,7\,3)\in S_7$. Consider $X=\{1,2,3,4,5,6,7\}$ under the action of the cyclic group $G=\ip{\sigma}$. The orbits are precisely the disjoint cycles: $\{1,4\}$, $\{2,3,7\}$, $\{5\}$, $\{6\}$. Observe that $G$ has six elements:
+\begin{examples}{}{burnsimple}
+	\exstart Let $\sigma=(1\,4)(2\,7\,3)\in S_7$. Consider $X=\{1,2,3,4,5,6,7\}$ under the action of the cyclic group $G=\ip{\sigma}$. The orbits are precisely the disjoint cycles: $\{1,4\}$, $\{2,3,7\}$, $\{5\}$, $\{6\}$. Observe that $G$ has six elements:
 	\[
 		e,\quad 
 		\sigma=(1\,4)(2\,7\,3),\quad 
@@ -306,25 +306,32 @@ Our next result is analogous to Lemma \ref{lemm:homobij} where we counted the nu
 		\Stab(3)=\{\tau\in G:\tau(3)=3\}=\{\sigma^k:\sigma^k(3)=3\}=\{e,\sigma^3\}\\
 		\implies \big(G:\Stab(3)\big)=\frac 62=3=\nm{\{2,3,7\}}=\nm{G3}
 	\end{gather*}
-\end{example}
+	\begin{enumerate}\setcounter{enumi}{1}
+	  \item\label{exs:burnsimple2} In Exercise \ref*{sec:conj}.\ref{exs:centralizerSn} we computed several centralizers (stabilizers under conjugation). Notice what the Lemma says about the size of the orbit of the 3-cycle $\sigma=(1\,2\,3)$ under conjugation:
+	  \[
+	  	\nm{S_3(\sigma)}=\frac{\nm{S_3}}{\nm{C(\sigma)}}=\frac{3!}3=2
+	  \]
+	  As it should be, this is precisely the size of the conjugacy class of 2-cycles!
+	\end{enumerate}
+\end{examples}
 
 \boldsubsubsection{Burnside's Formula}
 
 It can be useful to count the \emph{number} of orbits of an action. For \emph{finite} actions, this can be done in two different ways, which leads to an interesting formula. We start by observing that
-% \[
-% 	S=\big\{(g,x)\in G\times X:g\cdot x=x\big\}
-% 	\quad\text{has cardinality}\quad
-% 	\nm S=\sum\limits_{x\in X}^{\phantom{a}}\nm{\Stab(x)}
-% 	=\sum\limits_{g\in G}\nm{\Fix(g)}
-% \]
 \[
 	S=\big\{(g,x)\in G\times X:g\cdot x=x\big\}
-\]
-has cardinality
-\[
-	\nm S=\sum\limits_{x\in X}\nm{\Stab(x)}
+	\quad\text{has cardinality}\quad
+	\nm S=\sum\limits_{x\in X}^{\phantom{a}}\nm{\Stab(x)}
 	=\sum\limits_{g\in G}\nm{\Fix(g)}
 \]
+% \[
+% 	S=\big\{(g,x)\in G\times X:g\cdot x=x\big\}
+% \]
+% has cardinality
+% \[
+% 	\nm S=\sum\limits_{x\in X}\nm{\Stab(x)}
+% 	=\sum\limits_{g\in G}\nm{\Fix(g)}
+% \]
 We now count the elements of $S$ in a different way. Since $(G:\Stab(x))=\frac{\nm G}{\nm{\Stab(x)}}$, we see that
 \[
 	\frac{\nm S}{\nm G}=\sum_{x\in X}\frac{\nm{\Stab(x)}}{\nm G}
@@ -379,28 +386,28 @@ The summation ($\ast$) therefore counts 1 for \emph{each distinct orbit}. In con
 
 
 
-\begin{example*}{\ref{ex:burnsimple} cont}{}
-	Recall that $G=\ip\sigma=\ip{(1\,4)(2\,7\,3)}$ acting on $X=\{1,2,3,4,5,6,7\}$ has \emph{four} orbits. The stabilizers and fixed sets are as follows:
+\begin{example*}{\ref{ex:burnsimple}.1 cont}{}
+	Here is the data when $G=\ip\sigma=\ip{(1\,4)(2\,7\,3)}$ acts on $X=\{1,2,3,4,5,6,7\}$:
 	\[
-		\begin{array}{c|c}
+		\begin{array}[t]{c|c}
 			x\in X&\Stab(x)\\\hline
-			1&\{e,\sigma^2,\sigma^4\}\\
-			2&\{e,\sigma^3\}\\
-			3&\{e,\sigma^3\}\\
-			4&\{e,\sigma^2,\sigma^4\}\\
-			5&G=\{e,\sigma,\sigma^2,\sigma^3,\sigma^4,\sigma^5\}\\
-			6&G\\
-			7&\{e,\sigma^3\}
+			1,4&\{e,\sigma^2,\sigma^4\}\\
+			2,3,7&\{e,\sigma^3\}\\
+			%3&\{e,\sigma^3\}\\
+			%4&\{e,\sigma^2,\sigma^4\}\\
+			5,6&G=\{e,\sigma,\sigma^2,\sigma^3,\sigma^4,\sigma^5\}\\
+			%6&G\\
+			%7&\{e,\sigma^3\}
 		\end{array}
 		\qquad\qquad
-		\begin{array}{c|c}
+		\begin{array}[t]{c|c}
 			g\in G&\Fix(g)\\\hline
 			e&X=\{1,2,3,4,5,6,7\}\\
-			\sigma&\{5,6\}\\
-			\sigma^2&\{1,4,5,6\}\\
+			\sigma,\sigma^5&\{5,6\}\\
+			\sigma^2,\sigma^4&\{1,4,5,6\}\\
 			\sigma^3&\{2,3,5,6,7\}\\
-			\sigma^4&\{1,4,5,6\}\\
-			\sigma^5&\{5,6\}\\
+			%\sigma^4&\{1,4,5,6\}\\
+			%\sigma^5&\{5,6\}\\
 			\multicolumn{2}{c}{}
 		\end{array}
 	\]
@@ -532,6 +539,9 @@ One reason to count the number of orbits of an action is that we often want to c
 		
 	  
 	  \item Prove Lemma \ref{lemm:actionorbit}: the orbits of a (left) action partition $X$.
+	  
+	  
+	  \item\label{exs:a5setup} Revisit Exercise \ref*{sec:conj}.\ref{exs:centralizerSn} and Example \ref*{ex:burnsimple}.\ref{exs:burnsimple2}. Prove that there are two distinct conjugacy classes of 5-cycles in $A_5$. Provide an example of two 5-cycles which are not conjugate in $A_5$.
 	  
 		
 		\item A 10-sided die (see Exercise \ref*{sec:geomgroups}.\ref{exs:dnddice}) is shaped so that all faces are congruent \emph{kites}: five faces are arranged around the north pole and five around the south.
@@ -898,9 +908,12 @@ The normalizer of $H$ keeps $H$ together while perhaps permuting its elements. T
 		\end{enumerate}
 		  
 		  
-		\item The alternating group $A_5$ has order $60=2^2\cdot 3\cdot 5$ and comprises the identity, all 3-cycles, 5-cycles, and 2,2-cycles in $S_5$.\par
-		Describe all the Sylow 2-, 3-, and 5-subgroups of $A_5$ and verify that the number of each is in line with the 3\rd{} Theorem.\par
-		(\textsf{You should find that there is more than one of each type of subgroup, whence none are normal. Indeed it can be shown that the only normal subgroups of $A_5$ are itself and $\{e\}$: we call this a \emph{simple group} [if you want a challenge try to prove this\ldots]. Simple groups are very important and have applications throughout mathematics. Their full classification was completed in 2004---an enormous undertaking: look it up\ldots})
+		\item The alternating group $A_5$ has order $60=2^2\cdot 3\cdot 5$ and comprises the identity, all 3-cycles, 5-cycles, and 2,2-cycles in $S_5$.
+		\begin{enumerate}
+		  \item Describe all the Sylow 2-, 3-, and 5-subgroups of $A_5$ and verify that the number of each is in line with the 3\rd{} Theorem.
+		  \item Extending Exercise \ref*{sec:burnside}.\ref{exs:a5setup}, find the sizes of all conjugacy classes in $A_5$. Hence prove that $A_5$ is a \emph{simple group}: if $N$ is a normal subgroup of $A_5$, then $N=\{e\}$ or $A_5$.\par
+		  (\textsf{Simple groups are very important and have applications throughout mathematics. Their full classification was completed in 2004---an enormous undertaking: look it up\ldots})
+		\end{enumerate}
 		
 		
 		\pagebreak[3]
